@@ -1,0 +1,43 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+dependencies {
+    //support
+    api deps.support.app_compat
+    api deps.support.recyclerview
+    api deps.constraint_layout
+    api deps.support.fragment
+    api (deps.support.design)
+
+    compileOnly deps.support.annotations
+
+    api deps.retrofit.runtime
+    api deps.retrofit.gson
+    api deps.retrofit.scalars
+    api deps.retrofit.adapter
+    api deps.okhttp.logging
+    api deps.status_bar
+
+    testImplementation deps.junit
+
+    api deps.rxjava2
+    api deps.rx_android
+    api deps.logger
+
+    api project(':lib-percentage-px')
+
+
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+
+    api ('com.alibaba.android:vlayout:1.2.12@aar') {
+        transitive = true
+    }
+    api "org.jetbrains.kotlin:kotlin-reflect:$deps.versions.kotlin_version"
+}
+
+apply from: '../version.gradle'
+//ext.addDagger(dependencies,true)
+ext.addGoogleArch(dependencies,true)
+ext.addPitaya(dependencies,true)
+ext.addGlide(dependencies,true)

@@ -1,0 +1,58 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    apply from: './version.gradle'
+    addRepos(repositories)
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:$deps.versions.android_gradle_plugin"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$deps.versions.kotlin_version"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    addRepos(repositories)
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+subprojects {
+    boolean isLib = it.name.startsWith("lib-")
+    boolean isModule = it.name.startsWith("module-")
+
+    if (isLib) {
+        apply plugin: 'com.android.library'
+    } else{
+        apply plugin: 'com.android.application'
+//        apply plugin: 'plugin.fast4android'
+    }
+    android {
+        compileSdkVersion build_versions.target_sdk
+        buildToolsVersion build_versions.build_tools
+
+        defaultConfig {
+            minSdkVersion build_versions.min_sdk
+            targetSdkVersion build_versions.target_sdk
+
+            javaCompileOptions {
+                annotationProcessorOptions {
+                    arguments = [
+                            moduleName                      : project.getName(),
+                    ]
+                }
+            }
+        }
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+        dataBinding {
+            enabled true
+        }
+    }
+}

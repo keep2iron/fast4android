@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#000000</color>
+
+    <color name="my_blur">#4DA65740</color>
+    
+    <color name="light_yellow">#ffec75</color>
+    <color name="purple">#ff446c</color>
+</resources>

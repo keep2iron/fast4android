@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="IndicatorView">
+        <attr name="indicator_size" format="dimension" />
+        <attr name="indicator_color" format="color" />
+        <attr name="indicator_count" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="TextViewPlus">
+        <attr name="drawableLeftWidth" format="dimension" />
+        <attr name="drawableLeftHeight" format="dimension" />
+
+        <attr name="drawableTopWidth" format="dimension" />
+        <attr name="drawableTopHeight" format="dimension" />
+
+        <attr name="drawableRightWidth" format="dimension" />
+        <attr name="drawableRightHeight" format="dimension" />
+
+        <attr name="drawableBottomWidth" format="dimension" />
+        <attr name="drawableBottomHeight" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="InputView">
+        <!--第一部分文本的padding     只有左右间距-->
+        <attr name="input_view_first_part_padding" format="dimension" />
+
+        <!--输入框前面的文本-->
+        <attr name="input_view_string" format="string" />
+        <!--输入框的图标-->
+        <attr name="input_view_icon" format="reference" />
+        <!--输入部分的hint部分-->
+        <attr name="input_view_hint" format="string" />
+        <!--背景-->
+        <attr name="input_view_background" format="color|reference" />
+        <!--输入文本的gravity-->
+        <attr name="input_view_gravity" format="enum">
+            <enum name="center" value="0" />
+            <enum name="left" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+        <!--hint文本的gravity-->
+        <attr name="input_view_hint_gravity" format="enum">
+            <enum name="center" value="0" />
+            <enum name="left" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+
+        <!--底部分割线的 颜色值-->
+        <attr name="input_view_bottom_divider" format="reference|color" />
+    </declare-styleable>
+
+    <declare-styleable name="ImageTextView">
+        <attr name="itv_text" format="string" />
+        <attr name="itv_text_color" format="color" />
+        <attr name="itv_drawable_left" format="reference" />
+        <attr name="itv_drawable_right" format="reference" />
+        <attr name="itv_drawable_padding" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="PageStateLayout">
+        <attr name="psl_no_data_layout" format="reference" />
+
+        <attr name="psl_no_network_layout" format="reference" />
+
+        <attr name="psl_load_error_layout" format="reference" />
+
+        <attr name="psl_loading_layout" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="SwipeBackLayout">
+        <attr name="edge_flag">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+            <enum name="bottom" value="2" />
+            <enum name="all" value="3" />
+        </attr>
+        <attr name="shadow_left" format="reference" />
+        <attr name="shadow_right" format="reference" />
+        <attr name="shadow_bottom" format="reference" />
+    </declare-styleable>
+
+    <attr name="SwipeBackLayoutStyle" format="reference" />
+
+    <declare-styleable name="BottomTabLayout">
+        <attr name="tab_icon_width" format="dimension" />
+        <attr name="tab_icon_height" format="dimension" />
+        <attr name="tab_text_size" format="dimension" />
+        <attr name="tab_drawable_padding" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="LoopViewLayout">
+        <attr name="indicator_drawable_select" format="reference" />
+        <attr name="indicator_drawable_unselect" format="reference" />
+        <attr name="indicator_drawable_width" format="dimension" />
+        <attr name="indicator_drawable_height" format="dimension" />
+        <attr name="indicator_drawable_margin" format="dimension" />
+    </declare-styleable>
+</resources>

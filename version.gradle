@@ -1,0 +1,258 @@
+/**
+ * Shared file between builds so that they can all use the same dependencies and
+ * maven repositories.
+ **/
+ext.deps = [:]
+
+def build_versions = [:]
+build_versions.min_sdk = 19
+build_versions.target_sdk = 27
+build_versions.build_tools = "27.0.2"
+ext.build_versions = build_versions
+
+def versions = [:]
+versions.android_gradle_plugin = "3.0.1"
+versions.kotlin_version = "1.2.30"
+
+versions.arch = "1.0.0"
+versions.support = "27.0.2"
+versions.dagger = "2.12"
+versions.retrofit = "2.3.0"
+versions.constraint_layout = "1.0.2"
+
+versions.junit = "4.12"
+versions.runner = "1.0.1"
+versions.espresso = "3.0.1"
+
+versions.apache_commons = "2.5"
+versions.glide = "4.0.0"
+versions.rxjava2 = "2.1.3"
+versions.rx_android = "2.0.1"
+versions.bravh_adapter = "2.9.34"
+
+versions.orange_version = "1.0.9"
+versions.pitaya_version = "0.1.2"
+
+versions.status_bar = "2.3.0"
+
+deps.versions = versions
+
+deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+deps.kotlin_gradle_plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin_version"
+deps.kotlin_databinding_compiler = "com.android.databinding:compiler:$versions.android_gradle_plugin"
+
+deps.junit = "junit:junit:$versions.junit"
+deps.runner = "com.android.support.test:runner:$versions.runner"
+deps.espresso = "com.android.support.test.espresso:espresso-core:$versions.espresso"
+
+deps.constraint_layout = "com.android.support.constraint:constraint-layout:$versions.constraint_layout"
+deps.rxjava2 = "io.reactivex.rxjava2:rxjava:$versions.rxjava2"
+deps.rx_android = "io.reactivex.rxjava2:rxandroid:$versions.rx_android"
+deps.logger = "com.orhanobut:logger:2.1.1"
+deps.bravh = "com.github.CymChad:BaseRecyclerViewAdapterHelper:$versions.bravh_adapter"
+deps.kotlin_jre7 = "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin_version"
+deps.status_bar = "com.gyf.barlibrary:barlibrary:$versions.status_bar"
+ext.deps = deps
+
+
+def glide = [:]
+glide.okhttp = "com.github.bumptech.glide:okhttp3-integration:$versions.glide"
+glide.compiler = "com.github.bumptech.glide:compiler:$versions.glide"
+glide.core = "com.github.bumptech.glide:glide:$versions.glide"
+deps.glide = glide
+
+def support = [:]
+support.annotations = "com.android.support:support-annotations:$versions.support"
+support.app_compat = "com.android.support:appcompat-v7:$versions.support"
+support.recyclerview = "com.android.support:recyclerview-v7:$versions.support"
+support.cardview = "com.android.support:cardview-v7:$versions.support"
+support.design = "com.android.support:design:$versions.support"
+support.fragment = "com.android.support:support-fragment:$versions.support_version"
+support.v4 = "com.android.support:support-v4:$versions.support"
+support.core_utils = "com.android.support:support-core-utils:$versions.support"
+support.constraint_layout = "com.android.support.constraint:constraint-layout:1.0.2"
+deps.support = support
+
+def room = [:]
+room.runtime = "android.arch.persistence.room:runtime:$versions.arch"
+room.compiler = "android.arch.persistence.room:compiler:$versions.arch"
+room.rxjava2 = "android.arch.persistence.room:rxjava2:$versions.arch"
+//room.testing = "android.arch.persistence.room:testing:$versions.arch"
+deps.room = room
+
+def retrofit = [:]
+retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+retrofit.scalars = "com.squareup.retrofit2:converter-scalars:$versions.retrofit"
+retrofit.adapter = 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+deps.retrofit = retrofit
+
+def kotlin = [:]
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jre7:$versions.kotlin_version"
+kotlin.test = "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlin_version"
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin_version"
+deps.kotlin = kotlin
+
+def dagger = [:]
+dagger.runtime = "com.google.dagger:dagger:$versions.dagger"
+dagger.android = "com.google.dagger:dagger-android:$versions.dagger"
+dagger.android_support = "com.google.dagger:dagger-android-support:$versions.dagger"
+dagger.compiler = "com.google.dagger:dagger-compiler:$versions.dagger"
+dagger.android_support_compiler = "com.google.dagger:dagger-android-processor:$versions.dagger"
+deps.dagger = dagger
+
+def okhttp = [:]
+okhttp.logging = "com.squareup.okhttp3:logging-interceptor:3.9.0"
+deps.okhttp = okhttp
+
+def arch = [:]
+arch.data_binding_compiler = "com.android.databinding:compiler:$versions.android_gradle_plugin"
+arch.lifecycle = "android.arch.lifecycle:common-java8:$versions.arch"
+arch.extensions = "android.arch.lifecycle:extensions:$versions.arch"
+deps.arch = arch
+
+def orange = [:]
+orange.orange_annotation = "com.github.keep2iron.Orange:orange-annotations:$versions.orange_version"
+orange.orange_api = "com.github.keep2iron.Orange:orange-api:$versions.orange_version"
+orange.orange_compiler = "com.github.keep2iron.Orange:orange-compiler:$versions.orange_version"
+deps.orange = orange
+
+def pitaya = [:]
+pitaya.annotation = "com.github.keep2iron.Pitaya:pitaya-annotation:$versions.pitaya_version"
+pitaya.compiler = "com.github.keep2iron.Pitaya:pitaya-compiler:$versions.pitaya_version"
+pitaya.api = "com.github.keep2iron.Pitaya:pitaya-api:$versions.pitaya_version"
+deps.pitaya = pitaya
+
+deps.javapoet = 'com.squareup:javapoet:1.9.0'
+deps.javaparser = 'com.github.javaparser:javaparser-core:3.5.0'
+
+/**
+ * 添加Maven仓库
+ * @param handler 仓库处理者
+ */
+def addRepos(RepositoryHandler handler) {
+    handler.google()
+    handler.jcenter()
+//    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    handler.maven {
+        url "https://jitpack.io"
+    }
+    handler.maven {
+        url "http://mvn.mob.com/android"
+    }
+    handler.maven {
+        url uri('./repo')
+    }
+//    handler.flatDir {
+////        dirs '../components'   // aar目录
+//        dirs 'libs' //this way we can find the .aar file in libs folder
+//    }
+//    handler.mavenCentral()
+}
+
+ext.addRepos = this.&addRepos
+
+/**
+ * 添加Dagger2
+ *
+ * @param handler 依赖处理者
+ * @param isUseKotlin 是否使用kotlin
+ */
+def addDagger(DependencyHandler handler, boolean isUseKotlin = false) {
+    handler.add(isUseKotlin ? "kapt" : "annotationProcessor", deps.dagger.android_support_compiler)
+    handler.add(isUseKotlin ? "kapt" : "annotationProcessor", deps.dagger.compiler)
+    handler.add("implementation", deps.dagger.runtime)
+    handler.add("implementation", deps.dagger.android)
+    handler.add("implementation", deps.dagger.android_support)
+    handler.add("compileOnly", "javax.annotation:javax.annotation-api:1.2")
+//    handler.add("compileOnly", "javax.annotation:jsr250-api:1.0")
+}
+
+ext.addDagger = this.&addDagger
+
+/**
+ * 添加google的架构组件包
+ *
+ * @param handler 依赖处理者
+ * @param isUseKotlin 是否使用kotlin
+ */
+def addGoogleArch(DependencyHandler handler, boolean isUseKotlin = false) {
+    if (isUseKotlin) {
+        handler.add(isUseKotlin ? "kapt" : "annotationProcessor", deps.arch.data_binding_compiler)
+    }
+    handler.add("implementation", deps.arch.lifecycle)
+    handler.add("implementation", deps.arch.extensions)
+}
+
+ext.addGoogleArch = this.&addGoogleArch
+
+/**
+ * 添加kotlin的相关扩展包
+ *
+ * @param handler 依赖处理者
+ */
+def addKotlin(DependencyHandler handler) {
+    handler.add("implementation", deps.kotlin.stdlib)
+}
+
+ext.addKotlin = this.&addKotlin
+
+/**
+ * 添加Orange扩展
+ *
+ * @param handler 依赖处理者
+ * @param isUseKotlin 是否使用kotlin
+ */
+def addOrange(DependencyHandler handler, boolean isUseKotlin = false) {
+    handler.add("implementation", deps.orange.orange_api) {
+        exclude group: 'com.android.support'
+    }
+    handler.add("implementation", deps.orange.orange_annotation)
+    handler.add(isUseKotlin ? "kapt" : "annotationProcessor", deps.orange.orange_compiler)
+}
+
+ext.addOrange = this.&addOrange
+
+/**
+ * 添加Pitaya扩展
+ *
+ * @param handler 依赖处理者
+ * @param isUseKotlin 是否使用kotlin
+ */
+def addPitaya(DependencyHandler handler, boolean isUseKotlin = false) {
+    handler.add("implementation", deps.pitaya.api) {
+        exclude group: 'com.android.support'
+    }
+    handler.add("implementation", deps.pitaya.annotation)
+    handler.add(isUseKotlin ? "kapt" : "annotationProcessor", deps.pitaya.compiler)
+}
+
+ext.addPitaya = this.&addPitaya
+
+def addRoom(DependencyHandler handler, boolean isUseKotlin = false) {
+    handler.add("implementation", deps.room.runtime)
+    handler.add(isUseKotlin ? "kapt" : "annotationProcessor", deps.room.compiler)
+    handler.add("implementation", deps.room.rxjava2)
+}
+
+ext.addRoom = this.&addRoom
+
+def addGreenDao(DependencyHandler handler) {
+    handler.add("implementation", "org.greenrobot:greendao:3.2.2")
+}
+
+ext.addGreenDao = this.&addGreenDao
+
+def addGlide(DependencyHandler handler, boolean isUseKotlin = false) {
+    handler.add("api", deps.glide.core)
+    handler.add(isUseKotlin ? "kapt" : "annotationProcessor", deps.glide.compiler)
+    handler.add("api", deps.glide.okhttp)
+}
+
+ext.addGlide = this.&addGlide
+
+def addDatabindingWhenKotlin(DependencyHandler handler) {
+    handler.add("kapt", deps.kotlin_databinding_compiler)
+}
+
+ext.addDatabindingWhenKotlin = this.&addDatabindingWhenKotlin

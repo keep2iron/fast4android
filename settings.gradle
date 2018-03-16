@@ -1,0 +1,1 @@
+include ':app',':lib-fast4Android-core', ':lib-percentage-px'

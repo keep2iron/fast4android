@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Fast4Android.iml" filepath="$PROJECT_DIR$/Fast4Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib-fast4Android-core/lib-fast4Android-core.iml" filepath="$PROJECT_DIR$/lib-fast4Android-core/lib-fast4Android-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib-percentage-px/lib-percentage-px.iml" filepath="$PROJECT_DIR$/lib-percentage-px/lib-percentage-px.iml" />
+    </modules>
+  </component>
+</project>

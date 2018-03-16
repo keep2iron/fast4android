@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <io.github.keep2iron.android.comp.widget.NoScrollViewPager
+        android:id="@+id/vpViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:id="@+id/llIndicatorContainer"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:orientation="horizontal" />
+
+</merge>

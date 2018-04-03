@@ -19,11 +19,6 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-    <style name="dialogAnim" mce_bogus="1" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/dialog_push_in</item>
-        <item name="android:windowExitAnimation">@anim/dialog_push_out</item>
-    </style>
-
     <style name="SwipeBackLayout">
         <item name="shadow_left">@drawable/shadow_left</item>
         <item name="shadow_right">@drawable/shadow_right</item>

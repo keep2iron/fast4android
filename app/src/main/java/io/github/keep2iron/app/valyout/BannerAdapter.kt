@@ -11,7 +11,7 @@ import io.github.keep2iron.android.comp.adapter.AbstractSubAdapter
 import io.github.keep2iron.android.comp.adapter.RecyclerViewHolder
 import io.github.keep2iron.android.comp.databinding.ViewPagerChangeAdapter
 import io.github.keep2iron.android.comp.widget.LoopViewLayout
-import io.github.keep2iron.app.ui.IndexModule
+import io.github.keep2iron.app.ui.RecommendModel
 
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)
@@ -19,15 +19,17 @@ import io.github.keep2iron.app.ui.IndexModule
  * @since 2018/03/08 11:42
  */
 class BannerAdapter(context: Context,
-                    private val indexModule: IndexModule,
+                    private val indexModule: RecommendModel,
                     private val recyclerView: RecyclerView) : AbstractSubAdapter(context) {
     override fun onCreateLayoutHelper(): LayoutHelper = LinearLayoutHelper()
+
     override fun getLayoutId(): Int {
         return R.layout.banner_recycle_item
     }
 
     override fun render(holder: RecyclerViewHolder, position: Int) {
         val loopViewLayout = holder.findViewById<LoopViewLayout>(R.id.lvlLoopView)
+        loopViewLayout.setOnEmptyLayoutResId(R.layout.banner_on_empty_layout)
         loopViewLayout.setAdapter(BannerItemAdapter(context, indexModule), recyclerView.recycledViewPool)
 
         indexModule.bannerItems.addOnListChangedCallback(ViewPagerChangeAdapter<String>(loopViewLayout.adapter))

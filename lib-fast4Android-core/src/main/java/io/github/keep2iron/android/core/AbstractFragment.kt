@@ -4,11 +4,13 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
+import android.support.annotation.ColorRes
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.gyf.barlibrary.ImmersionBar
 
 import io.github.keep2iron.android.R
 import io.github.keep2iron.android.core.rx.LifecycleEvent
@@ -29,11 +31,13 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
     private var isInit: Boolean = false
     private var isOnAttach: Boolean = false
 
+    var baseActivity: AbstractActivity<*>? = null
+
     private var subject = BehaviorSubject.create<LifecycleEvent>()
     protected lateinit var dataBinding: DB
     private lateinit var contentView: View
 
-    protected lateinit var applicationContext:Context
+    protected lateinit var applicationContext: Context
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -64,9 +68,6 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         dataBinding = DataBindingUtil.inflate(inflater, resId, container, false)
-        if (null == dataBinding) {
-            throw IllegalArgumentException("do your declare <layout></layout> in your xml file")
-        }
         contentView = dataBinding.root
 
         beforeInitVariables()
@@ -81,10 +82,18 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
         }
 
         if (context is AbstractActivity<*>) {
-            val baseActivity = context as AbstractActivity<*>?
-            baseActivity!!.setStatusColor()
+            baseActivity = context as AbstractActivity<*>?
+            baseActivity?.setStatusColorFromAnnotation()
         }
         return contentView
+    }
+
+    fun setStatusColor(@ColorRes color: Int) {
+        baseActivity?.setStatusColor(color)
+    }
+
+    fun setStatusTextColor(isDark: Boolean) {
+        baseActivity?.setStateTextColor(isDark)
     }
 
     /**
@@ -140,4 +149,6 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
             isFragmentVisible = false
         }
     }
+
+
 }

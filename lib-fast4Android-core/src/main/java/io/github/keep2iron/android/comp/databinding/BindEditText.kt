@@ -47,7 +47,7 @@ object BindEditText {
         editText.setCompoundDrawables(compoundDrawables[0], drawable, compoundDrawables[2], compoundDrawables[3])
     }
 
-    @BindingAdapter(value = *arrayOf("android:drawableRight", "drawableRightWidth", "drawableRightHeight"))
+    @BindingAdapter("android:drawableRight", "drawableRightWidth", "drawableRightHeight")
     fun drawableRight(editText: EditText,
                       drawableId: Int,
                       drawableWidth: Float,
@@ -66,7 +66,7 @@ object BindEditText {
         editText.setCompoundDrawables(compoundDrawables[0], compoundDrawables[1], drawable, compoundDrawables[3])
     }
 
-    @BindingAdapter(value = *arrayOf("android:drawableBottom", "drawableBottomWidth", "drawableBottomHeight"))
+    @BindingAdapter("android:drawableBottom", "drawableBottomWidth", "drawableBottomHeight")
     fun drawableBottom(editText: EditText,
                        drawableId: Int,
                        drawableWidth: Float,

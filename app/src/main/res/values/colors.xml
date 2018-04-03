@@ -4,8 +4,12 @@
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#000000</color>
 
-    <color name="my_blur">#4DA65740</color>
-    
-    <color name="light_yellow">#ffec75</color>
-    <color name="purple">#ff446c</color>
+    <color name="blue">#03A9F4</color>
+    <color name="deep_blue">#0288D1</color>
+
+    <color name="deep_purple">#C2185B</color>
+    <color name="purple">#E91E63</color>
+
+    <color name="light_green">#8BC34A</color>
+    <color name="deep_light_green">#689F38</color>
 </resources>

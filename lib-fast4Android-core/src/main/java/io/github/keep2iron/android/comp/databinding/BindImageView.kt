@@ -13,35 +13,34 @@ import io.github.keep2iron.android.comp.glide.ImageLoader
  */
 object BindImageView {
 
-    @BindingAdapter(value = *arrayOf("url", "place_holder", "width", "height"), requireAll = false)
-    fun bindImageViewByUrl(imageView: AppCompatImageView, url: String, width: Float, height: Float, placeHolder: Drawable) {
-        ImageLoader.create(imageView).apply {
+    @JvmStatic
+    @BindingAdapter("url", "place_holder", "round", requireAll = false)
+    fun bindImageViewByUrl(imageView: AppCompatImageView?, url: String?, placeHolder: Drawable?, round: Float?) {
+        ImageLoader.create(imageView!!).apply {
             this.url = url
             this.placeHolderDrawable = placeHolder
+            if (round != null) {
+                this.round = round.toInt()
+            }
         }.into(imageView)
     }
 
-    @BindingAdapter(value = *arrayOf("url", "width", "height"), requireAll = false)
-    fun bindImageViewByUrl(imageView: AppCompatImageView, url: String, width: Float, height: Float) {
-        ImageLoader.create(imageView).apply {
-            this.url = url
-        }.into(imageView)
-    }
+//    @JvmStatic
+//    @BindingAdapter(value = ["url", "width", "height", "round"], requireAll = false)
+//    fun bindImageViewByUrl(imageView: AppCompatImageView, url: String, width: Float, height: Float, round: Float) {
+//        ImageLoader.create(imageView).apply {
+//            this.url = url
+//            this.round = round.toInt()
+//        }.into(imageView)
+//    }
 
-    @BindingAdapter(value = *arrayOf("url", "width", "height", "round"), requireAll = false)
-    fun bindImageViewByUrl(imageView: AppCompatImageView, url: String, width: Float, height: Float, round: Float) {
-        ImageLoader.create(imageView).apply {
-            this.url = url
-            this.round = round.toInt()
-        }.into(imageView)
-    }
-
-    @BindingAdapter(value = *arrayOf("oval_url", "place_holder"), requireAll = false)
-    fun bindImageViewByOval(imageView: ImageView, url: String, placeHolder: Int) {
-        ImageLoader.create(imageView).apply {
-            this.url = url
-            this.placeHolderResId = placeHolder
-        }.into(imageView)
-    }
+//    @JvmStatic
+//    @BindingAdapter(value = ["oval_url", "place_holder"], requireAll = false)
+//    fun bindImageViewByOval(imageView: ImageView, url: String, placeHolder: Int) {
+//        ImageLoader.create(imageView).apply {
+//            this.url = url
+//            this.placeHolderResId = placeHolder
+//        }.into(imageView)
+//    }
 
 }

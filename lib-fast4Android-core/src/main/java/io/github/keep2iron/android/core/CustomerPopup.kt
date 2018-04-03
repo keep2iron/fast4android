@@ -20,7 +20,7 @@ import android.widget.PopupWindow
  */
 
 class CustomerPopup private constructor(private val mContext: Context) : PopupWindow.OnDismissListener {
-    private var mPopWindows: PopupWindow? = null
+    private lateinit var mPopWindows: PopupWindow
     private var mContentView: View? = null
     private var mLayoutId = 0
     //寬高
@@ -47,9 +47,7 @@ class CustomerPopup private constructor(private val mContext: Context) : PopupWi
     private val isColorful = false
 
     fun <T : CustomerPopup> createPopup(): T {
-        if (mPopWindows == null) {
-            mPopWindows = PopupWindow()
-        }
+        mPopWindows = PopupWindow()
         if (mContentView == null) {
             if (mLayoutId != 0) {
                 mContentView = LayoutInflater.from(mContext).inflate(mLayoutId, null)
@@ -58,21 +56,21 @@ class CustomerPopup private constructor(private val mContext: Context) : PopupWi
             }
         }
 
-        mPopWindows!!.contentView = mContentView
-        mPopWindows!!.width = mWidth
-        mPopWindows!!.height = mHeight
+        mPopWindows.contentView = mContentView
+        mPopWindows.width = mWidth
+        mPopWindows.height = mHeight
         if (mAnimationStyle != 0) {
-            mPopWindows!!.animationStyle = mAnimationStyle
+            mPopWindows.animationStyle = mAnimationStyle
         }
 
         if (ismOutsideFocusEnable) {
-            mPopWindows!!.isFocusable = mFocusable
-            mPopWindows!!.isOutsideTouchable = mOutsideTouchable
-            mPopWindows!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            mPopWindows.isFocusable = mFocusable
+            mPopWindows.isOutsideTouchable = mOutsideTouchable
+            mPopWindows.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
 
         //設置監聽
-        mPopWindows!!.setOnDismissListener(this)
+        mPopWindows.setOnDismissListener(this)
 
         return this as T
     }
@@ -143,7 +141,7 @@ class CustomerPopup private constructor(private val mContext: Context) : PopupWi
             if (isBackgroundDim) {
                 changeBackgroundDim(true)
             }
-            mPopWindows!!.showAsDropDown(anchor, offsetX, offsetY)
+            mPopWindows?.showAsDropDown(anchor, offsetX, offsetY)
         }
     }
 
@@ -156,7 +154,7 @@ class CustomerPopup private constructor(private val mContext: Context) : PopupWi
             if (isBackgroundDim) {
                 changeBackgroundDim(true)
             }
-            mPopWindows!!.showAsDropDown(anchor, offsetX, offsetY, gravity)
+            mPopWindows?.showAsDropDown(anchor, offsetX, offsetY, gravity)
         }
     }
 
@@ -175,14 +173,16 @@ class CustomerPopup private constructor(private val mContext: Context) : PopupWi
             if (isDark) {
                 val parent = mDimView as ViewGroup?
                 val dim = ColorDrawable(mDimColor)
-                dim.setBounds(0, 0, parent!!.width, parent.height)
-                dim.alpha = (255 * DEFAULT_TRANSPARENT_VALUE).toInt()
-                val overlay = parent.overlay
-                overlay.add(dim)
+                parent?.let {
+                    dim.alpha = (255 * DEFAULT_TRANSPARENT_VALUE).toInt()
+                    dim.setBounds(0, 0, parent.width, parent.height)
+                    val overlay = parent.overlay
+                    overlay.add(dim)
+                }
             } else {
                 val parent = mDimView as ViewGroup?
-                val overlay = parent!!.overlay
-                overlay.clear()
+                val overlay = parent?.overlay
+                overlay?.clear()
             }
         }
     }
@@ -192,7 +192,7 @@ class CustomerPopup private constructor(private val mContext: Context) : PopupWi
     private fun showDimColorful(isDark: Boolean) {
         val colorAnim: ValueAnimator
         if (isDark) {
-            val background = mDimView!!.background
+            val background = mDimView?.background
             if (background is ColorDrawable) {
                 mOriginColor = background.color
             }
@@ -209,8 +209,8 @@ class CustomerPopup private constructor(private val mContext: Context) : PopupWi
         //背景變亮
         changeBackgroundDim(false)
 
-        if (mPopWindows != null && mPopWindows!!.isShowing) {
-            mPopWindows!!.dismiss()
+        if (mPopWindows.isShowing) {
+            mPopWindows.dismiss()
         }
     }
 

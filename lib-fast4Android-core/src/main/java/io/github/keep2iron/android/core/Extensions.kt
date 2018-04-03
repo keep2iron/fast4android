@@ -75,3 +75,4 @@ fun Activity.v(message: String) {
 fun DelegateAdapter.register(vararg adapters: DelegateAdapter.Adapter<RecyclerViewHolder>) {
     setAdapters(adapters.toList())
 }
+

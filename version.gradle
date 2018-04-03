@@ -7,12 +7,12 @@ ext.deps = [:]
 def build_versions = [:]
 build_versions.min_sdk = 19
 build_versions.target_sdk = 27
-build_versions.build_tools = "27.0.2"
+build_versions.build_tools = "27.0.3"
 ext.build_versions = build_versions
 
 def versions = [:]
-versions.android_gradle_plugin = "3.0.1"
-versions.kotlin_version = "1.2.30"
+versions.android_gradle_plugin = "3.1.0"
+versions.kotlin_version = "1.2.31"
 
 versions.arch = "1.0.0"
 versions.support = "27.0.2"

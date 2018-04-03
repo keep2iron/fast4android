@@ -9,12 +9,17 @@
         android:layout_height="match_parent" />
 
     <LinearLayout
-        android:gravity="center"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginBottom="30dp"
         android:id="@+id/llIndicatorContainer"
         android:layout_width="match_parent"
         android:layout_height="15dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:gravity="center"
         android:orientation="horizontal" />
+
+    <FrameLayout
+        android:id="@+id/flNoDataContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </merge>

@@ -26,7 +26,8 @@ abstract class AbstractSubscriber<T> : Observer<T>, Subscriber<T> {
     private var disposable: Disposable? = null
     private var subscription: Subscription? = null
 
-    override fun onComplete() {}
+    override fun onComplete() {
+    }
 
     override fun onSubscribe(disposable: Disposable) {
         this.disposable = disposable

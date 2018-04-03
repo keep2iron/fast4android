@@ -1,27 +1,13 @@
 package io.github.keep2iron.app.ui
 
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
+import android.support.design.widget.TabLayout
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import com.alibaba.android.vlayout.DelegateAdapter
-import com.alibaba.android.vlayout.LayoutHelper
-import com.alibaba.android.vlayout.VirtualLayoutManager
-import com.alibaba.android.vlayout.layout.GridLayoutHelper
 import com.orhanobut.logger.Logger
-import io.github.keep2iron.android.comp.adapter.AbstractSubAdapter
-import io.github.keep2iron.android.comp.adapter.RecyclerViewHolder
 import io.github.keep2iron.app.R
 import io.github.keep2iron.android.core.AbstractFragment
-import io.github.keep2iron.android.core.LifecycleViewModelFactory
-import io.github.keep2iron.android.core.register
 import io.github.keep2iron.app.databinding.IndexFragmentBinding
-import io.github.keep2iron.app.valyout.BannerAdapter
-import io.github.keep2iron.app.valyout.VideoAdapter
 
 /**
  *
@@ -31,24 +17,46 @@ import io.github.keep2iron.app.valyout.VideoAdapter
  */
 class IndexFragment : AbstractFragment<IndexFragmentBinding>() {
     override val resId: Int = R.layout.index_fragment
+    private var fragments: ArrayList<Title> = ArrayList()
 
     override fun initVariables(container: View?) {
-        val indexModule = ViewModelProviders.of(this, LifecycleViewModelFactory(this)).get(IndexModule::class.java)
+        fragments.add(SeriesFragment.getInstance())
+        fragments.add(RecommendFragment.getInstance())
+        fragments.add(MyWatchingFragment.getInstance())
 
-        val virtualLayoutManager = VirtualLayoutManager(applicationContext)
-        val delegateAdapter = DelegateAdapter(virtualLayoutManager, true)
-        dataBinding.rvRecyclerView.adapter = delegateAdapter
-        dataBinding.rvRecyclerView.layoutManager = virtualLayoutManager
-        delegateAdapter.addAdapter(BannerAdapter(applicationContext, indexModule, dataBinding.rvRecyclerView))
-        delegateAdapter.addAdapter(VideoAdapter(applicationContext, indexModule))
+        dataBinding.viewPager.adapter = IndexFragmentAdapter()
+        dataBinding.tabLayout.setupWithViewPager(dataBinding.viewPager)
+        dataBinding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
-        indexModule.loadData()
-        delegateAdapter.notifyDataSetChanged()
+            override fun onTabReselected(tab: TabLayout.Tab) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                val gradientColor = intArrayOf(R.color.blue, R.color.purple, R.color.light_green)
+                val gradientStateColor = intArrayOf(R.color.deep_blue, R.color.deep_light_green, R.color.deep_purple)
+
+                Logger.e("${tab.position}")
+                dataBinding.gbvGradientView.animatorNextColor(tab.position * 0.33f + 0.33f, gradientColor[tab.position])
+                setStatusColor(gradientStateColor[tab.position])
+            }
+        })
+        dataBinding.viewPager.currentItem = 1
     }
 
     companion object {
         fun getInstance(): IndexFragment {
             return IndexFragment()
         }
+    }
+
+    inner class IndexFragmentAdapter : FragmentStatePagerAdapter(fragmentManager) {
+        override fun getItem(position: Int): Fragment = fragments[position] as Fragment
+
+        override fun getCount(): Int = fragments.size
+
+        override fun getPageTitle(position: Int): CharSequence? = fragments[position].getTitle()
     }
 }

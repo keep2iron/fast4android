@@ -1,6 +1,7 @@
 package io.github.keep2iron.android.comp.databinding
 
 import android.databinding.BindingAdapter
+import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.widget.TextView
 
@@ -11,16 +12,16 @@ import android.widget.TextView
  */
 object BindTextView {
 
+    @JvmStatic
     @BindingAdapter("android:drawableLeft", "drawableLeftWidth", "drawableLeftHeight")
     fun drawableLeft(textView: TextView,
-                     drawableId: Int,
+                     drawable: Drawable,
                      drawableWidth: Float,
                      drawableHeight: Float) {
         val compoundDrawables = textView.compoundDrawables
         val context = textView.context.applicationContext
-        val drawable = ContextCompat.getDrawable(context, drawableId)
 
-        drawable?.setBounds(
+        drawable.setBounds(
                 0,
                 0,
                 drawableWidth.toInt(),
@@ -47,16 +48,14 @@ object BindTextView {
         textView.setCompoundDrawables(compoundDrawables[0], drawable, compoundDrawables[2], compoundDrawables[3])
     }
 
-    @BindingAdapter(value = *arrayOf("android:drawableRight", "drawableRightWidth", "drawableRightHeight"))
+    @BindingAdapter(value = ["android:drawableRight", "drawableRightWidth", "drawableRightHeight"])
     fun drawableRight(textView: TextView,
-                      drawableId: Int,
+                      drawable: Drawable,
                       drawableWidth: Float,
                       drawableHeight: Float) {
         val compoundDrawables = textView.compoundDrawables
-        val context = textView.context.applicationContext
-        val drawable = ContextCompat.getDrawable(context, drawableId)
 
-        drawable?.setBounds(
+        drawable.setBounds(
                 0,
                 0,
                 drawableWidth.toInt(),

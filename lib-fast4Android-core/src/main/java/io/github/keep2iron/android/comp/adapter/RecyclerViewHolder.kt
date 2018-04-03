@@ -59,4 +59,6 @@ open class RecyclerViewHolder : RecyclerView.ViewHolder {
         view.setOnClickListener(listener)
         return this
     }
+
+    fun getViewDataBinding(): ViewDataBinding? = viewDataBinding
 }

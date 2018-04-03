@@ -46,19 +46,19 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null,
             when (index) {
                 R.styleable.PageStateLayout_psl_load_error_layout -> {
                     mLoadError = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
-                    mLoadError!!.visibility = View.GONE
+                    mLoadError?.visibility = View.GONE
                 }
                 R.styleable.PageStateLayout_psl_no_data_layout -> {
                     mNoDataView = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
-                    mNoDataView!!.visibility = View.GONE
+                    mNoDataView?.visibility = View.GONE
                 }
                 R.styleable.PageStateLayout_psl_no_network_layout -> {
                     mNoNetwork = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
-                    mNoNetwork!!.visibility = View.GONE
+                    mNoNetwork?.visibility = View.GONE
                 }
                 R.styleable.PageStateLayout_psl_loading_layout -> {
                     mLoadingView = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
-                    mLoadingView!!.visibility = View.GONE
+                    mLoadingView?.visibility = View.GONE
                 }
             }
         }
@@ -92,56 +92,56 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null,
     }
 
     private fun initView() {
-        mOriginView!!.visibility = View.GONE
+        mOriginView?.visibility = View.GONE
 
         if (mNoDataView != null) {
-            mNoDataView!!.visibility = View.GONE
+            mNoDataView?.visibility = View.GONE
         }
 
         if (mNoNetwork != null) {
-            mNoNetwork!!.visibility = View.GONE
+            mNoNetwork?.visibility = View.GONE
         }
 
         if (mLoadError != null) {
-            mLoadError!!.visibility = View.GONE
+            mLoadError?.visibility = View.GONE
         }
 
         if (mLoadingView != null) {
-            mLoadingView!!.visibility = View.GONE
+            mLoadingView?.visibility = View.GONE
         }
     }
 
     fun displayOriginView() {
         initView()
 
-        mOriginView!!.visibility = View.VISIBLE
+        mOriginView?.visibility = View.VISIBLE
     }
 
     fun displayNoNetwork() {
         initView()
         if (mNoNetwork != null) {
-            mNoNetwork!!.visibility = View.VISIBLE
+            mNoNetwork?.visibility = View.VISIBLE
         }
     }
 
     fun displayNoData() {
         initView()
         if (mNoDataView != null) {
-            mNoDataView!!.visibility = View.VISIBLE
+            mNoDataView?.visibility = View.VISIBLE
         }
     }
 
     fun displayLoading() {
         initView()
         if (mLoadingView != null) {
-            mLoadingView!!.visibility = View.VISIBLE
+            mLoadingView?.visibility = View.VISIBLE
         }
     }
 
     fun displayLoadError() {
         initView()
         if (mLoadError != null) {
-            mLoadError!!.visibility = View.VISIBLE
+            mLoadError?.visibility = View.VISIBLE
         }
     }
 }

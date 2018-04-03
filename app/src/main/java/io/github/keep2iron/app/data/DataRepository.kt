@@ -2,10 +2,9 @@ package io.github.keep2iron.app.data
 
 import io.github.keep2iron.android.AbstractApplication
 import io.github.keep2iron.android.util.RxTransUtil
-import io.github.keep2iron.app.entity.BaseResponse
-import io.github.keep2iron.app.entity.Movie
-import io.github.keep2iron.app.getApiService
-import io.reactivex.Flowable
+import io.github.keep2iron.app.util.getApiService
+import io.github.keep2iron.app.model.GsonIndex
+import io.reactivex.Observable
 
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)
@@ -20,10 +19,10 @@ class DataRepository private constructor() {
         }
     }
 
-    fun indexMovie(): Flowable<List<Movie>> {
+    fun indexModel(): Observable<List<GsonIndex>> {
         return AbstractApplication.instance.getApiService()
-                .indexMovie(0, 10)
-                .compose(RxTransUtil.rxFlowableScheduler())
+                .indexModels(0, 10)
+                .compose(RxTransUtil.rxObservableScheduler())
                 .map { it.value }
     }
 

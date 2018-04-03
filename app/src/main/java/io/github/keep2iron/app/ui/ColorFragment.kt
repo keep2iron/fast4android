@@ -17,7 +17,7 @@ class ColorFragment : AbstractFragment<FragmentColorBinding>() {
     var colorRes: Int = -1
 
     override fun initVariables(container: View?) {
-        dataBinding.container.setBackgroundColor(ContextCompat.getColor(context!!, colorRes))
+        dataBinding.container.setBackgroundColor(ContextCompat.getColor(applicationContext, colorRes))
     }
 
     companion object {

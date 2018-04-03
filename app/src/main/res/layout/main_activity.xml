@@ -10,7 +10,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="io.github.keep2iron.app.MainActivity">
+        tools:context="io.github.keep2iron.app.ui.MainActivity">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/container"
@@ -25,8 +25,6 @@
             android:id="@+id/bottomLayout"
             android:layout_width="0dp"
             android:layout_height="@dimen/y100"
-            android:elevation="@dimen/y100"
-            android:translationZ="@dimen/y50"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

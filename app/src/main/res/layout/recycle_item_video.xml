@@ -1,15 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/y100">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/tvVideoTitle"
+    <data>
+
+        <variable
+            name="indexModel"
+            type="io.github.keep2iron.app.model.GsonIndex" />
+    </data>
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/gray"
-        android:gravity="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/y50" />
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/y20">
 
-</FrameLayout>
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/ivMovieImage"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/y250"
+                android:scaleType="centerCrop"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:url="@{indexModel.imageUrl}" />
+
+            <io.github.keep2iron.android.comp.widget.TypeFaceTextView
+                android:id="@+id/tvVideoTitle"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/y80"
+                android:gravity="center_vertical|start"
+                android:maxLines="2"
+                android:paddingBottom="@dimen/y15"
+                android:paddingLeft="@dimen/index_padding"
+                android:paddingRight="@dimen/index_padding"
+                android:paddingTop="@dimen/y15"
+                android:text="@{indexModel.title}"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/y28"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivMovieImage"
+                tools:text="三傻大闹宝莱坞" />
+
+            <io.github.keep2iron.android.comp.widget.TypeFaceTextView
+                android:id="@+id/tv"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/y75"
+                android:gravity="center_vertical"
+                android:paddingBottom="@dimen/y15"
+                android:paddingEnd="@dimen/index_padding"
+                android:paddingStart="@dimen/index_padding"
+                android:text="@{indexModel.labelsConvert2labelString()}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvVideoTitle"
+                tools:text="asdasdasd" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+</layout>

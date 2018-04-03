@@ -9,6 +9,7 @@ import android.view.View
 import com.alibaba.android.vlayout.LayoutHelper
 
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper
+import com.orhanobut.logger.Logger
 
 import io.github.keep2iron.android.R
 
@@ -18,8 +19,8 @@ import io.github.keep2iron.android.R
  * @since 2018/01/24 10:48
  */
 class LoadMoreAdapter constructor(context: Context,
-                                                recyclerView: RecyclerView,
-                                                private val mOnLoadMoreListener: Runnable?
+                                  recyclerView: RecyclerView,
+                                  private val mOnLoadMoreListener: (adapter: LoadMoreAdapter) -> Unit
 ) : AbstractSubAdapter(context.applicationContext) {
     override fun onCreateLayoutHelper(): LayoutHelper = LinearLayoutHelper()
 
@@ -35,7 +36,6 @@ class LoadMoreAdapter constructor(context: Context,
     }
 
     init {
-
         val onScrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -44,23 +44,25 @@ class LoadMoreAdapter constructor(context: Context,
                     return
                 }
 
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && mOnLoadMoreListener != null) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     val isBottom: Boolean
                     val layoutManager = recyclerView!!.layoutManager
-                    if (layoutManager is LinearLayoutManager) {
-                        isBottom = layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() - 1
-                    } else if (layoutManager is StaggeredGridLayoutManager) {
-                        val into = IntArray(layoutManager.spanCount)
-                        layoutManager.findLastVisibleItemPositions(into)
+                    isBottom = when (layoutManager) {
+                        is LinearLayoutManager -> {
+                            layoutManager.findLastVisibleItemPosition() >= layoutManager.getItemCount() - 1
+                        }
+                        is StaggeredGridLayoutManager -> {
+                            val into = IntArray(layoutManager.spanCount)
+                            layoutManager.findLastVisibleItemPositions(into)
 
-                        isBottom = last(into) >= layoutManager.getItemCount() - 1
-                    } else {
-                        isBottom = (layoutManager as GridLayoutManager).findLastVisibleItemPosition() >= layoutManager.getItemCount() - 1
+                            last(into) >= layoutManager.getItemCount() - 1
+                        }
+                        else -> (layoutManager as GridLayoutManager).findLastVisibleItemPosition() >= layoutManager.getItemCount() - 1
                     }
 
                     if (isBottom && isEnableLoadMore && mCurrentShowState == STATE_DEFAULT) {
                         showLoading()
-                        mOnLoadMoreListener.run()
+                        mOnLoadMoreListener(this@LoadMoreAdapter)
                     }
                 }
             }
@@ -76,9 +78,12 @@ class LoadMoreAdapter constructor(context: Context,
         val binding = holder.itemView
         when (mCurrentShowState) {
             STATE_DEFAULT -> {
-                this.visibleLoading(binding, false)
+                this.visibleLoading(binding, true)
                 this.visibleLoadFail(binding, false)
                 this.visibleLoadEnd(binding, false)
+
+                mCurrentShowState = STATE_LOADING
+                mOnLoadMoreListener(this@LoadMoreAdapter)
             }
             STATE_LOADING -> {
                 this.visibleLoading(binding, true)

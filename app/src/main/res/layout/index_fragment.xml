@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <data></data>
+    <data />
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -10,24 +11,67 @@
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/gradient_light_yellow_to_purple">
+            android:layout_height="wrap_content">
 
-            <TextView
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/y200"
-                android:gravity="center|top"
-                android:text="test"
-                android:textSize="@dimen/y20"
-                app:layout_scrollFlags="scroll" />
+                android:layout_height="wrap_content">
 
-            <android.support.design.widget.TabLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/y100" />
+                <io.github.keep2iron.app.widget.GradientBackgroundView
+                    android:id="@+id/gbvGradientView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y230"
+                    app:gbv_default_color="@color/purple"
+                    app:gbv_duration="300" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y100"
+                    android:layout_marginBottom="@dimen/y15"
+                    android:layout_marginLeft="@dimen/x30"
+                    android:layout_marginRight="@dimen/x30"
+                    android:layout_marginTop="@dimen/y15"
+                    android:background="@drawable/ic_search_background">
+
+                    <io.github.keep2iron.app.widget.MaterialMenuView
+                        android:layout_width="@dimen/x80"
+                        android:layout_height="@dimen/x80"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/x30"
+                        app:mm_color="@color/deep_gray"
+                        app:mm_iconState="burger"
+                        app:mm_strokeWidth="2"
+                        app:mm_transformDuration="400" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/y100"
+                        android:drawableLeft="@{@drawable/ic_search}"
+                        android:drawablePadding="@dimen/x10"
+                        android:gravity="center"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/y25"
+                        app:drawableLeftHeight="@{@dimen/y40}"
+                        app:drawableLeftWidth="@{@dimen/y40}"
+                        app:layout_scrollFlags="scroll"
+                        tools:text="三傻大闹宝莱坞" />
+                </LinearLayout>
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y100"
+                    android:layout_marginTop="@dimen/y130"
+                    app:tabIndicatorColor="@color/white"
+                    app:tabIndicatorHeight="@dimen/y5"
+                    app:tabSelectedTextColor="@color/white"
+                    app:tabTextColor="@color/little_gray" />
+            </FrameLayout>
+
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvRecyclerView"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />

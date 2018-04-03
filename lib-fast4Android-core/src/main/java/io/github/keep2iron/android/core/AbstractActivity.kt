@@ -11,6 +11,7 @@ import android.arch.lifecycle.LifecycleRegistry
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.os.Bundle
+import android.support.annotation.ColorRes
 import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
 
@@ -28,7 +29,7 @@ import io.reactivex.subjects.BehaviorSubject
  */
 abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity(), LifecycleOwner {
     private var subject = BehaviorSubject.create<LifecycleEvent>()
-    private var immersionBar: ImmersionBar? = null
+    private lateinit var immersionBar: ImmersionBar
     protected lateinit var dataBinding: DB
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,37 +40,50 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity(), Lif
             throw IllegalArgumentException("do your declare <layout></layout> in your xml file")
         }
         (lifecycle as LifecycleRegistry).handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
-        setStatusColor()
+        setStatusColorFromAnnotation()
 
         initVariables(savedInstanceState)
         subject.onNext(LifecycleEvent.CREATE)
     }
 
 
-    fun setStatusColor() {
+    internal fun setStatusColorFromAnnotation() {
+        immersionBar = ImmersionBar.with(this)
+
         for (annotation in this::class.annotations) {
             if (annotation is StatusColor) {
                 val annStatusColor: StatusColor = annotation
-                immersionBar = ImmersionBar.with(this)
-                        .fitsSystemWindows(true)
+                immersionBar.fitsSystemWindows(true)
 
                 val value = annStatusColor.value
                 val darkMode = annStatusColor.isDarkMode
 
                 if (value != -1) {
-                    immersionBar!!.statusBarColor(value)
+                    immersionBar.statusBarColor(value)
                             //修改flyme OS状态栏字体颜色
                             .flymeOSStatusBarFontColor(value)
                 }
                 if (annStatusColor.isTrans) {
-                    immersionBar!!.transparentStatusBar()
+                    immersionBar.transparentStatusBar()
                             .fitsSystemWindows(false)
                 }
-                immersionBar!!.statusBarDarkFont(darkMode)
-                immersionBar!!.addTag("default")
-                immersionBar!!.init()   //所有子类都将继承这些相同的属性
+                immersionBar.statusBarDarkFont(darkMode)
+                immersionBar.addTag("default")
+                immersionBar.init()   //所有子类都将继承这些相同的属性
             }
         }
+    }
+
+    fun setStatusColor(@ColorRes color: Int) {
+        immersionBar.getTag("defalut")
+                .statusBarColor(color)
+                .init()
+    }
+
+    fun setStateTextColor(isDark: Boolean) {
+        immersionBar.getTag("defalut")
+                .statusBarDarkFont(isDark)
+                .init()
     }
 
     override fun onStart() {
@@ -100,9 +114,7 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity(), Lif
     override fun onDestroy() {
         subject.onNext(LifecycleEvent.DESTROY)
         (lifecycle as LifecycleRegistry).handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-        if (immersionBar != null) {
-            immersionBar!!.destroy()
-        }
+        immersionBar.destroy()
         super.onDestroy()
     }
 

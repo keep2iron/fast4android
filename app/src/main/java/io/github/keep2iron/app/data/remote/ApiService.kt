@@ -1,8 +1,8 @@
 package io.github.keep2iron.app.data.remote
 
-import io.github.keep2iron.app.entity.BaseResponse
-import io.github.keep2iron.app.entity.Movie
-import io.reactivex.Flowable
+import io.github.keep2iron.app.model.BaseResponse
+import io.github.keep2iron.app.model.GsonIndex
+import io.reactivex.Observable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
@@ -14,8 +14,8 @@ import retrofit2.http.POST
  */
 interface ApiService {
 
-    @POST("index/movie")
+    @POST("/api/index/models")
     @FormUrlEncoded
-    fun indexMovie(@Field("index") index: Int, @Field("size") size: Int): Flowable<BaseResponse<List<Movie>>>
+    fun indexModels(@Field("index") index: Int, @Field("size") size: Int): Observable<BaseResponse<List<GsonIndex>>>
 
 }

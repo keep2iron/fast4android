@@ -1,14 +1,15 @@
 package io.github.keep2iron.app
 
+import android.content.Context
+import android.support.multidex.MultiDex
 import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.orhanobut.logger.Logger
 import io.github.keep2iron.android.AbstractApplication
 import io.github.keep2iron.android.net.NetworkManager
 import io.github.keep2iron.android.net.interceptor.AddCookiesInterceptor
 import io.github.keep2iron.android.net.interceptor.HttpLogger
 import io.github.keep2iron.android.net.interceptor.ReceivedCookiesInterceptor
 import io.github.keep2iron.app.data.remote.ApiService
-import io.github.keep2iron.app.entity.BaseResponse
+import io.github.keep2iron.app.model.BaseResponse
 import io.github.keep2iron.app.util.Constant
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -20,8 +21,13 @@ import java.util.concurrent.TimeUnit
  * @version 1.0
  * @since 2018/03/07 11:37
  */
-
 class Application : AbstractApplication() {
+
+    override fun attachBaseContext(context: Context) {
+        super.attachBaseContext(context)
+        MultiDex.install(this)
+    }
+
     override fun initRegisterComponent() {
         val builder = OkHttpClient.Builder()
         builder.connectTimeout(15, TimeUnit.SECONDS)
@@ -44,12 +50,4 @@ class Application : AbstractApplication() {
         val apiService = networkManager.getService(ApiService::class.java)
         setTag(Constant.API_SERVICE_KEY, apiService)
     }
-}
-
-fun AbstractApplication.getNetworkManager(): NetworkManager {
-    return getTag(Constant.NETWORK_MANAGER_KEY) as NetworkManager
-}
-
-fun AbstractApplication.getApiService(): ApiService {
-    return getTag(Constant.API_SERVICE_KEY) as ApiService
 }

@@ -55,7 +55,7 @@ class BottomTabLayout : LinearLayout {
 
         if (container is ViewPager) {
             setWithViewPager(container)
-//            container.offscreenPageLimit = adapter.getItemCount()
+//            container.offscreenPageLimit = recyclerAdapter.getItemCount()
         }
 
         setViewWithAdapter(adapter, container)
@@ -122,6 +122,7 @@ class BottomTabLayout : LinearLayout {
         }
         val manager = (context as FragmentActivity).supportFragmentManager
         viewPager.adapter = BottomTabViewPagerAdapter(manager, adapter.tabs)
+        viewPager.offscreenPageLimit = adapter.getItemCount()
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
             }

@@ -1,6 +1,7 @@
 package io.github.keep2iron.android.comp.widget
 
 import android.content.Context
+import android.support.annotation.LayoutRes
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
@@ -13,7 +14,6 @@ import io.github.keep2iron.android.comp.adapter.RecyclerViewHolder
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
-import com.orhanobut.logger.Logger
 import io.github.keep2iron.android.R
 import io.github.keep2iron.android.core.dp2px
 
@@ -38,9 +38,9 @@ class LoopViewLayout : FrameLayout {
     private var indicatorWidth: Int = dp2px(10)
     private var indicatorHeight: Int = dp2px(10)
     private var indicatorMargin: Int = dp2px(10)
+    private var flNoDataContainer: FrameLayout
 
     private var onPageChangedListener: ViewPager.OnPageChangeListener? = null
-    private val indicatorImages: ArrayList<ImageView> = ArrayList()
     /**
      * 当前选中position
      */
@@ -52,6 +52,7 @@ class LoopViewLayout : FrameLayout {
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         LayoutInflater.from(context).inflate(R.layout.widget_banner, this, true)
+        flNoDataContainer = findViewById(R.id.flNoDataContainer)
         viewPager = findViewById(R.id.vpViewPager)
         viewPager.setScroll(true)
         indicators = findViewById(R.id.llIndicatorContainer)
@@ -92,6 +93,10 @@ class LoopViewLayout : FrameLayout {
             }
 
             override fun onPageSelected(position: Int) {
+                if (adapter.getRealCount() == 0) {
+                    return
+                }
+
                 val realPosition = toRealPosition(position)
 
                 (indicators.getChildAt(currentPosition) as ImageView).setImageResource(indicatorUnselectResId)
@@ -101,6 +106,10 @@ class LoopViewLayout : FrameLayout {
                 onPageChangedListener?.onPageSelected(realPosition)
             }
         })
+    }
+
+    fun setOnEmptyLayoutResId(@LayoutRes layoutRes: Int) {
+        LayoutInflater.from(context).inflate(layoutRes, flNoDataContainer, true)
     }
 
     /**
@@ -153,27 +162,32 @@ class LoopViewLayout : FrameLayout {
         recycleAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onChanged() {
                 this@LoopViewLayout.adapter.notifyDataSetChanged()
+                flNoDataContainer.visibility = if (recycleAdapter.itemCount == 0) View.VISIBLE else View.GONE
             }
 
             override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
                 createIndicator()
                 this@LoopViewLayout.adapter.notifyDataSetChanged()
+                flNoDataContainer.visibility = if (recycleAdapter.itemCount == 0) View.VISIBLE else View.GONE
             }
 
             override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any) {
                 // fallback to onItemRangeChanged(positionStart, itemCount) if app
                 // does not override this method.
                 onItemRangeChanged(positionStart, itemCount)
+                flNoDataContainer.visibility = if (recycleAdapter.itemCount == 0) View.VISIBLE else View.GONE
             }
 
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 createIndicator()
                 this@LoopViewLayout.adapter.notifyDataSetChanged()
+                flNoDataContainer.visibility = if (recycleAdapter.itemCount == 0) View.VISIBLE else View.GONE
             }
 
             override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
                 createIndicator()
                 this@LoopViewLayout.adapter.notifyDataSetChanged()
+                flNoDataContainer.visibility = if (recycleAdapter.itemCount == 0) View.VISIBLE else View.GONE
             }
 
             override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
@@ -186,7 +200,7 @@ class LoopViewLayout : FrameLayout {
         viewPager.currentItem = 1
     }
 
-    class WrapperPagerAdapter<T : RecyclerViewHolder>(val adapter: RecyclerView.Adapter<T>,
+    class WrapperPagerAdapter<T : RecyclerViewHolder>(val recyclerAdapter: RecyclerView.Adapter<T>,
                                                       pool: RecyclerView.RecycledViewPool) : PagerAdapter() {
         private var pool: InnerRecycledViewPool
 
@@ -199,17 +213,17 @@ class LoopViewLayout : FrameLayout {
         }
 
         override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            var realPosition = (position - 1) % adapter.itemCount
+            var realPosition = (position - 1) % recyclerAdapter.itemCount
             if (realPosition < 0)
-                realPosition += adapter.itemCount
+                realPosition += recyclerAdapter.itemCount
 
-            val itemViewType = adapter.getItemViewType(realPosition)
+            val itemViewType = recyclerAdapter.getItemViewType(realPosition)
             var holder = pool.getRecycledView(itemViewType)
             if (holder == null) {
-                holder = adapter.createViewHolder(container, itemViewType);
+                holder = recyclerAdapter.createViewHolder(container, itemViewType);
             }
 
-            adapter.onBindViewHolder(holder as T, realPosition)
+            recyclerAdapter.onBindViewHolder(holder as T, realPosition)
             container.addView(holder.itemView, ViewPager.LayoutParams())
 
             return holder.itemView
@@ -217,7 +231,10 @@ class LoopViewLayout : FrameLayout {
 
         override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
 
-        override fun getCount(): Int = adapter.itemCount + 2
+        override fun getCount(): Int {
+            return if (recyclerAdapter.itemCount <= 1) recyclerAdapter.itemCount
+            else recyclerAdapter.itemCount + 2
+        }
 
         override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
             if (`object` is RecyclerView.ViewHolder) {
@@ -227,7 +244,7 @@ class LoopViewLayout : FrameLayout {
         }
 
         fun getRealCount(): Int {
-            return adapter.itemCount
+            return recyclerAdapter.itemCount
         }
     }
 }

@@ -10,7 +10,7 @@
         android:thicknessRatio="8"
         android:useLevel="false">
         <gradient
-            android:centerColor="@color/gray"
+            android:centerColor="#000000"
             android:centerY="0.50"
             android:endColor="@color/white"
             android:startColor="@color/white"

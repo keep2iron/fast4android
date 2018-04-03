@@ -18,7 +18,7 @@ import com.bumptech.glide.request.RequestOptions
  * @since 2018/03/02 10:05
  */
 class ImageLoader(private var request: RequestManager) {
-    var url: String = ""
+    var url: String? = null
     var round: Int = 0
 
     var isCircle: Boolean = false

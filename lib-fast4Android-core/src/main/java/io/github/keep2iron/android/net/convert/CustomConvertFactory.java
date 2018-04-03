@@ -17,10 +17,11 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 
 /**
- * Date : 2017/1/12
- * Email : 497881309@qq.com
- *
+ * @author keep2iron [Contract me.](http://keep2iron.github.io)
  * @author keep2iron
+ * @version 1.0
+ * @see retrofit2.converter.gson.GsonConverterFactory
+ * @since 2018/03/16 16:58
  */
 public class CustomConvertFactory extends Converter.Factory {
     private Gson gson;

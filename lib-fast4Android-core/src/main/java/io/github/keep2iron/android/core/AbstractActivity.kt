@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity
 
 import com.alibaba.android.arouter.launcher.ARouter
 import com.gyf.barlibrary.ImmersionBar
+import com.orhanobut.logger.Logger
 
 import io.github.keep2iron.android.core.annotation.StatusColor
 import io.github.keep2iron.android.core.rx.LifecycleEvent
@@ -49,6 +50,7 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity(), Lif
 
     internal fun setStatusColorFromAnnotation() {
         immersionBar = ImmersionBar.with(this)
+        immersionBar.init()   //所有子类都将继承这些相同的属性
 
         for (annotation in this::class.annotations) {
             if (annotation is StatusColor) {
@@ -69,7 +71,6 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity(), Lif
                 }
                 immersionBar.statusBarDarkFont(darkMode)
                 immersionBar.addTag("default")
-                immersionBar.init()   //所有子类都将继承这些相同的属性
             }
         }
     }

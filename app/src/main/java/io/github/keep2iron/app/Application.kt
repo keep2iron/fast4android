@@ -44,10 +44,6 @@ class Application : AbstractApplication() {
         val networkManager = NetworkManager.Builder("http://10.0.2.2:8080/")
                 .setBaseServerResponse(BaseResponse::class.java)
                 .build(builder.build())
-
         setTag(Constant.NETWORK_MANAGER_KEY, networkManager)
-
-        val apiService = networkManager.getService(ApiService::class.java)
-        setTag(Constant.API_SERVICE_KEY, apiService)
     }
 }

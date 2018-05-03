@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.AppCompatImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ivBannerItem"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scaleType="fitXY" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="indexModel"
+            type="io.github.keep2iron.app.model.GsonIndex" />
+    </data>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/ivBannerItem"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:url="@{indexModel.imageUrl}" />
+</layout>

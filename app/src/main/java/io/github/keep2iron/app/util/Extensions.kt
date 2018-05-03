@@ -14,7 +14,3 @@ import io.github.keep2iron.app.util.Constant
 fun AbstractApplication.getNetworkManager(): NetworkManager {
     return getTag(Constant.NETWORK_MANAGER_KEY) as NetworkManager
 }
-
-fun AbstractApplication.getApiService(): ApiService {
-    return getTag(Constant.API_SERVICE_KEY) as ApiService
-}

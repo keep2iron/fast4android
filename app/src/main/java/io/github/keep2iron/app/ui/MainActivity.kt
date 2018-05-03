@@ -1,12 +1,15 @@
 package io.github.keep2iron.app.ui
 
 import android.os.Bundle
+import com.alibaba.android.arouter.facade.annotation.Route
 import io.github.keep2iron.app.databinding.MainActivityBinding
 import io.github.keep2iron.android.comp.widget.BottomTabAdapter
 import io.github.keep2iron.android.core.AbstractActivity
 import io.github.keep2iron.android.core.annotation.StatusColor
 import io.github.keep2iron.app.R
+import io.github.keep2iron.pitaya.annntation.RouteUri
 
+@Route(path = "/app/main")
 @StatusColor(isTrans = false, isDarkMode = false, value = R.color.deep_purple)
 class MainActivity : AbstractActivity<MainActivityBinding>() {
     override fun initVariables(savedInstanceState: Bundle?) {

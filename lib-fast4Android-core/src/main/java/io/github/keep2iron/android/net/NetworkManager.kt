@@ -41,10 +41,8 @@ class NetworkManager private constructor() {
         if (url == null) {
             throw IllegalArgumentException("default Url is not null")
         }
-        if (mRetrofitMap[url] == null) {
-            throw IllegalArgumentException("do you sure add the url ?")
-        }
-        return mRetrofitMap[url]!!.create(clazz)
+        val retrofit = mRetrofitMap[url] ?: throw IllegalArgumentException("do you sure add the url ?")
+        return retrofit.create(clazz)
     }
 
     /**

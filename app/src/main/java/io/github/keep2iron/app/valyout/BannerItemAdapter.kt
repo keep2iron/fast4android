@@ -6,6 +6,7 @@ import com.alibaba.android.vlayout.LayoutHelper
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper
 import io.github.keep2iron.android.comp.adapter.AbstractSubAdapter
 import io.github.keep2iron.android.comp.adapter.RecyclerViewHolder
+import io.github.keep2iron.app.BR
 import io.github.keep2iron.app.R
 import io.github.keep2iron.app.ui.RecommendModel
 import io.github.keep2iron.app.util.Constant
@@ -20,7 +21,7 @@ class BannerItemAdapter(context: Context, private val viewModule: RecommendModel
     override fun onCreateLayoutHelper(): LayoutHelper = LinearLayoutHelper()
 
     override fun render(holder: RecyclerViewHolder, position: Int) {
-        holder.findViewById<ImageView>(R.id.ivBannerItem).setImageResource(viewModule.bannerItems[position])
+        holder.getViewDataBinding()?.setVariable(BR.indexModel, viewModule.bannerItems[position])
     }
 
     override fun getItemCount(): Int = viewModule.bannerItems.size

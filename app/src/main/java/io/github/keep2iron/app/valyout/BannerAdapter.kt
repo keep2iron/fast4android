@@ -9,8 +9,10 @@ import io.github.keep2iron.app.R
 import io.github.keep2iron.app.util.Constant
 import io.github.keep2iron.android.comp.adapter.AbstractSubAdapter
 import io.github.keep2iron.android.comp.adapter.RecyclerViewHolder
+import io.github.keep2iron.android.comp.databinding.RecyclerViewChangeAdapter
 import io.github.keep2iron.android.comp.databinding.ViewPagerChangeAdapter
 import io.github.keep2iron.android.comp.widget.LoopViewLayout
+import io.github.keep2iron.app.model.GsonIndex
 import io.github.keep2iron.app.ui.RecommendModel
 
 /**
@@ -29,10 +31,10 @@ class BannerAdapter(context: Context,
 
     override fun render(holder: RecyclerViewHolder, position: Int) {
         val loopViewLayout = holder.findViewById<LoopViewLayout>(R.id.lvlLoopView)
-        loopViewLayout.setOnEmptyLayoutResId(R.layout.banner_on_empty_layout)
+//        loopViewLayout.setOnEmptyLayoutResId(R.layout.banner_on_empty_layout)
         loopViewLayout.setAdapter(BannerItemAdapter(context, indexModule), recyclerView.recycledViewPool)
 
-        indexModule.bannerItems.addOnListChangedCallback(ViewPagerChangeAdapter<String>(loopViewLayout.adapter))
+        indexModule.bannerItems.addOnListChangedCallback(RecyclerViewChangeAdapter<GsonIndex>(loopViewLayout.getRecyclerViewAdapter()))
     }
 
     override fun getItemCount(): Int {

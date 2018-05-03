@@ -76,6 +76,10 @@ class LoadMoreAdapter constructor(context: Context,
 
     override fun render(holder: RecyclerViewHolder, position: Int) {
         val binding = holder.itemView
+        binding.findViewById<View>(R.id.load_more_load_fail_view).setOnClickListener {
+            mOnLoadMoreListener(this@LoadMoreAdapter)
+            showLoading()
+        }
         when (mCurrentShowState) {
             STATE_DEFAULT -> {
                 this.visibleLoading(binding, true)

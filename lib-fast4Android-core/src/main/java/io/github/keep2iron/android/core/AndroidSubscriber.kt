@@ -22,7 +22,7 @@ import io.reactivex.disposables.Disposable
  *
  * 请在application中初始化这个方法
  */
-abstract class AbstractSubscriber<T> : Observer<T>, Subscriber<T> {
+open class AndroidSubscriber<T> : Observer<T>, Subscriber<T> {
     private var disposable: Disposable? = null
     private var subscription: Subscription? = null
 
@@ -47,7 +47,9 @@ abstract class AbstractSubscriber<T> : Observer<T>, Subscriber<T> {
      *
      * @param resp
      */
-    abstract fun onSuccess(resp: T)
+    open fun onSuccess(resp: T){
+
+    }
 
     override fun onSubscribe(subscription: Subscription) {
         this.subscription = subscription

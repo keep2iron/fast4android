@@ -14,6 +14,7 @@ import io.github.keep2iron.android.comp.adapter.RecyclerViewHolder
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
+import com.orhanobut.logger.Logger
 import io.github.keep2iron.android.R
 import io.github.keep2iron.android.core.dp2px
 
@@ -26,7 +27,7 @@ import io.github.keep2iron.android.core.dp2px
  * 可以无限轮播的布局，里面包含了一个ViewPager和一个LinearLayout作为指示器
  */
 class LoopViewLayout : FrameLayout {
-    lateinit var adapter: WrapperPagerAdapter<out RecyclerViewHolder>
+    private lateinit var adapter: WrapperPagerAdapter<out RecyclerViewHolder>
     private var viewPager: NoScrollViewPager
     private var indicators: LinearLayout
 
@@ -41,10 +42,15 @@ class LoopViewLayout : FrameLayout {
     private var flNoDataContainer: FrameLayout
 
     private var onPageChangedListener: ViewPager.OnPageChangeListener? = null
+
+    companion object {
+        const val DEFAULT_POSITION:Int = 1
+    }
+
     /**
      * 当前选中position
      */
-    var currentPosition: Int = 1
+    var currentPosition: Int = DEFAULT_POSITION
 
     constructor(context: Context) : this(context, null)
 
@@ -161,12 +167,15 @@ class LoopViewLayout : FrameLayout {
         this.adapter = WrapperPagerAdapter(recycleAdapter, pool)
         recycleAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onChanged() {
+                currentPosition = DEFAULT_POSITION
+                createIndicator()
                 this@LoopViewLayout.adapter.notifyDataSetChanged()
                 flNoDataContainer.visibility = if (recycleAdapter.itemCount == 0) View.VISIBLE else View.GONE
             }
 
             override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
                 createIndicator()
+                currentPosition = DEFAULT_POSITION
                 this@LoopViewLayout.adapter.notifyDataSetChanged()
                 flNoDataContainer.visibility = if (recycleAdapter.itemCount == 0) View.VISIBLE else View.GONE
             }
@@ -174,23 +183,28 @@ class LoopViewLayout : FrameLayout {
             override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any) {
                 // fallback to onItemRangeChanged(positionStart, itemCount) if app
                 // does not override this method.
+                currentPosition = DEFAULT_POSITION
+                createIndicator()
                 onItemRangeChanged(positionStart, itemCount)
                 flNoDataContainer.visibility = if (recycleAdapter.itemCount == 0) View.VISIBLE else View.GONE
             }
 
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+                currentPosition = DEFAULT_POSITION
                 createIndicator()
                 this@LoopViewLayout.adapter.notifyDataSetChanged()
                 flNoDataContainer.visibility = if (recycleAdapter.itemCount == 0) View.VISIBLE else View.GONE
             }
 
             override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+                currentPosition = DEFAULT_POSITION
                 createIndicator()
                 this@LoopViewLayout.adapter.notifyDataSetChanged()
                 flNoDataContainer.visibility = if (recycleAdapter.itemCount == 0) View.VISIBLE else View.GONE
             }
 
             override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
+                currentPosition = DEFAULT_POSITION
                 createIndicator()
                 this@LoopViewLayout.adapter.notifyDataSetChanged()
             }
@@ -198,6 +212,10 @@ class LoopViewLayout : FrameLayout {
         createIndicator()
         viewPager.adapter = adapter
         viewPager.currentItem = 1
+    }
+
+    public fun getRecyclerViewAdapter(): RecyclerView.Adapter<out RecyclerView.ViewHolder> {
+        return adapter.recyclerAdapter
     }
 
     class WrapperPagerAdapter<T : RecyclerViewHolder>(val recyclerAdapter: RecyclerView.Adapter<T>,

@@ -33,8 +33,7 @@ dependencies {
 
     api project(':lib-percentage-px')
 
-
-//    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
 
     api ('com.alibaba.android:vlayout:1.2.12@aar') {
         transitive = true

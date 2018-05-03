@@ -36,9 +36,8 @@ class IndexFragment : AbstractFragment<IndexFragmentBinding>() {
 
             override fun onTabSelected(tab: TabLayout.Tab) {
                 val gradientColor = intArrayOf(R.color.blue, R.color.purple, R.color.light_green)
-                val gradientStateColor = intArrayOf(R.color.deep_blue, R.color.deep_light_green, R.color.deep_purple)
+                val gradientStateColor = intArrayOf(R.color.deep_blue, R.color.deep_purple, R.color.deep_light_green)
 
-                Logger.e("${tab.position}")
                 dataBinding.gbvGradientView.animatorNextColor(tab.position * 0.33f + 0.33f, gradientColor[tab.position])
                 setStatusColor(gradientStateColor[tab.position])
             }

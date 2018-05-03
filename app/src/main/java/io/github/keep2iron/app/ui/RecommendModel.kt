@@ -2,12 +2,13 @@ package io.github.keep2iron.app.ui
 
 import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ObservableArrayList
-import com.orhanobut.logger.Logger
 import io.github.keep2iron.android.AbstractApplication
-import io.github.keep2iron.android.core.AbstractSubscriber
+import io.github.keep2iron.android.comp.load.RefreshWithLoadMoreProcessor
 import io.github.keep2iron.android.core.LifeCycleViewModule
 import io.github.keep2iron.app.data.DataRepository
 import io.github.keep2iron.app.model.GsonIndex
+import io.reactivex.Observable
+import io.reactivex.functions.BiFunction
 
 /**
  *
@@ -16,7 +17,7 @@ import io.github.keep2iron.app.model.GsonIndex
  * @since 2018/03/12 11:31
  */
 class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(AbstractApplication.instance, owner) {
-    var bannerItems: ObservableArrayList<Int> = ObservableArrayList()
+    var bannerItems: ObservableArrayList<GsonIndex> = ObservableArrayList()
     var indexItems: ObservableArrayList<GsonIndex> = ObservableArrayList()
 
     init {
@@ -25,14 +26,33 @@ class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(AbstractApplic
 //        bannerItems.add(R.drawable.banner02)
     }
 
-    fun loadData(onLoadComplete: () -> Unit = {}) {
-        DataRepository.instance.indexModel()
+    fun loadBanner(): Observable<List<GsonIndex>> {
+        return DataRepository.instance.indexBanner()
                 .compose(bindObservableLifeCycle())
-                .subscribe(object : AbstractSubscriber<List<GsonIndex>>() {
-                    override fun onSuccess(resp: List<GsonIndex>) {
-                        indexItems.addAll(resp)
-                        onLoadComplete()
-                    }
-                })
+                .doOnNext { resp ->
+                    bannerItems.clear()
+                    bannerItems.addAll(resp)
+                }
+    }
+
+    fun loadData(index: Int): Observable<List<GsonIndex>> {
+        return DataRepository.instance.indexMovie(index)
+                .compose(bindObservableLifeCycle())
+                .doOnNext { resp ->
+                    if (index == 1) indexItems.clear()
+                    indexItems.addAll(resp)
+                }
+    }
+
+    fun processorRefreshWithLoadMore(processor: RefreshWithLoadMoreProcessor, index: Int) {
+        if (index == 1) {
+            Observable.zip(loadData(index),
+                    loadBanner(),
+                    BiFunction<List<GsonIndex>, List<GsonIndex>, String> { _, _ -> "" })
+                    .subscribe(RefreshWithLoadMoreProcessor.Subscriber(processor))
+        } else {
+            loadData(index)
+                    .subscribe(RefreshWithLoadMoreProcessor.Subscriber(processor))
+        }
     }
 }

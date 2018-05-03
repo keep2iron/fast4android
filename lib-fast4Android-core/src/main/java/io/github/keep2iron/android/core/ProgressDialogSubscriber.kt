@@ -14,7 +14,7 @@ import io.reactivex.disposables.Disposable
  * @version 1.0
  * @since 2017/12/27 17:46
  */
-abstract class ProgressDialogSubscriber<T> : AbstractSubscriber<T> {
+abstract class ProgressDialogSubscriber<T> : AndroidSubscriber<T> {
     private var canCancelable = true
     private var mActivity: WeakReference<Activity>? = null
     private var mTitle: String? = null

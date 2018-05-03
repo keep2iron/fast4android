@@ -2,8 +2,9 @@ package io.github.keep2iron.app.data
 
 import io.github.keep2iron.android.AbstractApplication
 import io.github.keep2iron.android.util.RxTransUtil
-import io.github.keep2iron.app.util.getApiService
+import io.github.keep2iron.app.data.remote.ApiService
 import io.github.keep2iron.app.model.GsonIndex
+import io.github.keep2iron.app.util.getNetworkManager
 import io.reactivex.Observable
 
 /**
@@ -19,9 +20,18 @@ class DataRepository private constructor() {
         }
     }
 
-    fun indexModel(): Observable<List<GsonIndex>> {
-        return AbstractApplication.instance.getApiService()
-                .indexModels(0, 10)
+    fun indexMovie(index: Int): Observable<List<GsonIndex>> {
+        return AbstractApplication.instance.getNetworkManager()
+                .getService(ApiService::class.java)
+                .indexModels(index, 10)
+                .compose(RxTransUtil.rxObservableScheduler())
+                .map { it.value }
+    }
+
+    fun indexBanner(): Observable<List<GsonIndex>> {
+        return AbstractApplication.instance.getNetworkManager()
+                .getService(ApiService::class.java)
+                .indexBanner()
                 .compose(RxTransUtil.rxObservableScheduler())
                 .map { it.value }
     }

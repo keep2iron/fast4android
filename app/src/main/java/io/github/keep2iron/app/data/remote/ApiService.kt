@@ -18,4 +18,7 @@ interface ApiService {
     @FormUrlEncoded
     fun indexModels(@Field("index") index: Int, @Field("size") size: Int): Observable<BaseResponse<List<GsonIndex>>>
 
+    @POST("/api/index/banner")
+    fun indexBanner(): Observable<BaseResponse<List<GsonIndex>>>
+
 }

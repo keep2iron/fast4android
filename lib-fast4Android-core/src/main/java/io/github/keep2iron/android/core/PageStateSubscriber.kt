@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable
  * @version 1.0
  * @since 2018/02/23 11:58
  */
-class PageStateSubscriber<T>(private val mPageStateLayout: PageStateLayout) : AbstractSubscriber<T>() {
+class PageStateSubscriber<T>(private val mPageStateLayout: PageStateLayout) : AndroidSubscriber<T>() {
 
     override fun onSubscribe(s: Subscription) {
         super.onSubscribe(s)

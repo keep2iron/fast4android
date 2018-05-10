@@ -13,6 +13,7 @@ import io.github.keep2iron.app.databinding.RecommendFragmentBinding
 import io.github.keep2iron.app.model.GsonIndex
 import io.github.keep2iron.app.valyout.BannerAdapter
 import io.github.keep2iron.app.valyout.VideoAdapter
+import io.github.keep2iron.app.widget.RefreshHeaderView
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 

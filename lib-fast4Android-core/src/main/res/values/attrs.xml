@@ -86,6 +86,7 @@
         <attr name="tab_icon_height" format="dimension" />
         <attr name="tab_text_size" format="dimension" />
         <attr name="tab_drawable_padding" format="dimension" />
+        <attr name="tab_item_margin" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="LoopViewLayout">

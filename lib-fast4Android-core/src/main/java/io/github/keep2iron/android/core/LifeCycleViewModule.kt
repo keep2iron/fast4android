@@ -66,5 +66,4 @@ open class LifeCycleViewModule(application: Application,private val owner: Lifec
     fun <T> bindObservableLifeCycle(): ObservableTransformer<T, T> {
         return RxLifecycle.bindUntilEvent(mSubject, LifecycleEvent.DESTROY)
     }
-
 }

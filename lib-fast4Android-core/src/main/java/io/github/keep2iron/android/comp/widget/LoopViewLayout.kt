@@ -28,7 +28,7 @@ import io.github.keep2iron.android.core.dp2px
  */
 class LoopViewLayout : FrameLayout {
     private lateinit var adapter: WrapperPagerAdapter<out RecyclerViewHolder>
-    private var viewPager: NoScrollViewPager
+    var viewPager: NoScrollViewPager
     private var indicators: LinearLayout
 
     /**
@@ -40,11 +40,12 @@ class LoopViewLayout : FrameLayout {
     private var indicatorHeight: Int = dp2px(10)
     private var indicatorMargin: Int = dp2px(10)
     private var flNoDataContainer: FrameLayout
+    private var lastPosition:Int = 0
 
     private var onPageChangedListener: ViewPager.OnPageChangeListener? = null
 
     companion object {
-        const val DEFAULT_POSITION:Int = 1
+        const val DEFAULT_POSITION: Int = 1
     }
 
     /**
@@ -79,18 +80,20 @@ class LoopViewLayout : FrameLayout {
             override fun onPageScrollStateChanged(state: Int) {
                 onPageChangedListener?.onPageScrollStateChanged(state)
                 when (state) {
-                    ViewPager.SCROLL_STATE_IDLE ->
+                    ViewPager.SCROLL_STATE_IDLE ->{
                         if (currentPosition == 0) {//No operation
-                            viewPager.setCurrentItem(toRealPosition(adapter.count), false)
-                        } else if (currentPosition == adapter.count - 1) {
+                            viewPager.setCurrentItem(adapter.getRealCount(), false)
+                        } else if (currentPosition == adapter.getRealCount() + 1) {
                             viewPager.setCurrentItem(1, false)
                         }
-                    ViewPager.SCROLL_STATE_DRAGGING ->
-                        if (currentPosition == adapter.count - 1) {//start Sliding
+                    }
+                    ViewPager.SCROLL_STATE_DRAGGING ->{
+                        if (currentPosition == adapter.getRealCount() + 1) {//start Sliding
                             viewPager.setCurrentItem(1, false)
                         } else if (currentPosition == 0) {
-                            viewPager.setCurrentItem(toRealPosition(adapter.count), false)
+                            viewPager.setCurrentItem(adapter.getRealCount(), false)
                         }
+                    }
                 }
             }
 
@@ -105,10 +108,10 @@ class LoopViewLayout : FrameLayout {
 
                 val realPosition = toRealPosition(position)
 
-                (indicators.getChildAt(currentPosition) as ImageView).setImageResource(indicatorUnselectResId)
+                (indicators.getChildAt(toRealPosition(currentPosition)) as ImageView).setImageResource(indicatorUnselectResId)
                 (indicators.getChildAt(realPosition) as ImageView).setImageResource(indicatorSelectResId)
 
-                currentPosition = realPosition
+                currentPosition = position
                 onPageChangedListener?.onPageSelected(realPosition)
             }
         })
@@ -149,10 +152,6 @@ class LoopViewLayout : FrameLayout {
         if (realPosition < 0)
             realPosition += adapter.getRealCount()
         return realPosition
-    }
-
-    fun setPageMargin(marginPixels: Int) {
-        viewPager.pageMargin = marginPixels
     }
 
     /**
@@ -211,10 +210,12 @@ class LoopViewLayout : FrameLayout {
         })
         createIndicator()
         viewPager.adapter = adapter
-        viewPager.currentItem = 1
+        viewPager.post{
+            viewPager.currentItem = currentPosition
+        }
     }
 
-    public fun getRecyclerViewAdapter(): RecyclerView.Adapter<out RecyclerView.ViewHolder> {
+    fun getRecyclerViewAdapter(): RecyclerView.Adapter<out RecyclerView.ViewHolder> {
         return adapter.recyclerAdapter
     }
 

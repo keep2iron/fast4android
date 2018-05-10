@@ -2,8 +2,10 @@ package io.github.keep2iron.app.ui
 
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.orhanobut.logger.Logger
 import io.github.keep2iron.app.databinding.MainActivityBinding
 import io.github.keep2iron.android.comp.widget.BottomTabAdapter
+import io.github.keep2iron.android.comp.widget.BottomTabLayout
 import io.github.keep2iron.android.core.AbstractActivity
 import io.github.keep2iron.android.core.annotation.StatusColor
 import io.github.keep2iron.app.R
@@ -17,34 +19,48 @@ class MainActivity : AbstractActivity<MainActivityBinding>() {
         list.add(BottomTabAdapter.TabHolder(
                 R.color.gray,
                 R.color.colorPrimary,
-                "首页",
-                R.drawable.ic_home_unselect,
-                R.drawable.ic_home_select,
-                IndexFragment.getInstance()))
-        list.add(BottomTabAdapter.TabHolder(
-                R.color.gray,
-                R.color.colorPrimary,
-                "分区",
+                "",
                 R.drawable.ic_classification_unselect,
                 R.drawable.ic_classification_select,
-                ColorFragment.getInstance(R.color.colorPrimary)))
+                RecommendFragment.getInstance()))
         list.add(BottomTabAdapter.TabHolder(
                 R.color.gray,
                 R.color.colorPrimary,
-                "时下最热",
+                "",
                 R.drawable.ic_whatshot_unselect,
                 R.drawable.ic_whatshot_select,
-                ColorFragment.getInstance(R.color.colorAccent)))
+                RecommendFragment.getInstance()))
         list.add(BottomTabAdapter.TabHolder(
                 R.color.gray,
                 R.color.colorPrimary,
-                "我",
+                "",
                 R.drawable.ic_face_unselect,
                 R.drawable.ic_face_select,
-                ColorFragment.getInstance(R.color.colorPrimaryDark)))
+                ColorFragment.getInstance(R.color.colorPrimary)))
 
         val adapter = BottomTabAdapter(this, list)
         dataBinding.bottomLayout.setBottomTabAdapter(adapter, dataBinding.container)
+        dataBinding.bottomLayout.addOnTabSelectedListener(object : BottomTabLayout.OnTabChangeListener {
+            override fun onTabSelect(position: Int) {
+                val gradientColor = intArrayOf(R.color.blue, R.color.purple, R.color.light_green)
+                val gradientStateColor = intArrayOf(R.color.deep_blue, R.color.deep_purple, R.color.deep_light_green)
+
+                Logger.e("${position *
+                        (dataBinding.bottomLayout.width * 1f / dataBinding.root.width / 3f) +
+                        (dataBinding.root.width - dataBinding.bottomLayout.width) * 1f / dataBinding.root.width  / 2}")
+
+                dataBinding.gbvGradientView.animatorNextColor(position *
+                        (dataBinding.bottomLayout.width * 1f / dataBinding.root.width / 3f) +
+                        (dataBinding.root.width - dataBinding.bottomLayout.width) * 1f / dataBinding.root.width  / 2 +
+                        dataBinding.bottomLayout.width * 1f/ dataBinding.root.width / 6,
+                        gradientColor[position])
+                setStatusColor(gradientStateColor[position])
+            }
+
+            override fun onTabUnSelect(position: Int) {
+            }
+
+        })
     }
 
     override fun getResId(): Int = R.layout.main_activity

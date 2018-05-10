@@ -1,6 +1,9 @@
 package io.github.keep2iron.android.comp.widget
 
 import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
@@ -10,6 +13,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
+import com.orhanobut.logger.Logger
 import io.github.keep2iron.android.R
 import io.github.keep2iron.android.core.dimen
 import io.github.keep2iron.android.core.dp2px
@@ -21,11 +25,15 @@ import io.github.keep2iron.android.core.dp2px
  */
 class BottomTabLayout : LinearLayout {
 
+    private var position: Int = 0
+    private var positionOffset: Float = 0f
+
     private lateinit var adapter: BottomTabAdapter
     private var tabIconWidth: Int = dp2px(10)
     private var tabIconHeight: Int = dp2px(10)
     private var tabTextSize: Float = dimen(R.dimen.y20)
     private var tabDrawablePadding: Int = 0
+    private var tabItemMargin: Int = 0
     private lateinit var onTabStateChangedListeners: ArrayList<OnTabChangeListener>
 
     var container: View? = null
@@ -35,6 +43,7 @@ class BottomTabLayout : LinearLayout {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        setWillNotDraw(false)
         orientation = HORIZONTAL
 
         val array = resources.obtainAttributes(attrs, R.styleable.BottomTabLayout)
@@ -42,6 +51,7 @@ class BottomTabLayout : LinearLayout {
         tabIconWidth = array.getDimension(R.styleable.BottomTabLayout_tab_icon_width, tabIconWidth.toFloat()).toInt()
         tabIconHeight = array.getDimension(R.styleable.BottomTabLayout_tab_icon_height, tabIconHeight.toFloat()).toInt()
         tabDrawablePadding = array.getDimension(R.styleable.BottomTabLayout_tab_drawable_padding, 0f).toInt()
+        tabItemMargin = array.getDimension(R.styleable.BottomTabLayout_tab_item_margin, 0f).toInt()
         array.recycle()
     }
 
@@ -63,7 +73,11 @@ class BottomTabLayout : LinearLayout {
         setTabSelect(defaultPosition)
     }
 
-    fun setTabSelect(position: Int) {
+    fun addOnTabSelectedListener(listener: BottomTabLayout.OnTabChangeListener) {
+        adapter.onTabStateChangedListeners.add(listener)
+    }
+
+    private fun setTabSelect(position: Int) {
         val tab = adapter.tabs[position]
 
         if (!tab.isCustom) {
@@ -109,6 +123,8 @@ class BottomTabLayout : LinearLayout {
             val params = LayoutParams(MATCH_PARENT, MATCH_PARENT)
             params.weight = 1.0f
             params.width = 0
+            params.leftMargin = tabItemMargin
+            params.rightMargin = tabItemMargin
             tab.customView.layoutParams = params
             addView(tab.customView)
 
@@ -128,6 +144,9 @@ class BottomTabLayout : LinearLayout {
             }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                this@BottomTabLayout.position = position
+                this@BottomTabLayout.positionOffset = positionOffset
+                invalidate()
             }
 
             override fun onPageSelected(position: Int) {
@@ -163,5 +182,17 @@ class BottomTabLayout : LinearLayout {
         override fun getCount(): Int = tabs.size
 
         override fun getItem(position: Int): Fragment = tabs[position].fragment!!
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        val paint = Paint()
+        paint.color = Color.WHITE
+
+        val itemWith = width * 1f / adapter.tabs.size
+        val startX = itemWith * position + itemWith * positionOffset
+        val endX = startX + itemWith
+
+        canvas.drawRect(startX, (height - 10).toFloat(), endX, height.toFloat(), paint)
+
     }
 }

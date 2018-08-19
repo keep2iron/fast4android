@@ -1,11 +1,9 @@
 package io.github.keep2iron.android.core
 
 import android.support.annotation.CallSuper
-
 import org.reactivestreams.Subscription
-
-import io.github.keep2iron.android.net.exception.NoDataException
 import io.github.keep2iron.android.comp.widget.PageStateLayout
+import io.github.keep2iron.network.exception.NoDataException
 import io.reactivex.disposables.Disposable
 
 /**

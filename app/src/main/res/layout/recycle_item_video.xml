@@ -14,16 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="@dimen/y20">
+        app:cardCornerRadius="10dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.v7.widget.AppCompatImageView
+            <io.github.keep2iron.imageloader.MiddlewareView
                 android:id="@+id/ivMovieImage"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/y250"
+                android:layout_height="125dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -32,16 +32,16 @@
             <io.github.keep2iron.android.comp.widget.TypeFaceTextView
                 android:id="@+id/tvVideoTitle"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/y80"
+                android:layout_height="40dp"
                 android:gravity="center_vertical|start"
                 android:maxLines="2"
-                android:paddingBottom="@dimen/y15"
+                android:paddingBottom="7dp"
                 android:paddingLeft="@dimen/index_padding"
                 android:paddingRight="@dimen/index_padding"
-                android:paddingTop="@dimen/y15"
+                android:paddingTop="7dp"
                 android:text="@{indexModel.title}"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/y28"
+                android:textSize="14sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivMovieImage"
@@ -50,9 +50,9 @@
             <io.github.keep2iron.android.comp.widget.TypeFaceTextView
                 android:id="@+id/tv"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/y75"
+                android:layout_height="36dp"
                 android:gravity="center_vertical"
-                android:paddingBottom="@dimen/y15"
+                android:paddingBottom="7dp"
                 android:paddingEnd="@dimen/index_padding"
                 android:paddingStart="@dimen/index_padding"
                 android:text="@{indexModel.labelsConvert2labelString()}"

@@ -16,17 +16,22 @@ import com.alibaba.android.vlayout.layout.LinearLayoutHelper
  * @author keep2iron [Contract me.](http://keep2iron.github.io)
  * @version 1.0
  * @since 2017/11/17 16:30
+ *
+ * 用于多类型的子布局
+ * 一个adapter只针对一种布局
  */
 abstract class AbstractSubAdapter : DelegateAdapter.Adapter<RecyclerViewHolder> {
 
     protected lateinit var context: Context
     protected lateinit var layoutHelper: LayoutHelper
+    var viewType: Int = 0
 
     private constructor()
 
-    constructor(context: Context) : this() {
+    constructor(context: Context, viewType: Int) : this() {
         this.context = context.applicationContext
         this.layoutHelper = this.onCreateLayoutHelper()
+        this.viewType = viewType
     }
 
     /**
@@ -57,12 +62,10 @@ abstract class AbstractSubAdapter : DelegateAdapter.Adapter<RecyclerViewHolder> 
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
-        val params = holder.itemView.layoutParams
-
-        val layoutParams = VirtualLayoutManager.LayoutParams(params!!.width, params.height)
-
-        holder.itemView.layoutParams = VirtualLayoutManager.LayoutParams(layoutParams)
-
         render(holder, position)
+    }
+
+    final override fun getItemViewType(position: Int): Int {
+        return viewType
     }
 }

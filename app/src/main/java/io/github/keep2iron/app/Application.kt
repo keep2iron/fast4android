@@ -4,11 +4,6 @@ import android.content.Context
 import android.support.multidex.MultiDex
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import io.github.keep2iron.android.AbstractApplication
-import io.github.keep2iron.android.net.NetworkManager
-import io.github.keep2iron.android.net.interceptor.AddCookiesInterceptor
-import io.github.keep2iron.android.net.interceptor.HttpLogger
-import io.github.keep2iron.android.net.interceptor.ReceivedCookiesInterceptor
-import io.github.keep2iron.app.data.remote.ApiService
 import io.github.keep2iron.app.model.BaseResponse
 import io.github.keep2iron.app.util.Constant
 import okhttp3.OkHttpClient
@@ -19,6 +14,11 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshHeader
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater
+import io.github.keep2iron.imageloader.ImageLoaderManager
+import io.github.keep2iron.network.NetworkManager
+import io.github.keep2iron.network.interceptor.AddCookiesInterceptor
+import io.github.keep2iron.network.interceptor.HttpLogger
+import io.github.keep2iron.network.interceptor.ReceivedCookiesInterceptor
 
 
 /**
@@ -35,6 +35,8 @@ class Application : AbstractApplication() {
     }
 
     override fun initRegisterComponent() {
+        ImageLoaderManager.getImageLoader().init(this)
+
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreater(object : DefaultRefreshHeaderCreater {
             override fun createRefreshHeader(context: Context, layout: RefreshLayout): RefreshHeader {
@@ -55,7 +57,7 @@ class Application : AbstractApplication() {
         builder.addInterceptor(ReceivedCookiesInterceptor())
         builder.addInterceptor(AddCookiesInterceptor())
 
-        val networkManager = NetworkManager.Builder("http://10.0.2.2:8080/")
+        val networkManager = NetworkManager.Builder("http://192.168.2.169:8080/")
                 .setBaseServerResponse(BaseResponse::class.java)
                 .build(builder.build())
         setTag(Constant.NETWORK_MANAGER_KEY, networkManager)

@@ -5,11 +5,16 @@
     <color name="colorAccent">#000000</color>
 
     <color name="blue">#03A9F4</color>
+    <color name="little_blue">#81d4fa</color>
     <color name="deep_blue">#0288D1</color>
 
     <color name="deep_purple">#C2185B</color>
     <color name="purple">#E91E63</color>
+    <color name="little_purple">#ffb5d3</color>
 
     <color name="light_green">#8BC34A</color>
     <color name="deep_light_green">#689F38</color>
+
+    <color name="white">#ffffff</color>
+    <color name="little_gray">#f0f0f0</color>
 </resources>

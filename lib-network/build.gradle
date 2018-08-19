@@ -1,0 +1,32 @@
+apply plugin: 'kotlin-android'
+
+android {
+
+    defaultConfig {
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation deps.support.app_compat
+
+    api deps.retrofit.runtime
+    api deps.retrofit.gson
+    api deps.retrofit.scalars
+    api deps.retrofit.adapter
+    api deps.logging
+
+    implementation deps.kotlin.stdlib_jdk7
+
+    implementation deps.rxjava2
+    implementation deps.rx_android
+    implementation deps.logger
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}

@@ -12,7 +12,16 @@ import android.support.annotation.ColorRes
  *
  *
  * 该注解是用来进行注解状态栏的颜色的
+ *
+ * value用于定义状态栏的颜色值
+ * isDarkMode用于定义状态栏的字体颜色 true 黑色 false 白色
+ * isTrans是否是透明状态栏
+ * isFitSystem 状态栏是否占用空间
  */
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FILE)
-annotation class StatusColor(@ColorRes val value: Int = -1, val isDarkMode: Boolean = false, val isTrans: Boolean = false)
+annotation class StatusColor(@ColorRes val value: Int = -1,
+                             val isDarkMode: Boolean = false,
+                             val isTrans: Boolean = false,
+                             val isFitSystem: Boolean = true,
+                             val navigationBarColor:Int  = -1)

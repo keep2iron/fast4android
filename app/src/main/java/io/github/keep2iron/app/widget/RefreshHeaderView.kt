@@ -64,21 +64,13 @@ class RefreshHeaderView : View, RefreshHeader {
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        initView()
-
         val array = resources.obtainAttributes(attrs, R.styleable.RefreshHeaderView)
         backgroundColorInt = array.getColor(R.styleable.RefreshHeaderView_rhv_background, Color.WHITE)
+        backgroundPaint.color = array.getColor(R.styleable.RefreshHeaderView_rhv_first_circle_bg, Color.WHITE)
+        background2Paint.color = array.getColor(R.styleable.RefreshHeaderView_rhv_second_circle_bg, Color.parseColor("#ffb5d3"))
         array.recycle()
 
         setBackgroundColor(backgroundColorInt)
-    }
-
-    /**
-     * init view
-     */
-    private fun initView() {
-        backgroundPaint.color = Color.WHITE
-        background2Paint.color = Color.parseColor("#ffb5d3")
     }
 
     private fun initBackgroundCircle(circles: ArrayList<Circle>) {

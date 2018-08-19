@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="x2">2.0px</dimen>
-    <dimen name="x10">10.0px</dimen>
-    <dimen name="x30">30.0px</dimen>
-    <dimen name="x40">40.0px</dimen>
-    <dimen name="x50">50.0px</dimen>
-    <dimen name="x80">80.0px</dimen>
-</resources>

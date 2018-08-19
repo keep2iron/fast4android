@@ -5,11 +5,8 @@ buildscript {
     addRepos(repositories)
 
     dependencies {
-        classpath "com.android.tools.build:gradle:$deps.versions.android_gradle_plugin"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$deps.versions.kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath deps.android_gradle_plugin
+        classpath deps.kotlin_gradle_plugin
     }
     repositories {
         google()
@@ -30,22 +27,24 @@ subprojects {
 
     if (isLib) {
         apply plugin: 'com.android.library'
-    } else{
+    } else {
         apply plugin: 'com.android.application'
 //        apply plugin: 'plugin.fast4android'
     }
+
     android {
-        compileSdkVersion build_versions.target_sdk
-        buildToolsVersion build_versions.build_tools
+        compileSdkVersion versions.build.target_sdk
+        buildToolsVersion versions.build.build_tools
 
         defaultConfig {
-            minSdkVersion build_versions.min_sdk
-            targetSdkVersion build_versions.target_sdk
+            minSdkVersion versions.build.min_sdk
+            targetSdkVersion versions.build.target_sdk
 
             javaCompileOptions {
                 annotationProcessorOptions {
                     arguments = [
-                            moduleName                      : project.getName(),
+                            moduleName    : project.getName(),
+                            mainModuleName: 'app'
                     ]
                 }
             }
@@ -56,6 +55,17 @@ subprojects {
         }
         dataBinding {
             enabled true
+        }
+    }
+}
+
+subprojects {
+    project.configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'com.android.support'
+                    && !details.requested.name.contains('multidex')) {
+                details.useVersion versions.android_support.support
+            }
         }
     }
 }

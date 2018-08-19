@@ -8,12 +8,11 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
+import android.text.TextUtils
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
-import com.alibaba.android.arouter.utils.TextUtils
-import io.github.keep2iron.android.R
 import io.github.keep2iron.android.core.dp2px
 
 /**

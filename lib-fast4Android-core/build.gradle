@@ -10,39 +10,37 @@ android {
 
 dependencies {
     //support
-    api deps.support.app_compat
-    api deps.support.recyclerview
-    api deps.constraint_layout
-    api deps.support.fragment
-    api (deps.support.design)
+    implementation deps.support.app_compat
+    implementation deps.support.recyclerview
+    implementation deps.support.constraint_layout
+    implementation deps.support.fragment
+    implementation deps.support.design
+    implementation deps.support.annotations
 
-    compileOnly deps.support.annotations
+//    implementation deps.retrofit.runtime
+//    implementation deps.retrofit.gson
+//    implementation deps.retrofit.scalars
+//    implementation deps.retrofit.adapter
+//    implementation deps.okhttp.logging
+    implementation deps.status_bar
 
-    api deps.retrofit.runtime
-    api deps.retrofit.gson
-    api deps.retrofit.scalars
-    api deps.retrofit.adapter
-    api deps.okhttp.logging
-    api deps.status_bar
+    implementation deps.rxjava2
+    implementation deps.rx_android
+    implementation deps.logger
 
-    testImplementation deps.junit
+//    api project(':lib-percentage-px')
 
-    api deps.rxjava2
-    api deps.rx_android
-    api deps.logger
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    implementation project(':lib-network')
 
-    api project(':lib-percentage-px')
-
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
-
-    api ('com.alibaba.android:vlayout:1.2.12@aar') {
+    implementation ('com.alibaba.android:vlayout:1.2.12@aar') {
         transitive = true
     }
-    api "org.jetbrains.kotlin:kotlin-reflect:$deps.versions.kotlin_version"
-}
+    implementation deps.kotlin.kotlin_reflect
 
-apply from: '../version.gradle'
-//ext.addDagger(dependencies,true)
-ext.addGoogleArch(dependencies,true)
-ext.addPitaya(dependencies,true)
-ext.addGlide(dependencies,true)
+    implementation deps.arch.lifecycle
+    implementation deps.arch.extensions
+    kapt deps.kotlin_databinding_compiler
+
+    testImplementation deps.test.junit
+}

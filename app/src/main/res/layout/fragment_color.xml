@@ -10,11 +10,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <io.github.keep2iron.app.widget.RefreshHeaderView
-            android:background="#ea4c89"
-            android:id="@+id/header"
+        <!--<io.github.keep2iron.app.widget.RefreshHeaderView-->
+        <!--android:background="#ea4c89"-->
+        <!--android:id="@+id/header"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
+
+        <TextView
+            android:textColor="@color/white"
+            android:id="@+id/tvRoute"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="fragment跳转" />
 
     </FrameLayout>
 </layout>

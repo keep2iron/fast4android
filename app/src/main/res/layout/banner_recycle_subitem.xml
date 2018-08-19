@@ -13,9 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="@dimen/y20">
+        app:cardCornerRadius="10dp">
 
-        <android.support.v7.widget.AppCompatImageView
+        <io.github.keep2iron.imageloader.MiddlewareView
             android:id="@+id/ivBannerItem"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -9,7 +9,6 @@ import android.view.View
 import com.alibaba.android.vlayout.LayoutHelper
 
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper
-import com.orhanobut.logger.Logger
 
 import io.github.keep2iron.android.R
 
@@ -21,7 +20,7 @@ import io.github.keep2iron.android.R
 class LoadMoreAdapter constructor(context: Context,
                                   recyclerView: RecyclerView,
                                   private val mOnLoadMoreListener: (adapter: LoadMoreAdapter) -> Unit
-) : AbstractSubAdapter(context.applicationContext) {
+) : AbstractSubAdapter(context.applicationContext,30003) {
     override fun onCreateLayoutHelper(): LayoutHelper = LinearLayoutHelper()
 
     private var mCurrentShowState = STATE_DEFAULT
@@ -32,7 +31,7 @@ class LoadMoreAdapter constructor(context: Context,
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.recycle_item_load_more
+        return R.layout.item_load_more
     }
 
     init {
@@ -122,10 +121,6 @@ class LoadMoreAdapter constructor(context: Context,
 
     private fun visibleLoadEnd(binding: View, visible: Boolean) {
         binding.findViewById<View>(R.id.load_more_load_end_view).visibility = if (visible) View.VISIBLE else View.GONE
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return 30003
     }
 
     fun showLoadMoreFailed() {

@@ -1,9 +1,7 @@
 package io.github.keep2iron.app.util
 
 import io.github.keep2iron.android.AbstractApplication
-import io.github.keep2iron.android.net.NetworkManager
-import io.github.keep2iron.app.data.remote.ApiService
-import io.github.keep2iron.app.util.Constant
+import io.github.keep2iron.network.NetworkManager
 
 /**
  * 用于编写扩展方法的方法类

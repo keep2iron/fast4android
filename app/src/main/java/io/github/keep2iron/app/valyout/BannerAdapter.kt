@@ -1,6 +1,7 @@
 package io.github.keep2iron.app.valyout
 
 import android.content.Context
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.RecyclerView
 import com.alibaba.android.vlayout.LayoutHelper
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper
@@ -10,10 +11,10 @@ import io.github.keep2iron.app.util.Constant
 import io.github.keep2iron.android.comp.adapter.AbstractSubAdapter
 import io.github.keep2iron.android.comp.adapter.RecyclerViewHolder
 import io.github.keep2iron.android.comp.databinding.RecyclerViewChangeAdapter
-import io.github.keep2iron.android.comp.databinding.ViewPagerChangeAdapter
 import io.github.keep2iron.android.comp.widget.LoopViewLayout
 import io.github.keep2iron.android.util.CommonUtil
 import io.github.keep2iron.app.model.GsonIndex
+import io.github.keep2iron.app.ui.ColorFragment
 import io.github.keep2iron.app.ui.RecommendModel
 
 /**
@@ -23,7 +24,8 @@ import io.github.keep2iron.app.ui.RecommendModel
  */
 class BannerAdapter(context: Context,
                     private val indexModule: RecommendModel,
-                    private val recyclerView: RecyclerView) : AbstractSubAdapter(context) {
+                    private val recyclerView: RecyclerView,
+                    private val fragmentManager: FragmentManager) : AbstractSubAdapter(context, Constant.RECYCLE_BANNER_ITEM) {
     override fun onCreateLayoutHelper(): LayoutHelper = LinearLayoutHelper()
 
     override fun getLayoutId(): Int {
@@ -33,7 +35,7 @@ class BannerAdapter(context: Context,
     override fun render(holder: RecyclerViewHolder, position: Int) {
         val loopViewLayout = holder.findViewById<LoopViewLayout>(R.id.lvlLoopView)
 //        loopViewLayout.setOnEmptyLayoutResId(R.layout.banner_on_empty_layout)
-        loopViewLayout.setAdapter(BannerItemAdapter(context, indexModule), recyclerView.recycledViewPool)
+        loopViewLayout.setAdapter(BannerItemAdapter(context, indexModule, fragmentManager), recyclerView.recycledViewPool)
         loopViewLayout.viewPager.clipToPadding = false
         val dp60 = CommonUtil.getInstance(context).dp2px(60)
         val dp20 = CommonUtil.getInstance(context).dp2px(20)
@@ -46,9 +48,5 @@ class BannerAdapter(context: Context,
 
     override fun getItemCount(): Int {
         return 1
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return Constant.RECYCLE_BANNER_ITEM
     }
 }

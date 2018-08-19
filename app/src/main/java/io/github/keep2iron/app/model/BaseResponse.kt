@@ -1,6 +1,6 @@
 package io.github.keep2iron.app.model
 
-import io.github.keep2iron.android.net.convert.CustomConvertFactory
+import io.github.keep2iron.network.IResponseStatus
 
 /**
  *
@@ -8,10 +8,10 @@ import io.github.keep2iron.android.net.convert.CustomConvertFactory
  * @version 1.0
  * @since 2018/03/16 14:18
  */
-class BaseResponse<T> : CustomConvertFactory.IResponseStatus {
-    override fun isResponseSuccessful(): Boolean = code == 200
-
+class BaseResponse<T> : IResponseStatus {
     var value: T? = null
     var code: Int = 200
     var message: String = "successful"
+
+    override val isResponseSuccessful: Boolean = code == 200
 }

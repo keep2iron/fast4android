@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="index_padding">@dimen/x30</dimen>
+    <dimen name="index_padding">30dp</dimen>
 </resources>

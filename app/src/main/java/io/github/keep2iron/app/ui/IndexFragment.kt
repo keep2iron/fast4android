@@ -1,13 +1,12 @@
 package io.github.keep2iron.app.ui
 
-import android.support.design.widget.TabLayout
+import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.View
 import io.github.keep2iron.app.R
 import io.github.keep2iron.android.core.AbstractFragment
 import io.github.keep2iron.app.databinding.IndexFragmentBinding
-import io.github.keep2iron.app.widget.MaterialMenuDrawable
 
 /**
  *
@@ -19,7 +18,7 @@ class IndexFragment : AbstractFragment<IndexFragmentBinding>() {
     override val resId: Int = R.layout.index_fragment
     private var fragments: ArrayList<Title> = ArrayList()
 
-    override fun initVariables(container: View?) {
+    override fun initVariables(container: View?, savedInstanceState: Bundle?) {
     }
 
     companion object {

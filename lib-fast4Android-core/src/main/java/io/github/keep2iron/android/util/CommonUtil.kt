@@ -9,16 +9,11 @@ import android.support.annotation.StringRes
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-
 import java.text.DecimalFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.HashMap
-import java.util.LinkedList
 import java.util.Locale
 
 /**
@@ -49,21 +44,6 @@ class CommonUtil {
 
     val screenHeight: Int
         get() = context.resources.displayMetrics.heightPixels
-
-    fun <T> getGsonBean(json: String, cls: Class<T>): T {
-        val gson = Gson()
-
-        return gson.fromJson(json, cls)
-    }
-
-    fun <T> getGsonListBean(json: String, cls: Class<T>): List<T>? {
-        val gson = Gson()
-        val listType = object : TypeToken<LinkedList<T>>() {
-
-        }.type
-
-        return gson.fromJson<List<T>>(json, listType)
-    }
 
     fun dp2px(dp: Int): Int {
         val density = context.resources.displayMetrics.density

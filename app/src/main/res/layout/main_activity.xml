@@ -8,6 +8,7 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="io.github.keep2iron.app.ui.MainActivity">
@@ -15,31 +16,30 @@
         <io.github.keep2iron.app.widget.GradientBackgroundView
             android:id="@+id/gbvGradientView"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y100"
+            android:layout_height="50dp"
             app:gbv_default_color="@color/purple"
             app:gbv_duration="300" />
 
         <io.github.keep2iron.android.comp.widget.BottomTabLayout
             android:id="@+id/bottomLayout"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/y100"
+            android:layout_height="50dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tab_item_margin="@dimen/x30"
-            app:tab_icon_height="@dimen/x40"
-            app:tab_icon_width="@dimen/x40"
-            app:tab_text_size="@dimen/y20" />
+            app:tab_icon_height="20dp"
+            app:tab_icon_width="20dp"
+            app:tab_item_margin="15dp"
+            app:tab_text_size="10dp" />
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/container"
+            android:id="@+id/viewPager"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bottomLayout"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/bottomLayout" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

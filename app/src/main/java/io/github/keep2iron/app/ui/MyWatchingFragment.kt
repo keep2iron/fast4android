@@ -1,6 +1,6 @@
 package io.github.keep2iron.app.ui
 
-import android.databinding.ViewDataBinding
+import android.os.Bundle
 import android.view.View
 import io.github.keep2iron.android.core.AbstractFragment
 import io.github.keep2iron.app.R
@@ -18,7 +18,7 @@ class MyWatchingFragment : AbstractFragment<MyWatchingFragmentBinding>(), Title 
 
     override val resId: Int = R.layout.my_watching_fragment
 
-    override fun initVariables(container: View?) {
+    override fun initVariables(container: View?, savedInstanceState: Bundle?) {
     }
 
     companion object {

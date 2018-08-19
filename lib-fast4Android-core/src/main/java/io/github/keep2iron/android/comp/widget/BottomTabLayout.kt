@@ -13,7 +13,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
-import com.orhanobut.logger.Logger
 import io.github.keep2iron.android.R
 import io.github.keep2iron.android.core.dimen
 import io.github.keep2iron.android.core.dp2px
@@ -24,14 +23,19 @@ import io.github.keep2iron.android.core.dp2px
  * @since 2018/03/02 09:30
  */
 class BottomTabLayout : LinearLayout {
-
+    /**
+     * 用于container是ViewPager的时候的position
+     */
     private var position: Int = 0
+    /**
+     * 用于ViewPager的offset参数
+     */
     private var positionOffset: Float = 0f
 
     private lateinit var adapter: BottomTabAdapter
     private var tabIconWidth: Int = dp2px(10)
     private var tabIconHeight: Int = dp2px(10)
-    private var tabTextSize: Float = dimen(R.dimen.y20)
+    private var tabTextSize: Float = dp2px(10).toFloat()
     private var tabDrawablePadding: Int = 0
     private var tabItemMargin: Int = 0
     private lateinit var onTabStateChangedListeners: ArrayList<OnTabChangeListener>
@@ -65,7 +69,9 @@ class BottomTabLayout : LinearLayout {
 
         if (container is ViewPager) {
             setWithViewPager(container)
-//            container.offscreenPageLimit = recyclerAdapter.getItemCount()
+            if(defaultPosition != 0) {
+                container.currentItem = defaultPosition
+            }
         }
 
         setViewWithAdapter(adapter, container)
@@ -88,6 +94,10 @@ class BottomTabLayout : LinearLayout {
                 listener.onTabUnSelect(adapter.selectPosition)
             }
         }
+
+        this.position = position
+        this.positionOffset = 0f
+        invalidate()
     }
 
     private fun setViewWithAdapter(adapter: BottomTabAdapter, container: View) {
@@ -129,6 +139,13 @@ class BottomTabLayout : LinearLayout {
             addView(tab.customView)
 
             adapter.onBindTabHolder(i, tab)
+        }
+    }
+
+    fun setCurrentPosition(position: Int) {
+        if (container is ViewPager) {
+            val viewPager = container as ViewPager
+            viewPager.currentItem = position
         }
     }
 
@@ -184,15 +201,15 @@ class BottomTabLayout : LinearLayout {
         override fun getItem(position: Int): Fragment = tabs[position].fragment!!
     }
 
-    override fun onDraw(canvas: Canvas) {
-        val paint = Paint()
-        paint.color = Color.WHITE
-
-        val itemWith = width * 1f / adapter.tabs.size
-        val startX = itemWith * position + itemWith * positionOffset
-        val endX = startX + itemWith
-
-        canvas.drawRect(startX, (height - 10).toFloat(), endX, height.toFloat(), paint)
-
-    }
+//    override fun onDraw(canvas: Canvas) {
+//        val paint = Paint()
+//        paint.color = Color.WHITE
+//
+//        val itemWith = width * 1f / adapter.tabs.size
+//        val startX = itemWith * position + itemWith * positionOffset
+//        val endX = startX + itemWith
+//
+//        canvas.drawRect(startX, (height - 10).toFloat(), endX, height.toFloat(), paint)
+//
+//    }
 }

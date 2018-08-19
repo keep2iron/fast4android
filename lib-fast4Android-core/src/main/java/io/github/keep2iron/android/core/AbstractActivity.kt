@@ -6,7 +6,6 @@
 package io.github.keep2iron.android.core
 
 import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.LifecycleRegistry
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
@@ -14,13 +13,12 @@ import android.os.Bundle
 import android.support.annotation.ColorRes
 import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
-
-import com.alibaba.android.arouter.launcher.ARouter
 import com.gyf.barlibrary.ImmersionBar
-import com.orhanobut.logger.Logger
-
+import io.github.keep2iron.android.R
 import io.github.keep2iron.android.core.annotation.StatusColor
 import io.github.keep2iron.android.core.rx.LifecycleEvent
+import io.github.keep2iron.android.core.rx.RxLifecycle
+import io.reactivex.ObservableTransformer
 import io.reactivex.subjects.BehaviorSubject
 
 /**
@@ -28,17 +26,24 @@ import io.reactivex.subjects.BehaviorSubject
  * @date 2017/4/12
  * 这里的BaseActivity没有包含
  */
-abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity(), LifecycleOwner {
+/**
+ * @author keep2iron [Contract me.](http://keep2iron.github.io)
+ * @version 1.0
+ * @since 2018/05/19 10:36
+ */
+abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
     private var subject = BehaviorSubject.create<LifecycleEvent>()
+
     private lateinit var immersionBar: ImmersionBar
     protected lateinit var dataBinding: DB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ARouter.getInstance().inject(this)
-        dataBinding = DataBindingUtil.setContentView(this, getResId())
-        if (null == dataBinding) {
-            throw IllegalArgumentException("do your declare <layout></layout> in your xml file")
+        val createDatabinding: DB? = DataBindingUtil.setContentView(this, getResId())
+        if (createDatabinding != null) {
+            dataBinding = createDatabinding
+        } else {
+            setContentView(getResId())
         }
         (lifecycle as LifecycleRegistry).handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         setStatusColorFromAnnotation()
@@ -49,13 +54,14 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity(), Lif
 
 
     internal fun setStatusColorFromAnnotation() {
-        immersionBar = ImmersionBar.with(this)
-        immersionBar.init()   //所有子类都将继承这些相同的属性
+        immersionBar = ImmersionBar
+                .with(this)
 
-        for (annotation in this::class.annotations) {
+        val annotations = this::class.java.annotations
+        for (annotation in annotations) {
             if (annotation is StatusColor) {
                 val annStatusColor: StatusColor = annotation
-                immersionBar.fitsSystemWindows(true)
+                immersionBar.fitsSystemWindows(annotation.isFitSystem)
 
                 val value = annStatusColor.value
                 val darkMode = annStatusColor.isDarkMode
@@ -67,12 +73,17 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity(), Lif
                 }
                 if (annStatusColor.isTrans) {
                     immersionBar.transparentStatusBar()
-                            .fitsSystemWindows(false)
+                }
+                if (annStatusColor.navigationBarColor != -1) {
+                    immersionBar.navigationBarColor(annStatusColor.navigationBarColor)
+                } else {
+//                    immersionBar.navigationBarColor(R.color.colorPrimary)
                 }
                 immersionBar.statusBarDarkFont(darkMode)
                 immersionBar.addTag("default")
             }
         }
+        immersionBar.init()   //所有子类都将继承这些相同的属性
     }
 
     fun setStatusColor(@ColorRes color: Int) {
@@ -85,6 +96,10 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity(), Lif
         immersionBar.getTag("defalut")
                 .statusBarDarkFont(isDark)
                 .init()
+    }
+
+    fun getImmersionBar(): ImmersionBar {
+        return immersionBar.getTag("default")
     }
 
     override fun onStart() {
@@ -118,6 +133,14 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity(), Lif
         immersionBar.destroy()
         super.onDestroy()
     }
+
+    /**
+     * 绑定让订阅进行绑定生命周期
+     */
+    fun <T> bindObservableLifeCycle(): ObservableTransformer<T, T> {
+        return RxLifecycle.bindUntilEvent(subject, LifecycleEvent.DESTROY)
+    }
+
 
     /**
      * 获取资源id

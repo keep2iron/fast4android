@@ -19,20 +19,50 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$deps.versions.kotlin_version"
-    kapt deps.kotlin_databinding_compiler
     implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
-    api project(':lib-fast4Android-core')
-    implementation 'com.android.support:multidex:1.0.3'
+    //support
     implementation deps.support.cardview
+    implementation deps.support.app_compat
+    implementation deps.support.recyclerview
+    implementation deps.support.constraint_layout
+    implementation deps.support.fragment
+    implementation deps.support.design
+    implementation deps.support.annotations
+
+    implementation deps.status_bar
+
+    testImplementation deps.test.junit
+
+
+    implementation deps.rxjava2
+    implementation deps.rx_android
+    implementation deps.logger
+
+//    api project(':lib-percentage-px')
+
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+
+    implementation('com.alibaba.android:vlayout:1.2.12@aar') {
+        transitive = true
+    }
+    implementation deps.kotlin.kotlin_reflect
+    implementation deps.kotlin.stdlib_jdk7
+
+    implementation deps.arch.lifecycle
+    implementation deps.arch.extensions
+    kapt deps.kotlin_databinding_compiler
+
+    implementation project(':lib-fast4Android-core')
+    implementation project(':lib-imageloader')
+    implementation project(':lib-network')
+    implementation 'me.everything:overscroll-decor-android:1.0.4'
+
+    implementation 'com.github.keep2iron.Pitaya:pitaya-annotation:0.1.3'
+    implementation 'com.github.keep2iron.Pitaya:pitaya-api:0.1.3'
+    kapt 'com.github.keep2iron.Pitaya:pitaya-compiler:0.1.3'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
-
-apply from: '../version.gradle'
-ext.addGoogleArch(dependencies,true)
-ext.addDatabindingWhenKotlin(dependencies)
-ext.addPitaya(dependencies,true)

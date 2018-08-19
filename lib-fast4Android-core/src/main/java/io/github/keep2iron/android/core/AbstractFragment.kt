@@ -10,24 +10,18 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.gyf.barlibrary.ImmersionBar
-
-import io.github.keep2iron.android.R
 import io.github.keep2iron.android.core.rx.LifecycleEvent
 import io.github.keep2iron.android.core.rx.RxLifecycle
 import io.reactivex.ObservableTransformer
 import io.reactivex.subjects.BehaviorSubject
 
 /**
- * @author keep2iron [Contract me.](http://keep2iron.github.io)
+ *
+ * @author keep2iron <a href="http://keep2iron.github.io">Contract me.</a>
  * @version 1.0
- * @since 2018/02/23 17:05
+ * @since 2018/05/19 11:08
  */
 abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
-    /**
-     * Fragment当前状态是否可见
-     */
-    private var isFragmentVisible: Boolean = false
     private var isInit: Boolean = false
     private var isOnAttach: Boolean = false
 
@@ -58,7 +52,7 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
      *
      * @param container 被映射的container对象
      */
-    abstract fun initVariables(container: View?)
+    abstract fun initVariables(container: View?, savedInstanceState: Bundle?)
 
     /**
      * 在初始化方法之前进行调用的方法，子类可以选择性重写
@@ -67,18 +61,23 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        dataBinding = DataBindingUtil.inflate(inflater, resId, container, false)
-        contentView = dataBinding.root
+        val createBinding :DB? = DataBindingUtil.inflate(inflater, resId, container, false)
+        if (createBinding == null) {
+            contentView = inflater.inflate(resId, container, false)
+        } else {
+            dataBinding = createBinding
+            contentView = dataBinding.root
+        }
 
         beforeInitVariables()
         contentView.isClickable = true
-        contentView.setBackgroundColor(resources.getColor(R.color.white))
+        contentView.setBackgroundColor(resources.getColor(android.R.color.white))
 
-        initVariables(contentView)
+        initVariables(contentView,savedInstanceState)
 
-        if (isFragmentVisible && !isInit) {
-            lazyLoad(container)
+        if (userVisibleHint && !isInit) {
             isInit = true
+            lazyLoad(contentView)
         }
 
         if (context is AbstractActivity<*>) {
@@ -139,16 +138,16 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
+
         if (isVisibleToUser) {
-            isFragmentVisible = true
             if (isOnAttach && !isInit) {
                 lazyLoad(view)
                 isInit = true
             }
-        } else {
-            isFragmentVisible = false
         }
     }
 
-
+    fun <T : View> findViewById(viewId: Int): T {
+        return contentView.findViewById(viewId) as T
+    }
 }

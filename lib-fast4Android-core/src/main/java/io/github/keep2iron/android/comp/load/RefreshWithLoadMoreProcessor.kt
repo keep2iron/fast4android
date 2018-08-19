@@ -1,14 +1,12 @@
 package io.github.keep2iron.android.comp.load
 
-import android.content.Context
-import android.databinding.ObservableList
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.orhanobut.logger.Logger
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import io.github.keep2iron.android.comp.adapter.LoadMoreAdapter
 import io.github.keep2iron.android.core.AndroidSubscriber
-import io.github.keep2iron.android.net.exception.NoDataException
+import io.github.keep2iron.network.exception.NoDataException
 
 /**
  *
@@ -36,7 +34,6 @@ class RefreshWithLoadMoreProcessor private constructor(recyclerView: RecyclerVie
             onLoadListener?.invoke(RLDelegateAdapter@ this, index)
         })
         refreshAble = SmartRefreshAble(refreshLayout as SmartRefreshLayout, {
-            loadMoreAble.setLoadMoreEnable(false)
             index = defaultIndex
             onLoadListener?.invoke(RLDelegateAdapter@ this, index)
         })

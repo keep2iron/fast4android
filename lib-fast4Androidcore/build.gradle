@@ -47,7 +47,7 @@ dependencies {
     implementation deps.logger
 
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
-    implementation project(':libnetwork')
+    implementation project(':lib-network')
 
     implementation ('com.alibaba.android:vlayout:1.2.15@aar') {
         transitive = true

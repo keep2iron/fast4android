@@ -1,0 +1,28 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+dependencies {
+    compile deps.android_gradle_plugin
+    compile group: 'org.javassist', name: 'javassist', version: '3.20.0-GA'
+    compile gradleApi()
+    compile localGroovy()
+
+    implementation 'com.squareup:javapoet:1.9.0'
+    implementation 'com.github.javaparser:javaparser-core:3.5.0'
+//    compile 'dom4j:dom4j:1.6.1'
+//    compile 'jaxen:jaxen:1.1.1'
+}
+
+group = 'io.keep2iron.github'
+version = '0.0.1'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('../repo'))
+        }
+    }
+}

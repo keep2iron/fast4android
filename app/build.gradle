@@ -76,14 +76,14 @@ dependencies {
     implementation deps.arch.extensions
     kapt deps.kotlin_databinding_compiler
 
-    implementation project(':libfast4Androidcore')
-    implementation project(':libimageloader')
-    implementation project(':libnetwork')
+    implementation project(':lib-fast4Androidcore')
+    implementation project(':lib-imageloader')
+    implementation project(':lib-network')
     implementation 'me.everything:overscroll-decor-android:1.0.4'
 
-    implementation 'com.github.keep2iron.Pitaya:pitaya-annotation:0.1.3'
-    implementation 'com.github.keep2iron.Pitaya:pitaya-api:0.1.3'
-    kapt 'com.github.keep2iron.Pitaya:pitaya-compiler:0.1.3'
+    implementation 'com.github.keep2iron.pitaya:pitaya-annotation:0.1.3'
+    implementation 'com.github.keep2iron.pitaya:pitaya-api:0.1.3'
+    kapt 'com.github.keep2iron.pitaya:pitaya-compiler:0.1.3'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

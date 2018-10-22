@@ -10,12 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--<io.github.keep2iron.app.widget.RefreshHeaderView-->
-        <!--android:background="#ea4c89"-->
-        <!--android:id="@+id/header"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent" />-->
-
         <TextView
             android:textColor="@color/white"
             android:id="@+id/tvRoute"

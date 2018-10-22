@@ -2,6 +2,7 @@ package io.github.keep2iron.app.ui
 
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.orhanobut.logger.Logger
 import io.github.keep2iron.app.databinding.MainActivityBinding
 import io.github.keep2iron.android.comp.widget.BottomTabAdapter
 import io.github.keep2iron.android.comp.widget.BottomTabLayout
@@ -9,13 +10,15 @@ import io.github.keep2iron.android.core.AbstractActivity
 import io.github.keep2iron.android.core.annotation.StatusColor
 import io.github.keep2iron.app.R
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
-import android.support.v4.view.ViewPager
-
+import io.github.keep2iron.android.core.extra.FindViewById
+import io.github.keep2iron.app.widget.GradientBackgroundView
 
 
 @Route(path = "/main/activity")
 @StatusColor(isTrans = false, isDarkMode = false, value = R.color.deep_purple)
 class MainActivity : AbstractActivity<MainActivityBinding>() {
+    var gbvGradientView: GradientBackgroundView by FindViewById(R.id.gbvGradientView)
+
     override fun initVariables(savedInstanceState: Bundle?) {
         val list = ArrayList<BottomTabAdapter.TabHolder>()
         list.add(BottomTabAdapter.TabHolder(
@@ -60,6 +63,8 @@ class MainActivity : AbstractActivity<MainActivityBinding>() {
             override fun onTabUnSelect(position: Int) {
             }
         })
+
+        Logger.d("gbvGradientView")
     }
 
     override fun getResId(): Int = R.layout.main_activity

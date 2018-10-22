@@ -1,19 +1,42 @@
+apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
+    compileSdkVersion versions.build.target_sdk
+    buildToolsVersion versions.build.build_tools
+
     defaultConfig {
+        minSdkVersion versions.build.min_sdk
+        targetSdkVersion versions.build.target_sdk
+
         applicationId "io.github.keep2iron.app"
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        moduleName    : project.getName(),
+                        mainModuleName: 'app'
+                ]
+            }
+        }
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    dataBinding {
+        enabled true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -41,9 +64,9 @@ dependencies {
 
 //    api project(':lib-percentage-px')
 
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
 
-    implementation('com.alibaba.android:vlayout:1.2.12@aar') {
+    implementation('com.alibaba.android:vlayout:1.2.15@aar') {
         transitive = true
     }
     implementation deps.kotlin.kotlin_reflect
@@ -53,9 +76,9 @@ dependencies {
     implementation deps.arch.extensions
     kapt deps.kotlin_databinding_compiler
 
-    implementation project(':lib-fast4Android-core')
-    implementation project(':lib-imageloader')
-    implementation project(':lib-network')
+    implementation project(':libfast4Androidcore')
+    implementation project(':libimageloader')
+    implementation project(':libnetwork')
     implementation 'me.everything:overscroll-decor-android:1.0.4'
 
     implementation 'com.github.keep2iron.Pitaya:pitaya-annotation:0.1.3'

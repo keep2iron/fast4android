@@ -1,0 +1,44 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion versions.build.target_sdk
+    buildToolsVersion versions.build.build_tools
+
+    defaultConfig {
+        minSdkVersion versions.build.min_sdk
+        targetSdkVersion versions.build.target_sdk
+
+        versionCode 1
+        versionName "1.0"
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation deps.kotlin.stdlib_jdk7
+    api deps.fresco
+    kapt deps.kotlin_databinding_compiler
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}

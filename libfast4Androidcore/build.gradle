@@ -1,0 +1,62 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion versions.build.target_sdk
+    buildToolsVersion versions.build.build_tools
+
+    defaultConfig {
+        minSdkVersion versions.build.min_sdk
+        targetSdkVersion versions.build.target_sdk
+
+        versionCode 1
+        versionName "1.0"
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    //support
+    implementation deps.support.app_compat
+    implementation deps.support.recyclerview
+    implementation deps.support.constraint_layout
+    implementation deps.support.fragment
+    implementation deps.support.design
+    implementation deps.support.annotations
+
+    implementation deps.status_bar
+
+    implementation deps.rxjava2
+    implementation deps.rx_android
+    implementation deps.logger
+
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+    implementation project(':libnetwork')
+
+    implementation ('com.alibaba.android:vlayout:1.2.15@aar') {
+        transitive = true
+    }
+    implementation deps.kotlin.kotlin_reflect
+
+    implementation deps.arch.lifecycle
+    implementation deps.arch.extensions
+    kapt deps.kotlin_databinding_compiler
+
+    testImplementation deps.test.junit
+}

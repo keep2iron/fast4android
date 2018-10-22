@@ -21,43 +21,43 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-subprojects {
-    boolean isLib = it.name.startsWith("lib-")
-    boolean isModule = it.name.startsWith("module-")
-
-    if (isLib) {
-        apply plugin: 'com.android.library'
-    } else {
-        apply plugin: 'com.android.application'
-//        apply plugin: 'plugin.fast4android'
-    }
-
-    android {
-        compileSdkVersion versions.build.target_sdk
-        buildToolsVersion versions.build.build_tools
-
-        defaultConfig {
-            minSdkVersion versions.build.min_sdk
-            targetSdkVersion versions.build.target_sdk
-
-            javaCompileOptions {
-                annotationProcessorOptions {
-                    arguments = [
-                            moduleName    : project.getName(),
-                            mainModuleName: 'app'
-                    ]
-                }
-            }
-        }
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
-        }
-        dataBinding {
-            enabled true
-        }
-    }
-}
+//subprojects {
+//    boolean isLib = it.name.startsWith("lib-")
+//    boolean isModule = it.name.startsWith("module-")
+//
+//    if (isLib) {
+//        apply plugin: 'com.android.library'
+//    } else {
+//        apply plugin: 'com.android.application'
+////        apply plugin: 'plugin.fast4android'
+//    }
+//
+//    android {
+//        compileSdkVersion versions.build.target_sdk
+//        buildToolsVersion versions.build.build_tools
+//
+//        defaultConfig {
+//            minSdkVersion versions.build.min_sdk
+//            targetSdkVersion versions.build.target_sdk
+//
+//            javaCompileOptions {
+//                annotationProcessorOptions {
+//                    arguments = [
+//                            moduleName    : project.getName(),
+//                            mainModuleName: 'app'
+//                    ]
+//                }
+//            }
+//        }
+//        compileOptions {
+//            sourceCompatibility JavaVersion.VERSION_1_8
+//            targetCompatibility JavaVersion.VERSION_1_8
+//        }
+//        dataBinding {
+//            enabled true
+//        }
+//    }
+//}
 
 subprojects {
     project.configurations.all {

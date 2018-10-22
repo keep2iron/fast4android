@@ -2,32 +2,43 @@
  * Shared file between builds so that they can all use the same dependencies and
  * maven repositories.
  **/
+ext.deps = [:]
+
+deps.javapoet = 'com.squareup:javapoet:1.9.0'
+deps.javaparser = 'com.github.javaparser:javaparser-core:3.5.0'
+
+/**
+ * Shared file between builds so that they can all use the same dependencies and
+ * maven repositories.
+ **/
 ext.build = [:]
 
 def versions = [
         build          : [
                 min_sdk              : 19,
-                target_sdk           : 27,
+                target_sdk           : 28,
                 build_tools          : "27.0.3",
                 android_gradle_plugin: "3.1.4",
-                kotlin_version       : "1.2.60",
+                kotlin_version       : "1.2.71",
         ],
         android_support: [
-                arch             : "1.0.0",
-                support          : "27.0.2",
+                arch             : "1.1.0",
+                support          : "27.1.1",
                 constraint_layout: "1.1.1",
-                multi_version    : "0.3",
+                multi_version    : "1.0.3",
         ],
         test           : [
-                junit   : "4.12",
-                runner  : "1.0.1",
-                espresso: "3.0.1",
+                rules           : "1.0.1",
+                junit           : "4.12",
+                runner          : "1.0.2",
+                espresso_core   : "3.0.2",
+                espresso_contrib: "3.0.2",
         ],
         third_part     : [
                 retrofit      : "2.3.0",
                 rxjava2       : "2.2.0",
                 rx_android    : "2.1.0",
-                fresco_version: "1.10.0",
+                fresco_version: "1.11.0",
                 status_bar    : "2.3.0",
                 logger_android: "2.2.0",
         ],
@@ -46,9 +57,11 @@ def deps = [
         logging                    : "com.squareup.okhttp3:logging-interceptor:3.9.0",
 
         test                       : [
-                junit   : "junit:junit:$versions.test.junit",
-                runner  : "com.android.support.test:runner:$versions.test.runner",
-                espresso: "com.android.support.test.espresso:espresso-core:$versions.test.espresso",
+                rules           : "com.android.support.test:rules:$versions.test.rules",
+                junit           : "junit:junit:$versions.test.junit",
+                runner          : "com.android.support.test:runner:$versions.test.runner",
+                espresso_core   : "com.android.support.test.espresso:espresso-core:$versions.test.espresso_core",
+                espresso_contrib: "com.android.support.test.espresso:espresso-contrib:$versions.test.espresso_contrib"
         ],
         support                    : [
                 annotations      : "com.android.support:support-annotations:$versions.android_support.support",
@@ -70,12 +83,13 @@ def deps = [
                 gson   : "com.squareup.retrofit2:converter-gson:$versions.third_part.retrofit",
                 scalars: "com.squareup.retrofit2:converter-scalars:$versions.third_part.retrofit",
                 adapter: "com.squareup.retrofit2:adapter-rxjava2:$versions.third_part.retrofit",
+                logging: "com.squareup.okhttp3:logging-interceptor:3.9.0",
         ],
         kotlin                     : [
-                stdlib_jdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.build.kotlin_version",
-                test  : "org.jetbrains.kotlin:kotlin-test-junit:$versions.build.kotlin_version",
-                plugin: "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.build.kotlin_version",
-                kotlin_reflect:"org.jetbrains.kotlin:kotlin-reflect:$versions.build.kotlin_version",
+                stdlib_jdk7   : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.build.kotlin_version",
+                test          : "org.jetbrains.kotlin:kotlin-test-junit:$versions.build.kotlin_version",
+                plugin        : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.build.kotlin_version",
+                kotlin_reflect: "org.jetbrains.kotlin:kotlin-reflect:$versions.build.kotlin_version",
         ],
         arch                       : [
                 lifecycle : "android.arch.lifecycle:common-java8:$versions.android_support.arch",

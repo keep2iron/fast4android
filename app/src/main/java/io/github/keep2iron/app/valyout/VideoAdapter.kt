@@ -7,11 +7,9 @@ import com.alibaba.android.vlayout.layout.GridLayoutHelper
 import io.github.keep2iron.android.comp.adapter.AbstractSubAdapter
 import io.github.keep2iron.android.comp.adapter.RecyclerViewHolder
 import io.github.keep2iron.android.comp.databinding.RecyclerViewChangeAdapter
-import io.github.keep2iron.android.util.CommonUtil
 import io.github.keep2iron.app.BR
 import io.github.keep2iron.app.R
 import io.github.keep2iron.app.model.GsonIndex
-import io.github.keep2iron.app.ui.ColorFragment
 import io.github.keep2iron.app.ui.RecommendFragment
 import io.github.keep2iron.app.ui.RecommendModel
 import io.github.keep2iron.app.util.Constant

@@ -12,14 +12,6 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <io.github.keep2iron.app.widget.RefreshHeaderView
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:rhv_background="@color/blue"
-            app:rhv_first_circle_bg="@color/white"
-            app:rhv_second_circle_bg="@color/little_blue" />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvRecyclerView"
             android:layout_width="match_parent"

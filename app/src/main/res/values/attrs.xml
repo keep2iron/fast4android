@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="RefreshHeaderView">
-        <attr name="rhv_background" format="color" />
-        <attr name="rhv_first_circle_bg" format="color" />
-        <attr name="rhv_second_circle_bg" format="color" />
-    </declare-styleable>
+
 </resources>

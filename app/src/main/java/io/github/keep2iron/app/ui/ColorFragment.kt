@@ -1,13 +1,16 @@
 package io.github.keep2iron.app.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.annotation.ColorRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import com.orhanobut.logger.Logger
 import io.github.keep2iron.app.databinding.FragmentColorBinding
 import io.github.keep2iron.android.core.AbstractFragment
+import io.github.keep2iron.android.core.extra.FindViewById
 import io.github.keep2iron.app.R
 
 /**
@@ -17,6 +20,8 @@ import io.github.keep2iron.app.R
  */
 class ColorFragment : AbstractFragment<FragmentColorBinding>() {
     override val resId: Int = R.layout.fragment_color
+
+    var container: FrameLayout by FindViewById(R.id.container)
 
     var colorRes: Int = -1
 
@@ -29,6 +34,8 @@ class ColorFragment : AbstractFragment<FragmentColorBinding>() {
             beginTransaction.addToBackStack(null)
             beginTransaction.commit()
         }
+
+        this.container.setBackgroundColor(Color.RED)
     }
 
     companion object {
@@ -42,6 +49,16 @@ class ColorFragment : AbstractFragment<FragmentColorBinding>() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Logger.d("${this::class.simpleName} onCreateView")
         return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onResume() {
+        this.container.setBackgroundColor(Color.RED)
+        super.onResume()
     }
 
     override fun onDestroyView() {

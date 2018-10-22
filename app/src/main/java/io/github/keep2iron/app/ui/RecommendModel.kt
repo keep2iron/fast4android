@@ -2,9 +2,9 @@ package io.github.keep2iron.app.ui
 
 import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ObservableArrayList
-import io.github.keep2iron.android.AbstractApplication
 import io.github.keep2iron.android.comp.load.RefreshWithLoadMoreProcessor
 import io.github.keep2iron.android.core.LifeCycleViewModule
+import io.github.keep2iron.app.Application
 import io.github.keep2iron.app.data.DataRepository
 import io.github.keep2iron.app.model.GsonIndex
 import io.reactivex.Observable
@@ -16,7 +16,7 @@ import io.reactivex.functions.BiFunction
  * @version 1.0
  * @since 2018/03/12 11:31
  */
-class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(AbstractApplication.instance, owner) {
+class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(Application.instance, owner) {
     var bannerItems: ObservableArrayList<GsonIndex> = ObservableArrayList()
     var indexItems: ObservableArrayList<GsonIndex> = ObservableArrayList()
 

@@ -1,1 +1,1 @@
-include ':app', ':lib-fast4Androidcore', ':lib-network', ':lib-bugly', ':lib-reactnative'
+include ':app', ':lib-core', ':extra'

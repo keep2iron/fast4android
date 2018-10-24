@@ -66,7 +66,7 @@ dependencies {
 
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
 
-    implementation('com.alibaba.android:vlayout:1.2.15@aar') {
+    implementation (deps.alibaba.vlayout) {
         transitive = true
     }
     implementation deps.kotlin.kotlin_reflect
@@ -76,9 +76,9 @@ dependencies {
     implementation deps.arch.extensions
     kapt deps.kotlin_databinding_compiler
 
-    implementation project(':lib-fast4Androidcore')
+    implementation project(':lib-core')
     implementation 'com.github.keep2iron:pineapple:0.1.1'
-    api 'com.github.keep2iron:pomelo:0.1'
+    implementation 'com.github.keep2iron:pomelo:0.1.1'
 
     implementation 'me.everything:overscroll-decor-android:1.0.4'
 

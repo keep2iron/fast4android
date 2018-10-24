@@ -94,6 +94,9 @@ def deps = [
         arch                       : [
                 lifecycle : "android.arch.lifecycle:common-java8:$versions.android_support.arch",
                 extensions: "android.arch.lifecycle:extensions:$versions.android_support.arch"
+        ],
+        alibaba                    : [
+                vlayout: "com.alibaba.android:vlayout:1.2.18@aar"
         ]
 ]
 

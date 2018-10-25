@@ -1,11 +1,11 @@
 package io.github.keep2iron.app.data
 
-import io.github.keep2iron.android.comp.getComponentService
+import io.github.keep2iron.android.core.getComponentService
 import io.github.keep2iron.android.utilities.RxTransUtil
 import io.github.keep2iron.app.Application
 import io.github.keep2iron.app.data.remote.ApiService
 import io.github.keep2iron.app.model.GsonIndex
-import io.github.keep2iron.network.NetworkManager
+import io.github.keep2iron.pomelo.NetworkManager
 import io.reactivex.Observable
 
 /**

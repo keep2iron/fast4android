@@ -1,6 +1,6 @@
 package io.github.keep2iron.app.model
 
-import io.github.keep2iron.network.IResponseStatus
+import io.github.keep2iron.pomelo.IResponseStatus
 
 /**
  *

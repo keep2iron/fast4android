@@ -1,0 +1,70 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion versions.build.target_sdk
+    buildToolsVersion versions.build.build_tools
+
+    defaultConfig {
+        minSdkVersion versions.build.min_sdk
+        targetSdkVersion versions.build.target_sdk
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    //support
+    implementation deps.support.app_compat
+    implementation deps.support.recyclerview
+    implementation deps.support.constraint_layout
+    implementation deps.support.fragment
+    implementation deps.support.annotations
+
+    api deps.status_bar
+    api deps.rxjava2
+    api deps.rx_android
+    api deps.logger
+    implementation deps.kotlin.kotlin_reflect
+    implementation deps.kotlin.stdlib_jdk7
+
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+    api(deps.alibaba.vlayout) {
+        transitive = true
+    }
+    api 'com.github.anzewei:parallaxbacklayout:1.1.9'
+    implementation project(":utilities")
+    implementation deps.arch.lifecycle
+    implementation deps.arch.extensions
+    kapt deps.kotlin_databinding_compiler
+
+    testImplementation deps.test.junit
+    androidTestImplementation deps.test.runner
+    androidTestImplementation deps.test.rules
+    androidTestImplementation(deps.test.espresso_core) {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    androidTestImplementation(deps.test.espresso_contrib) {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+}

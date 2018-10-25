@@ -10,7 +10,7 @@ import android.widget.FrameLayout
 import com.orhanobut.logger.Logger
 import io.github.keep2iron.app.databinding.FragmentColorBinding
 import io.github.keep2iron.android.core.AbstractFragment
-import io.github.keep2iron.android.core.extra.FindViewById
+import io.github.keep2iron.android.core.FindViewById
 import io.github.keep2iron.app.R
 
 /**

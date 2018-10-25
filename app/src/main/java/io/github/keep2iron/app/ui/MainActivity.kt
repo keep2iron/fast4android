@@ -7,10 +7,10 @@ import io.github.keep2iron.app.databinding.MainActivityBinding
 import io.github.keep2iron.android.comp.widget.BottomTabAdapter
 import io.github.keep2iron.android.comp.widget.BottomTabLayout
 import io.github.keep2iron.android.core.AbstractActivity
+import io.github.keep2iron.android.core.FindViewById
 import io.github.keep2iron.android.core.annotation.StatusColor
 import io.github.keep2iron.app.R
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
-import io.github.keep2iron.android.core.extra.FindViewById
 import io.github.keep2iron.app.widget.GradientBackgroundView
 
 

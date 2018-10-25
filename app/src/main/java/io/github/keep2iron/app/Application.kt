@@ -12,8 +12,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import io.github.keep2iron.android.comp.registerComponentService
+import io.github.keep2iron.android.core.registerComponentService
 import io.github.keep2iron.pineapple.ImageLoaderManager
+import io.github.keep2iron.pomelo.NetworkManager
+import io.github.keep2iron.pomelo.interceptor.AddCookiesInterceptor
+import io.github.keep2iron.pomelo.interceptor.HttpLogger
+import io.github.keep2iron.pomelo.interceptor.ReceivedCookiesInterceptor
 
 
 /**

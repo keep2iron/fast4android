@@ -15,8 +15,8 @@ import io.reactivex.subjects.BehaviorSubject
 import android.view.WindowManager
 import android.view.ViewGroup
 import io.github.keep2iron.android.R
-import io.github.keep2iron.android.core.rx.LifecycleEvent
-import io.github.keep2iron.android.core.rx.RxLifecycle
+import io.github.keep2iron.android.rx.LifecycleEvent
+import io.github.keep2iron.android.rx.RxLifecycle
 
 
 /**

@@ -1,4 +1,4 @@
-package io.github.keep2iron.app.ui
+package io.github.keep2iron.app.module.movie
 
 import android.os.Bundle
 import android.view.View

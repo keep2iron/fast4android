@@ -1,4 +1,4 @@
-package io.github.keep2iron.app.ui
+package io.github.keep2iron.app.module.index
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import io.github.keep2iron.app.R
 import io.github.keep2iron.android.core.AbstractFragment
 import io.github.keep2iron.app.databinding.IndexFragmentBinding
+import io.github.keep2iron.app.ui.Title
 
 /**
  *

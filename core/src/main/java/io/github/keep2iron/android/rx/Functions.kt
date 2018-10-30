@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package io.github.keep2iron.android.core.rx
+package io.github.keep2iron.android.rx
 
 import io.reactivex.Completable
 import io.reactivex.exceptions.Exceptions

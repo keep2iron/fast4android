@@ -32,19 +32,19 @@ android {
 dependencies {
     //support
     implementation deps.support.app_compat
-    implementation deps.support.recyclerview
-    implementation deps.support.constraint_layout
+//    implementation deps.support.recyclerview
+//    implementation deps.support.constraint_layout
     implementation deps.support.fragment
     implementation deps.support.annotations
 
     api deps.status_bar
     api deps.rxjava2
     api deps.rx_android
-    api deps.logger
+//    api deps.logger
     implementation deps.kotlin.kotlin_reflect
     implementation deps.kotlin.stdlib_jdk7
 
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+//    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
     api(deps.alibaba.vlayout) {
         transitive = true
     }

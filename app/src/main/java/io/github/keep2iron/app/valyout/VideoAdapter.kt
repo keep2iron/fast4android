@@ -10,8 +10,8 @@ import io.github.keep2iron.android.comp.databinding.RecyclerViewChangeAdapter
 import io.github.keep2iron.app.BR
 import io.github.keep2iron.app.R
 import io.github.keep2iron.app.model.GsonIndex
-import io.github.keep2iron.app.ui.RecommendFragment
-import io.github.keep2iron.app.ui.RecommendModel
+import io.github.keep2iron.app.module.recommend.RecommendFragment
+import io.github.keep2iron.app.module.recommend.RecommendModel
 import io.github.keep2iron.app.util.Constant
 
 /**

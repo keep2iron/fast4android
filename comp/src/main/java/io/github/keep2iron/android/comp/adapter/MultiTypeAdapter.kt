@@ -12,12 +12,19 @@ import com.alibaba.android.vlayout.layout.LinearLayoutHelper
  * @author keep2iron <a href="http://keep2iron.github.io">Contract me.</a>
  * @version 1.0
  * @since 2018/07/03 00:23
+ *
+ * 用于多类型Adapter
  */
-class MultiAdapter(private val data: MutableList<Any>) : DelegateAdapter.Adapter<RecyclerViewHolder>() {
+class MultiTypeAdapter(private val data: MutableList<Any>) : DelegateAdapter.Adapter<RecyclerViewHolder>() {
     private val multiTypeAdapter: ArrayList<AbstractSubAdapter> = ArrayList()
     private val clazzMap: SparseArrayCompat<Class<Any>> = SparseArrayCompat()
     private val adapterMap: ArrayMap<Class<Any>, AbstractSubAdapter> = ArrayMap(10)
 
+    /**
+     * 通过实体类型来注册渲染的Adapter
+     *
+     * 如果onBindViewHolder上的实体类型与adapter有对应 那么会触发adapter的render方法
+     */
     fun registerAdapter(adapter: AbstractSubAdapter, clazz: Class<Any>) {
         multiTypeAdapter.add(adapter)
         clazzMap.put(adapter.viewType, clazz)

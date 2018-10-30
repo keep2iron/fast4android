@@ -1,9 +1,9 @@
-package io.github.keep2iron.app.ui
+package io.github.keep2iron.app.module.recommend
 
 import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ObservableArrayList
 import io.github.keep2iron.android.comp.load.RefreshWithLoadMoreProcessor
-import io.github.keep2iron.android.core.LifeCycleViewModule
+import io.github.keep2iron.android.ext.LifeCycleViewModule
 import io.github.keep2iron.app.Application
 import io.github.keep2iron.app.data.DataRepository
 import io.github.keep2iron.app.model.GsonIndex

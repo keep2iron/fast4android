@@ -3,7 +3,7 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
-package io.github.keep2iron.android.core.annotation
+package io.github.keep2iron.android.annotation
 
 import android.support.annotation.ColorRes
 

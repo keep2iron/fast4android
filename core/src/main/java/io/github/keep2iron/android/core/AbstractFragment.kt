@@ -10,8 +10,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import io.github.keep2iron.android.core.rx.LifecycleEvent
-import io.github.keep2iron.android.core.rx.RxLifecycle
+import io.github.keep2iron.android.rx.LifecycleEvent
+import io.github.keep2iron.android.rx.RxLifecycle
 import io.reactivex.ObservableTransformer
 import io.reactivex.subjects.BehaviorSubject
 

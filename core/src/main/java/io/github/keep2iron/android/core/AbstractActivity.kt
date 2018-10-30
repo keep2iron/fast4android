@@ -14,9 +14,9 @@ import android.support.annotation.ColorRes
 import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
 import com.gyf.barlibrary.ImmersionBar
-import io.github.keep2iron.android.core.annotation.StatusColor
-import io.github.keep2iron.android.core.rx.LifecycleEvent
-import io.github.keep2iron.android.core.rx.RxLifecycle
+import io.github.keep2iron.android.annotation.StatusColor
+import io.github.keep2iron.android.rx.LifecycleEvent
+import io.github.keep2iron.android.rx.RxLifecycle
 import io.github.keep2iron.android.utilities.RxTransUtil
 import io.reactivex.FlowableTransformer
 import io.reactivex.ObservableTransformer

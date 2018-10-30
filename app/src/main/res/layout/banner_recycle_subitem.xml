@@ -15,12 +15,13 @@
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp">
 
-        <io.github.keep2iron.imageloader.MiddlewareView
+        <io.github.keep2iron.pineapple.MiddlewareView
             android:id="@+id/ivBannerItem"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             app:url="@{indexModel.imageUrl}" />
+
     </android.support.v7.widget.CardView>
 
 </layout>

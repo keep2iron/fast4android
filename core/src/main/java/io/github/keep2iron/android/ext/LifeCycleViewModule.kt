@@ -1,4 +1,4 @@
-package io.github.keep2iron.android.core
+package io.github.keep2iron.android.ext
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
@@ -7,8 +7,8 @@ import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.OnLifecycleEvent
 
-import io.github.keep2iron.android.core.rx.LifecycleEvent
-import io.github.keep2iron.android.core.rx.RxLifecycle
+import io.github.keep2iron.android.rx.LifecycleEvent
+import io.github.keep2iron.android.rx.RxLifecycle
 import io.reactivex.FlowableTransformer
 import io.reactivex.ObservableTransformer
 import io.reactivex.subjects.BehaviorSubject

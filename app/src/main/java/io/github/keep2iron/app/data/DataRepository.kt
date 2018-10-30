@@ -1,6 +1,6 @@
 package io.github.keep2iron.app.data
 
-import io.github.keep2iron.android.core.getComponentService
+import io.github.keep2iron.android.ext.getComponentService
 import io.github.keep2iron.android.utilities.RxTransUtil
 import io.github.keep2iron.app.Application
 import io.github.keep2iron.app.data.remote.ApiService

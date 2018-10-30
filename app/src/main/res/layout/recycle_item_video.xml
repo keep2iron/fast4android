@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <io.github.keep2iron.imageloader.MiddlewareView
+            <io.github.keep2iron.pineapple.MiddlewareView
                 android:id="@+id/ivMovieImage"
                 android:layout_width="0dp"
                 android:layout_height="125dp"

@@ -14,7 +14,7 @@ import io.github.keep2iron.android.comp.databinding.RecyclerViewChangeAdapter
 import io.github.keep2iron.android.comp.widget.LoopViewLayout
 import io.github.keep2iron.android.utilities.DisplayUtil
 import io.github.keep2iron.app.model.GsonIndex
-import io.github.keep2iron.app.ui.RecommendModel
+import io.github.keep2iron.app.module.recommend.RecommendModel
 
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)

@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package io.github.keep2iron.android.core.rx
+package io.github.keep2iron.android.rx
 
 /**
  * This is an exception that can be thrown to indicate that the caller has attempted to bind to a lifecycle outside

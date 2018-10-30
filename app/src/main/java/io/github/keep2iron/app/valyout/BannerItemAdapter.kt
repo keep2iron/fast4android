@@ -2,7 +2,6 @@ package io.github.keep2iron.app.valyout
 
 import android.content.Context
 import android.support.v4.app.FragmentManager
-import android.widget.ImageView
 import com.alibaba.android.vlayout.LayoutHelper
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper
 import io.github.keep2iron.android.comp.adapter.AbstractSubAdapter
@@ -10,7 +9,7 @@ import io.github.keep2iron.android.comp.adapter.RecyclerViewHolder
 import io.github.keep2iron.app.BR
 import io.github.keep2iron.app.R
 import io.github.keep2iron.app.ui.ColorFragment
-import io.github.keep2iron.app.ui.RecommendModel
+import io.github.keep2iron.app.module.recommend.RecommendModel
 import io.github.keep2iron.app.util.Constant
 
 /**

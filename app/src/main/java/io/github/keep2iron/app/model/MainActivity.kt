@@ -1,4 +1,4 @@
-package io.github.keep2iron.app.ui
+package io.github.keep2iron.app.model
 
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -7,9 +7,12 @@ import io.github.keep2iron.app.databinding.MainActivityBinding
 import io.github.keep2iron.android.comp.widget.BottomTabAdapter
 import io.github.keep2iron.android.comp.widget.BottomTabLayout
 import io.github.keep2iron.android.core.AbstractActivity
-import io.github.keep2iron.android.core.FindViewById
-import io.github.keep2iron.android.core.annotation.StatusColor
+import io.github.keep2iron.android.ext.FindViewById
+import io.github.keep2iron.android.annotation.StatusColor
 import io.github.keep2iron.app.R
+import io.github.keep2iron.app.module.movie.MovieFragment
+import io.github.keep2iron.app.module.recommend.RecommendFragment
+import io.github.keep2iron.app.ui.ColorFragment
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import io.github.keep2iron.app.widget.GradientBackgroundView
 

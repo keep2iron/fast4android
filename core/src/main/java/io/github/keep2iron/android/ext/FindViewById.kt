@@ -1,4 +1,4 @@
-package io.github.keep2iron.android.core
+package io.github.keep2iron.android.ext
 
 import android.app.Activity
 import android.support.annotation.IdRes

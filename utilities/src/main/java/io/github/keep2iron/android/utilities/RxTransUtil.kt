@@ -27,10 +27,12 @@ object RxTransUtil {
                 .subscribeOn(Schedulers.io())
     }
 
+    @SuppressWarnings("unchecked")
     fun <T> rxObservableScheduler(): ObservableTransformer<T, T> {
         return sObservableTransformer as ObservableTransformer<T, T>
     }
 
+    @SuppressWarnings("unchecked")
     fun <T> rxFlowableScheduler(): FlowableTransformer<T, T> {
         return sFlowableTransformer as FlowableTransformer<T, T>
     }

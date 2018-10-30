@@ -1,4 +1,4 @@
-package io.github.keep2iron.app.ui
+package io.github.keep2iron.app.module.recommend
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -10,12 +10,12 @@ import com.alibaba.android.vlayout.VirtualLayoutManager
 import com.orhanobut.logger.Logger
 import io.github.keep2iron.android.comp.load.RefreshWithLoadMoreProcessor
 import io.github.keep2iron.android.core.AbstractFragment
-import io.github.keep2iron.android.core.LifecycleViewModelFactory
+import io.github.keep2iron.android.ext.LifecycleViewModelFactory
 import io.github.keep2iron.app.R
 import io.github.keep2iron.app.databinding.RecommendFragmentBinding
+import io.github.keep2iron.app.ui.Title
 import io.github.keep2iron.app.valyout.BannerAdapter
 import io.github.keep2iron.app.valyout.VideoAdapter
-import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator
 import me.everything.android.ui.overscroll.adapters.RecyclerViewOverScrollDecorAdapter
 

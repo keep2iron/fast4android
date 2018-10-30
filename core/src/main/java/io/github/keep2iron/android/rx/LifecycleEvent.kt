@@ -3,7 +3,7 @@
  * Copyright (c) 2017. All rights reserved.
  */
 
-package io.github.keep2iron.android.core.rx
+package io.github.keep2iron.android.rx
 
 /**
  * Created by keep2iron on 2017/3/26.

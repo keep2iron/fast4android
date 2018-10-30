@@ -21,6 +21,7 @@
                 android:id="@+id/loading_progress"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:indeterminate="true"
                 android:indeterminateDrawable="@drawable/animate_loading_progress"
                 android:layout_marginRight="10dp" />
 

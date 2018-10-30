@@ -11,7 +11,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="io.github.keep2iron.app.ui.MainActivity">
+        tools:context="io.github.keep2iron.app.model.MainActivity">
 
         <io.github.keep2iron.app.widget.GradientBackgroundView
             android:id="@+id/gbvGradientView"

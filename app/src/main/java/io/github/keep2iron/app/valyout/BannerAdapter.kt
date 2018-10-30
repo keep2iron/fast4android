@@ -8,10 +8,10 @@ import com.alibaba.android.vlayout.layout.LinearLayoutHelper
 
 import io.github.keep2iron.app.R
 import io.github.keep2iron.app.util.Constant
-import io.github.keep2iron.android.comp.adapter.AbstractSubAdapter
-import io.github.keep2iron.android.comp.adapter.RecyclerViewHolder
-import io.github.keep2iron.android.comp.databinding.RecyclerViewChangeAdapter
-import io.github.keep2iron.android.comp.widget.LoopViewLayout
+import io.github.keep2iron.android.adapter.AbstractSubAdapter
+import io.github.keep2iron.android.adapter.RecyclerViewHolder
+import io.github.keep2iron.android.databinding.RecyclerViewChangeAdapter
+import io.github.keep2iron.android.widget.LoopViewLayout
 import io.github.keep2iron.android.utilities.DisplayUtil
 import io.github.keep2iron.app.model.GsonIndex
 import io.github.keep2iron.app.module.recommend.RecommendModel

@@ -52,7 +52,7 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
      *
      * @param container 被映射的container对象
      */
-    abstract fun initVariables(container: View?, savedInstanceState: Bundle?)
+    abstract fun initVariables(container: View, savedInstanceState: Bundle?)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

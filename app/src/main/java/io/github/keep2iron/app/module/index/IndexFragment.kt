@@ -19,7 +19,7 @@ class IndexFragment : AbstractFragment<IndexFragmentBinding>() {
     override val resId: Int = R.layout.index_fragment
     private var fragments: ArrayList<Title> = ArrayList()
 
-    override fun initVariables(container: View?, savedInstanceState: Bundle?) {
+    override fun initVariables(container: View, savedInstanceState: Bundle?) {
     }
 
     companion object {

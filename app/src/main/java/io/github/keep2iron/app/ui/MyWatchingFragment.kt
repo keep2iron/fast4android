@@ -18,7 +18,7 @@ class MyWatchingFragment : AbstractFragment<MyWatchingFragmentBinding>(), Title 
 
     override val resId: Int = R.layout.my_watching_fragment
 
-    override fun initVariables(container: View?, savedInstanceState: Bundle?) {
+    override fun initVariables(container: View, savedInstanceState: Bundle?) {
     }
 
     companion object {

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.alibaba.android.vlayout.DelegateAdapter
 import com.alibaba.android.vlayout.VirtualLayoutManager
 import com.orhanobut.logger.Logger
-import io.github.keep2iron.android.comp.load.RefreshWithLoadMoreProcessor
+import io.github.keep2iron.android.load.RefreshWithLoadMoreAdapter
 import io.github.keep2iron.android.core.AbstractFragment
 import io.github.keep2iron.android.ext.LifecycleViewModelFactory
 import io.github.keep2iron.app.R
@@ -27,24 +27,26 @@ import me.everything.android.ui.overscroll.adapters.RecyclerViewOverScrollDecorA
  * 推荐的Fragment
  */
 class RecommendFragment : AbstractFragment<RecommendFragmentBinding>(), Title {
-    override fun initVariables(container: View?, savedInstanceState: Bundle?) {
+    override fun initVariables(container: View, savedInstanceState: Bundle?) {
         val recommendModel = ViewModelProviders.of(this, LifecycleViewModelFactory(this)).get(RecommendModel::class.java)
         Logger.d("savedInstanceState == ${savedInstanceState} ${recommendModel.indexItems.size}")
 
-        val virtualLayoutManager = VirtualLayoutManager(applicationContext)
-        val delegateAdapter = DelegateAdapter(virtualLayoutManager, true)
-        dataBinding.rvRecyclerView.adapter = delegateAdapter
-        dataBinding.rvRecyclerView.layoutManager = virtualLayoutManager
-        delegateAdapter.addAdapter(BannerAdapter(applicationContext, recommendModel, dataBinding.rvRecyclerView, activity!!.supportFragmentManager))
-        delegateAdapter.addAdapter(VideoAdapter(applicationContext, recommendModel, activity!!.supportFragmentManager))
-        delegateAdapter.addAdapter(RefreshWithLoadMoreProcessor.Builder(
-                dataBinding.rvRecyclerView,
-                dataBinding.srlRefreshLayout)
-                .defaultIndexer(1)
-                .setOnLoadListener { processor, index ->
-                    recommendModel.processorRefreshWithLoadMore(processor, index)
-                }
-                .build())
+
+
+//        val virtualLayoutManager = VirtualLayoutManager(applicationContext)
+//        val delegateAdapter = DelegateAdapter(virtualLayoutManager, true)
+//        dataBinding.rvRecyclerView.adapter = delegateAdapter
+//        dataBinding.rvRecyclerView.layoutManager = virtualLayoutManager
+//        delegateAdapter.addAdapter(BannerAdapter(applicationContext, recommendModel, dataBinding.rvRecyclerView, activity!!.supportFragmentManager))
+//        delegateAdapter.addAdapter(VideoAdapter(applicationContext, recommendModel, activity!!.supportFragmentManager))
+//        delegateAdapter.addAdapter(RefreshWithLoadMoreAdapter.Builder(
+//                dataBinding.rvRecyclerView,
+//                dataBinding.srlRefreshLayout)
+//                .defaultIndexer(1)
+//                .setOnLoadListener { processor, index ->
+//                    recommendModel.processorRefreshWithLoadMore(processor, index)
+//                }
+//                .build())
         VerticalOverScrollBounceEffectDecorator(RecyclerViewOverScrollDecorAdapter(dataBinding.rvRecyclerView))
         Logger.d("${this::class.simpleName} initVariables")
     }

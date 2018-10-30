@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <io.github.keep2iron.android.comp.widget.NoScrollViewPager
+    <io.github.keep2iron.android.widget.NoScrollViewPager
         android:id="@+id/vpViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

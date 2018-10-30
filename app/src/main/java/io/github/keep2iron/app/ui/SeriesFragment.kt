@@ -17,7 +17,7 @@ class SeriesFragment : AbstractFragment<SeriesFragmentBinding>(), Title {
 
     override val resId: Int = R.layout.series_fragment
 
-    override fun initVariables(container: View?, savedInstanceState: Bundle?) {
+    override fun initVariables(container: View, savedInstanceState: Bundle?) {
 
     }
 

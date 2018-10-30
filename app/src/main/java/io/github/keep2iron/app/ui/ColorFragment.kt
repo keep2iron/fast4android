@@ -25,7 +25,7 @@ class ColorFragment : AbstractFragment<FragmentColorBinding>() {
 
     var colorRes: Int = -1
 
-    override fun initVariables(container: View?, savedInstanceState: Bundle?) {
+    override fun initVariables(container: View, savedInstanceState: Bundle?) {
         dataBinding.container.setBackgroundResource(colorRes)
 
         dataBinding.tvRoute.setOnClickListener {

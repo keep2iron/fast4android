@@ -15,7 +15,7 @@ import io.github.keep2iron.app.databinding.FragmentMovieBinding
 class MovieFragment : AbstractFragment<FragmentMovieBinding>() {
     override val resId: Int = R.layout.fragment_movie
 
-    override fun initVariables(container: View?, savedInstanceState: Bundle?) {
+    override fun initVariables(container: View, savedInstanceState: Bundle?) {
     }
 
     companion object {

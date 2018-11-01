@@ -4,6 +4,9 @@ import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.annotation.LayoutRes
+import android.support.v7.recyclerview.extensions.AsyncDifferConfig
+import android.support.v7.recyclerview.extensions.AsyncListDiffer
+import android.support.v7.util.AdapterListUpdateCallback
 import android.view.LayoutInflater
 import android.view.ViewGroup
 
@@ -19,6 +22,8 @@ abstract class AbstractSubAdapter : DelegateAdapter.Adapter<RecyclerViewHolder> 
 
     protected lateinit var context: Context
     protected lateinit var layoutHelper: LayoutHelper
+
+
     var viewType: Int = 0
 
     companion object {
@@ -27,15 +32,10 @@ abstract class AbstractSubAdapter : DelegateAdapter.Adapter<RecyclerViewHolder> 
 
     private constructor()
 
-    constructor(context: Context, viewType: Int) : this() {
+    constructor(context: Context, viewType: Int = 0) : this() {
         this.context = context.applicationContext
         this.layoutHelper = this.onCreateLayoutHelper()
         this.viewType = viewType
-    }
-
-    constructor(context: Context) : this() {
-        this.context = context.applicationContext
-        this.layoutHelper = this.onCreateLayoutHelper()
     }
 
     /**

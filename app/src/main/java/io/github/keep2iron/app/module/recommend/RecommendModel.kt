@@ -7,6 +7,7 @@ import io.github.keep2iron.android.ext.LifeCycleViewModule
 import io.github.keep2iron.app.Application
 import io.github.keep2iron.app.data.DataRepository
 import io.github.keep2iron.app.model.GsonIndex
+import io.github.keep2iron.pomelo.exception.NoDataException
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 
@@ -39,13 +40,17 @@ class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(Application.in
         return DataRepository.instance.indexMovie(index)
                 .compose(bindObservableLifeCycle())
                 .doOnNext { resp ->
-                    if (index == 1) indexItems.clear()
+                    if(resp.isEmpty()){
+                       throw NoDataException()
+                    }
+
+                    if (index == 0) indexItems.clear()
                     indexItems.addAll(resp)
                 }
     }
 
     fun processorRefreshWithLoadMore(adapter: RefreshWithLoadMoreAdapter, index: Int) {
-        if (index == 1) {
+        if (index == 0) {
             Observable.zip(loadData(index),
                     loadBanner(),
                     BiFunction<List<GsonIndex>, List<GsonIndex>, String> { _, _ -> "" })

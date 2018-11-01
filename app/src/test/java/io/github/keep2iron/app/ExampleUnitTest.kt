@@ -44,7 +44,7 @@ class ExampleUnitTest {
 
 
         val values = Observable.create(ObservableOnSubscribe<Any> { it ->
-//            System.out.println("${it.isDisposed}")
+            //            System.out.println("${it.isDisposed}")
             it.onNext("123456")
 //            it.onError(RuntimeException("123456"))
 //            System.out.println("${subscribe?.dispose()}")
@@ -63,17 +63,17 @@ class ExampleUnitTest {
                 {
                     System.out.println("Completed")
                 },
-                {t: Disposable? ->
+                { t: Disposable? ->
                     subscribe = t
                 }
         )
     }
 
     @Test
-    fun test2(){
+    fun test2() {
         val poolExecutor = ThreadPoolExecutor(5, 10, 10, TimeUnit.SECONDS, ArrayBlockingQueue(10))
 
-        var subscription:Subscription? = null
+        var subscription: Subscription? = null
         subscribe = Flowable.create(FlowableOnSubscribe<String> { e ->
             e.onNext("11")
             subscription?.cancel()
@@ -86,13 +86,21 @@ class ExampleUnitTest {
         }, BackpressureStrategy.ERROR)/*.delay(1000,TimeUnit.MILLISECONDS)*/
                 //.take(1)
                 .subscribeOn(Schedulers.io())
-                .subscribe ({
-                },{
+                .subscribe({
+                }, {
                     System.out.println("Error: ${it.message}")
-                },{
+                }, {
 
-                },{
+                }, {
                     subscription = it
                 })
+    }
+
+    @Test
+    fun testReduce() {
+        val reduce = arrayListOf(1, 2, 3, 4).reduce { v1, v2 ->
+            return@reduce v1 + v2
+        }
+        System.out.println("reduce $reduce")
     }
 }

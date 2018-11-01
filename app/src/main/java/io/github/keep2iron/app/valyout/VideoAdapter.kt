@@ -23,6 +23,11 @@ import io.github.keep2iron.app.util.Constant
 class VideoAdapter(context: Context,
                    private val indexModule: RecommendModel,
                    private val fragmentManager: FragmentManager) : AbstractSubAdapter(context, Constant.RECYCLE_VIDEO_ITEM) {
+
+    init {
+        indexModule.indexItems.addOnListChangedCallback(RecyclerViewChangeAdapter<GsonIndex>(this))
+    }
+
     override fun onCreateLayoutHelper(): LayoutHelper {
         val totalSpan = 2
 

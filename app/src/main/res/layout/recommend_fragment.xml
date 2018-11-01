@@ -2,32 +2,29 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data >
-        <variable
-            name="adapters"
-            type="java.util.List&lt;io.github.keep2iron.android.adapter.AbstractSubAdapter&gt;"/>
+    <data>
 
         <variable
-            name="recyclerPool"
-            type="android.support.v7.widget.RecyclerView.RecycledViewPool"/>
+            name="bundle"
+            type="io.github.keep2iron.android.databinding.RefreshBundle" />
 
         <variable
-            name="refreshBundle"
-            type="io.github.keep2iron.android.databinding.RefreshBundle"/>
+            name="string"
+            type="String" />
+
     </data>
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
+        style="@style/RefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.RecyclerView
-            app:adapters="@{adapters}"
-            app:recyclerPool="@{recyclerPool}"
-            app:refreshBundle="@{refreshBundle}"
             android:id="@+id/rvRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:bundle="@{bundle}" />
+
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </layout>

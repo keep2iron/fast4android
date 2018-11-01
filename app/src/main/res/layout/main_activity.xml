@@ -32,7 +32,7 @@
             app:tab_item_margin="15dp"
             app:tab_text_size="10dp" />
 
-        <android.support.v4.view.ViewPager
+        <FrameLayout
             android:id="@+id/viewPager"
             android:layout_width="0dp"
             android:layout_height="0dp"

@@ -45,7 +45,7 @@ class MainActivity : AbstractActivity<MainActivityBinding>() {
                 R.drawable.ic_face_select,
                 ColorFragment.getInstance(R.color.colorPrimary)))
 
-        OverScrollDecoratorHelper.setUpOverScroll(dataBinding.viewPager)
+//        OverScrollDecoratorHelper.setUpOverScroll(dataBinding.viewPager)
 
         val adapter = BottomTabAdapter(this, list)
         dataBinding.bottomLayout.setBottomTabAdapter(adapter, dataBinding.viewPager, 1)

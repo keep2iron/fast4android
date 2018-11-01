@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="RefreshLayout">
+        <item name="srlEnableLoadMore">false</item>
+        <item name="srlEnableOverScrollDrag">false</item>
+        <item name="srlEnableNestedScrolling">true</item>
+        <item name="srlReboundDuration">250</item>
+        <item name="srlDragRate">0.5</item>
+        <item name="srlHeaderMaxDragRate">2.5</item>
+        <item name="srlHeaderTriggerRate">1</item>
+        <item name="srlEnablePreviewInEditMode">true</item>
+        <item name="srlEnableHeaderTranslationContent">true</item>
+        <item name="srlDisableContentWhenLoading">true</item>
+    </style>
+
+</resources>

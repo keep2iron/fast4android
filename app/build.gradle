@@ -24,8 +24,12 @@ android {
                 ]
             }
         }
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+        }
     }
     buildTypes {
+        debug{ }
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -41,7 +45,8 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     //support
@@ -75,6 +80,7 @@ dependencies {
     implementation deps.arch.lifecycle
     implementation deps.arch.extensions
     kapt deps.kotlin_databinding_compiler
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.43-alpha1'
 
     implementation project(':core')
     implementation project(':comp')

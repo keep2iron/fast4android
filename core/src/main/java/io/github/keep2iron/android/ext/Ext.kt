@@ -15,7 +15,9 @@ import io.github.keep2iron.android.ComponentServiceProvider
  */
 val COMPONENT_SERVICE = ArrayMap<String, Any>()
 
-fun Application.init(compPackage: ComponentPackage) {
+fun Application.init(mainComponent: MainComponent) {
+    val compPackage = mainComponent.createComponentPackage()
+
     compPackage.createComponentServiceProvider().forEach {
         this.registerComponentService(it)
     }

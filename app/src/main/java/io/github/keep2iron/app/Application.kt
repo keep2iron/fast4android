@@ -31,7 +31,7 @@ class Application : MultiDexApplication(), MainComponent {
 
         Application.instance = this
 
-        init(this.createComponentPackage())
+        init(this)
     }
 
     override fun createComponentPackage(): ComponentPackage {
@@ -43,7 +43,8 @@ class Application : MultiDexApplication(), MainComponent {
 
             override fun createComponentModuleProvider(): List<ComponentModuleProvider> {
                 return listOf(LoggerModule(),
-                        RefreshLayoutModule())
+                        RefreshLayoutModule(),
+                        TencentX5Module())
             }
         }
     }

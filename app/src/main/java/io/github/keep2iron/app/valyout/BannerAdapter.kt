@@ -3,9 +3,9 @@ package io.github.keep2iron.app.valyout
 import android.content.Context
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.RecyclerView
+import android.view.ViewGroup
 import com.alibaba.android.vlayout.LayoutHelper
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper
-
 import io.github.keep2iron.app.R
 import io.github.keep2iron.app.util.Constant
 import io.github.keep2iron.android.adapter.AbstractSubAdapter
@@ -27,6 +27,7 @@ class BannerAdapter(context: Context,
                     private val fragmentManager: FragmentManager) : AbstractSubAdapter(context) {
     override fun onCreateLayoutHelper(): LayoutHelper = LinearLayoutHelper()
 
+
     override fun getLayoutId(): Int {
         return R.layout.banner_recycle_item
     }
@@ -35,19 +36,23 @@ class BannerAdapter(context: Context,
         return Constant.RECYCLE_BANNER_ITEM
     }
 
-    override fun render(holder: RecyclerViewHolder, position: Int) {
-
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
+        val holder = super.onCreateViewHolder(parent, viewType)
         val loopViewLayout = holder.findViewById<LoopViewLayout>(R.id.lvlLoopView)
-//        loopViewLayout.setOnEmptyLayoutResId(R.layout.banner_on_empty_layout)
         loopViewLayout.setAdapter(BannerItemAdapter(context, indexModule, fragmentManager), recyclerView.recycledViewPool)
-        loopViewLayout.viewPager.clipToPadding = false
-        val dp60 = DisplayUtil.dp2px(context.applicationContext,60)
-        val dp20 = DisplayUtil.dp2px(context.applicationContext,20)
-        loopViewLayout.viewPager.pageMargin = dp20
-        loopViewLayout.viewPager.offscreenPageLimit = 3
-        loopViewLayout.viewPager.setPadding(dp60, dp20, dp60, dp20)
-
         indexModule.bannerItems.addOnListChangedCallback(RecyclerViewChangeAdapter<GsonIndex>(loopViewLayout.getRecyclerViewAdapter()))
+        return holder
+    }
+
+    override fun render(holder: RecyclerViewHolder, position: Int) {
+//        val loopViewLayout = holder.findViewById<LoopViewLayout>(R.id.lvlLoopView)
+////        loopViewLayout.setOnEmptyLayoutResId(R.layout.banner_on_empty_layout)
+////        loopViewLayout.viewPager.clipToPadding = false
+////        val dp60 = DisplayUtil.dp2px(context.applicationContext, 60)
+////        val dp20 = DisplayUtil.dp2px(context.applicationContext, 20)
+////        loopViewLayout.viewPager.pageMargin = dp20
+////        loopViewLayout.viewPager.offscreenPageLimit = 3
+////        loopViewLayout.viewPager.setPadding(dp60, dp20, dp60, dp20)
     }
 
     override fun getItemCount(): Int {

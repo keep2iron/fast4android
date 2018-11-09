@@ -18,10 +18,8 @@ import io.github.keep2iron.app.valyout.Item
  * @version 1.0
  * @date 2018/10/31
  */
-class ExpandActivity : AbstractActivity<ViewDataBinding>() {
+class ExpandActivity(override val resId: Int = R.layout.activity_expand) : AbstractActivity<ViewDataBinding>() {
     private val recyclerView: RecyclerView by FindViewById(R.id.recyclerView)
-
-    override fun getResId(): Int = R.layout.activity_expand
 
     override fun initVariables(savedInstanceState: Bundle?) {
         val data = ArrayList<Item>()

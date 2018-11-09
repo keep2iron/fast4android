@@ -20,6 +20,10 @@ import java.util.concurrent.TimeUnit
  */
 class NetworkServiceProvider : ComponentServiceProvider<NetworkManager> {
 
+    companion object {
+        const val NETWORK_MANAGER = "network"
+    }
+
     override fun provideComponentService(application: Application): NetworkManager {
         val builder = OkHttpClient.Builder()
         builder.connectTimeout(15, TimeUnit.SECONDS)
@@ -33,10 +37,10 @@ class NetworkServiceProvider : ComponentServiceProvider<NetworkManager> {
         builder.addInterceptor(ReceivedCookiesInterceptor())
         builder.addInterceptor(AddCookiesInterceptor())
 
-        return NetworkManager.Builder("http://192.168.1.179:8080/")
+        return NetworkManager.Builder("http://192.168.137.1:8080/")
                 .setBaseServerResponse(BaseResponse::class.java)
                 .build(builder.build())
     }
 
-    override val componentName: String = "network"
+    override val componentName: String = NETWORK_MANAGER
 }

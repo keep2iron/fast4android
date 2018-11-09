@@ -1,14 +1,18 @@
 package io.github.keep2iron.app
 
+import android.Manifest
+import android.annotation.TargetApi
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.databinding.ViewDataBinding
+import android.net.Uri
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
+import android.provider.MediaStore
+import android.support.v4.content.CursorLoader
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.ViewGroup
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.LinearLayout
 import com.orhanobut.logger.Logger
 import io.github.keep2iron.android.core.AbstractActivity
@@ -16,8 +20,18 @@ import io.github.keep2iron.android.ext.FindViewById
 import io.github.keep2iron.android.utilities.WeakHandler
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.io.StringWriter
-import javax.xml.transform.OutputKeys
+import android.widget.Toast
+import android.content.ActivityNotFoundException
+import android.content.pm.PackageManager
+import android.os.Build
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import android.webkit.ValueCallback
+import android.webkit.WebChromeClient
+import android.webkit.WebSettings
+import android.webkit.WebView
+import java.io.File
+
 
 /**
  *
@@ -25,17 +39,27 @@ import javax.xml.transform.OutputKeys
  * @version 1.0
  * @date 2018/11/1
  */
-class WebviewScrollActivity : AbstractActivity<ViewDataBinding>() {
-
+open class WebviewScrollActivity : AbstractActivity<ViewDataBinding>() {
+    override val resId: Int = R.layout.activity_webview_scroll
 
     val webView: WebView by FindViewById(R.id.webView)
 
-    override fun getResId(): Int = R.layout.activity_webview_scroll
+    private var uploadMessage: ValueCallback<Uri?>? = null
+    var uploadMessages: ValueCallback<Array<Uri>?>? = null
+
 
     val weakHandler = WeakHandler()
 
+    var callback: ValueCallback<Array<Uri>>? = null
+
+    companion object {
+        private val FILECHOOSER_RESULTCODE = 1
+        const val REQUEST_SELECT_FILE = 100
+        private val FCR = 1
+    }
+
     override fun initVariables(savedInstanceState: Bundle?) {
-        val bufferedReader = BufferedReader(InputStreamReader(assets.open("index.html"),"UTF-8"))
+        val bufferedReader = BufferedReader(InputStreamReader(assets.open("index.html"), "UTF-8"))
         var line: String?
         val sb = StringBuilder()
         do {
@@ -54,23 +78,76 @@ class WebviewScrollActivity : AbstractActivity<ViewDataBinding>() {
         val bodyTag = "<body>"
         sb.insert(sb.indexOf(bodyTag) + bodyTag.length, content)
 
-//        webView.loadUrl("http://10.3.0.246:8769/R-FEEDBACK/feedback/add?clienid=12312312312&os=ios&userid=13853531351&colorCode=ffd21e")
+        webView.loadUrl("http://10.3.1.5:9801/c/add?clienid=12312312312&os=ios&userid=13853531351&colorCode=ffd21e")
+//        webView.loadUrl("https://blueimp.github.io/jQuery-File-Upload/")
         Logger.d(sb.toString())
-        webView.loadData(sb.toString(), "text/html", "UTF-8")
-        webView.webViewClient = object : WebViewClient() {
-            override fun onPageFinished(view: WebView, url: String) {
-                Logger.d("onPageFinished ")
-                view.evaluateJavascript("(function() { return window.outerHeight; })();") { value ->
-                    Logger.d("value $value")
-                    weakHandler.post(ChangeWebViewRunnable(webView, value.toInt()))
+//        webView.loadData(sb.toString(), "text/html", "UTF-8")
+
+        val perms = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+        //checking for storage permission to write images for upload
+        if (ContextCompat.checkSelfPermission(this@WebviewScrollActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this@WebviewScrollActivity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this@WebviewScrollActivity, perms, FCR)
+            //checking for WRITE_EXTERNAL_STORAGE permission
+        } else if (ContextCompat.checkSelfPermission(this@WebviewScrollActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this@WebviewScrollActivity, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), FCR)
+
+            //checking for CAMERA permissions
+        } else if (ContextCompat.checkSelfPermission(this@WebviewScrollActivity, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this@WebviewScrollActivity, arrayOf(Manifest.permission.CAMERA), FCR)
+        }
+
+        webView.webChromeClient = object : WebChromeClient() {
+            //5.0+
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+            override fun onShowFileChooser(p0: WebView, filePathCallback: ValueCallback<Array<Uri>?>, fileChooserParams: FileChooserParams): Boolean {
+                this@WebviewScrollActivity.uploadMessages?.onReceiveValue(null)
+                this@WebviewScrollActivity.uploadMessages = null
+                this@WebviewScrollActivity.uploadMessages = filePathCallback
+
+                val intent = fileChooserParams.createIntent()
+                try {
+                    startActivityForResult(intent, REQUEST_SELECT_FILE)
+                } catch (e: ActivityNotFoundException) {
+                    this@WebviewScrollActivity.uploadMessages = null
+                    Toast.makeText(this@WebviewScrollActivity.applicationContext, "Cannot Open File Chooser", Toast.LENGTH_LONG).show()
+                    return false
                 }
+
+                return true
             }
+
+//            // For Android 3.0+
+//            public fun openFileChooser(uploadMsg: ValueCallback<Uri>) {
+//                mUploadMessage = uploadMsg
+//                val i = new Intent(Intent.ACTION_GET_CONTENT);
+//                i.addCategory(Intent.CATEGORY_OPENABLE);
+//                i.setType("image/*");
+//                MyWb.this.startActivityForResult(Intent.createChooser(i, "File Chooser"), FILECHOOSER_RESULTCODE);
+//
+//            }
+//
+//            // For Android 3.0+
+//            public void openFileChooser( ValueCallback uploadMsg, String acceptType )
+//            {
+//                mUploadMessage = uploadMsg;
+//                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+//                i.addCategory(Intent.CATEGORY_OPENABLE);
+//                i.setType("*/*");
+//                MyWb.this.startActivityForResult(
+//                        Intent.createChooser(i, "File Browser"),
+//                        FILECHOOSER_RESULTCODE);
+//            }
         }
         val webSettings = webView.settings
         // 设置与Js交互的权限
         webSettings.javaScriptEnabled = true
         webSettings.cacheMode = WebSettings.LOAD_DEFAULT
         webSettings.setAppCacheEnabled(false)
+        webSettings.setJavaScriptEnabled(true)
+        webSettings.setSupportZoom(false)
+        webSettings.allowFileAccess = true
+        webSettings.allowContentAccess = true
 
         // 设置可以支持缩放
 //            webSettings.setSupportZoom(true);
@@ -83,6 +160,50 @@ class WebviewScrollActivity : AbstractActivity<ViewDataBinding>() {
 //        //自适应屏幕
 //        webSettings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
 //        webSettings.loadWithOverviewMode = true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (requestCode == REQUEST_SELECT_FILE) {
+                if (this.uploadMessages == null)
+                    return
+
+                this.uploadMessages?.onReceiveValue(arrayOf(Uri.fromFile(File(data.data.path))))
+                this.uploadMessages = null
+            }
+        } else if (requestCode == FILECHOOSER_RESULTCODE) {
+            if (null == uploadMessage)
+                return
+            // Use MainActivity.RESULT_OK if you're implementing WebView inside Fragment
+            // Use RESULT_OK only if you're implementing WebView inside an Activity
+            val result = if (intent == null || resultCode != Activity.RESULT_OK) null else intent.data
+            uploadMessage?.onReceiveValue(result)
+            uploadMessage = null
+        } else
+            Toast.makeText(this@WebviewScrollActivity.applicationContext, "Failed to Upload Image", Toast.LENGTH_LONG).show()
+    }
+
+    fun getUri(context: Context, uri: Uri?): String {
+        if (uri == null) {
+            return ""
+        }
+
+        val projection = arrayOf(MediaStore.MediaColumns.DATA)
+        var result = ""
+        val cursorLoader = CursorLoader(context, uri, projection, null, null, null)
+        val cursor = cursorLoader.loadInBackground()
+
+        if (cursor != null) {
+            val column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA)
+            cursor.moveToFirst()
+            result = cursor.getString(column_index)
+
+            cursor.close()
+        }
+
+        return result
     }
 
     internal inner class ChangeWebViewRunnable(private val webView: WebView, private val height: Int) : Runnable {

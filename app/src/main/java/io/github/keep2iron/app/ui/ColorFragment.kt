@@ -26,7 +26,7 @@ class ColorFragment : AbstractFragment<FragmentColorBinding>() {
 
     var colorRes: Int = -1
 
-    var delegate: FragmentVisibleDelegate = FragmentVisibleDelegate {
+    var delegate: FragmentVisibleDelegate = FragmentVisibleDelegate(this) {
         Logger.d("${this.javaClass.simpleName} show $it")
     }
 

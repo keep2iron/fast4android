@@ -46,18 +46,18 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
     private lateinit var immersionBar: ImmersionBar
     protected lateinit var dataBinding: DB
 
-    protected open fun beforeInit(){
+    protected open fun beforeInit() {
 
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         beforeInit()
-        val createDatabinding: DB? = DataBindingUtil.setContentView(this, getResId())
-        if (createDatabinding != null) {
-            dataBinding = createDatabinding
+        val createDataBinding: DB? = DataBindingUtil.setContentView(this, resId)
+        if (createDataBinding != null) {
+            dataBinding = createDataBinding
         } else {
-            setContentView(getResId())
+            setContentView(resId)
         }
         (lifecycle as LifecycleRegistry).handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         setStatusColorFromAnnotation()
@@ -161,8 +161,8 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
      *
      * @return 资源id
      */
-    @LayoutRes
-    protected abstract fun getResId(): Int
+    @get:LayoutRes
+    protected abstract val resId: Int
 
     /**
      * 在这个方法中可以进行重新 编写控件的逻辑

@@ -11,6 +11,7 @@ import io.github.keep2iron.android.ext.FindViewById
 import io.github.keep2iron.android.annotation.StatusColor
 import io.github.keep2iron.app.R
 import io.github.keep2iron.app.module.movie.MovieFragment
+import io.github.keep2iron.app.module.mutile.MultiTypeFragment
 import io.github.keep2iron.app.module.recommend.RecommendFragment
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import io.github.keep2iron.app.widget.GradientBackgroundView
@@ -18,7 +19,7 @@ import io.github.keep2iron.app.widget.GradientBackgroundView
 
 @Route(path = "/main/activity")
 @StatusColor(isTrans = false, isDarkMode = false, value = R.color.deep_purple)
-class MainActivity : AbstractActivity<MainActivityBinding>() {
+class MainActivity(override val resId: Int = R.layout.main_activity) : AbstractActivity<MainActivityBinding>() {
     var gbvGradientView: GradientBackgroundView by FindViewById(R.id.gbvGradientView)
 
     override fun initVariables(savedInstanceState: Bundle?) {
@@ -43,7 +44,7 @@ class MainActivity : AbstractActivity<MainActivityBinding>() {
                 "",
                 R.drawable.ic_face_unselect,
                 R.drawable.ic_face_select,
-                ColorFragment.getInstance(R.color.colorPrimary)))
+                MultiTypeFragment()))
 
 //        OverScrollDecoratorHelper.setUpOverScroll(dataBinding.viewPager)
 
@@ -65,11 +66,7 @@ class MainActivity : AbstractActivity<MainActivityBinding>() {
             override fun onTabUnSelect(position: Int) {
             }
         })
-
-        Logger.d("gbvGradientView")
     }
-
-    override fun getResId(): Int = R.layout.main_activity
 
     override fun onBackPressed() {
         supportFragmentManager.popBackStack()

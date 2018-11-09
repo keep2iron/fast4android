@@ -12,10 +12,10 @@ import io.github.keep2iron.android.comp.R
  * @version 1.1
  * @since 2018/03/08 17:26
  *
- * 状态管理layout，替代之前的PageStateManager，可能是Dagger2的思想
+ * 状态管理layout，
  */
-class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
-    : FrameLayout(context, attrs, defStyleAttr){
+class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
+                                  : FrameLayout(context, attrs,0){
     /**
      * 被状态管理的View
      */

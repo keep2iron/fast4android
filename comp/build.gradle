@@ -38,6 +38,7 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
     implementation 'com.github.keep2iron:pomelo:0.1.2'
     implementation project(":utilities")
+    implementation project(":core")
 
     implementation deps.rxjava2
     implementation deps.rx_android

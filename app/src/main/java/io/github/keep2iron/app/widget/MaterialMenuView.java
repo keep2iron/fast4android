@@ -38,7 +38,7 @@ import static io.github.keep2iron.app.widget.MaterialMenuDrawable.DEFAULT_VISIBL
 
 /**
  * A basic View wrapper of {@link MaterialMenuDrawable}. Used
- * for custom view ActionBar or other layouts
+ * for custom view ActionBar or other layout
  */
 public class MaterialMenuView extends View implements MaterialMenu {
 

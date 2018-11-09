@@ -33,12 +33,10 @@ import io.github.keep2iron.app.valyout.WebViewAdapter
  * @version 1.0
  * @date 2018/10/30
  */
-class WebviewRecyclerViewActivity : AbstractActivity<ViewDataBinding>() {
+class WebviewRecyclerViewActivity(override val resId: Int =  R.layout.activity_web_view_recycler) : AbstractActivity<ViewDataBinding>() {
 
     //    val webView: WebView by FindViewById(R.id.webView)
     val recyclerView: RecyclerView by FindViewById(R.id.recyclerView)
-
-    override fun getResId(): Int = R.layout.activity_web_view_recycler
 
     override fun initVariables(savedInstanceState: Bundle?) {
         val virtualLayoutManager = VirtualLayoutManager(applicationContext)

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/deep_blue"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:gravity="center"
+        android:text="布局类型1"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
+</android.support.constraint.ConstraintLayout>

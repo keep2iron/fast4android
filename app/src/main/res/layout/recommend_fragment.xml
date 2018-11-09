@@ -6,7 +6,7 @@
 
         <variable
             name="bundle"
-            type="io.github.keep2iron.android.databinding.RefreshBundle" />
+            type="io.github.keep2iron.android.databinding.ListBundle" />
 
         <variable
             name="string"
@@ -14,17 +14,26 @@
 
     </data>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
-        style="@style/RefreshLayout"
+    <io.github.keep2iron.android.widget.PageStateLayout
+        android:id="@+id/stateLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:psl_loading_layout="@layout/layout_loading">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvRecyclerView"
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
+            style="@style/RefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:bundle="@{bundle}" />
+            android:background="@color/purple">
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:bundle="@{bundle}" />
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    </io.github.keep2iron.android.widget.PageStateLayout>
 </layout>

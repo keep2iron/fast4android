@@ -9,6 +9,7 @@ import android.view.View
 import com.alibaba.android.vlayout.LayoutHelper
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper
 import io.github.keep2iron.android.comp.R
+import io.github.keep2iron.android.utilities.WeakHandler
 
 /**
  *
@@ -21,22 +22,23 @@ import io.github.keep2iron.android.comp.R
  */
 abstract class AbstractLoadMoreAdapter constructor(context: Context,
                                                    recyclerView: RecyclerView,
-                                                   private val mOnLoadMoreListener: (adapter: AbstractLoadMoreAdapter) -> Unit)
-    : AbstractSubAdapter(context.applicationContext){
+                                                   private val mOnLoadMoreListener: (adapter: AbstractLoadMoreAdapter) -> Unit,
+                                                   isEnableLoadMore: Boolean = true)
+    : AbstractSubAdapter(context.applicationContext) {
 
     override fun onCreateLayoutHelper(): LayoutHelper {
         return LinearLayoutHelper()
     }
 
     private var mCurrentShowState = STATE_DEFAULT
-    private var isEnableLoadMore = true
+    private var isEnableLoadMore = isEnableLoadMore
     /**
      * 设置距离底部还有preLoadNumber个item就进行预加载
      */
     var preLoadNumber = 0
         set(value) {
             if (value < 0) {
-                throw IllegalArgumentException("you set ${value} for preLoadNumber and it is illegal,you must set it >= 0")
+                throw IllegalArgumentException("you set $value for preLoadNumber and it is illegal,you must set it >= 0")
             }
             field = value
         }
@@ -45,9 +47,6 @@ abstract class AbstractLoadMoreAdapter constructor(context: Context,
         return 1
     }
 
-//    override fun getLayoutId(): Int {
-//        return R.layout.item_recycle_load_more
-//    }
 
     init {
         val onScrollListener = object : RecyclerView.OnScrollListener() {

@@ -29,7 +29,7 @@ android {
         }
     }
     buildTypes {
-        debug{ }
+        debug {}
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -71,7 +71,7 @@ dependencies {
 
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
 
-    implementation (deps.alibaba.vlayout) {
+    implementation(deps.alibaba.vlayout) {
         transitive = true
     }
     implementation deps.kotlin.kotlin_reflect

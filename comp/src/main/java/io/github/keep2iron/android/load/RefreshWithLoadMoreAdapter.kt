@@ -7,6 +7,14 @@ import io.github.keep2iron.android.adapter.LoadMoreAdapter
 import io.github.keep2iron.pomelo.AndroidSubscriber
 import io.github.keep2iron.pomelo.exception.NoDataException
 
+interface RefreshLoadListener {
+    fun onLoad(adapters: RefreshWithLoadMoreAdapter, index: Int)
+
+    fun onLoadError(e: Throwable) {
+
+    }
+}
+
 /**
  *
  * @author keep2iron <a href="http://keep2iron.github.io">Contract me.</a>
@@ -29,23 +37,25 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
     private lateinit var refreshAble: Refreshable
     private var loadMoreAdapter: LoadMoreAdapter
     private var index: Int = 0
-    private var onLoadListener: ((adapter: RefreshWithLoadMoreAdapter, pageIndex: Int) -> Unit)? = null
-    private var onLoadFailedListener: (() -> Unit)? = null
+    private var onLoadListener: RefreshLoadListener? = null
     private var defaultIndex: Int = -1
 
     init {
-        loadMoreAdapter = LoadMoreAdapter(recyclerView.context, recyclerView) {
+        loadMoreAdapter = LoadMoreAdapter(recyclerView.context, recyclerView, false) {
             refreshAble.setRefreshEnable(false)
-            onLoadListener?.invoke(RLDelegateAdapter@ this, index)
+            onLoadListener?.onLoad(RLDelegateAdapter@ this, index)
         }
         refreshAble = SmartRefreshAble(refreshLayout as SmartRefreshLayout) {
             index = if (-1 == defaultIndex) DEFAULT_INDEX else defaultIndex
-            onLoadListener?.invoke(RLDelegateAdapter@ this, index)
+            loadMoreAble.setLoadMoreEnable(false)
+            onLoadListener?.onLoad(RLDelegateAdapter@ this, index)
         }
         loadMoreAble = VLayoutLoadMoreAble(loadMoreAdapter)
     }
 
-    class Subscriber<T>(private val adapter: RefreshWithLoadMoreAdapter) : AndroidSubscriber<T>() {
+    abstract class Subscriber<T>(private val adapter: RefreshWithLoadMoreAdapter) : AndroidSubscriber<T>() {
+
+        abstract fun doOnSuccess(resp: T)
 
         override fun onSuccess(resp: T) {
             adapter.refreshAble.setRefreshEnable(true)
@@ -54,17 +64,23 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
             adapter.refreshAble.showRefreshComplete()
             adapter.loadMoreAble.showLoadMoreComplete()
             adapter.index++
+
+            try {
+                doOnSuccess(resp)
+            } catch (exp: NoDataException) {
+                adapter.refreshAble.setRefreshEnable(true)
+                adapter.loadMoreAble.showLoadMoreEnd()
+            }
         }
 
         override fun onError(throwable: Throwable) {
-            super.onError(throwable)
             if (throwable is NoDataException) {
                 adapter.refreshAble.setRefreshEnable(true)
                 adapter.loadMoreAble.showLoadMoreEnd()
                 return
             }
 
-            adapter.onLoadFailedListener?.invoke()
+            adapter.onLoadListener?.onLoadError(throwable)
 
             adapter.loadMoreAble.setLoadMoreEnable(true)
             adapter.refreshAble.setRefreshEnable(true)
@@ -84,13 +100,8 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
             return this
         }
 
-        fun setOnLoadListener(onLoadListener: (adapter: RefreshWithLoadMoreAdapter, index: Int) -> Unit): Builder {
-            adapter.onLoadListener = onLoadListener
-            return this
-        }
-
-        fun setOnLoadFailedListener(onLoadFailedListener: () -> Unit): Builder {
-            adapter.onLoadFailedListener = onLoadFailedListener
+        fun setOnLoadListener(listener: RefreshLoadListener): Builder {
+            adapter.onLoadListener = listener
             return this
         }
 

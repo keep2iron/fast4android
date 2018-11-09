@@ -24,7 +24,7 @@ abstract class AbstractSubAdapter : DelegateAdapter.Adapter<RecyclerViewHolder> 
     protected lateinit var layoutHelper: LayoutHelper
 
 
-    var viewType: Int = 0
+    private var viewType: Int = 0
 
     companion object {
         const val ILLEGAL_SIZE = -1

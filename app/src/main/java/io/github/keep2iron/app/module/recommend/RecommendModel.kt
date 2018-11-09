@@ -2,14 +2,20 @@ package io.github.keep2iron.app.module.recommend
 
 import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ObservableArrayList
+import io.github.keep2iron.android.databinding.PageState
+import io.github.keep2iron.android.databinding.PageStateObservable
 import io.github.keep2iron.android.load.RefreshWithLoadMoreAdapter
 import io.github.keep2iron.android.ext.LifeCycleViewModule
+import io.github.keep2iron.android.load.RefreshLoadListener
+import io.github.keep2iron.android.widget.PageStateLayout
 import io.github.keep2iron.app.Application
 import io.github.keep2iron.app.data.DataRepository
 import io.github.keep2iron.app.model.GsonIndex
 import io.github.keep2iron.pomelo.exception.NoDataException
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
+import java.lang.Exception
+import java.util.*
 
 /**
  *
@@ -17,14 +23,13 @@ import io.reactivex.functions.BiFunction
  * @version 1.0
  * @since 2018/03/12 11:31
  */
-class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(Application.instance, owner) {
+class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(Application.instance, owner), RefreshLoadListener {
     var bannerItems: ObservableArrayList<GsonIndex> = ObservableArrayList()
     var indexItems: ObservableArrayList<GsonIndex> = ObservableArrayList()
+    lateinit var pageState: PageStateObservable
 
-    init {
-//        bannerItems.clear()
-//        bannerItems.add(R.drawable.banner01)
-//        bannerItems.add(R.drawable.banner02)
+    fun init(pageStateLayout: PageStateLayout) {
+        pageState = PageStateObservable(pageStateLayout, PageState.LOADING)
     }
 
     fun loadBanner(): Observable<List<GsonIndex>> {
@@ -40,8 +45,8 @@ class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(Application.in
         return DataRepository.instance.indexMovie(index)
                 .compose(bindObservableLifeCycle())
                 .doOnNext { resp ->
-                    if(resp.isEmpty()){
-                       throw NoDataException()
+                    if (resp.isEmpty()) {
+                        throw NoDataException()
                     }
 
                     if (index == 0) indexItems.clear()
@@ -49,15 +54,30 @@ class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(Application.in
                 }
     }
 
-    fun processorRefreshWithLoadMore(adapter: RefreshWithLoadMoreAdapter, index: Int) {
+    override fun onLoad(adapters: RefreshWithLoadMoreAdapter, index: Int) {
         if (index == 0) {
             Observable.zip(loadData(index),
                     loadBanner(),
-                    BiFunction<List<GsonIndex>, List<GsonIndex>, String> { _, _ -> "" })
-                    .subscribe(RefreshWithLoadMoreAdapter.Subscriber(adapter))
+                    BiFunction<List<GsonIndex>, List<GsonIndex>, Any> { _, _ -> Object::class.java })
+                    .subscribe(object : RefreshWithLoadMoreAdapter.Subscriber<Any>(adapters) {
+                        override fun doOnSuccess(resp: Any) {
+                            pageState.setPageState(PageState.ORIGIN)
+                        }
+                    })
         } else {
             loadData(index)
-                    .subscribe(RefreshWithLoadMoreAdapter.Subscriber(adapter))
+                    .subscribe(object : RefreshWithLoadMoreAdapter.Subscriber<Any>(adapters){
+                        override fun doOnSuccess(resp: Any) {
+                        }
+                    })
+        }
+    }
+
+    override fun onLoadError(e: Throwable) {
+        if (e is NoDataException) {
+            pageState.setPageState(PageState.NO_DATA)
+        } else {
+            pageState.setPageState(PageState.LOAD_ERROR)
         }
     }
 }

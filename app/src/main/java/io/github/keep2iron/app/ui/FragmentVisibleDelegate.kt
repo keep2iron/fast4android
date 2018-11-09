@@ -1,5 +1,8 @@
 package com.bana.bananasays.libaspect
 
+import android.support.v4.app.Fragment
+import com.orhanobut.logger.Logger
+
 
 /**
  * 文件描述：.
@@ -8,90 +11,70 @@ package com.bana.bananasays.libaspect
  *
  * 用于控制fragment显示隐藏的代理类对象
  */
-class FragmentVisibleDelegate(private val listener: (Boolean) -> Unit) : FragmentVisible {
-    internal enum class VisibilityState {
+class FragmentVisibleDelegate(private val fragment: Fragment,
+                              private val listener: (Boolean) -> Unit) : FragmentVisible {
+    internal enum class VisibilityMode {
         DEFAULT,
 
-        ON_CREATE,
+        ON_HIDE_CHANGED,
 
-        VISIBLE,
-
-        HIDE,
+        SET_USER_VISIBLE_HINT,
     }
 
     private var isVisibleToUsers: Boolean = false
 
-    private var onHideChangedState: VisibilityState = VisibilityState.DEFAULT
+    private var executeOnCreateView: Boolean = false
 
-    private var onSetUserVisibleHintState: VisibilityState = VisibilityState.DEFAULT
-
-    private fun setOnHideChangedVisibilityState(isVisibility: Boolean) {
-        when (onHideChangedState) {
-            VisibilityState.DEFAULT -> {
-                return
-            }
-            VisibilityState.ON_CREATE, VisibilityState.VISIBLE, VisibilityState.HIDE -> {
-                onHideChangedState = if (isVisibility) {
-                    VisibilityState.VISIBLE
-                } else {
-                    VisibilityState.HIDE
-                }
-            }
-        }
-    }
-
-    private fun setUserVisibleHintState(isVisibility: Boolean) {
-        onSetUserVisibleHintState = if (isVisibility) {
-            VisibilityState.VISIBLE
-        } else {
-            VisibilityState.HIDE
-        }
-    }
+    private var mode = VisibilityMode.DEFAULT
 
     private fun setVisibleToUser(isVisibleToUser: Boolean) {
-        if (onHideChangedState == VisibilityState.DEFAULT && onSetUserVisibleHintState == VisibilityState.DEFAULT) {
+        if (!fragment.isAdded) {
             return
         }
         if (isVisibleToUser == isVisibleToUsers) {
             return
         }
         isVisibleToUsers = isVisibleToUser
-        onVisibleToUserChanged(isVisibleToUsers)
+        listener(isVisibleToUsers)
     }
 
     override fun onCreateView() {
-        onHideChangedState = VisibilityState.ON_CREATE
+//        executeOnCreateView = true
     }
 
 
     override fun onResume() {
-        if (onSetUserVisibleHintState == VisibilityState.VISIBLE) {
+        //只改变当前可见的fragment
+        val isParentVisible = (fragment.parentFragment != null && !fragment.parentFragment!!.isHidden && fragment.parentFragment!!.userVisibleHint) || fragment.parentFragment == null
+
+        if (isParentVisible && fragment.userVisibleHint && mode == VisibilityMode.SET_USER_VISIBLE_HINT) {
             setVisibleToUser(true)
         }
 
-        if (onHideChangedState != VisibilityState.DEFAULT) {
+        if (isParentVisible && (!fragment.isHidden) && mode != VisibilityMode.SET_USER_VISIBLE_HINT) {
             setVisibleToUser(true)
         }
     }
 
     override fun onPause() {
-        if (onHideChangedState != VisibilityState.HIDE) {
-            setUserVisibleHint(false)
+        val isParentVisible = (fragment.parentFragment != null && !fragment.parentFragment!!.isHidden && fragment.parentFragment!!.userVisibleHint) || fragment.parentFragment == null
+
+        if (isParentVisible && fragment.userVisibleHint && mode == VisibilityMode.SET_USER_VISIBLE_HINT) {
+            setVisibleToUser(false)
+        }
+
+        if (isParentVisible && (!fragment.isHidden) && mode != VisibilityMode.SET_USER_VISIBLE_HINT) {
             setVisibleToUser(false)
         }
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        setUserVisibleHintState(isVisibleToUser)
+        mode = VisibilityMode.SET_USER_VISIBLE_HINT
         setVisibleToUser(isVisibleToUser)
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
-        setOnHideChangedVisibilityState(!hidden)
+        mode = VisibilityMode.ON_HIDE_CHANGED
         setVisibleToUser(!hidden)
-    }
-
-    private fun onVisibleToUserChanged(isVisibleToUser: Boolean) {
-        listener.invoke(isVisibleToUser)
     }
 }

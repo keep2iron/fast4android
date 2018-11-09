@@ -13,8 +13,9 @@ import io.github.keep2iron.android.comp.R
  */
 class LoadMoreAdapter constructor(context: Context,
                                   recyclerView: RecyclerView,
+                                  isEnableLoadMore: Boolean = true,
                                   listener: (adapter: AbstractLoadMoreAdapter) -> Unit
-) : AbstractLoadMoreAdapter(context.applicationContext, recyclerView, listener) {
+) : AbstractLoadMoreAdapter(context.applicationContext, recyclerView, listener, isEnableLoadMore) {
 
     override fun getLayoutId(): Int {
         return R.layout.item_load_more

@@ -33,6 +33,8 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
 
     protected lateinit var applicationContext: Context
 
+    var waitingForUser: Boolean = false
+
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         isOnAttach = true
@@ -56,7 +58,7 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val createBinding :DB? = DataBindingUtil.inflate(inflater, resId, container, false)
+        val createBinding: DB? = DataBindingUtil.inflate(inflater, resId, container, false)
         if (createBinding == null) {
             contentView = inflater.inflate(resId, container, false)
         } else {
@@ -76,7 +78,7 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initVariables(contentView,savedInstanceState)
+        initVariables(contentView, savedInstanceState)
         if (userVisibleHint && !isInit) {
             isInit = true
             lazyLoad(contentView)
@@ -141,9 +143,48 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
                 isInit = true
             }
         }
+
+        if (isVisibleToUser) {
+            if (parentFragment != null && !parentFragment!!.userVisibleHint) {
+                waitingForUser = true
+                return
+            }
+        }
+
+        if (isOnAttach) {
+            val fragments = childFragmentManager.fragments
+            fragments?.forEach {
+                if (it is AbstractFragment<*>) {
+                    if (userVisibleHint) {
+                        if (it.userVisibleHint || it.waitingForUser) {
+                            it.userVisibleHint = true
+                            it.waitingForUser = false
+                        }
+                    } else {
+                        if (it.userVisibleHint) {
+                            it.userVisibleHint = false
+                            it.waitingForUser = true
+                        }
+                    }
+                }
+            }
+        }
     }
 
     fun <T : View> findViewById(viewId: Int): T {
         return contentView.findViewById(viewId) as T
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+
+        if (isAdded) {
+            val fragments = childFragmentManager.fragments
+            fragments?.forEach {
+                if (!it.isHidden && it.userVisibleHint) {
+                    it.onHiddenChanged(hidden)
+                }
+            }
+        }
     }
 }

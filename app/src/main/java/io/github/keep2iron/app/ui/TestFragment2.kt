@@ -1,9 +1,7 @@
-package io.github.keep2iron.app.module.movie
+package io.github.keep2iron.app.ui
 
+import android.databinding.ViewDataBinding
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,38 +9,17 @@ import com.bana.bananasays.libaspect.FragmentVisibleDelegate
 import com.orhanobut.logger.Logger
 import io.github.keep2iron.android.core.AbstractFragment
 import io.github.keep2iron.app.R
-import io.github.keep2iron.app.databinding.FragmentMovieBinding
-import io.github.keep2iron.app.ui.TestFragment1
-import io.github.keep2iron.app.ui.TestFragment2
-import io.github.keep2iron.app.ui.TestFragment3
+import io.github.keep2iron.app.databinding.FragmentTestBinding
 
-/**
- *
- * @author keep2iron <a href="http://keep2iron.github.io">Contract me.</a>
- * @version 1.0
- * @since 2018/05/11 15:38
- */
-class MovieFragment : AbstractFragment<FragmentMovieBinding>() {
-    override val resId: Int = R.layout.fragment_movie
-
+class TestFragment2 : AbstractFragment<FragmentTestBinding>() {
     var delegate: FragmentVisibleDelegate = FragmentVisibleDelegate(this) {
         Logger.d("${this.javaClass.simpleName} show $it")
     }
 
+    override val resId: Int = R.layout.fragment_test
+
     override fun initVariables(container: View, savedInstanceState: Bundle?) {
-        val list = arrayListOf<Fragment>(TestFragment1(), TestFragment2(), TestFragment3())
-
-        dataBinding.viewPager.adapter = object : FragmentPagerAdapter(childFragmentManager) {
-            override fun getItem(position: Int): Fragment = list[position]
-
-            override fun getCount(): Int = list.size
-        }
-    }
-
-    companion object {
-        fun getInstance(): MovieFragment {
-            return MovieFragment()
-        }
+        dataBinding.textView.text = this.javaClass.simpleName
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -73,5 +50,4 @@ class MovieFragment : AbstractFragment<FragmentMovieBinding>() {
         super.onHiddenChanged(hidden)
         delegate.onHiddenChanged(hidden)
     }
-
 }

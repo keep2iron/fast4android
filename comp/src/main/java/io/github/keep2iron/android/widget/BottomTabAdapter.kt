@@ -2,6 +2,7 @@ package io.github.keep2iron.android.widget
 
 import android.content.Context
 import android.support.annotation.ColorRes
+import android.support.annotation.DimenRes
 import android.support.annotation.DrawableRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
@@ -13,7 +14,8 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
-import com.scwang.smartrefresh.layout.util.DensityUtil.dp2px
+import io.github.keep2iron.android.comp.R
+import io.github.keep2iron.android.utilities.DisplayUtil.dp2px
 
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)
@@ -41,22 +43,23 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
                                         tabTextSize: Int,
                                         drawablePadding: Int,
                                         isSelect: Boolean = false): TextView {
-        return TextView(context).apply {
+        return BadgeTextView(context).apply {
             val drawable = ContextCompat.getDrawable(context, if (isSelect) tab.selIconResId else tab.iconResId)
             if (drawable != null) {
                 drawable.setBounds(0, 0, tabIconWidth, tabIconHeight)
                 setCompoundDrawables(null, drawable, null, null)
             }
 
-//            setBackgroundResource(R.drawable.selector_item_touch)
             gravity = Gravity.CENTER
-            if(!TextUtils.isEmpty(tab.title)) {
+            if (!TextUtils.isEmpty(tab.title)) {
                 text = tab.title
                 setTextColor(ContextCompat.getColor(context, if (isSelect) tab.selectColorRes else tab.colorRes))
             }
             compoundDrawablePadding = drawablePadding
-            setPadding(0, dp2px(10f), 0, 0)
+            setPadding(0, dp2px(context,10), 0, 0)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize.toFloat())
+            badgeColor = tab.badgeColor
+            badgeSize = tab.badgeSize
         }
     }
 
@@ -90,12 +93,14 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
         val fragment = tab.fragment
         tab.select()
         val fragmentTransaction = manager.beginTransaction()
-        if (fragment!!.isAdded) {
-            fragmentTransaction.hide(showingFragment).show(fragment)
-        } else {
-            fragmentTransaction.hide(showingFragment).add(containerView.id, fragment, "$position").show(fragment)
+        fragment?.let { frag ->
+            if (frag.isAdded) {
+                fragmentTransaction.hide(showingFragment).show(frag)
+            } else {
+                fragmentTransaction.hide(showingFragment).add(containerView.id, frag, "$position").show(frag)
+            }
+            showingFragment = frag
         }
-        showingFragment = fragment
         fragmentTransaction.commit()
 
         selectPosition = position
@@ -109,6 +114,9 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
         internal var iconResId: Int = 0
         internal var selIconResId: Int = 0
 
+        @ColorRes
+        internal var badgeColor: Int = 0
+
         var fragment: Fragment? = null
 
         lateinit var customView: View
@@ -116,11 +124,13 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
         var isCustom: Boolean = false
         var tabIconWidth: Int = 0
         var tabIconHeight: Int = 0
-
+        var badgeSize : Int = 0
         var isEnable = true
 
         constructor(@ColorRes colorRes: Int,
                     @ColorRes selectColorRes: Int,
+                    @ColorRes badgeColor: Int = android.R.color.holo_red_light,
+                    @DimenRes badgeSize : Int = R.dimen.default_badge_size,
                     title: String,
                     @DrawableRes iconResId: Int,
                     @DrawableRes selIconResId: Int,
@@ -131,13 +141,14 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
             this.iconResId = iconResId
             this.selIconResId = selIconResId
             this.fragment = fragment
-
+            this.badgeColor = badgeColor
+            this.badgeSize = badgeSize
             isCustom = false
         }
 
         constructor(@DrawableRes iconResId: Int,
                     @DrawableRes selIconResId: Int,
-                    fragment: Fragment) : this(0, 0, "", iconResId, selIconResId, fragment)
+                    fragment: Fragment) : this(0, 0, android.R.color.holo_red_light, 0,"", iconResId, selIconResId, fragment)
 
         constructor(mCustomView: View) {
             isCustom = true

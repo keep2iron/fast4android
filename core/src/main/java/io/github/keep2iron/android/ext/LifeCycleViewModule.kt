@@ -21,6 +21,8 @@ import io.reactivex.subjects.BehaviorSubject
 open class LifeCycleViewModule(application: Application,private val owner: LifecycleOwner) : AndroidViewModel(application), LifecycleObserver {
     private val mSubject = BehaviorSubject.create<LifecycleEvent>()
 
+    protected val context = application
+
     init {
         owner.lifecycle.addObserver(object:LifecycleObserver {
             @OnLifecycleEvent(Lifecycle.Event.ON_START)

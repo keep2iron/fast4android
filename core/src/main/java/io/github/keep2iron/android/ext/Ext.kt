@@ -18,11 +18,11 @@ val COMPONENT_SERVICE = ArrayMap<String, Any>()
 fun Application.init(mainComponent: MainComponent) {
     val compPackage = mainComponent.createComponentPackage()
 
-    compPackage.createComponentServiceProvider().forEach {
-        this.registerComponentService(it)
-    }
     compPackage.createComponentModuleProvider().forEach {
         it.createComponentModule(this)
+    }
+    compPackage.createComponentServiceProvider().forEach {
+        this.registerComponentService(it)
     }
 }
 

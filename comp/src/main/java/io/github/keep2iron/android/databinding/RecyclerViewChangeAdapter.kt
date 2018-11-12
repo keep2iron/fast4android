@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView
  * @version 1.0
  * @since 2017/11/17 15:25
  */
-class RecyclerViewChangeAdapter<T>(private val mAdapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>) : ObservableList.OnListChangedCallback<ObservableList<T>>() {
+open class RecyclerViewChangeAdapter<T>(private val mAdapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>) : ObservableList.OnListChangedCallback<ObservableList<T>>() {
 
     override fun onChanged(sender: ObservableList<T>) {
         mAdapter.notifyDataSetChanged()

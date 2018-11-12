@@ -7,7 +7,7 @@ import android.databinding.ObservableList
  * @version 1.0
  * @since 2017/11/23 15:54
  */
-class OnListChangedCallbackAdapter<T> : ObservableList.OnListChangedCallback<ObservableList<T>>() {
+open class OnListChangedCallbackAdapter<T> : ObservableList.OnListChangedCallback<ObservableList<T>>() {
     override fun onChanged(ts: ObservableList<T>) {
 
     }

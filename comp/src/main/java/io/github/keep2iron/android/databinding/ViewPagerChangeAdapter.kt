@@ -8,7 +8,7 @@ import android.support.v4.view.PagerAdapter
  * @version 1.0
  * @since 2017/11/21 13:12
  */
-class ViewPagerChangeAdapter<T>(private val mPagerAdapter: PagerAdapter) : ObservableList.OnListChangedCallback<ObservableList<T>>() {
+open class ViewPagerChangeAdapter<T>(private val mPagerAdapter: PagerAdapter) : ObservableList.OnListChangedCallback<ObservableList<T>>() {
 
     override fun onChanged(sender: ObservableList<T>) {
         mPagerAdapter.notifyDataSetChanged()

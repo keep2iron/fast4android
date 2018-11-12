@@ -12,7 +12,7 @@ enum class PageState {
     LOADING,
 }
 
-class PageStateObservable(private val pageStateLayout: PageStateLayout,
+open class PageStateObservable(private val pageStateLayout: PageStateLayout,
                           val pageState: PageState = PageState.ORIGIN) : Observable {
 
     companion object {

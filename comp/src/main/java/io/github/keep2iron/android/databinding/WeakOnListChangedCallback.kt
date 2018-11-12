@@ -4,7 +4,7 @@ import android.databinding.ObservableList
 
 import java.lang.ref.WeakReference
 
-class WeakOnListChangedCallback<T : ObservableList<*>>(delegate: ObservableList.OnListChangedCallback<T>) : ObservableList.OnListChangedCallback<T>() {
+open class WeakOnListChangedCallback<T : ObservableList<*>>(delegate: ObservableList.OnListChangedCallback<T>) : ObservableList.OnListChangedCallback<T>() {
 
     private val ref: WeakReference<ObservableList.OnListChangedCallback<T>> = WeakReference(delegate)
 

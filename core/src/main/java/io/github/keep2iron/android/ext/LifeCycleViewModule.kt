@@ -9,7 +9,10 @@ import android.arch.lifecycle.OnLifecycleEvent
 
 import io.github.keep2iron.android.rx.LifecycleEvent
 import io.github.keep2iron.android.rx.RxLifecycle
+import io.github.keep2iron.android.utilities.RxTransUtil
 import io.reactivex.FlowableTransformer
+import io.reactivex.Observable
+import io.reactivex.ObservableSource
 import io.reactivex.ObservableTransformer
 import io.reactivex.subjects.BehaviorSubject
 
@@ -18,13 +21,13 @@ import io.reactivex.subjects.BehaviorSubject
  * @version 1.0
  * @since 2017/11/30 17:55
  */
-open class LifeCycleViewModule(application: Application,private val owner: LifecycleOwner) : AndroidViewModel(application), LifecycleObserver {
+open class LifeCycleViewModule(application: Application, private val owner: LifecycleOwner) : AndroidViewModel(application), LifecycleObserver {
     private val mSubject = BehaviorSubject.create<LifecycleEvent>()
 
     protected val context = application
 
     init {
-        owner.lifecycle.addObserver(object:LifecycleObserver {
+        owner.lifecycle.addObserver(object : LifecycleObserver {
             @OnLifecycleEvent(Lifecycle.Event.ON_START)
             fun onStart() {
                 mSubject.onNext(LifecycleEvent.START)
@@ -59,13 +62,19 @@ open class LifeCycleViewModule(application: Application,private val owner: Lifec
     }
 
     fun <T> bindFlowableLifeCycle(): FlowableTransformer<T, T> {
-        return RxLifecycle.bindUntilEvent(mSubject, LifecycleEvent.DESTROY)
+        return FlowableTransformer { upstream ->
+            upstream.compose(RxTransUtil.rxFlowableScheduler())
+                    .compose(RxLifecycle.bindUntilEvent(mSubject, LifecycleEvent.DESTROY))
+        }
     }
 
     /**
      * 绑定让订阅进行绑定生命周期
      */
     fun <T> bindObservableLifeCycle(): ObservableTransformer<T, T> {
-        return RxLifecycle.bindUntilEvent(mSubject, LifecycleEvent.DESTROY)
+        return ObservableTransformer { upstream ->
+            upstream.compose(RxTransUtil.rxObservableScheduler())
+                    .compose(RxLifecycle.bindUntilEvent(mSubject, LifecycleEvent.DESTROY))
+        }
     }
 }

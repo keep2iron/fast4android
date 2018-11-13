@@ -8,7 +8,7 @@ import io.github.keep2iron.pomelo.AndroidSubscriber
 import io.github.keep2iron.pomelo.exception.NoDataException
 
 interface RefreshLoadListener {
-    fun onLoad(adapters: RefreshWithLoadMoreAdapter, index: Int)
+    fun onLoad(adapters: RefreshWithLoadMoreAdapter, pager: Pager)
 
     fun onLoadError(e: Throwable) {
 
@@ -36,24 +36,27 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
     private lateinit var loadMoreAble: LoadMoreAble
     private lateinit var refreshAble: Refreshable
     private var loadMoreAdapter: LoadMoreAdapter
-    private var index: Int = 0
+    private var pager: Pager = Pager(DEFAULT_INDEX)
     private var onLoadListener: RefreshLoadListener? = null
-    private var defaultIndex: Int = -1
 
     init {
         loadMoreAdapter = LoadMoreAdapter(recyclerView.context, recyclerView, false) {
             refreshAble.setRefreshEnable(false)
-            onLoadListener?.onLoad(RLDelegateAdapter@ this, index)
+            onLoadListener?.onLoad(RLDelegateAdapter@ this, pager)
         }
         refreshAble = SmartRefreshAble(refreshLayout as SmartRefreshLayout) {
-            index = if (-1 == defaultIndex) DEFAULT_INDEX else defaultIndex
+            pager.reset()
             loadMoreAble.setLoadMoreEnable(false)
-            onLoadListener?.onLoad(RLDelegateAdapter@ this, index)
+            onLoadListener?.onLoad(RLDelegateAdapter@ this, pager)
         }
         loadMoreAble = VLayoutLoadMoreAble(loadMoreAdapter)
     }
 
     abstract class Subscriber<T>(private val adapter: RefreshWithLoadMoreAdapter) : AndroidSubscriber<T>() {
+
+        open fun onChangePage(resp: T, pager: Pager) {
+            pager.value = (pager.value as Int).inc()
+        }
 
         abstract fun doOnSuccess(resp: T)
 
@@ -63,7 +66,7 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
 
             adapter.refreshAble.showRefreshComplete()
             adapter.loadMoreAble.showLoadMoreComplete()
-            adapter.index++
+            onChangePage(resp, adapter.pager)
 
             try {
                 doOnSuccess(resp)
@@ -95,8 +98,7 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
         private var adapter: RefreshWithLoadMoreAdapter = RefreshWithLoadMoreAdapter(recyclerView, refreshLayout)
 
         fun defaultIndexer(defaultIndex: Int): Builder {
-            adapter.index = defaultIndex
-            adapter.defaultIndex = defaultIndex
+            adapter.pager.defaultValue = defaultIndex
             return this
         }
 

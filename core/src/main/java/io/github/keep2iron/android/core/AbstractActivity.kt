@@ -32,14 +32,6 @@ import io.reactivex.subjects.BehaviorSubject
  * @version 1.0
  * @since 2018/05/19 10:36
  */
-fun <T> AbstractActivity<*>.rxObservableScheduler(): ObservableTransformer<T, T> {
-    return RxTransUtil.rxObservableScheduler()
-}
-
-fun <T> AbstractActivity<*>.bindFlowableLifeCycle(): FlowableTransformer<T, T> {
-    return RxTransUtil.rxFlowableScheduler()
-}
-
 abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
     private var subject = BehaviorSubject.create<LifecycleEvent>()
 
@@ -168,4 +160,18 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
      * 在这个方法中可以进行重新 编写控件的逻辑
      */
     abstract fun initVariables(savedInstanceState: Bundle?)
+
+    fun <T> AbstractActivity<*>.rxObservableScheduler(): ObservableTransformer<T, T> {
+        return ObservableTransformer { upstream ->
+            upstream.compose(RxTransUtil.rxObservableScheduler())
+                    .compose(RxLifecycle.bindUntilEvent(this.subject, LifecycleEvent.DESTROY))
+        }
+    }
+
+    fun <T> AbstractActivity<*>.bindFlowableLifeCycle(): FlowableTransformer<T, T> {
+        return FlowableTransformer { upstream ->
+            upstream.compose(RxTransUtil.rxFlowableScheduler())
+                    .compose(RxLifecycle.bindUntilEvent(this.subject, LifecycleEvent.DESTROY))
+        }
+    }
 }

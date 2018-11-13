@@ -6,6 +6,7 @@ import io.github.keep2iron.android.databinding.PageState
 import io.github.keep2iron.android.databinding.PageStateObservable
 import io.github.keep2iron.android.load.RefreshWithLoadMoreAdapter
 import io.github.keep2iron.android.ext.LifeCycleViewModule
+import io.github.keep2iron.android.load.Pager
 import io.github.keep2iron.android.load.RefreshLoadListener
 import io.github.keep2iron.android.widget.PageStateLayout
 import io.github.keep2iron.app.Application
@@ -24,6 +25,7 @@ import java.util.*
  * @since 2018/03/12 11:31
  */
 class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(Application.instance, owner), RefreshLoadListener {
+
     var bannerItems: ObservableArrayList<GsonIndex> = ObservableArrayList()
     var indexItems: ObservableArrayList<GsonIndex> = ObservableArrayList()
     lateinit var pageState: PageStateObservable
@@ -54,9 +56,9 @@ class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(Application.in
                 }
     }
 
-    override fun onLoad(adapters: RefreshWithLoadMoreAdapter, index: Int) {
-        if (index == 0) {
-            Observable.zip(loadData(index),
+    override fun onLoad(adapters: RefreshWithLoadMoreAdapter, pager: Pager) {
+        if (pager.value == 0) {
+            Observable.zip(loadData(pager.value as Int),
                     loadBanner(),
                     BiFunction<List<GsonIndex>, List<GsonIndex>, Any> { _, _ -> Object::class.java })
                     .subscribe(object : RefreshWithLoadMoreAdapter.Subscriber<Any>(adapters) {
@@ -65,8 +67,8 @@ class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(Application.in
                         }
                     })
         } else {
-            loadData(index)
-                    .subscribe(object : RefreshWithLoadMoreAdapter.Subscriber<Any>(adapters){
+            loadData(pager.value as Int)
+                    .subscribe(object : RefreshWithLoadMoreAdapter.Subscriber<Any>(adapters) {
                         override fun doOnSuccess(resp: Any) {
                         }
                     })

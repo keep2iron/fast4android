@@ -1,7 +1,5 @@
 package io.github.keep2iron.android.comp
 
-import android.databinding.ObservableList
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.alibaba.android.vlayout.DelegateAdapter
 import io.github.keep2iron.android.databinding.ListBundle

@@ -25,26 +25,26 @@ class MainActivity(override val resId: Int = R.layout.main_activity) : AbstractA
     override fun initVariables(savedInstanceState: Bundle?) {
         val list = ArrayList<BottomTabAdapter.TabHolder>()
         list.add(BottomTabAdapter.TabHolder(
-                R.color.gray,
-                R.color.colorPrimary,
-                "",
-                R.drawable.ic_classification_unselect,
-                R.drawable.ic_classification_select,
-                MovieFragment.getInstance()))
+                colorRes = R.color.gray,
+                selectColorRes = R.color.colorPrimary,
+                title = "",
+                iconResId = R.drawable.ic_classification_unselect,
+                selIconResId = R.drawable.ic_classification_select,
+                fragment = MovieFragment.getInstance()))
         list.add(BottomTabAdapter.TabHolder(
-                R.color.gray,
-                R.color.colorPrimary,
-                "",
-                R.drawable.ic_whatshot_unselect,
-                R.drawable.ic_whatshot_select,
-                RecommendFragment.getInstance()))
+                colorRes = R.color.gray,
+                selectColorRes = R.color.colorPrimary,
+                title = "",
+                iconResId = R.drawable.ic_whatshot_unselect,
+                selIconResId = R.drawable.ic_whatshot_select,
+                fragment = RecommendFragment.getInstance()))
         list.add(BottomTabAdapter.TabHolder(
-                R.color.gray,
-                R.color.colorPrimary,
-                "",
-                R.drawable.ic_face_unselect,
-                R.drawable.ic_face_select,
-                MultiTypeFragment()))
+                colorRes = R.color.gray,
+                selectColorRes = R.color.colorPrimary,
+                title = "",
+                iconResId = R.drawable.ic_whatshot_unselect,
+                selIconResId = R.drawable.ic_whatshot_select,
+                fragment = MultiTypeFragment()))
 
 //        OverScrollDecoratorHelper.setUpOverScroll(dataBinding.viewPager)
 

@@ -1,9 +1,13 @@
 package io.github.keep2iron.android.adapter
 
+import android.content.Context
 import android.databinding.ViewDataBinding
+import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
 import android.util.SparseArray
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 
 /**
@@ -25,6 +29,8 @@ open class RecyclerViewHolder : RecyclerView.ViewHolder {
     constructor(view: View) : super(view) {
         this.mViews = SparseArray()
     }
+
+    constructor(context: Context, @LayoutRes layoutRes: Int, parent: ViewGroup?) : this(LayoutInflater.from(context).inflate(layoutRes, parent, false))
 
     fun <T : View> findViewById(viewId: Int): T {
         var view: View? = mViews.get(viewId)

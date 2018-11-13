@@ -151,7 +151,7 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
             }
         }
 
-        if (isOnAttach) {
+        if (isOnAttach && host != null) {
             val fragments = childFragmentManager.fragments
             fragments?.forEach {
                 if (it is AbstractFragment<*>) {
@@ -169,6 +169,11 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onDetach() {
+        isOnAttach = false
+        super.onDetach()
     }
 
     fun <T : View> findViewById(viewId: Int): T {

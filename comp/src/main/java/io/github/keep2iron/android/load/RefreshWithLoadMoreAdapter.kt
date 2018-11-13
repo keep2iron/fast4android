@@ -13,6 +13,10 @@ interface RefreshLoadListener {
     fun onLoadError(e: Throwable) {
 
     }
+
+    fun defaultValue(): Int {
+        return 0
+    }
 }
 
 /**
@@ -97,13 +101,9 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
                   refreshLayout: View) {
         private var adapter: RefreshWithLoadMoreAdapter = RefreshWithLoadMoreAdapter(recyclerView, refreshLayout)
 
-        fun defaultIndexer(defaultIndex: Int): Builder {
-            adapter.pager.defaultValue = defaultIndex
-            return this
-        }
-
         fun setOnLoadListener(listener: RefreshLoadListener): Builder {
             adapter.onLoadListener = listener
+            adapter.pager.defaultValue = listener.defaultValue()
             return this
         }
 

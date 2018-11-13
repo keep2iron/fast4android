@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import io.github.keep2iron.android.rx.LifecycleEvent
 import io.github.keep2iron.android.rx.RxLifecycle
+import io.github.keep2iron.android.utilities.RxTransUtil
 import io.reactivex.ObservableTransformer
 import io.reactivex.subjects.BehaviorSubject
 
@@ -25,7 +26,7 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
     private var isInit: Boolean = false
     private var isOnAttach: Boolean = false
 
-    var baseActivity: AbstractActivity<*>? = null
+    private var baseActivity: AbstractActivity<*>? = null
 
     private var subject = BehaviorSubject.create<LifecycleEvent>()
     protected lateinit var dataBinding: DB
@@ -97,7 +98,10 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
      * 绑定让订阅进行绑定生命周期
      */
     fun <T> bindObservableLifeCycle(): ObservableTransformer<T, T> {
-        return RxLifecycle.bindUntilEvent(subject, LifecycleEvent.DESTROY)
+        return ObservableTransformer { upstream ->
+            upstream.compose(RxTransUtil.rxObservableScheduler())
+                    .compose(RxLifecycle.bindUntilEvent(this.subject, LifecycleEvent.DESTROY))
+        }
     }
 
     override fun onStart() {

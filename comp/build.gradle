@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
 
 group='com.github.keep2iron'
+version = 'SNAPSHOT'
 
 android {
     compileSdkVersion versions.build.target_sdk

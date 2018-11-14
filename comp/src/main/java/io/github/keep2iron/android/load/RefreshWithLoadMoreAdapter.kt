@@ -14,7 +14,7 @@ interface RefreshLoadListener {
 
     }
 
-    fun defaultValue(): Int {
+    fun defaultValue(): Any {
         return 0
     }
 }

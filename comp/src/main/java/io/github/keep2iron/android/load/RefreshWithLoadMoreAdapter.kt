@@ -70,9 +70,9 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
 
             adapter.refreshAble.showRefreshComplete()
             adapter.loadMoreAble.showLoadMoreComplete()
-            onChangePage(resp, adapter.pager)
 
             try {
+                onChangePage(resp, adapter.pager)
                 doOnSuccess(resp)
             } catch (exp: NoDataException) {
                 adapter.refreshAble.setRefreshEnable(true)

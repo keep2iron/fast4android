@@ -8,6 +8,7 @@ import io.github.keep2iron.android.adapter.MultiTypeAdapter
 import io.github.keep2iron.android.comp.ListDataBindingDelegate
 import io.github.keep2iron.android.core.AbstractFragment
 import io.github.keep2iron.android.ext.getComponentService
+import io.github.keep2iron.android.load.Pager
 import io.github.keep2iron.android.load.RefreshLoadListener
 import io.github.keep2iron.android.load.RefreshWithLoadMoreAdapter
 import io.github.keep2iron.android.utilities.RxTransUtil.rxObservableScheduler
@@ -40,10 +41,10 @@ class MultiTypeFragment : AbstractFragment<FragmentMutileTypeBinding>(), ListDat
         }
     }
 
-    override fun onLoad(adapters: RefreshWithLoadMoreAdapter, index: Int) {
+    override fun onLoad(adapters: RefreshWithLoadMoreAdapter, pager: Pager) {
         val networkManager = Application.instance.getComponentService<NetworkManager>(NetworkServiceProvider.NETWORK_MANAGER)
         val apiService = networkManager.getService(ApiService::class.java)
-        apiService.multiType(index)
+        apiService.multiType(pager.value as Int)
                 .compose(rxObservableScheduler())
                 .subscribe(object : RefreshWithLoadMoreAdapter.Subscriber<BaseResponse<List<MultiModelWrapper>>>(adapters) {
                     override fun doOnSuccess(resp: BaseResponse<List<MultiModelWrapper>>) {
@@ -51,7 +52,7 @@ class MultiTypeFragment : AbstractFragment<FragmentMutileTypeBinding>(), ListDat
                             throw NoDataException()
                         }
 
-                        if (index == 0) {
+                        if (pager.value == 0) {
                             dataBinding.recyclerView.scrollToPosition(0)
                             list.clear()
                         }

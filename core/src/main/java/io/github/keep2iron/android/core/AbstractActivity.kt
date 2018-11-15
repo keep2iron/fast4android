@@ -1,8 +1,3 @@
-/*
- * Create bt Keep2iron on 17-6-22 下午4:01
- * Copyright (c) 2017. All rights reserved.
- */
-
 package io.github.keep2iron.android.core
 
 import android.arch.lifecycle.Lifecycle
@@ -161,14 +156,14 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
      */
     abstract fun initVariables(savedInstanceState: Bundle?)
 
-    fun <T> AbstractActivity<*>.rxObservableScheduler(): ObservableTransformer<T, T> {
+    fun <T> rxObservableScheduler(): ObservableTransformer<T, T> {
         return ObservableTransformer { upstream ->
             upstream.compose(RxTransUtil.rxObservableScheduler())
                     .compose(RxLifecycle.bindUntilEvent(this.subject, LifecycleEvent.DESTROY))
         }
     }
 
-    fun <T> AbstractActivity<*>.bindFlowableLifeCycle(): FlowableTransformer<T, T> {
+    fun <T> bindFlowableLifeCycle(): FlowableTransformer<T, T> {
         return FlowableTransformer { upstream ->
             upstream.compose(RxTransUtil.rxFlowableScheduler())
                     .compose(RxLifecycle.bindUntilEvent(this.subject, LifecycleEvent.DESTROY))

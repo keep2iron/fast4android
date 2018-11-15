@@ -1,7 +1,9 @@
-# README
+混淆规则
 
-**SoftMove Android App**
+# activity
+-keep class io.github.keep2iron.android.core.AbstractActivity { *; }
 
-- Create Date:  2018-03-16
-- Update Date:  2018-03-16
-- Author:       keep2iron、picher
+# 不混淆使用了StatueColor的类
+-keep class io.github.keep2iron.android.annotation.StatusColor { *; }
+-keep @io.github.keep2iron.android.annotation.StatusColor class * {*;}
+-keep class * implements java.lang.annotation.Annotation {*;}

@@ -10,15 +10,14 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
-import com.scwang.smartrefresh.layout.util.DensityUtil.dp2px
 import io.github.keep2iron.android.comp.R
+import io.github.keep2iron.android.ext.dp2px
+import io.github.keep2iron.android.ext.sp
 
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)
  * @version 1.0
  * @since 2018/03/02 09:30
- *
- * 用于底部tabLayout
  */
 class BottomTabLayout : LinearLayout {
     /**
@@ -31,11 +30,12 @@ class BottomTabLayout : LinearLayout {
     private var positionOffset: Float = 0f
 
     private lateinit var adapter: BottomTabAdapter
-    private var tabIconWidth: Int = dp2px(10f)
-    private var tabIconHeight: Int = dp2px(10f)
-    private var tabTextSize: Float = dp2px(10f).toFloat()
+    private var tabIconWidth: Int = dp2px(10)
+    private var tabIconHeight: Int = dp2px(10)
+    private var tabTextSize: Float = sp(15)
     private var tabDrawablePadding: Int = 0
     private var tabItemMargin: Int = 0
+    private var tabItemBackgroundRes: Int = -1
     private lateinit var onTabStateChangedListeners: ArrayList<OnTabChangeListener>
 
     var container: View? = null
@@ -54,12 +54,15 @@ class BottomTabLayout : LinearLayout {
         tabIconHeight = array.getDimension(R.styleable.BottomTabLayout_tab_icon_height, tabIconHeight.toFloat()).toInt()
         tabDrawablePadding = array.getDimension(R.styleable.BottomTabLayout_tab_drawable_padding, 0f).toInt()
         tabItemMargin = array.getDimension(R.styleable.BottomTabLayout_tab_item_margin, 0f).toInt()
+        tabItemBackgroundRes = array.getResourceId(R.styleable.BottomTabLayout_tab_item_background, -1)
         array.recycle()
     }
 
     fun setBottomTabAdapter(adapter: BottomTabAdapter, container: View, defaultPosition: Int = 0) {
         this.adapter = adapter
-        adapter.showingFragment = adapter.tabs[defaultPosition].fragment!!
+        adapter.tabs[defaultPosition].fragment?.let { frag ->
+            adapter.showingFragment = frag
+        }
         adapter.selectPosition = defaultPosition
         adapter.containerView = container
 
@@ -77,7 +80,7 @@ class BottomTabLayout : LinearLayout {
         setTabSelect(defaultPosition)
     }
 
-    fun addOnTabSelectedListener(listener: BottomTabLayout.OnTabChangeListener) {
+    fun addOnTabSelectedListener(listener: OnTabChangeListener) {
         adapter.onTabStateChangedListeners.add(listener)
     }
 
@@ -111,7 +114,11 @@ class BottomTabLayout : LinearLayout {
                         tabIconHeight,
                         tabTextSize.toInt(),
                         tabDrawablePadding,
+
                         i == adapter.selectPosition)
+                if (tabItemBackgroundRes != -1) {
+                    tab.customView.setBackgroundResource(tabItemBackgroundRes)
+                }
                 tab.customView.setOnClickListener {
                     if (i != adapter.selectPosition) {
                         if (!tab.isCustom && container !is ViewPager) {
@@ -144,6 +151,8 @@ class BottomTabLayout : LinearLayout {
         if (container is ViewPager) {
             val viewPager = container as ViewPager
             viewPager.currentItem = position
+        } else {
+            setTabSelect(position)
         }
     }
 
@@ -196,7 +205,9 @@ class BottomTabLayout : LinearLayout {
     inner class BottomTabViewPagerAdapter(fm: FragmentManager?, private val tabs: ArrayList<BottomTabAdapter.TabHolder>) : FragmentPagerAdapter(fm) {
         override fun getCount(): Int = tabs.size
 
-        override fun getItem(position: Int): Fragment = tabs[position].fragment!!
+        override fun getItem(position: Int): Fragment {
+            return tabs[position].fragment ?: Fragment()
+        }
     }
 
 //    override fun onDraw(canvas: Canvas) {

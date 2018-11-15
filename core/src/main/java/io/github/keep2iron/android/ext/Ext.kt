@@ -46,6 +46,21 @@ fun layout(context: Context, @LayoutRes layoutId: Int, parent: ViewGroup? = null
     return LayoutInflater.from(context).inflate(layoutId, parent)
 }
 
+fun View.dp2px(dp: Int): Int {
+    val density = resources.displayMetrics.density
+    return (dp * density).toInt()
+}
+
+fun View.px2dp(px: Int): Int {
+    val density = resources.displayMetrics.density
+    return (px / density).toInt()
+}
+
+fun View.sp(sp: Int): Float {
+    val scaledDensity = resources.displayMetrics.scaledDensity
+    return sp * scaledDensity
+}
+
 /**
  * 用于Application实现该接口
  */

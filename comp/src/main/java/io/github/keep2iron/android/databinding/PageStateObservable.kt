@@ -1,25 +1,25 @@
 package io.github.keep2iron.android.databinding
 
 import android.databinding.Observable
+import io.github.keep2iron.android.widget.PageState
 
 import io.github.keep2iron.android.widget.PageStateLayout
 
-enum class PageState {
-    ORIGIN,
-    NO_DATA,
-    NO_NETWORK,
-    LOAD_ERROR,
-    LOADING,
-}
-
 open class PageStateObservable(private val pageStateLayout: PageStateLayout,
-                          val pageState: PageState = PageState.ORIGIN) : Observable {
+                               pageState: PageState = PageState.ORIGIN) : Observable {
+
+    private val callbacks: ArrayList<Observable.OnPropertyChangedCallback> = ArrayList(3)
+
+    init {
+        if (pageState != PageState.ORIGIN) {
+            pageStateLayout.initPageState(pageState)
+        }
+    }
 
     companion object {
         const val PAGE_STATE_PROP_ID = 100000
     }
 
-    private val callbacks = ArrayList<Observable.OnPropertyChangedCallback>(3)
 
     fun setPageState(pageState: PageState) {
         when (pageState) {

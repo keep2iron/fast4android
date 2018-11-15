@@ -2,12 +2,12 @@ package io.github.keep2iron.app.module.recommend
 
 import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ObservableArrayList
-import io.github.keep2iron.android.databinding.PageState
 import io.github.keep2iron.android.databinding.PageStateObservable
 import io.github.keep2iron.android.load.RefreshWithLoadMoreAdapter
 import io.github.keep2iron.android.ext.LifeCycleViewModule
 import io.github.keep2iron.android.load.Pager
 import io.github.keep2iron.android.load.RefreshLoadListener
+import io.github.keep2iron.android.widget.PageState
 import io.github.keep2iron.android.widget.PageStateLayout
 import io.github.keep2iron.app.Application
 import io.github.keep2iron.app.data.DataRepository
@@ -15,8 +15,6 @@ import io.github.keep2iron.app.model.GsonIndex
 import io.github.keep2iron.pomelo.exception.NoDataException
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
-import java.lang.Exception
-import java.util.*
 
 /**
  *
@@ -31,7 +29,7 @@ class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(Application.in
     lateinit var pageState: PageStateObservable
 
     fun init(pageStateLayout: PageStateLayout) {
-        pageState = PageStateObservable(pageStateLayout, PageState.LOADING)
+        pageState = PageStateObservable(pageStateLayout, PageState.LOAD_ERROR)
     }
 
     fun loadBanner(): Observable<List<GsonIndex>> {
@@ -70,9 +68,9 @@ class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(Application.in
                         override fun onError(throwable: Throwable) {
                             super.onError(throwable)
                             if (throwable is NoDataException) {
-                                pageState.setPageState(PageState.NO_DATA)
+                                pageState.setPageState(PageState.ORIGIN)
                             } else {
-                                pageState.setPageState(PageState.LOAD_ERROR)
+                                pageState.setPageState(PageState.ORIGIN)
                             }
                         }
                     })

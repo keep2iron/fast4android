@@ -1,11 +1,21 @@
 package io.github.keep2iron.android.widget
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import io.github.keep2iron.android.comp.R
+
+enum class PageState {
+    ORIGIN,
+    NO_DATA,
+    NO_NETWORK,
+    LOAD_ERROR,
+    LOADING,
+}
 
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)
@@ -15,7 +25,7 @@ import io.github.keep2iron.android.comp.R
  * 状态管理layout，
  */
 class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
-                                  : FrameLayout(context, attrs,0){
+    : FrameLayout(context, attrs, 0) {
     /**
      * 被状态管理的View
      */
@@ -37,8 +47,13 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
      */
     private var mLoadingView: View? = null
 
-    init {
+    private var pageState = PageState.ORIGIN
 
+    private var views: Array<View?> = Array(5) { null }
+
+    private var duration = 300
+
+    init {
         val array = resources.obtainAttributes(attrs, R.styleable.PageStateLayout)
 
         for (i in 0 until array.indexCount) {
@@ -89,59 +104,103 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
         if (mLoadingView != null) {
             addView(mLoadingView, 0)
         }
+
+        views[0] = mOriginView
+        views[1] = mLoadError
+        views[2] = mNoDataView
+        views[3] = mNoNetwork
+        views[4] = mLoadingView
+
+        initPageState(pageState)
     }
 
-    private fun initView() {
-        mOriginView?.visibility = View.GONE
-
-        if (mNoDataView != null) {
-            mNoDataView?.visibility = View.GONE
-        }
-
-        if (mNoNetwork != null) {
-            mNoNetwork?.visibility = View.GONE
-        }
-
-        if (mLoadError != null) {
-            mLoadError?.visibility = View.GONE
-        }
-
-        if (mLoadingView != null) {
-            mLoadingView?.visibility = View.GONE
+    private fun animStateView(showView: View?) {
+        views.forEach {
+            //如果不是要显示的View则进行隐藏
+            if (it != null && it != showView && it.visibility == View.VISIBLE) {
+                it.animate()
+                        .setListener(object : AnimatorListenerAdapter() {
+                            override fun onAnimationEnd(animation: Animator) {
+                                it.visibility = View.GONE
+                            }
+                        })
+                        .setDuration(duration.toLong())
+                        .alpha(0f)
+                        .start()
+            } else if (it != null && it == showView && it.visibility == View.GONE) {
+                it.alpha = 0f
+                it.visibility = View.VISIBLE
+                it.animate()
+                        .setDuration(duration.toLong())
+                        .alpha(1f)
+                        .start()
+            }
         }
     }
 
     fun displayOriginView() {
-        initView()
-
-        mOriginView?.visibility = View.VISIBLE
+        if(pageState != PageState.ORIGIN) {
+            pageState = PageState.ORIGIN
+            animStateView(mOriginView)
+        }
     }
 
     fun displayNoNetwork() {
-        initView()
-        if (mNoNetwork != null) {
-            mNoNetwork?.visibility = View.VISIBLE
+        if(pageState != PageState.NO_NETWORK) {
+            pageState = PageState.NO_NETWORK
+            if (mNoNetwork == null) {
+                throw IllegalArgumentException("you should add no network layout")
+            }
+            animStateView(mNoNetwork)
         }
     }
 
     fun displayNoData() {
-        initView()
-        if (mNoDataView != null) {
-            mNoDataView?.visibility = View.VISIBLE
+        if(pageState != PageState.NO_DATA) {
+            pageState = PageState.NO_DATA
+            if (mNoDataView == null) {
+                throw IllegalArgumentException("you should add no data layout")
+            }
+            animStateView(mNoDataView)
         }
     }
 
     fun displayLoading() {
-        initView()
-        if (mLoadingView != null) {
-            mLoadingView?.visibility = View.VISIBLE
+        if(pageState != PageState.LOADING) {
+            pageState = PageState.LOADING
+            if (mLoadingView == null) {
+                throw IllegalArgumentException("you should add loading layout")
+            }
+            animStateView(mLoadingView)
         }
     }
 
     fun displayLoadError() {
-        initView()
-        if (mLoadError != null) {
-            mLoadError?.visibility = View.VISIBLE
+        if(pageState != PageState.LOAD_ERROR) {
+            pageState = PageState.LOAD_ERROR
+            if (mLoadError == null) {
+                throw IllegalArgumentException("you should add load error layout")
+            }
+            animStateView(mLoadError)
+        }
+    }
+
+    /**
+     * 设置初始化页面状态
+     */
+    fun initPageState(pageState: PageState) {
+        //对应views所在的index
+        val pageStateArr = arrayOf(PageState.ORIGIN, PageState.LOAD_ERROR, PageState.NO_DATA, PageState.NO_NETWORK, PageState.LOADING)
+        val pageStateIndex = pageStateArr.indexOf(pageState)
+        views.forEachIndexed { index, view ->
+            if (index == pageStateIndex) {
+                val stateView = view ?: throw IllegalArgumentException("$pageState view not add!!")
+                stateView.alpha = 1f
+                stateView.visibility = View.VISIBLE
+            } else {
+                view?.alpha = 0f
+                view?.visibility = View.GONE
+            }
         }
     }
 }

@@ -1,18 +1,15 @@
 package io.github.keep2iron.android.load
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import io.github.keep2iron.android.adapter.LoadMoreAdapter
+import io.github.keep2iron.android.adapter.AbstractLoadMoreAdapter
 import io.github.keep2iron.pomelo.AndroidSubscriber
 import io.github.keep2iron.pomelo.exception.NoDataException
 
 interface RefreshLoadListener {
     fun onLoad(adapters: RefreshWithLoadMoreAdapter, pager: Pager)
-
-    fun onLoadError(e: Throwable) {
-
-    }
 
     fun defaultValue(): Any {
         return 0
@@ -28,7 +25,8 @@ interface RefreshLoadListener {
  * 用于代理Refresh和LoadMore的Adapter
  */
 class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
-                                                     refreshLayout: View) {
+                                                     refreshLayout: View,
+                                                     clazz: Class<out AbstractLoadMoreAdapter>) {
 
     companion object {
         /**
@@ -37,14 +35,18 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
         var DEFAULT_INDEX = 0
     }
 
+    private var loadMoreAdapter: AbstractLoadMoreAdapter
     private lateinit var loadMoreAble: LoadMoreAble
     private lateinit var refreshAble: Refreshable
-    private var loadMoreAdapter: LoadMoreAdapter
     private var pager: Pager = Pager(DEFAULT_INDEX)
     private var onLoadListener: RefreshLoadListener? = null
 
+
     init {
-        loadMoreAdapter = LoadMoreAdapter(recyclerView.context, recyclerView, false) {
+        val constructor = clazz.getConstructor(Context::class.java, RecyclerView::class.java)
+        loadMoreAdapter = constructor.newInstance(recyclerView.context, recyclerView) as AbstractLoadMoreAdapter
+        loadMoreAdapter.isEnableLoadMore = false
+        loadMoreAdapter.mOnLoadMoreListener = {
             refreshAble.setRefreshEnable(false)
             onLoadListener?.onLoad(RLDelegateAdapter@ this, pager)
         }
@@ -58,11 +60,9 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
 
     abstract class Subscriber<T>(private val adapter: RefreshWithLoadMoreAdapter) : AndroidSubscriber<T>() {
 
-        open fun onChangePage(resp: T, pager: Pager) {
+        open fun doOnSuccess(resp: T, pager: Pager) {
             pager.value = (pager.value as Int).inc()
         }
-
-        abstract fun doOnSuccess(resp: T)
 
         override fun onSuccess(resp: T) {
             adapter.refreshAble.setRefreshEnable(true)
@@ -72,8 +72,7 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
             adapter.loadMoreAble.showLoadMoreComplete()
 
             try {
-                onChangePage(resp, adapter.pager)
-                doOnSuccess(resp)
+                doOnSuccess(resp, adapter.pager)
             } catch (exp: NoDataException) {
                 adapter.refreshAble.setRefreshEnable(true)
                 adapter.loadMoreAble.showLoadMoreEnd()
@@ -87,8 +86,6 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
                 return
             }
 
-            adapter.onLoadListener?.onLoadError(throwable)
-
             adapter.loadMoreAble.setLoadMoreEnable(true)
             adapter.refreshAble.setRefreshEnable(true)
             adapter.refreshAble.showRefreshComplete()
@@ -98,8 +95,11 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
     }
 
     class Builder(recyclerView: RecyclerView,
-                  refreshLayout: View) {
-        private var adapter: RefreshWithLoadMoreAdapter = RefreshWithLoadMoreAdapter(recyclerView, refreshLayout)
+                  refreshLayout: View,
+                  clazz: Class<out AbstractLoadMoreAdapter>) {
+        val context: Context = recyclerView.context.applicationContext
+
+        private var adapter: RefreshWithLoadMoreAdapter = RefreshWithLoadMoreAdapter(recyclerView, refreshLayout, clazz)
 
         fun setOnLoadListener(listener: RefreshLoadListener): Builder {
             adapter.onLoadListener = listener
@@ -107,6 +107,6 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
             return this
         }
 
-        fun build(): LoadMoreAdapter = adapter.loadMoreAdapter
+        fun build(): AbstractLoadMoreAdapter = adapter.loadMoreAdapter
     }
 }

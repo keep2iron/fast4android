@@ -1,5 +1,6 @@
 package io.github.keep2iron.android.load
 
+import io.github.keep2iron.android.adapter.AbstractLoadMoreAdapter
 import io.github.keep2iron.android.adapter.LoadMoreAdapter
 
 /**
@@ -10,9 +11,9 @@ import io.github.keep2iron.android.adapter.LoadMoreAdapter
  *
  * 针对[LoadMoreAdapter]的一个封装
  */
-class VLayoutLoadMoreAble(val adapter: LoadMoreAdapter) : LoadMoreAble {
+class VLayoutLoadMoreAble(val adapter: AbstractLoadMoreAdapter) : LoadMoreAble {
     override fun setLoadMoreEnable(isEnable: Boolean) {
-        adapter.setEnableLoadMore(isEnable)
+        adapter.isEnableLoadMore = isEnable
     }
 
     override fun showLoadMoreComplete() {

@@ -23,18 +23,16 @@ public class BindRecyclerView {
             return;
         }
 
-        WrapperVirtualLayoutManager virtualLayoutManager = new WrapperVirtualLayoutManager(recyclerView.getContext().getApplicationContext());
-        DelegateAdapter delegateAdapter = new DelegateAdapter(virtualLayoutManager, true);
+        DelegateAdapter delegateAdapter = refreshBundle.getDelegateAdapter();
         ArrayList<DelegateAdapter.Adapter> adapters = new ArrayList<>(refreshBundle.getAdapters());
-        adapters.add(new RefreshWithLoadMoreAdapter.Builder(
-                recyclerView,
-                refreshBundle.getRefreshLayout())
+        adapters.add(new RefreshWithLoadMoreAdapter.Builder(recyclerView, refreshBundle.getRefreshLayout(), refreshBundle.getLoadMoreClass())
                 .setOnLoadListener(refreshBundle.getRefreshLoadListener())
-                .build());
+                .build()
+        );
         delegateAdapter.addAdapters(adapters);
 
         recyclerView.setRecycledViewPool(refreshBundle.recyclerPool());
-        recyclerView.setLayoutManager(virtualLayoutManager);
+        recyclerView.setLayoutManager(refreshBundle.getVirtualLayoutManager());
         recyclerView.setAdapter(delegateAdapter);
     }
 

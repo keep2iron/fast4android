@@ -62,24 +62,26 @@ class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(Application.in
                     loadBanner(),
                     BiFunction<List<GsonIndex>, List<GsonIndex>, Any> { _, _ -> Object::class.java })
                     .subscribe(object : RefreshWithLoadMoreAdapter.Subscriber<Any>(adapters) {
-                        override fun doOnSuccess(resp: Any) {
+                        override fun doOnSuccess(resp: Any, pager: Pager) {
                             pageState.setPageState(PageState.ORIGIN)
+                            super.doOnSuccess(resp, pager)
+                        }
+
+                        override fun onError(throwable: Throwable) {
+                            super.onError(throwable)
+                            if (throwable is NoDataException) {
+                                pageState.setPageState(PageState.NO_DATA)
+                            } else {
+                                pageState.setPageState(PageState.LOAD_ERROR)
+                            }
                         }
                     })
         } else {
             loadData(pager.value as Int)
                     .subscribe(object : RefreshWithLoadMoreAdapter.Subscriber<Any>(adapters) {
-                        override fun doOnSuccess(resp: Any) {
+                        override fun doOnSuccess(resp: Any, pager: Pager) {
                         }
                     })
-        }
-    }
-
-    override fun onLoadError(e: Throwable) {
-        if (e is NoDataException) {
-            pageState.setPageState(PageState.NO_DATA)
-        } else {
-            pageState.setPageState(PageState.LOAD_ERROR)
         }
     }
 }

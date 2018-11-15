@@ -20,18 +20,35 @@ import io.github.keep2iron.android.utilities.WeakHandler
  * 加载更多adapter的父类 后面一些样式上的问题 可以直接继承该adapter
  *
  */
-abstract class AbstractLoadMoreAdapter constructor(context: Context,
-                                                   recyclerView: RecyclerView,
-                                                   private val mOnLoadMoreListener: (adapter: AbstractLoadMoreAdapter) -> Unit,
-                                                   isEnableLoadMore: Boolean = true)
-    : AbstractSubAdapter(context.applicationContext) {
+abstract class AbstractLoadMoreAdapter : AbstractSubAdapter {
+
+    private var recyclerView: RecyclerView
+
+    constructor(context: Context,
+                recyclerView: RecyclerView) : this(context, recyclerView, null, true)
+
+    constructor(context: Context,
+                recyclerView: RecyclerView,
+                onLoadListener: ((adapter: AbstractLoadMoreAdapter) -> Unit)?,
+                isEnableLoadMore: Boolean) : super(context) {
+        this.recyclerView = recyclerView
+        this.mOnLoadMoreListener = onLoadListener
+        this.isEnableLoadMore = isEnableLoadMore
+        init()
+    }
 
     override fun onCreateLayoutHelper(): LayoutHelper {
         return LinearLayoutHelper()
     }
 
     private var mCurrentShowState = STATE_DEFAULT
-    private var isEnableLoadMore = isEnableLoadMore
+    var mOnLoadMoreListener: ((adapter: AbstractLoadMoreAdapter) -> Unit)? = null
+    var isEnableLoadMore = true
+        set(value) {
+            field = value
+            mCurrentShowState = STATE_DEFAULT
+            notifyItemChanged(0)
+        }
     /**
      * 设置距离底部还有preLoadNumber个item就进行预加载
      */
@@ -48,7 +65,7 @@ abstract class AbstractLoadMoreAdapter constructor(context: Context,
     }
 
 
-    init {
+    fun init() {
         val onScrollListener = object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -74,7 +91,7 @@ abstract class AbstractLoadMoreAdapter constructor(context: Context,
                     }
                     if (isBottom && isEnableLoadMore && mCurrentShowState == STATE_DEFAULT) {
                         showLoading()
-                        mOnLoadMoreListener(this@AbstractLoadMoreAdapter)
+                        mOnLoadMoreListener?.invoke(this@AbstractLoadMoreAdapter)
                     }
                 }
             }
@@ -82,23 +99,17 @@ abstract class AbstractLoadMoreAdapter constructor(context: Context,
         recyclerView.addOnScrollListener(onScrollListener)
     }
 
-    fun setEnableLoadMore(isEnableLoadMore: Boolean) {
-        this.isEnableLoadMore = isEnableLoadMore
-        mCurrentShowState = STATE_DEFAULT
-        notifyItemChanged(0)
-    }
-
     override fun render(holder: RecyclerViewHolder, position: Int) {
         val binding = holder.itemView
         binding.findViewById<View>(R.id.load_more_load_fail_view).setOnClickListener {
-            mOnLoadMoreListener(this@AbstractLoadMoreAdapter)
+            mOnLoadMoreListener?.invoke(this@AbstractLoadMoreAdapter)
             showLoading()
         }
         if (isEnableLoadMore && mCurrentShowState == STATE_DEFAULT) {
             mCurrentShowState = STATE_LOADING
 //            Logger.e("${mCurrentShowState} ${isEnableLoadMore}")
             holder.itemView.post {
-                mOnLoadMoreListener(this@AbstractLoadMoreAdapter)
+                mOnLoadMoreListener?.invoke(this@AbstractLoadMoreAdapter)
             }
         }
         when (mCurrentShowState) {

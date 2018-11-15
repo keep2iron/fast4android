@@ -37,7 +37,7 @@ class NetworkServiceProvider : ComponentServiceProvider<NetworkManager> {
         builder.addInterceptor(ReceivedCookiesInterceptor())
         builder.addInterceptor(AddCookiesInterceptor())
 
-        return NetworkManager.Builder("http://192.168.137.1:8080/")
+        return NetworkManager.Builder("http://10.3.1.133:8080/")
                 .setBaseServerResponse(BaseResponse::class.java)
                 .build(builder.build())
     }

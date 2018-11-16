@@ -51,7 +51,7 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
 
     private var views: Array<View?> = Array(5) { null }
 
-    private var duration = 300
+    private var duration = 500
 
     init {
         val array = resources.obtainAttributes(attrs, R.styleable.PageStateLayout)
@@ -189,12 +189,14 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
      * 设置初始化页面状态
      */
     fun initPageState(pageState: PageState) {
+        this.pageState = pageState
+
         //对应views所在的index
         val pageStateArr = arrayOf(PageState.ORIGIN, PageState.LOAD_ERROR, PageState.NO_DATA, PageState.NO_NETWORK, PageState.LOADING)
         val pageStateIndex = pageStateArr.indexOf(pageState)
         views.forEachIndexed { index, view ->
             if (index == pageStateIndex) {
-                val stateView = view ?: throw IllegalArgumentException("$pageState view not add!!")
+                val stateView = view ?: throw IllegalArgumentException("$pageState view not add you should add state layout id in your xml.")
                 stateView.alpha = 1f
                 stateView.visibility = View.VISIBLE
             } else {

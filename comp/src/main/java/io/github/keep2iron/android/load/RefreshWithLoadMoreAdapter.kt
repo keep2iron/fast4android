@@ -35,10 +35,11 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
         var DEFAULT_INDEX = 0
     }
 
-    private var loadMoreAdapter: AbstractLoadMoreAdapter
+    var loadMoreAdapter: AbstractLoadMoreAdapter
+    var pager: Pager = Pager(DEFAULT_INDEX)
+
     private lateinit var loadMoreAble: LoadMoreAble
     private lateinit var refreshAble: Refreshable
-    private var pager: Pager = Pager(DEFAULT_INDEX)
     private var onLoadListener: RefreshLoadListener? = null
 
 
@@ -107,6 +108,6 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
             return this
         }
 
-        fun build(): AbstractLoadMoreAdapter = adapter.loadMoreAdapter
+        fun build(): RefreshWithLoadMoreAdapter = adapter
     }
 }

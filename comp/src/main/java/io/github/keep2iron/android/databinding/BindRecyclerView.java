@@ -25,10 +25,7 @@ public class BindRecyclerView {
 
         DelegateAdapter delegateAdapter = refreshBundle.getDelegateAdapter();
         ArrayList<DelegateAdapter.Adapter> adapters = new ArrayList<>(refreshBundle.getAdapters());
-        adapters.add(new RefreshWithLoadMoreAdapter.Builder(recyclerView, refreshBundle.getRefreshLayout(), refreshBundle.getLoadMoreClass())
-                .setOnLoadListener(refreshBundle.getRefreshLoadListener())
-                .build()
-        );
+        adapters.add(refreshBundle.buildAdapter(recyclerView).getLoadMoreAdapter());
         delegateAdapter.addAdapters(adapters);
 
         recyclerView.setRecycledViewPool(refreshBundle.recyclerPool());

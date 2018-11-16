@@ -29,7 +29,7 @@ class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(Application.in
     lateinit var pageState: PageStateObservable
 
     fun init(pageStateLayout: PageStateLayout) {
-        pageState = PageStateObservable(pageStateLayout, PageState.LOAD_ERROR)
+        pageState = PageStateObservable(pageStateLayout, PageState.LOADING)
     }
 
     fun loadBanner(): Observable<List<GsonIndex>> {

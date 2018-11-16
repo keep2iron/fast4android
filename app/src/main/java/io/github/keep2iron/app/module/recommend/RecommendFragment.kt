@@ -45,9 +45,13 @@ class RecommendFragment : AbstractFragment<RecommendFragmentBinding>(), Title, L
     override fun initVariables(container: View, savedInstanceState: Bundle?) {
         recommendModel = ViewModelProviders.of(this, LifecycleViewModelFactory(this)).get(RecommendModel::class.java)
         recommendModel.init(dataBinding.stateLayout)
-        dataBinding.bundle = buildRefreshBundle()
 
-        dataBinding.refreshLayout.autoRefresh()
+        val listBundle = buildRefreshBundle()
+        dataBinding.bundle = listBundle
+        val adapter = listBundle.buildAdapter(dataBinding.rvRecyclerView)
+
+        recommendModel.onLoad(adapter, adapter.pager)
+//        dataBinding.refreshLayout.autoRefresh()
     }
 
     override val resId: Int = R.layout.recommend_fragment

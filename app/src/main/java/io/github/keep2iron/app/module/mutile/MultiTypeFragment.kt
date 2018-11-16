@@ -47,13 +47,10 @@ class MultiTypeFragment : AbstractFragment<FragmentMutileTypeBinding>(), ListDat
         apiService.multiType(pager.value as Int)
                 .compose(rxObservableScheduler())
                 .subscribe(object : RefreshWithLoadMoreAdapter.Subscriber<BaseResponse<List<MultiModelWrapper>>>(adapters) {
-                    override fun doOnSuccess(resp: BaseResponse<List<MultiModelWrapper>>, pager: Pager) {
-                        if (resp.value == null || resp.value!!.isEmpty()) {
-                            throw NoDataException()
-                        }
+                    override fun testRespEmpty(resp: BaseResponse<List<MultiModelWrapper>>): Boolean = resp.value == null || resp.value!!.isEmpty()
 
+                    override fun doOnSuccess(resp: BaseResponse<List<MultiModelWrapper>>, pager: Pager) {
                         if (pager.value == 0) {
-                            dataBinding.recyclerView.scrollToPosition(0)
                             list.clear()
                         }
                         resp.value?.map {

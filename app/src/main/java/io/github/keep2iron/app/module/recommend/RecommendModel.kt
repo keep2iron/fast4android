@@ -35,49 +35,45 @@ class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(Application.in
     fun loadBanner(): Observable<List<GsonIndex>> {
         return DataRepository.instance.indexBanner()
                 .compose(bindObservableLifeCycle())
-                .doOnNext { resp ->
-                    bannerItems.clear()
-                    bannerItems.addAll(resp)
-                }
     }
 
     fun loadData(index: Int): Observable<List<GsonIndex>> {
         return DataRepository.instance.indexMovie(index)
                 .compose(bindObservableLifeCycle())
-                .doOnNext { resp ->
-                    if (resp.isEmpty()) {
-                        throw NoDataException()
-                    }
-
-                    if (index == 0) indexItems.clear()
-                    indexItems.addAll(resp)
-                }
     }
 
     override fun onLoad(adapters: RefreshWithLoadMoreAdapter, pager: Pager) {
-        if (pager.value == 0) {
+        if (pager.value == pager.defaultValue) {
+            if (pageState.state != PageState.ORIGIN) {
+                pageState.setPageState(PageState.LOADING)
+            }
+
             Observable.zip(loadData(pager.value as Int),
                     loadBanner(),
-                    BiFunction<List<GsonIndex>, List<GsonIndex>, Any> { _, _ -> Object::class.java })
-                    .subscribe(object : RefreshWithLoadMoreAdapter.Subscriber<Any>(adapters) {
-                        override fun doOnSuccess(resp: Any, pager: Pager) {
-                            pageState.setPageState(PageState.ORIGIN)
-                            super.doOnSuccess(resp, pager)
+                    BiFunction<List<GsonIndex>, List<GsonIndex>, Any> { dataResp, bannerResp -> Pair(dataResp, bannerResp) })
+                    .subscribe(object : RefreshWithLoadMoreAdapter.Subscriber<Any>(adapters, pageState) {
+                        override fun testRespEmpty(resp: Any): Boolean {
+                            val pair = resp as Pair<List<GsonIndex>, List<GsonIndex>>
+                            return pair.first.isEmpty() && pair.second.isEmpty()
                         }
 
-                        override fun onError(throwable: Throwable) {
-                            super.onError(throwable)
-                            if (throwable is NoDataException) {
-                                pageState.setPageState(PageState.ORIGIN)
-                            } else {
-                                pageState.setPageState(PageState.ORIGIN)
-                            }
+                        override fun doOnSuccess(resp: Any, pager: Pager) {
+                            val pair = resp as Pair<List<GsonIndex>, List<GsonIndex>>
+                            bannerItems.clear()
+                            bannerItems.addAll(pair.second)
+                            indexItems.clear()
+                            indexItems.addAll(pair.first)
+
+                            super.doOnSuccess(resp, pager)
                         }
                     })
         } else {
             loadData(pager.value as Int)
-                    .subscribe(object : RefreshWithLoadMoreAdapter.Subscriber<Any>(adapters) {
-                        override fun doOnSuccess(resp: Any, pager: Pager) {
+                    .subscribe(object : RefreshWithLoadMoreAdapter.Subscriber<List<GsonIndex>>(adapters) {
+                        override fun testRespEmpty(resp: List<GsonIndex>): Boolean = resp.isEmpty()
+
+                        override fun doOnSuccess(resp: List<GsonIndex>, pager: Pager) {
+                            indexItems.addAll(resp)
                         }
                     })
         }

@@ -80,7 +80,6 @@ dependencies {
     implementation deps.arch.lifecycle
     implementation deps.arch.extensions
     kapt deps.kotlin_databinding_compiler
-    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.43-alpha1'
 
     implementation project(':core')
     implementation project(':comp')

@@ -6,13 +6,13 @@ import io.github.keep2iron.android.widget.PageState
 import io.github.keep2iron.android.widget.PageStateLayout
 
 open class PageStateObservable(private val pageStateLayout: PageStateLayout,
-                               pageState: PageState = PageState.ORIGIN) : Observable {
+                               val state: PageState = PageState.ORIGIN) : Observable {
 
     private val callbacks: ArrayList<Observable.OnPropertyChangedCallback> = ArrayList(3)
 
     init {
-        if (pageState != PageState.ORIGIN) {
-            pageStateLayout.initPageState(pageState)
+        if (state != PageState.ORIGIN) {
+            pageStateLayout.initPageState(state)
         }
     }
 

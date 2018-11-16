@@ -2,9 +2,13 @@ package io.github.keep2iron.android.load
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
+import com.orhanobut.logger.Logger
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import io.github.keep2iron.android.adapter.AbstractLoadMoreAdapter
+import io.github.keep2iron.android.databinding.PageStateObservable
+import io.github.keep2iron.android.widget.PageState
 import io.github.keep2iron.pomelo.AndroidSubscriber
 import io.github.keep2iron.pomelo.exception.NoDataException
 
@@ -24,7 +28,7 @@ interface RefreshLoadListener {
  *
  * 用于代理Refresh和LoadMore的Adapter
  */
-class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
+class RefreshWithLoadMoreAdapter private constructor(val recyclerView: RecyclerView,
                                                      refreshLayout: View,
                                                      clazz: Class<out AbstractLoadMoreAdapter>) {
 
@@ -52,7 +56,10 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
         loadMoreAble = VLayoutLoadMoreAble(loadMoreAdapter)
     }
 
-    abstract class Subscriber<T>(private val adapter: RefreshWithLoadMoreAdapter) : AndroidSubscriber<T>() {
+    abstract class Subscriber<T>(private val adapter: RefreshWithLoadMoreAdapter,
+                                 private val pageState: PageStateObservable? = null) : AndroidSubscriber<T>() {
+
+        abstract fun testRespEmpty(resp: T): Boolean
 
         open fun doOnSuccess(resp: T, pager: Pager) {
             pager.value = (pager.value as Int).inc()
@@ -65,8 +72,24 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
             adapter.refreshAble.showRefreshComplete()
             adapter.loadMoreAble.showLoadMoreComplete()
 
+            val pager = adapter.pager
+
+
             try {
-                doOnSuccess(resp, adapter.pager)
+                if (testRespEmpty(resp)) {
+                    if (pager.value == pager.defaultValue) {
+                        pageState?.setPageState(PageState.NO_DATA)
+                    } else {
+                        throw NoDataException()
+                    }
+                } else {
+                    if (pager.value == pager.defaultValue) {
+                        adapter.recyclerView.scrollToPosition(0)
+                        pageState?.setPageState(PageState.ORIGIN)
+                    }
+
+                    doOnSuccess(resp, pager)
+                }
             } catch (exp: NoDataException) {
                 adapter.refreshAble.setRefreshEnable(true)
                 adapter.loadMoreAble.showLoadMoreEnd()
@@ -74,10 +97,10 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
         }
 
         override fun onError(throwable: Throwable) {
-            if (throwable is NoDataException) {
-                adapter.refreshAble.setRefreshEnable(true)
-                adapter.loadMoreAble.showLoadMoreEnd()
-                return
+            Logger.e(Log.getStackTraceString(throwable))
+            val pager = adapter.pager
+            if (pager.value == pager.defaultValue) {
+                pageState?.setPageState(PageState.LOAD_ERROR)
             }
 
             adapter.loadMoreAble.setLoadMoreEnable(true)

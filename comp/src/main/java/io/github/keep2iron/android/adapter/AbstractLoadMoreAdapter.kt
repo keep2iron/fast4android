@@ -137,15 +137,21 @@ abstract class AbstractLoadMoreAdapter : AbstractSubAdapter {
     }
 
     open fun visibleLoading(binding: View, visible: Boolean) {
-        binding.findViewById<View>(R.id.load_more_loading_view).visibility = if (visible) View.VISIBLE else View.GONE
+        binding.post {
+            binding.findViewById<View>(R.id.load_more_loading_view).visibility = if (visible) View.VISIBLE else View.GONE
+        }
     }
 
     open fun visibleLoadFail(binding: View, visible: Boolean) {
-        binding.findViewById<View>(R.id.load_more_load_fail_view).visibility = if (visible) View.VISIBLE else View.GONE
+        binding.post {
+            binding.findViewById<View>(R.id.load_more_load_fail_view).visibility = if (visible) View.VISIBLE else View.GONE
+        }
     }
 
     open fun visibleLoadEnd(binding: View, visible: Boolean) {
-        binding.findViewById<View>(R.id.load_more_load_end_view).visibility = if (visible) View.VISIBLE else View.GONE
+        binding.post {
+            binding.findViewById<View>(R.id.load_more_load_end_view).visibility = if (visible) View.VISIBLE else View.GONE
+        }
     }
 
     override fun getItemViewType(position: Int): Int {

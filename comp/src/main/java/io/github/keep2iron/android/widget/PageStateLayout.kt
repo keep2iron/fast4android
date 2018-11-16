@@ -3,6 +3,7 @@ package io.github.keep2iron.android.widget
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
+import android.support.v4.util.ArrayMap
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -49,9 +50,11 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
 
     private var pageState = PageState.ORIGIN
 
-    private var views: Array<View?> = Array(5) { null }
+    private var views: ArrayMap<PageState, View?> = ArrayMap()
 
     private var duration = 500
+
+//    private var animMap: ArrayMap<View, Boolean> = ArrayMap(10)
 
     init {
         val array = resources.obtainAttributes(attrs, R.styleable.PageStateLayout)
@@ -105,83 +108,104 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
             addView(mLoadingView, 0)
         }
 
-        views[0] = mOriginView
-        views[1] = mLoadError
-        views[2] = mNoDataView
-        views[3] = mNoNetwork
-        views[4] = mLoadingView
+        views[PageState.ORIGIN] = mOriginView
+        views[PageState.LOAD_ERROR] = mLoadError
+        views[PageState.NO_DATA] = mNoDataView
+        views[PageState.NO_NETWORK] = mNoNetwork
+        views[PageState.LOADING] = mLoadingView
 
         initPageState(pageState)
     }
 
-    private fun animStateView(showView: View?) {
-        views.forEach {
-            //如果不是要显示的View则进行隐藏
-            if (it != null && it != showView && it.visibility == View.VISIBLE) {
-                it.animate()
-                        .setListener(object : AnimatorListenerAdapter() {
-                            override fun onAnimationEnd(animation: Animator) {
-                                it.visibility = View.GONE
-                            }
-                        })
-                        .setDuration(duration.toLong())
-                        .alpha(0f)
-                        .start()
-            } else if (it != null && it == showView && it.visibility == View.GONE) {
-                it.alpha = 0f
-                it.visibility = View.VISIBLE
-                it.animate()
-                        .setDuration(duration.toLong())
-                        .alpha(1f)
-                        .start()
-            }
-        }
+    /**
+     * loaderror -> loading
+     */
+    private fun animStateView(preState: PageState, showView: View) {
+        val preSateView = views[preState]!!
+
+        preSateView.animate().cancel()
+        preSateView.visibility = View.VISIBLE
+        preSateView.alpha = 1f
+        preSateView.animate()
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        preSateView.visibility = View.GONE
+                    }
+
+                    override fun onAnimationCancel(animation: Animator) {
+                        super.onAnimationCancel(animation)
+                    }
+                }).setDuration(duration.toLong())
+                .alpha(0f)
+                .start()
+
+        showView.animate().cancel()
+        showView.alpha = 0f
+        showView.visibility = View.VISIBLE
+        showView.animate()
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationCancel(animation: Animator) {
+                        super.onAnimationCancel(animation)
+                    }
+                })
+                .setDuration(duration.toLong())
+                .alpha(1f)
+                .start()
+    }
+
+    fun isVisible(view: View): Boolean {
+        return view.visibility == View.VISIBLE
     }
 
     fun displayOriginView() {
-        if(pageState != PageState.ORIGIN) {
+        if (pageState != PageState.ORIGIN) {
+            val preState = pageState
             pageState = PageState.ORIGIN
-            animStateView(mOriginView)
+            animStateView(preState, mOriginView!!)
         }
     }
 
     fun displayNoNetwork() {
-        if(pageState != PageState.NO_NETWORK) {
+        if (pageState != PageState.NO_NETWORK) {
+            val preState = pageState
             pageState = PageState.NO_NETWORK
             if (mNoNetwork == null) {
                 throw IllegalArgumentException("you should add no network layout")
             }
-            animStateView(mNoNetwork)
+            animStateView(preState, mNoNetwork!!)
         }
     }
 
     fun displayNoData() {
-        if(pageState != PageState.NO_DATA) {
+        if (pageState != PageState.NO_DATA) {
+            val preState = pageState
             pageState = PageState.NO_DATA
             if (mNoDataView == null) {
                 throw IllegalArgumentException("you should add no data layout")
             }
-            animStateView(mNoDataView)
+            animStateView(preState, mNoDataView!!)
         }
     }
 
     fun displayLoading() {
-        if(pageState != PageState.LOADING) {
+        if (pageState != PageState.LOADING) {
+            val preState = pageState
             pageState = PageState.LOADING
             if (mLoadingView == null) {
                 throw IllegalArgumentException("you should add loading layout")
             }
-            animStateView(mLoadingView)
+            animStateView(preState, mLoadingView!!)
         }
     }
 
     fun displayLoadError() {
-        if(pageState != PageState.LOAD_ERROR) {
+        if (pageState != PageState.LOAD_ERROR) {
+            val preState = pageState
             pageState = PageState.LOAD_ERROR
             if (mLoadError == null) {
                 throw IllegalArgumentException("you should add load error layout")
             }
-            animStateView(mLoadError)
+            animStateView(preState, mLoadError!!)
         }
     }
 
@@ -191,17 +215,20 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
     fun initPageState(pageState: PageState) {
         this.pageState = pageState
 
-        //对应views所在的index
-        val pageStateArr = arrayOf(PageState.ORIGIN, PageState.LOAD_ERROR, PageState.NO_DATA, PageState.NO_NETWORK, PageState.LOADING)
-        val pageStateIndex = pageStateArr.indexOf(pageState)
-        views.forEachIndexed { index, view ->
-            if (index == pageStateIndex) {
-                val stateView = view ?: throw IllegalArgumentException("$pageState view not add you should add state layout id in your xml.")
+
+        for (i in 0..views.size) {
+            val key = views.keyAt(i)
+            val view = views[key]
+            if (key == pageState) {
+                val stateView = view
+                        ?: throw IllegalArgumentException("$pageState view not add you should add state layout id in your xml.")
                 stateView.alpha = 1f
                 stateView.visibility = View.VISIBLE
             } else {
-                view?.alpha = 0f
-                view?.visibility = View.GONE
+                view?.let {
+                    view.alpha = 0f
+                    view.visibility = View.GONE
+                }
             }
         }
     }

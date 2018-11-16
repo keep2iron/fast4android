@@ -18,7 +18,7 @@ data class ListBundle(val refreshLayout: View,
 ) {
     val virtualLayoutManager = WrapperVirtualLayoutManager(refreshLayout.context.applicationContext)
     val delegateAdapter = DelegateAdapter(virtualLayoutManager, true)
-    var refreshLoadMoreAdapter: RefreshWithLoadMoreAdapter? = null
+    private var refreshLoadMoreAdapter: RefreshWithLoadMoreAdapter? = null
 
     fun recyclerPool(): RecyclerView.RecycledViewPool {
         val recycledViewPool = RecyclerView.RecycledViewPool()

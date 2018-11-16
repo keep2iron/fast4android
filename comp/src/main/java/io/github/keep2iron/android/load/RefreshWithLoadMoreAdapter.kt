@@ -28,15 +28,8 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
                                                      refreshLayout: View,
                                                      clazz: Class<out AbstractLoadMoreAdapter>) {
 
-    companion object {
-        /**
-         * 全局初始化默認參數
-         */
-        var DEFAULT_INDEX = 0
-    }
-
     var loadMoreAdapter: AbstractLoadMoreAdapter
-    var pager: Pager = Pager(DEFAULT_INDEX)
+    var pager: Pager = Pager(0)
 
     private lateinit var loadMoreAble: LoadMoreAble
     private lateinit var refreshAble: Refreshable
@@ -104,7 +97,9 @@ class RefreshWithLoadMoreAdapter private constructor(recyclerView: RecyclerView,
 
         fun setOnLoadListener(listener: RefreshLoadListener): Builder {
             adapter.onLoadListener = listener
-            adapter.pager.defaultValue = listener.defaultValue()
+            val defaultValue = listener.defaultValue()
+            adapter.pager.defaultValue = defaultValue
+            adapter.pager.value = defaultValue
             return this
         }
 

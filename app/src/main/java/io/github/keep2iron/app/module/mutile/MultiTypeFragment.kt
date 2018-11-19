@@ -19,7 +19,6 @@ import io.github.keep2iron.app.data.remote.ApiService
 import io.github.keep2iron.app.databinding.FragmentMutileTypeBinding
 import io.github.keep2iron.app.model.*
 import io.github.keep2iron.pomelo.NetworkManager
-import io.github.keep2iron.pomelo.exception.NoDataException
 import java.util.ArrayList
 
 /**

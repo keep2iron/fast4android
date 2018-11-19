@@ -42,9 +42,12 @@ class Application : MultiDexApplication(), MainComponent {
             }
 
             override fun createComponentModuleProvider(): List<ComponentModuleProvider> {
-                return listOf(LoggerModule(),
+                return listOf(
+                        LoggerModule(),
                         RefreshLayoutModule(),
-                        TencentX5Module())
+                        TencentX5Module(),
+                        ScreenDensityModule()
+                )
             }
         }
     }

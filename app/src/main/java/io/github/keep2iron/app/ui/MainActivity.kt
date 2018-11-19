@@ -18,7 +18,7 @@ import io.github.keep2iron.app.widget.GradientBackgroundView
 
 
 @Route(path = "/main/activity")
-@StatusColor(isTrans = false, isDarkMode = false, value = R.color.deep_purple)
+@StatusColor(isTrans = false, isDarkMode = false, value = R.color.white)
 class MainActivity(override val resId: Int = R.layout.main_activity) : AbstractActivity<MainActivityBinding>() {
     var gbvGradientView: GradientBackgroundView by FindViewById(R.id.gbvGradientView)
 
@@ -27,21 +27,21 @@ class MainActivity(override val resId: Int = R.layout.main_activity) : AbstractA
         list.add(BottomTabAdapter.TabHolder(
                 colorRes = R.color.gray,
                 selectColorRes = R.color.colorPrimary,
-                title = "",
+                title = "123",
                 iconResId = R.drawable.ic_classification_unselect,
                 selIconResId = R.drawable.ic_classification_select,
                 fragment = MovieFragment.getInstance()))
         list.add(BottomTabAdapter.TabHolder(
                 colorRes = R.color.gray,
                 selectColorRes = R.color.colorPrimary,
-                title = "",
+                title = "123",
                 iconResId = R.drawable.ic_whatshot_unselect,
                 selIconResId = R.drawable.ic_whatshot_select,
                 fragment = RecommendFragment.getInstance()))
         list.add(BottomTabAdapter.TabHolder(
                 colorRes = R.color.gray,
                 selectColorRes = R.color.colorPrimary,
-                title = "",
+                title = "123",
                 iconResId = R.drawable.ic_whatshot_unselect,
                 selIconResId = R.drawable.ic_whatshot_select,
                 fragment = MultiTypeFragment()))

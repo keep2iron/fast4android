@@ -13,6 +13,9 @@ import android.widget.LinearLayout
 import io.github.keep2iron.android.comp.R
 import io.github.keep2iron.android.ext.dp2px
 import io.github.keep2iron.android.ext.sp
+import android.view.ViewGroup
+import android.content.res.TypedArray
+
 
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)
@@ -55,29 +58,36 @@ class BottomTabLayout : LinearLayout {
         tabDrawablePadding = array.getDimension(R.styleable.BottomTabLayout_tab_drawable_padding, 0f).toInt()
         tabItemMargin = array.getDimension(R.styleable.BottomTabLayout_tab_item_margin, 0f).toInt()
         tabItemBackgroundRes = array.getResourceId(R.styleable.BottomTabLayout_tab_item_background, -1)
+
+//        val systemAttrs = intArrayOf(android.R.attr.layout_height)
+//        val a = context.obtainStyledAttributes(attrs, systemAttrs)
+//        val height = a.getDimensionPixelSize(0, ViewGroup.LayoutParams.WRAP_CONTENT)
+//        a.recycle()
         array.recycle()
     }
 
     fun setBottomTabAdapter(adapter: BottomTabAdapter, container: View, defaultPosition: Int = 0) {
         this.adapter = adapter
-        adapter.tabs[defaultPosition].fragment?.let { frag ->
-            adapter.showingFragment = frag
-        }
-        adapter.selectPosition = defaultPosition
-        adapter.containerView = container
-
-        onTabStateChangedListeners = adapter.onTabStateChangedListeners
-
-        if (container is ViewPager) {
-            setWithViewPager(container)
-            if (defaultPosition != 0) {
-                container.currentItem = defaultPosition
+        post {
+            adapter.tabs[defaultPosition].fragment?.let { frag ->
+                adapter.showingFragment = frag
             }
+            adapter.selectPosition = defaultPosition
+            adapter.containerView = container
+
+            onTabStateChangedListeners = adapter.onTabStateChangedListeners
+
+            if (container is ViewPager) {
+                setWithViewPager(container)
+                if (defaultPosition != 0) {
+                    container.currentItem = defaultPosition
+                }
+            }
+
+            setViewWithAdapter(adapter, container)
+
+            setTabSelect(defaultPosition)
         }
-
-        setViewWithAdapter(adapter, container)
-
-        setTabSelect(defaultPosition)
     }
 
     fun addOnTabSelectedListener(listener: OnTabChangeListener) {
@@ -85,20 +95,21 @@ class BottomTabLayout : LinearLayout {
     }
 
     private fun setTabSelect(position: Int) {
-        val tab = adapter.tabs[position]
+        post {
+            val tab = adapter.tabs[position]
 
-        if (!tab.isCustom) {
-            adapter.setTabSelect(position)
-        } else {
-            for (listener in adapter.onTabStateChangedListeners) {
-                listener.onTabSelect(position)
-                listener.onTabUnSelect(adapter.selectPosition)
+            if (!tab.isCustom) {
+                adapter.setTabSelect(position)
+            } else {
+                for (listener in adapter.onTabStateChangedListeners) {
+                    listener.onTabSelect(position)
+                    listener.onTabUnSelect(adapter.selectPosition)
+                }
             }
-        }
 
-        this.position = position
-        this.positionOffset = 0f
-        invalidate()
+            this.position = position
+            this.positionOffset = 0f
+        }
     }
 
     private fun setViewWithAdapter(adapter: BottomTabAdapter, container: View) {
@@ -113,8 +124,8 @@ class BottomTabLayout : LinearLayout {
                         tabIconWidth,
                         tabIconHeight,
                         tabTextSize.toInt(),
+                        height,
                         tabDrawablePadding,
-
                         i == adapter.selectPosition)
                 if (tabItemBackgroundRes != -1) {
                     tab.customView.setBackgroundResource(tabItemBackgroundRes)

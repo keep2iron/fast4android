@@ -41,6 +41,7 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
                                         tabIconWidth: Int,
                                         tabIconHeight: Int,
                                         tabTextSize: Int,
+                                        tabLayoutHeight: Int,
                                         drawablePadding: Int,
                                         isSelect: Boolean = false): TextView {
         return BadgeTextView(context).apply {
@@ -51,12 +52,16 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
             }
 
             gravity = Gravity.CENTER
-            if (!TextUtils.isEmpty(tab.title)) {
+            val tabIconTopPadding = if (!TextUtils.isEmpty(tab.title)) {
                 text = tab.title
                 setTextColor(ContextCompat.getColor(context, if (isSelect) tab.selectColorRes else tab.colorRes))
+                (tabLayoutHeight - tabTextSize - tabIconHeight - drawablePadding) / 2
+            } else {
+                text = null
+                (tabLayoutHeight - tabIconHeight - drawablePadding) / 2
             }
             compoundDrawablePadding = drawablePadding
-            setPadding(0, dp2px(context,10), 0, 0)
+            setPadding(0, tabIconTopPadding, 0, 0)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize.toFloat())
             badgeColor = tab.badgeColor
             badgeSize = tab.badgeSize
@@ -124,13 +129,13 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
         var isCustom: Boolean = false
         var tabIconWidth: Int = 0
         var tabIconHeight: Int = 0
-        var badgeSize : Int = 0
+        var badgeSize: Int = 0
         var isEnable = true
 
         constructor(@ColorRes colorRes: Int,
                     @ColorRes selectColorRes: Int,
                     @ColorRes badgeColor: Int = android.R.color.holo_red_light,
-                    @DimenRes badgeSize : Int = R.dimen.default_badge_size,
+                    @DimenRes badgeSize: Int = R.dimen.default_badge_size,
                     title: String,
                     @DrawableRes iconResId: Int,
                     @DrawableRes selIconResId: Int,
@@ -148,7 +153,7 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
 
         constructor(@DrawableRes iconResId: Int,
                     @DrawableRes selIconResId: Int,
-                    fragment: Fragment) : this(0, 0, android.R.color.holo_red_light, 0,"", iconResId, selIconResId, fragment)
+                    fragment: Fragment) : this(0, 0, android.R.color.holo_red_light, 0, "", iconResId, selIconResId, fragment)
 
         constructor(mCustomView: View) {
             isCustom = true

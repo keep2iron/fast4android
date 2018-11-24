@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.scwang.smartrefresh.layout.util.DensityUtil.dp2px
+import io.github.keep2iron.android.adapter.WrapperPagerAdapter
 import io.github.keep2iron.android.comp.R
 
 
@@ -217,42 +218,5 @@ class LoopViewLayout : FrameLayout {
         return adapter.recyclerAdapter
     }
 
-    class WrapperPagerAdapter<T : RecyclerViewHolder>(val recyclerAdapter: RecyclerView.Adapter<T>,
-                                                                                          private val pool: RecyclerView.RecycledViewPool) : PagerAdapter() {
 
-        override fun instantiateItem(container: ViewGroup, position: Int): Any {
-            var realPosition = (position - 1) % recyclerAdapter.itemCount
-            if (realPosition < 0)
-                realPosition += recyclerAdapter.itemCount
-
-            val itemViewType = recyclerAdapter.getItemViewType(realPosition)
-            var holder = pool.getRecycledView(itemViewType)
-            if (holder == null) {
-                holder = recyclerAdapter.createViewHolder(container, itemViewType);
-            }
-
-            recyclerAdapter.onBindViewHolder(holder as T, realPosition)
-            container.addView(holder.itemView, ViewPager.LayoutParams())
-
-            return holder.itemView
-        }
-
-        override fun isViewFromObject(view: View, `object`: Any): Boolean = view == `object`
-
-        override fun getCount(): Int {
-            return if (recyclerAdapter.itemCount <= 1) recyclerAdapter.itemCount
-            else recyclerAdapter.itemCount + 2
-        }
-
-        override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-            if (`object` is RecyclerView.ViewHolder) {
-                container.removeView(`object`.itemView)
-                pool.putRecycledView(`object`)
-            }
-        }
-
-        fun getRealCount(): Int {
-            return recyclerAdapter.itemCount
-        }
-    }
 }

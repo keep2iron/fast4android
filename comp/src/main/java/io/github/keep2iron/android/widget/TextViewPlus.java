@@ -52,7 +52,6 @@ public class TextViewPlus extends AppCompatTextView {
                 sRightSize.width = array.getDimensionPixelSize(index, defValue);
             } else if (R.styleable.TextViewPlus_drawableRightHeight == index) {
                 sRightSize.height = array.getDimensionPixelSize(index, defValue);
-                break;
             } else if (R.styleable.TextViewPlus_drawableTopWidth == index) {
                 sTopSize.width = array.getDimensionPixelSize(index, defValue);
             } else if (R.styleable.TextViewPlus_drawableTopHeight == index) {

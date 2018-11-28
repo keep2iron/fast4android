@@ -41,7 +41,7 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
                                         tabIconWidth: Int,
                                         tabIconHeight: Int,
                                         tabTextSize: Int,
-                                        tabLayoutHeight: Int,
+                                        tabLayoutHeight: Float,
                                         drawablePadding: Int,
                                         isSelect: Boolean = false): TextView {
         return BadgeTextView(context).apply {
@@ -61,7 +61,7 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
                 (tabLayoutHeight - tabIconHeight - drawablePadding) / 2
             }
             compoundDrawablePadding = drawablePadding
-            setPadding(0, tabIconTopPadding, 0, 0)
+            setPadding(0, tabIconTopPadding.toInt(), 0, 0)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize.toFloat())
             badgeColor = tab.badgeColor
             badgeSize = tab.badgeSize

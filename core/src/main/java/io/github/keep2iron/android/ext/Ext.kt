@@ -29,7 +29,7 @@ fun Application.init(mainComponent: MainComponent) {
 /**
  * 注册组件
  */
-private fun <T> Application.registerComponentService(vararg providers: ComponentServiceProvider<T>) {
+fun <T> Application.registerComponentService(vararg providers: ComponentServiceProvider<T>) {
     providers.forEach {
         COMPONENT_SERVICE[it.componentName] = it.provideComponentService(this)
     }

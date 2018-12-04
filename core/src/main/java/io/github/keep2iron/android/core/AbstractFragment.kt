@@ -15,6 +15,7 @@ import io.github.keep2iron.android.rx.RxLifecycle
 import io.github.keep2iron.android.utilities.RxTransUtil
 import io.reactivex.ObservableTransformer
 import io.reactivex.subjects.BehaviorSubject
+import java.lang.IllegalArgumentException
 
 /**
  *
@@ -59,13 +60,15 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val createBinding: DB? = DataBindingUtil.inflate(inflater, resId, container, false)
-        if (createBinding == null) {
-            contentView = inflater.inflate(resId, container, false)
-        } else {
-            dataBinding = createBinding
-            contentView = dataBinding.root
+        val view = inflater.inflate(resId, container, false)
+        try {
+            val createBinding = DataBindingUtil.bind<DB>(view)
+            if (createBinding != null) {
+                dataBinding = createBinding
+            }
+        } catch (e: IllegalArgumentException) {
         }
+        contentView = view
 
         contentView.isClickable = true
         contentView.setBackgroundColor(resources.getColor(android.R.color.white))

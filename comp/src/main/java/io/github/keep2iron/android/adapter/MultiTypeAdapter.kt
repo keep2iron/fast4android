@@ -9,6 +9,7 @@ import com.alibaba.android.vlayout.DelegateAdapter
 import com.alibaba.android.vlayout.LayoutHelper
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper
 import io.github.keep2iron.android.databinding.RecyclerViewChangeAdapter
+import kotlin.reflect.KClass
 
 /**
  *
@@ -19,7 +20,7 @@ import io.github.keep2iron.android.databinding.RecyclerViewChangeAdapter
  * 用于多类型Adapter
  */
 class MultiTypeAdapter(private val data: ObservableList<Any>) : DelegateAdapter.Adapter<RecyclerViewHolder>() {
-    private val multiTypeAdapter: ArrayList<SubMultiTypeAdapter> = ArrayList()
+    private val multiTypeAdapter: ArrayList<SubMultiTypeAdapter<*>> = ArrayList()
     private val clazzMap: SparseArrayCompat<Class<*>> = SparseArrayCompat()
     private val adapterMap: ArrayMap<Class<*>, AbstractSubAdapter> = ArrayMap(10)
 
@@ -32,9 +33,11 @@ class MultiTypeAdapter(private val data: ObservableList<Any>) : DelegateAdapter.
      *
      * 如果onBindViewHolder上的实体类型与adapter有对应 那么会触发adapter的render方法
      */
-    fun registerAdapter(adapter: SubMultiTypeAdapter, clazz: Class<*>) {
+    fun registerAdapter(adapter: SubMultiTypeAdapter<*>) {
         multiTypeAdapter.add(adapter)
-        clazzMap.put(adapter.getItemViewType(-1), clazz)
+        adapter.setOriginList(data)
+        val clazz = adapter.genericClass()
+        clazzMap.put(adapter.viewType(), clazz)
         adapterMap[clazz] = adapter
     }
 
@@ -70,15 +73,36 @@ class MultiTypeAdapter(private val data: ObservableList<Any>) : DelegateAdapter.
                 return adapterMap[clazz]!!
             }
         }
-        throw IllegalArgumentException("position : $position item type ${item.javaClass.name} is miss match !please add it call registerAdapter()")
+        throw IllegalArgumentException("position on $position ,item type ${item.javaClass.name} is miss match !please add it call registerAdapter()")
     }
 
 
-    abstract class SubMultiTypeAdapter(context: Context,
-                                       itemViewType: Int) : AbstractSubAdapter(context, itemViewType) {
+    /**
+     * [T]是要注册的数据类型
+     */
+    abstract class SubMultiTypeAdapter<T : Any>(context: Context) : AbstractSubAdapter(context) {
+        private lateinit var originList: List<Any>
+
+        internal fun setOriginList(originList: List<Any>) {
+            this.originList = originList
+        }
+
         override fun getItemCount(): Int = AbstractSubAdapter.ILLEGAL_SIZE
 
         override fun onCreateLayoutHelper(): LayoutHelper = LinearLayoutHelper()
 
+        override fun render(holder: RecyclerViewHolder, position: Int) {
+            this.render(holder, originList[position] as T)
+        }
+
+        abstract fun render(holder: RecyclerViewHolder, data: T)
+
+        abstract fun genericClass(): Class<T>
+
+        override fun getItemViewType(position: Int): Int {
+            return viewType()
+        }
+
+        abstract fun viewType(): Int
     }
 }

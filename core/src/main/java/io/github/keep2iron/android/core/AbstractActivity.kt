@@ -40,12 +40,12 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         beforeInit()
+
         val createDataBinding: DB? = DataBindingUtil.setContentView(this, resId)
         if (createDataBinding != null) {
             dataBinding = createDataBinding
-        } else {
-            setContentView(resId)
         }
+
         (lifecycle as LifecycleRegistry).handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         setStatusColorFromAnnotation()
 

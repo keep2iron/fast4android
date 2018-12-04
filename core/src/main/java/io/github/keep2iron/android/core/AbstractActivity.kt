@@ -57,32 +57,28 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
     internal fun setStatusColorFromAnnotation() {
         immersionBar = ImmersionBar
                 .with(this)
+        val annStatusColor: StatusColor? = this::class.java.getAnnotation(StatusColor::class.java)
+        if (annStatusColor != null) {
+            immersionBar.fitsSystemWindows(annStatusColor.isFitSystem)
 
-        val annotations = this::class.java.annotations
-        for (annotation in annotations) {
-            if (annotation is StatusColor) {
-                val annStatusColor: StatusColor = annotation
-                immersionBar.fitsSystemWindows(annotation.isFitSystem)
+            val value = annStatusColor.value
+            val darkMode = annStatusColor.isDarkMode
 
-                val value = annStatusColor.value
-                val darkMode = annStatusColor.isDarkMode
-
-                if (value != -1) {
-                    immersionBar.statusBarColor(value)
-                            //修改flyme OS状态栏字体颜色
-                            .flymeOSStatusBarFontColor(value)
-                }
-                if (annStatusColor.isTrans) {
-                    immersionBar.transparentStatusBar()
-                }
-                if (annStatusColor.navigationBarColor != -1) {
-                    immersionBar.navigationBarColor(annStatusColor.navigationBarColor)
-                } else {
-                    immersionBar.navigationBarColor("#000000")
-                }
-                immersionBar.statusBarDarkFont(darkMode)
-                immersionBar.addTag("default")
+            if (value != -1) {
+                immersionBar.statusBarColor(value)
+                        //修改flyme OS状态栏字体颜色
+                        .flymeOSStatusBarFontColor(value)
             }
+            if (annStatusColor.isTrans) {
+                immersionBar.transparentStatusBar()
+            }
+            if (annStatusColor.navigationBarColor != -1) {
+                immersionBar.navigationBarColor(annStatusColor.navigationBarColor)
+            } else {
+                immersionBar.navigationBarColor("#000000")
+            }
+            immersionBar.statusBarDarkFont(darkMode)
+            immersionBar.addTag("default")
         }
         immersionBar.init()   //所有子类都将继承这些相同的属性
     }
@@ -97,6 +93,10 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
         immersionBar.getTag("default")
                 .statusBarDarkFont(isDark)
                 .init()
+    }
+
+    fun setNavigationBarColor(@ColorRes navigationBarColor: Int) {
+        immersionBar.navigationBarColor(navigationBarColor)
     }
 
     fun getImmersionBar(): ImmersionBar {

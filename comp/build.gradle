@@ -1,8 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'maven'
 
-group='com.github.keep2iron'
+group = 'com.github.keep2iron'
 version = 'SNAPSHOT'
 
 android {
@@ -32,6 +33,20 @@ android {
     }
 }
 
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            // 唯一标识
+            pom.groupId = "com.github.keep2iron"
+            // 项目名称
+            pom.artifactId = "comp"
+            repository(url: uri(new File(rootProject.projectDir, 'components').absolutePath))
+            // 版本号
+            pom.version = "0.0.1"
+        }
+    }
+}
+
 dependencies {
     //support
     implementation deps.support.app_compat
@@ -39,8 +54,8 @@ dependencies {
     implementation(deps.alibaba.vlayout) {
         transitive = true
     }
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
-    implementation 'com.github.keep2iron:pomelo:0.1.2'
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+    implementation 'com.github.keep2iron:pomelo:0.1.4'
     api project(":utilities")
     api project(":core")
 
@@ -75,7 +90,7 @@ task sourcesJar(type: Jar) {
 }
 
 task javadoc(type: Javadoc) {
-    failOnError  false
+    failOnError false
     source = android.sourceSets.main.java.sourceFiles
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
     classpath += configurations.compile

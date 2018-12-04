@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'maven'
 
 group='com.github.keep2iron'
 version = 'SNAPSHOT'
@@ -24,6 +25,20 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            // 唯一标识
+            pom.groupId = "com.github.keep2iron"
+            // 项目名称
+            pom.artifactId = "utilities"
+            repository(url: uri(new File(rootProject.projectDir, 'components').absolutePath))
+            // 版本号
+            pom.version = "0.0.1"
         }
     }
 }

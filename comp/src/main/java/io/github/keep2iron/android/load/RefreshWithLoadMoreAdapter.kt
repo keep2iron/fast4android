@@ -75,19 +75,23 @@ class RefreshWithLoadMoreAdapter private constructor(val recyclerView: RecyclerV
             val pager = adapter.pager
 
             try {
+                doOnSuccess(resp, pager)
                 if (testRespEmpty(resp)) {
                     if (pager.value == pager.defaultValue) {
+                        adapter.recyclerView.post {
+                            adapter.recyclerView.scrollToPosition(0)
+                        }
                         pageState?.setPageState(PageState.NO_DATA)
-                    } else {
-                        throw NoDataException()
                     }
+                    throw NoDataException()
                 } else {
                     if (pager.value == pager.defaultValue) {
-                        adapter.recyclerView.scrollToPosition(0)
+                        adapter.recyclerView.post {
+                            adapter.recyclerView.scrollToPosition(0)
+                        }
                         pageState?.setPageState(PageState.ORIGIN)
                     }
                 }
-                doOnSuccess(resp, pager)
             } catch (exp: NoDataException) {
                 adapter.refreshAble.setRefreshEnable(true)
                 adapter.loadMoreAble.showLoadMoreEnd()

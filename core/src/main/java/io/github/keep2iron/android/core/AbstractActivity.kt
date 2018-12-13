@@ -96,7 +96,9 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
     }
 
     fun setNavigationBarColor(@ColorRes navigationBarColor: Int) {
-        immersionBar.navigationBarColor(navigationBarColor)
+        immersionBar.getTag("default")
+                .navigationBarColor(navigationBarColor)
+                .init()
     }
 
     fun getImmersionBar(): ImmersionBar {

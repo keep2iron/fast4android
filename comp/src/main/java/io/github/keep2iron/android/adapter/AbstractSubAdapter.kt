@@ -55,10 +55,14 @@ abstract class AbstractSubAdapter : DelegateAdapter.Adapter<RecyclerViewHolder> 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val binding = DataBindingUtil.inflate<ViewDataBinding>(LayoutInflater.from(context), getLayoutId(), parent, false)
+        val view = LayoutInflater.from(context).inflate(getLayoutId(), parent, false)
+        var binding: ViewDataBinding? = null
+        try {
+            binding = DataBindingUtil.bind(view)
+        } catch (exception: IllegalArgumentException) {
+        }
 
         return if (binding == null) {
-            val view = LayoutInflater.from(context).inflate(getLayoutId(), parent, false)
             RecyclerViewHolder(view)
         } else {
             RecyclerViewHolder(binding)

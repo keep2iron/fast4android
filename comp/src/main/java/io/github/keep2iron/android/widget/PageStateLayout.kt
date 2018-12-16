@@ -34,19 +34,19 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
     /**
      * 无数据view
      */
-    private var mNoDataView: View? = null
+    var mNoDataView: View? = null
     /**
      * 无网络
      */
-    private var mNoNetwork: View? = null
+    var mNoNetwork: View? = null
     /**
      * 加载失败
      */
-    private var mLoadError: View? = null
+    var mLoadError: View? = null
     /**
      * 正在加载
      */
-    private var mLoadingView: View? = null
+    var mLoadingView: View? = null
 
     private var pageState = PageState.ORIGIN
 

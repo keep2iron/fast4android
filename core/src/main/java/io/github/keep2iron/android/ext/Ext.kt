@@ -22,23 +22,23 @@ fun Application.init(mainComponent: MainComponent) {
         it.createComponentModule(this)
     }
     compPackage.createComponentServiceProvider().forEach {
-        this.registerComponentService(it)
+        registerComponentService(it)
     }
 }
 
 /**
  * 注册组件
  */
-fun <T> Application.registerComponentService(vararg providers: ComponentServiceProvider<T>) {
+fun <T> Context.registerComponentService(vararg providers: ComponentServiceProvider<T>) {
     providers.forEach {
-        COMPONENT_SERVICE[it.componentName] = it.provideComponentService(this)
+        COMPONENT_SERVICE[it.componentName] = it.provideComponentService(this.applicationContext as Application)
     }
 }
 
 /**
  * 获取组件
  */
-fun <T> Application.getComponentService(service: String): T {
+fun <T> Context.getComponentService(service: String): T {
     return COMPONENT_SERVICE[service] as T
 }
 

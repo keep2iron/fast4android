@@ -31,7 +31,7 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
 
     private var subject = BehaviorSubject.create<LifecycleEvent>()
     protected lateinit var dataBinding: DB
-    private lateinit var contentView: View
+    protected lateinit var contentView: View
 
     protected lateinit var applicationContext: Context
 

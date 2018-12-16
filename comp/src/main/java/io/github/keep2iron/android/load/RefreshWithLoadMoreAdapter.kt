@@ -39,6 +39,29 @@ class RefreshWithLoadMoreAdapter private constructor(val recyclerView: RecyclerV
     private lateinit var refreshAble: Refreshable
     private var onLoadListener: RefreshLoadListener? = null
 
+    fun loadMoreComplete() {
+        loadMoreAdapter.showLoadMoreComplete()
+    }
+
+    fun loadMoreEnd() {
+        loadMoreAdapter.showLoadMoreEnd()
+    }
+
+    fun loadMoreFailed() {
+        loadMoreAdapter.showLoadMoreFailed()
+    }
+
+    fun loadMoreEnabled(isEnabled: Boolean) {
+        loadMoreAble.setLoadMoreEnable(isEnabled)
+    }
+
+    fun refreshEnabled(isEnabled:Boolean){
+        refreshAble.setRefreshEnable(isEnabled)
+    }
+
+    fun refreshComplete(){
+        refreshAble.showRefreshComplete()
+    }
 
     init {
         val constructor = clazz.getConstructor(Context::class.java, RecyclerView::class.java)
@@ -75,7 +98,6 @@ class RefreshWithLoadMoreAdapter private constructor(val recyclerView: RecyclerV
             val pager = adapter.pager
 
             try {
-                doOnSuccess(resp, pager)
                 if (testRespEmpty(resp)) {
                     if (pager.value == pager.defaultValue) {
                         adapter.recyclerView.post {
@@ -83,6 +105,7 @@ class RefreshWithLoadMoreAdapter private constructor(val recyclerView: RecyclerV
                         }
                         pageState?.setPageState(PageState.NO_DATA)
                     }
+                    doOnSuccess(resp, pager)
                     throw NoDataException()
                 } else {
                     if (pager.value == pager.defaultValue) {
@@ -91,6 +114,7 @@ class RefreshWithLoadMoreAdapter private constructor(val recyclerView: RecyclerV
                         }
                         pageState?.setPageState(PageState.ORIGIN)
                     }
+                    doOnSuccess(resp, pager)
                 }
             } catch (exp: NoDataException) {
                 adapter.refreshAble.setRefreshEnable(true)

@@ -48,7 +48,7 @@ abstract class FastListCreator internal constructor(val context: Context) {
     protected var loadMoreClass: Class<out AbstractLoadMoreAdapter> = LoadMoreAdapter::class.java
 
     fun bind(recyclerView: RecyclerView,
-             refreshLayout: View) {
+             refreshLayout: View): RefreshWithLoadMoreAdapter {
         if (listener == null) {
             throw IllegalArgumentException("you forget call setOnLoadListener,listener is null")
         }
@@ -73,5 +73,7 @@ abstract class FastListCreator internal constructor(val context: Context) {
         val delegateAdapter = DelegateAdapter(layoutManager, hasConsistItemType)
         delegateAdapter.addAdapters(adapters)
         recyclerView.adapter = delegateAdapter
+
+        return refreshLoadMoreAdapter
     }
 }

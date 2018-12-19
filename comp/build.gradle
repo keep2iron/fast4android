@@ -42,7 +42,7 @@ uploadArchives {
             pom.artifactId = "comp"
             repository(url: uri(new File(rootProject.projectDir, 'components').absolutePath))
             // 版本号
-            pom.version = "0.0.2"
+            pom.version = "0.0.3"
         }
     }
 }

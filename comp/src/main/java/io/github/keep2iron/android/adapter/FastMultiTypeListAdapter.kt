@@ -6,10 +6,10 @@ import com.alibaba.android.vlayout.DelegateAdapter
 import io.github.keep2iron.android.load.RefreshLoadListener
 
 class FastMultiTypeListAdapter(context: Context, val data: ObservableArrayList<Any>) : FastListCreator(context) {
-    private val multiTypeAdapter: MultiTypeAdapter = MultiTypeAdapter(data)
+    val multiAdapter: MultiTypeAdapter = MultiTypeAdapter(data)
 
     init {
-        adapters.add(multiTypeAdapter)
+        adapters.add(multiAdapter)
     }
 
     fun setViewMaxCount(viewType: Int, maxCount: Int): FastMultiTypeListAdapter {
@@ -23,7 +23,7 @@ class FastMultiTypeListAdapter(context: Context, val data: ObservableArrayList<A
     }
 
     fun addAdapter(adapter: MultiTypeAdapter.SubMultiTypeAdapter<*>): FastMultiTypeListAdapter {
-        multiTypeAdapter.registerAdapter(adapter)
+        multiAdapter.registerAdapter(adapter)
         return this
     }
 

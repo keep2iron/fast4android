@@ -59,6 +59,11 @@ class MultiTypeAdapter(private val data: ObservableList<Any>) : DelegateAdapter.
         adapter.onBindViewHolder(holder, position)
     }
 
+    override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int, payloads: MutableList<Any>) {
+        val adapter = getCurrentBindAdapter(position)
+        adapter.onBindViewHolder(holder, position, payloads)
+    }
+
     override fun getItemViewType(position: Int): Int {
         return getCurrentBindAdapter(position).getItemViewType(position)
     }
@@ -92,15 +97,19 @@ class MultiTypeAdapter(private val data: ObservableList<Any>) : DelegateAdapter.
         override fun onCreateLayoutHelper(): LayoutHelper = LinearLayoutHelper()
 
         override fun render(holder: RecyclerViewHolder, position: Int) {
-            this.render(holder, originList[position] as T)
+            this.render(holder, originList[position] as T, position)
         }
 
-        abstract fun render(holder: RecyclerViewHolder, data: T)
+        abstract fun render(holder: RecyclerViewHolder, data: T, position: Int)
 
         abstract fun genericClass(): Class<T>
 
         override fun getItemViewType(position: Int): Int {
             return viewType()
+        }
+
+        protected fun getOriginList(): List<Any> {
+            return this.originList
         }
 
         abstract fun viewType(): Int

@@ -8,7 +8,6 @@ import com.alibaba.android.vlayout.DelegateAdapter
 import com.alibaba.android.vlayout.VirtualLayoutManager
 import io.github.keep2iron.android.load.RefreshLoadListener
 import io.github.keep2iron.android.load.RefreshWithLoadMoreAdapter
-import java.lang.IllegalArgumentException
 
 /**
  *
@@ -47,8 +46,22 @@ abstract class FastListCreator internal constructor(val context: Context) {
 
     protected var loadMoreClass: Class<out AbstractLoadMoreAdapter> = LoadMoreAdapter::class.java
 
+    lateinit var delegateAdapter: DelegateAdapter
+
+    lateinit var virtualLayoutManager: VirtualLayoutManager
+
+    lateinit var refreshLoadMoreAdapter: RefreshWithLoadMoreAdapter
+
+    fun getMultiTypeAdapter(): MultiTypeAdapter {
+        return if(this is FastMultiTypeListAdapter){
+            this.multiAdapter
+        }else{
+            throw IllegalArgumentException("you must call FastListCreator.createMultiTypeAdapter() method to create multi type adapter")
+        }
+    }
+
     fun bind(recyclerView: RecyclerView,
-             refreshLayout: View): RefreshWithLoadMoreAdapter {
+             refreshLayout: View): FastListCreator {
         if (listener == null) {
             throw IllegalArgumentException("you forget call setOnLoadListener,listener is null")
         }
@@ -57,23 +70,23 @@ abstract class FastListCreator internal constructor(val context: Context) {
             throw IllegalArgumentException("you forget call addAdapter,adapters is empty")
         }
 
-        val refreshLoadMoreAdapter = RefreshWithLoadMoreAdapter.Builder(recyclerView, refreshLayout, loadMoreClass)
+        refreshLoadMoreAdapter = RefreshWithLoadMoreAdapter.Builder(recyclerView, refreshLayout, loadMoreClass)
                 .setOnLoadListener(listener!!)
                 .build()
         adapters.add(refreshLoadMoreAdapter.loadMoreAdapter)
 
-        val layoutManager = if (useWrapperLayoutManager) {
+        virtualLayoutManager = if (useWrapperLayoutManager) {
             WrapperVirtualLayoutManager(context.applicationContext)
         } else {
             VirtualLayoutManager(context.applicationContext)
         }
         recyclerView.recycledViewPool = viewPool
-        recyclerView.layoutManager = layoutManager
+        recyclerView.layoutManager = virtualLayoutManager
 
-        val delegateAdapter = DelegateAdapter(layoutManager, hasConsistItemType)
+        delegateAdapter = DelegateAdapter(virtualLayoutManager, hasConsistItemType)
         delegateAdapter.addAdapters(adapters)
         recyclerView.adapter = delegateAdapter
 
-        return refreshLoadMoreAdapter
+        return this
     }
 }

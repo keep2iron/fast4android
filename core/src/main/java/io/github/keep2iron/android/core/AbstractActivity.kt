@@ -74,8 +74,6 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
             }
             if (annStatusColor.navigationBarColor != -1) {
                 immersionBar.navigationBarColor(annStatusColor.navigationBarColor)
-            } else {
-                immersionBar.navigationBarColor("#000000")
             }
             immersionBar.statusBarDarkFont(darkMode)
             immersionBar.addTag("default")

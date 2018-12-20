@@ -2,19 +2,17 @@ package io.github.keep2iron.android.widget
 
 import android.content.Context
 import android.support.annotation.LayoutRes
-import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import io.github.keep2iron.android.adapter.RecyclerViewHolder
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
 import com.scwang.smartrefresh.layout.util.DensityUtil.dp2px
-import io.github.keep2iron.android.adapter.WrapperPagerAdapter
+import io.github.keep2iron.android.adapter.LooperWrapperPagerAdapter
 import io.github.keep2iron.android.comp.R
 
 
@@ -26,7 +24,7 @@ import io.github.keep2iron.android.comp.R
  * 可以无限轮播的布局，里面包含了一个ViewPager和一个LinearLayout作为指示器
  */
 class LoopViewLayout : FrameLayout {
-    private lateinit var adapter: WrapperPagerAdapter<out RecyclerViewHolder>
+    private lateinit var adapter: LooperWrapperPagerAdapter<out RecyclerViewHolder>
     var viewPager: NoScrollViewPager
     private var indicators: LinearLayout
 
@@ -162,7 +160,7 @@ class LoopViewLayout : FrameLayout {
     fun <T : RecyclerViewHolder> setAdapter(recycleAdapter: RecyclerView.Adapter<T>,
                                                                                 pool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()) {
         viewPager.removeAllViews()
-        this.adapter = WrapperPagerAdapter(recycleAdapter, pool)
+        this.adapter = LooperWrapperPagerAdapter(recycleAdapter, pool)
         recycleAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onChanged() {
                 currentPosition = DEFAULT_POSITION

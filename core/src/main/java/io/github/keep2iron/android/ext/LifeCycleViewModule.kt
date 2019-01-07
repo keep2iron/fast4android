@@ -11,6 +11,7 @@ import io.github.keep2iron.android.rx.LifecycleEvent
 import io.github.keep2iron.android.rx.RxLifecycle
 import io.github.keep2iron.android.utilities.RxTransUtil
 import io.reactivex.FlowableTransformer
+import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.subjects.BehaviorSubject
 
@@ -19,10 +20,17 @@ import io.reactivex.subjects.BehaviorSubject
  * @version 1.0
  * @since 2017/11/30 17:55
  */
-open class LifeCycleViewModule(application: Application, private val owner: LifecycleOwner) : AndroidViewModel(application), LifecycleObserver {
+open class LifeCycleViewModule(application: Application, protected val owner: LifecycleOwner) : AndroidViewModel(application), LifecycleObserver {
     private val mSubject = BehaviorSubject.create<LifecycleEvent>()
 
     protected val context = application
+
+    /**
+     * 对外界提供可订阅的生命周期观测对象
+     */
+    fun getLifeCyclerEvent(): BehaviorSubject<LifecycleEvent> {
+        return mSubject
+    }
 
     init {
         owner.lifecycle.addObserver(object : LifecycleObserver {
@@ -59,7 +67,10 @@ open class LifeCycleViewModule(application: Application, private val owner: Life
         })
     }
 
-    fun <T> bindFlowableLifeCycle(): FlowableTransformer<T, T> {
+    /**
+     * 提供Flowable绑定生命周期并进行线程异步
+     */
+    fun <T> flowableBindLifecycleWithSwitchSchedule(): FlowableTransformer<T, T> {
         return FlowableTransformer { upstream ->
             upstream.compose(RxTransUtil.rxFlowableScheduler())
                     .compose(RxLifecycle.bindUntilEvent(mSubject, LifecycleEvent.DESTROY))
@@ -67,9 +78,9 @@ open class LifeCycleViewModule(application: Application, private val owner: Life
     }
 
     /**
-     * 绑定让订阅进行绑定生命周期
+     * 提供Observable绑定生命周期并进行线程异步
      */
-    fun <T> bindObservableLifeCycle(): ObservableTransformer<T, T> {
+    fun <T> observableBindLifecycleWithSwitchSchedule(): ObservableTransformer<T, T> {
         return ObservableTransformer { upstream ->
             upstream.compose(RxTransUtil.rxObservableScheduler())
                     .compose(RxLifecycle.bindUntilEvent(mSubject, LifecycleEvent.DESTROY))

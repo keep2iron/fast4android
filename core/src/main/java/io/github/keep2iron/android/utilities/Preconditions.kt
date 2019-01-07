@@ -5,28 +5,22 @@ import android.os.Looper
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposables
 
-class Preconditions private constructor() {
+object Preconditions {
 
-    init {
-        throw AssertionError("No instances.")
+    fun <T> checkNotNull(value: T?, message: String): T {
+        if (value == null) {
+            throw NullPointerException(message)
+        }
+        return value
     }
 
-    companion object {
-        fun <T> checkNotNull(value: T?, message: String): T {
-            if (value == null) {
-                throw NullPointerException(message)
-            }
-            return value
+    fun checkMainThread(observer: Observer<*>): Boolean {
+        if (Looper.myLooper() != Looper.getMainLooper()) {
+            observer.onSubscribe(Disposables.empty())
+            observer.onError(IllegalStateException(
+                    "Expected to be called on the main thread but was " + Thread.currentThread().name))
+            return false
         }
-
-        fun checkMainThread(observer: Observer<*>): Boolean {
-            if (Looper.myLooper() != Looper.getMainLooper()) {
-                observer.onSubscribe(Disposables.empty())
-                observer.onError(IllegalStateException(
-                        "Expected to be called on the main thread but was " + Thread.currentThread().name))
-                return false
-            }
-            return true
-        }
+        return true
     }
 }

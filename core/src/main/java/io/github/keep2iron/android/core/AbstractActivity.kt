@@ -156,17 +156,23 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
      */
     abstract fun initVariables(savedInstanceState: Bundle?)
 
-    fun <T> rxObservableScheduler(): ObservableTransformer<T, T> {
-        return ObservableTransformer { upstream ->
-            upstream.compose(RxTransUtil.rxObservableScheduler())
-                    .compose(RxLifecycle.bindUntilEvent(this.subject, LifecycleEvent.DESTROY))
+    /**
+     * 提供Flowable绑定生命周期并进行线程异步
+     */
+    fun <T> flowableBindLifecycleWithSwitchSchedule(): FlowableTransformer<T, T> {
+        return FlowableTransformer { upstream ->
+            upstream.compose(RxTransUtil.rxFlowableScheduler())
+                    .compose(RxLifecycle.bindUntilEvent(subject, LifecycleEvent.DESTROY))
         }
     }
 
-    fun <T> bindFlowableLifeCycle(): FlowableTransformer<T, T> {
-        return FlowableTransformer { upstream ->
-            upstream.compose(RxTransUtil.rxFlowableScheduler())
-                    .compose(RxLifecycle.bindUntilEvent(this.subject, LifecycleEvent.DESTROY))
+    /**
+     * 提供Observable绑定生命周期并进行线程异步
+     */
+    fun <T> observableBindLifecycleWithSwitchSchedule(): ObservableTransformer<T, T> {
+        return ObservableTransformer { upstream ->
+            upstream.compose(RxTransUtil.rxObservableScheduler())
+                    .compose(RxLifecycle.bindUntilEvent(subject, LifecycleEvent.DESTROY))
         }
     }
 }

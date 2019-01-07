@@ -17,7 +17,7 @@ import io.github.keep2iron.android.collections.AsyncDiffObservableList
 abstract class AbstractSubDiffAdapter<T>(context: Context,
                                          viewType: Int = 0,
                                          list: AsyncDiffObservableList<T>,
-                                         diffCallback: DiffUtil.ItemCallback<T>?) : AbstractSubAdapter(context, viewType) {
+                                         diffCallback: DiffUtil.ItemCallback<T>?) : AbstractSubAdapter(viewType) {
     private var asyncListDiffer: AsyncListDiffer<T>? = null
 
     init {

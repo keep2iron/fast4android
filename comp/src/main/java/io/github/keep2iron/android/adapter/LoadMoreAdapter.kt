@@ -17,7 +17,7 @@ class LoadMoreAdapter : AbstractLoadMoreAdapter {
 
     constructor(context: Context,
                 recyclerView: RecyclerView,
-                onLoadListener: ((adapter: AbstractLoadMoreAdapter) -> Unit)?) : super(context, recyclerView, onLoadListener, false)
+                onLoadListener: ((adapter: AbstractLoadMoreAdapter) -> Unit)?) : super(recyclerView, onLoadListener, false)
 
     override fun getLayoutId(): Int {
         return R.layout.item_load_more

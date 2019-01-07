@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import io.github.keep2iron.android.rx.LifecycleEvent
 import io.github.keep2iron.android.rx.RxLifecycle
 import io.github.keep2iron.android.utilities.RxTransUtil
+import io.reactivex.FlowableTransformer
 import io.reactivex.ObservableTransformer
 import io.reactivex.subjects.BehaviorSubject
 import java.lang.IllegalArgumentException
@@ -98,12 +99,22 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
     }
 
     /**
-     * 绑定让订阅进行绑定生命周期
+     * 提供Flowable绑定生命周期并进行线程异步
      */
-    fun <T> bindObservableLifeCycle(): ObservableTransformer<T, T> {
+    fun <T> flowableBindLifecycleWithSwitchSchedule(): FlowableTransformer<T, T> {
+        return FlowableTransformer { upstream ->
+            upstream.compose(RxTransUtil.rxFlowableScheduler())
+                    .compose(RxLifecycle.bindUntilEvent(subject, LifecycleEvent.DESTROY))
+        }
+    }
+
+    /**
+     * 提供Observable绑定生命周期并进行线程异步
+     */
+    fun <T> observableBindLifecycleWithSwitchSchedule(): ObservableTransformer<T, T> {
         return ObservableTransformer { upstream ->
             upstream.compose(RxTransUtil.rxObservableScheduler())
-                    .compose(RxLifecycle.bindUntilEvent(this.subject, LifecycleEvent.DESTROY))
+                    .compose(RxLifecycle.bindUntilEvent(subject, LifecycleEvent.DESTROY))
         }
     }
 

@@ -3,15 +3,16 @@ package io.github.keep2iron.android.adapter
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
+import android.support.annotation.IdRes
 import android.support.annotation.LayoutRes
-import android.support.v7.recyclerview.extensions.AsyncDifferConfig
-import android.support.v7.recyclerview.extensions.AsyncListDiffer
-import android.support.v7.util.AdapterListUpdateCallback
+import android.support.v4.util.ArrayMap
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-
 import com.alibaba.android.vlayout.DelegateAdapter
 import com.alibaba.android.vlayout.LayoutHelper
+import com.alibaba.android.vlayout.layout.LinearLayoutHelper
+import io.github.keep2iron.android.Fast4Android
 
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)
@@ -19,10 +20,11 @@ import com.alibaba.android.vlayout.LayoutHelper
  * @since 2017/11/17 16:30
  */
 abstract class AbstractSubAdapter : DelegateAdapter.Adapter<RecyclerViewHolder> {
+    protected var context: Context = Fast4Android.CONTEXT
 
-    protected lateinit var context: Context
     protected lateinit var layoutHelper: LayoutHelper
 
+    private var listenerMap = ArrayMap<@IdRes Int, (Int) -> Unit>()
 
     private var viewType: Int = 0
 
@@ -32,10 +34,13 @@ abstract class AbstractSubAdapter : DelegateAdapter.Adapter<RecyclerViewHolder> 
 
     private constructor()
 
-    constructor(context: Context, viewType: Int = 0) : this() {
-        this.context = context.applicationContext
+    constructor(viewType: Int = 0) : this() {
         this.layoutHelper = this.onCreateLayoutHelper()
         this.viewType = viewType
+    }
+
+    override fun onCreateLayoutHelper(): LayoutHelper {
+        return LinearLayoutHelper()
     }
 
     /**
@@ -53,7 +58,6 @@ abstract class AbstractSubAdapter : DelegateAdapter.Adapter<RecyclerViewHolder> 
      */
     abstract fun render(holder: RecyclerViewHolder, position: Int)
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         val view = LayoutInflater.from(context).inflate(getLayoutId(), parent, false)
         var binding: ViewDataBinding? = null
@@ -62,21 +66,33 @@ abstract class AbstractSubAdapter : DelegateAdapter.Adapter<RecyclerViewHolder> 
         } catch (exception: IllegalArgumentException) {
         }
 
-        return if (binding == null) {
+        val holder = if (binding == null) {
             RecyclerViewHolder(view)
         } else {
             RecyclerViewHolder(binding)
         }
+        val rootListener = listenerMap[-1]
+        if(rootListener != null){
+            holder.itemView.setOnClickListener {
+                rootListener.invoke(holder.layoutPosition)
+            }
+        }
+        listenerMap.forEach { entry->
+            holder.findViewById<View>(entry.key).setOnClickListener {
+                entry.value.invoke(holder.layoutPosition)
+            }
+        }
+        return holder
+    }
+
+    /**
+     * [id]不传默认为-1则该listener添加到rootItem下面
+     */
+    fun setOnItemClickListener(@IdRes id: Int? = -1, listener: (Int) -> Unit) {
+        listenerMap[id] = listener
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
-//        val params = holder.itemView.layoutParams
-//
-//        Logger.d("${params!!.width} ${params.height}")
-//        val layoutParams = VirtualLayoutManager.LayoutParams(params!!.width, params.height)
-//
-//        holder.itemView.layoutParams = VirtualLayoutManager.LayoutParams(layoutParams)
-
         render(holder, position)
     }
 

@@ -16,7 +16,7 @@ ext.build = [:]
 def versions = [
         build          : [
                 min_sdk              : 19,
-                target_sdk           : 28,
+                target_sdk           : 27,
                 build_tools          : "27.0.3",
                 android_gradle_plugin: "3.1.4",
                 kotlin_version       : "1.2.71",

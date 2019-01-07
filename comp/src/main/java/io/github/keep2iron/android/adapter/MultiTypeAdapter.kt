@@ -85,7 +85,7 @@ class MultiTypeAdapter(private val data: ObservableList<Any>) : DelegateAdapter.
     /**
      * [T]是要注册的数据类型
      */
-    abstract class SubMultiTypeAdapter<T : Any>(context: Context) : AbstractSubAdapter(context) {
+    abstract class SubMultiTypeAdapter<T : Any> : AbstractSubAdapter() {
         private lateinit var originList: List<Any>
 
         internal fun setOriginList(originList: List<Any>) {

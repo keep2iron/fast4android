@@ -1,8 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="white">#FFFFFF</color>
-    <color name="gray">#bcbcbc</color>
-    <color name="deep_gray">#868686</color>
-    <color name="colorAccent">#FFFFC111</color>
-    <color name="little_gray">#efefef</color>
-</resources>
+<resources></resources>

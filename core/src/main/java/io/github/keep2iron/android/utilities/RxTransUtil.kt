@@ -1,6 +1,8 @@
 package io.github.keep2iron.android.utilities
 
+import io.reactivex.Flowable
 import io.reactivex.FlowableTransformer
+import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -17,8 +19,7 @@ import io.reactivex.schedulers.Schedulers
 
 object RxTransUtil {
     private val sObservableTransformer = ObservableTransformer<Any, Any> { observable ->
-        observable
-                .observeOn(AndroidSchedulers.mainThread())
+        observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
     }
 

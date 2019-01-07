@@ -24,13 +24,11 @@ abstract class AbstractLoadMoreAdapter : AbstractSubAdapter {
 
     private var recyclerView: RecyclerView
 
-    constructor(context: Context,
-                recyclerView: RecyclerView) : this(context, recyclerView, null, true)
+    constructor(recyclerView: RecyclerView) : this(recyclerView, null, true)
 
-    constructor(context: Context,
-                recyclerView: RecyclerView,
+    constructor(recyclerView: RecyclerView,
                 onLoadListener: ((adapter: AbstractLoadMoreAdapter) -> Unit)?,
-                isEnableLoadMore: Boolean) : super(context) {
+                isEnableLoadMore: Boolean) : super(ITEM_TYPE) {
         this.recyclerView = recyclerView
         this.mOnLoadMoreListener = onLoadListener
         this.isEnableLoadMore = isEnableLoadMore

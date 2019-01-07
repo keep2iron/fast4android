@@ -10,6 +10,7 @@ import android.support.v7.util.DiffUtil;
 import android.support.v7.util.ListUpdateCallback;
 
 import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -64,6 +65,13 @@ public class AsyncDiffObservableList<T> extends AbstractList<T> implements Obser
     @Override
     public int size() {
         return differ.getCurrentList().size();
+    }
+
+    /**
+     * return a new arrayList
+     */
+    public List<T> toList() {
+        return new ArrayList<>(differ.getCurrentList());
     }
 
     @Override
@@ -123,4 +131,6 @@ public class AsyncDiffObservableList<T> extends AbstractList<T> implements Obser
             listeners.notifyMoved(AsyncDiffObservableList.this, fromPosition, toPosition, 1);
         }
     }
+
+
 }

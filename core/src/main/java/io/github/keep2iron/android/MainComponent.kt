@@ -1,12 +1,9 @@
 package io.github.keep2iron.android
 
 /**
- *
- * @author keep2iron <a href="http://keep2iron.github.io">Contract me.</a>
- * @version 1.0
- * @date 2018/10/30
+ * Application实现该接口
  */
-interface ComponentPackage {
+interface MainComponent {
 
     fun createComponentModuleProvider(): List<ComponentModuleProvider>
 

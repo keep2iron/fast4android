@@ -19,7 +19,7 @@ import io.github.keep2iron.app.util.Constant
  * @since 2018/03/12 11:22
  */
 class BannerItemAdapter(context: Context, private val viewModule: RecommendModel,
-                        private val fragmentManager: FragmentManager) : AbstractSubAdapter(context, Constant.RECYCLE_BANNER_SUB_ITEM) {
+                        private val fragmentManager: FragmentManager) : AbstractSubAdapter( Constant.RECYCLE_BANNER_SUB_ITEM) {
     override fun onCreateLayoutHelper(): LayoutHelper = LinearLayoutHelper()
 
     override fun render(holder: RecyclerViewHolder, position: Int) {

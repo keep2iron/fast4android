@@ -13,7 +13,7 @@ import io.github.keep2iron.app.R
  * @version 1.0
  * @date 2018/11/1
  */
-class HeaderAdapter(context: Context) : AbstractSubAdapter(context, 0) {
+class HeaderAdapter(context: Context) : AbstractSubAdapter( 0) {
     override fun getLayoutId(): Int = R.layout.item_header
 
     override fun render(holder: RecyclerViewHolder, position: Int) {

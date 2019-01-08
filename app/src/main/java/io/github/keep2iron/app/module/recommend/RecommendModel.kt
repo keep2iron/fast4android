@@ -34,12 +34,12 @@ class RecommendModel(owner: LifecycleOwner) : LifeCycleViewModule(Application.in
 
     fun loadBanner(): Observable<List<GsonIndex>> {
         return DataRepository.instance.indexBanner()
-                .compose(bindObservableLifeCycle())
+                .compose(observableBindLifecycleWithSwitchSchedule())
     }
 
     fun loadData(index: Int): Observable<List<GsonIndex>> {
         return DataRepository.instance.indexMovie(index)
-                .compose(bindObservableLifeCycle())
+                .compose(observableBindLifecycleWithSwitchSchedule())
     }
 
     override fun onLoad(adapters: RefreshWithLoadMoreAdapter, pager: Pager) {

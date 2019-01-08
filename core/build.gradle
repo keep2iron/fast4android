@@ -41,9 +41,9 @@ uploadArchives {
             pom.groupId = "com.github.keep2iron"
             // 项目名称
             pom.artifactId = "core"
-            repository(url: uri(new File(rootProject.projectDir, 'components').absolutePath))
+//            repository(url: uri(new File(rootProject.projectDir, 'components').absolutePath))
             // 版本号
-            pom.version = "0.0.1"
+//            pom.version = "0.0.1"
         }
     }
 }

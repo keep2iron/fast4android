@@ -24,7 +24,7 @@ import io.github.keep2iron.app.module.recommend.RecommendModel
 class BannerAdapter(context: Context,
                     private val indexModule: RecommendModel,
                     private val recyclerView: RecyclerView,
-                    private val fragmentManager: FragmentManager) : AbstractSubAdapter(context) {
+                    private val fragmentManager: FragmentManager) : AbstractSubAdapter() {
     override fun onCreateLayoutHelper(): LayoutHelper = LinearLayoutHelper()
 
 

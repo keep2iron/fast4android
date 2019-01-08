@@ -13,7 +13,7 @@ import io.github.keep2iron.app.R
  * @version 1.0
  * @date 2018/10/30
  */
-class SampleMutilAdapter2(context: Context) : AbstractSubAdapter(context, 0) {
+class SampleMutilAdapter2(context: Context) : AbstractSubAdapter( 0) {
     override fun getLayoutId(): Int = R.layout.item_load_more
 
     override fun render(holder: RecyclerViewHolder, position: Int) {

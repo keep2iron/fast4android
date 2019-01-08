@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'maven'
 
 group = 'com.github.keep2iron'
-version = 'SNAPSHOT'
+//version = 'SNAPSHOT'
 
 android {
     compileSdkVersion versions.build.target_sdk
@@ -40,9 +40,9 @@ uploadArchives {
             pom.groupId = "com.github.keep2iron"
             // 项目名称
             pom.artifactId = "comp"
-            repository(url: uri(new File(rootProject.projectDir, 'components').absolutePath))
+//            repository(url: uri(new File(rootProject.projectDir, 'components').absolutePath))
             // 版本号
-            pom.version = "0.0.4"
+//            pom.version = "0.0.4"
         }
     }
 }

@@ -35,7 +35,7 @@ class ColorFragment : AbstractFragment<FragmentColorBinding>() {
 
         dataBinding.tvRoute.setOnClickListener {
             val beginTransaction = activity!!.supportFragmentManager.beginTransaction()
-            beginTransaction.replace(R.id.container, ColorFragment.getInstance(R.color.deep_gray))
+            beginTransaction.replace(R.id.container, ColorFragment.getInstance(R.color.colorPrimary))
             beginTransaction.addToBackStack(null)
             beginTransaction.commit()
         }

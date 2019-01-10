@@ -1,10 +1,10 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-//apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'maven'
 
 group='com.github.keep2iron'
-//version = 'SNAPSHOT'
+version = 'SNAPSHOT'
 
 android {
     compileSdkVersion versions.build.target_sdk
@@ -29,19 +29,19 @@ android {
     }
 }
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            // 唯一标识
-            pom.groupId = "com.github.keep2iron"
-            // 项目名称
-            pom.artifactId = "utilities"
-//            repository(url: uri(new File(rootProject.projectDir, 'components').absolutePath))
-            // 版本号
-//            pom.version = "0.0.1"
-        }
-    }
-}
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            // 唯一标识
+//            pom.groupId = "com.github.keep2iron"
+//            // 项目名称
+//            pom.artifactId = "utilities"
+////            repository(url: uri(new File(rootProject.projectDir, 'components').absolutePath))
+//            // 版本号
+////            pom.version = "0.0.1"
+//        }
+//    }
+//}
 
 dependencies {
     //support

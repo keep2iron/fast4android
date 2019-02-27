@@ -80,7 +80,7 @@ abstract class FastListCreator internal constructor(val context: Context) {
         } else {
             VirtualLayoutManager(context.applicationContext)
         }
-        recyclerView.recycledViewPool = viewPool
+        recyclerView.setRecycledViewPool(viewPool)
         recyclerView.layoutManager = virtualLayoutManager
 
         delegateAdapter = DelegateAdapter(virtualLayoutManager, hasConsistItemType)

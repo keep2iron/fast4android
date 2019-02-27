@@ -22,12 +22,12 @@ class RecyclerViewDecoration(context: Context, @ColorRes colorRes: Int, @DimenRe
         dividerHeight = context.resources.getDimensionPixelSize(dividerHeightRes)
     }
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
         outRect.bottom = dividerHeight
     }
 
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State?) {
+    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         val childCount = parent.childCount
         val left = parent.paddingLeft
         val right = parent.width - parent.paddingRight

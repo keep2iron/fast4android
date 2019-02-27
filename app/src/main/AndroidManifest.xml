@@ -41,7 +41,7 @@
             <!--</intent-filter>-->
         </activity>
 
-        <activity android:name=".module.ExpandActivity"></activity>
+        <activity android:name=".module.ExpandActivity" />
 
         <activity android:name=".ui.TabActivity">
             <!--<intent-filter>-->
@@ -52,6 +52,9 @@
         </activity>
 
         <activity android:name=".ui.DiffActivity">
+        </activity>
+
+        <activity android:name=".GridLayoutManagerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

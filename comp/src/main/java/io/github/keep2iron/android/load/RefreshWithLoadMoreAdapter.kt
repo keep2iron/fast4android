@@ -69,12 +69,12 @@ class RefreshWithLoadMoreAdapter private constructor(val recyclerView: RecyclerV
         loadMoreAdapter.isEnableLoadMore = false
         loadMoreAdapter.mOnLoadMoreListener = {
             refreshAble.setRefreshEnable(false)
-            onLoadListener?.onLoad(RLDelegateAdapter@ this, pager)
+            onLoadListener?.onLoad( this, pager)
         }
         refreshAble = SmartRefreshAble(refreshLayout as SmartRefreshLayout) {
             pager.reset()
             loadMoreAble.setLoadMoreEnable(false)
-            onLoadListener?.onLoad(RLDelegateAdapter@ this, pager)
+            onLoadListener?.onLoad(this, pager)
         }
         loadMoreAble = VLayoutLoadMoreAble(loadMoreAdapter)
     }

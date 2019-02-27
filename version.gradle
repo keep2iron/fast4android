@@ -16,14 +16,15 @@ ext.build = [:]
 def versions = [
         build          : [
                 min_sdk              : 19,
-                target_sdk           : 27,
+                target_sdk           : 28,
+                compile_sdk           : 28,
                 build_tools          : "27.0.3",
-                android_gradle_plugin: "3.1.4",
+                android_gradle_plugin: '3.1.2',
                 kotlin_version       : "1.2.71",
         ],
         android_support: [
                 arch             : "1.1.0",
-                support          : "27.1.1",
+                support          : "28.0.0",
                 constraint_layout: "1.1.1",
                 multi_version    : "1.0.3",
         ],
@@ -54,7 +55,6 @@ def deps = [
         logger                     : "com.orhanobut:logger:2.2.0",
         status_bar                 : "com.gyf.barlibrary:barlibrary:$versions.third_part.status_bar",
         fresco                     : "com.facebook.fresco:fresco:$versions.third_part.fresco_version",
-        logging                    : "com.squareup.okhttp3:logging-interceptor:3.9.0",
 
         test                       : [
                 rules           : "com.android.support.test:rules:$versions.test.rules",
@@ -97,6 +97,13 @@ def deps = [
         ],
         alibaba                    : [
                 vlayout: "com.alibaba.android:vlayout:1.2.18@aar"
+        ],
+        fast4android               : [
+                core     : "com.github.keep2iron.fast4android:core:0.0.6.17",
+                comp     : "com.github.keep2iron.fast4android:comp:0.0.6.17",
+                utilities: "com.github.keep2iron.fast4android:utilities:0.0.6.17",
+                pomelo   : "com.github.keep2iron:pomelo:0.1.5",
+                pineapple: "com.github.keep2iron:pineapple:0.17-beta"
         ]
 ]
 

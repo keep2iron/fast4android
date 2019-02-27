@@ -14,6 +14,7 @@ import java.util.*
  *
  * 为列表而生, 使用DataBinding绑定数据
  */
+@Deprecated("will be remove by 0.0.19, don't use it!")
 interface ListDataBindingDelegate {
     /**
      * 刷新布局

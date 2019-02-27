@@ -2,10 +2,11 @@ package io.github.keep2iron.android.adapter
 
 import android.content.Context
 import android.databinding.ObservableArrayList
+import android.databinding.ObservableList
 import com.alibaba.android.vlayout.DelegateAdapter
 import io.github.keep2iron.android.load.RefreshLoadListener
 
-class FastMultiTypeListAdapter(context: Context, val data: ObservableArrayList<Any>) : FastListCreator(context) {
+class FastMultiTypeListAdapter(context: Context, val data: ObservableList<Any>) : FastListCreator(context) {
     val multiAdapter: MultiTypeAdapter = MultiTypeAdapter(data)
 
     init {

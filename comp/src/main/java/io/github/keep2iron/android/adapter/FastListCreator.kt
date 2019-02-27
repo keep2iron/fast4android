@@ -2,6 +2,7 @@ package io.github.keep2iron.android.adapter
 
 import android.content.Context
 import android.databinding.ObservableArrayList
+import android.databinding.ObservableList
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.alibaba.android.vlayout.DelegateAdapter
@@ -25,7 +26,7 @@ abstract class FastListCreator internal constructor(val context: Context) {
         }
 
         fun createMultiTypeAdapter(context: Context,
-                                   data: ObservableArrayList<Any>): FastMultiTypeListAdapter {
+                                   data: ObservableList<Any>): FastMultiTypeListAdapter {
             return FastMultiTypeListAdapter(context, data)
         }
     }

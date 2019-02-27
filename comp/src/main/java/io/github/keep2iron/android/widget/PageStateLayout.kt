@@ -37,11 +37,6 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
     var mNoDataView: View? = null
         set(value) {
             field = value
-            val noDataView = views[PageState.NO_DATA]
-            if (noDataView != null) {
-                removeView(noDataView)
-            }
-            addView(value, 0)
             views[PageState.NO_DATA] = value
         }
     /**
@@ -50,11 +45,6 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
     var mNoNetwork: View? = null
         set(value) {
             field = value
-            val noNetworkView = views[PageState.NO_NETWORK]
-            if (noNetworkView != null) {
-                removeView(noNetworkView)
-            }
-            addView(value, 0)
             views[PageState.NO_NETWORK] = value
         }
     /**
@@ -63,11 +53,6 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
     var mLoadError: View? = null
         set(value) {
             field = value
-            val loadErrorView = views[PageState.LOAD_ERROR]
-            if (loadErrorView != null) {
-                removeView(loadErrorView)
-            }
-            addView(value, 0)
             views[PageState.LOAD_ERROR] = value
         }
     /**
@@ -76,11 +61,6 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
     var mLoadingView: View? = null
         set(value) {
             field = value
-            val loadingView = views[PageState.LOADING]
-            if (loadingView != null) {
-                removeView(loadingView)
-            }
-            addView(value, 0)
             views[PageState.LOADING] = value
         }
 

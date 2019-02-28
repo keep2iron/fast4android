@@ -30,7 +30,11 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
     /**
      * 被状态管理的View
      */
-    private var mOriginView: View? = null
+    var mOriginView: View? = null
+        set(value) {
+            field = value
+            views[PageState.ORIGIN] = value
+        }
     /**
      * 无数据view
      */
@@ -78,7 +82,6 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
             when (index) {
                 R.styleable.PageStateLayout_psl_load_error_layout -> {
                     mLoadError = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
-                    mLoadError?.visibility = View.GONE
                 }
                 R.styleable.PageStateLayout_psl_no_data_layout -> {
                     mNoDataView = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
@@ -106,20 +109,20 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
 
         mOriginView = getChildAt(0)
 
-        if (mLoadError != null) {
-            addView(mLoadError, 0)
+        mLoadError?.apply {
+            addView(this, 0)
         }
 
-        if (mNoDataView != null) {
-            addView(mNoDataView, 0)
+        mNoDataView?.apply {
+            addView(this, 0)
         }
 
-        if (mNoNetwork != null) {
-            addView(mNoNetwork, 0)
+        mNoNetwork?.apply {
+            addView(this, 0)
         }
 
-        if (mLoadingView != null) {
-            addView(mLoadingView, 0)
+        mLoadingView?.apply {
+            addView(this, 0)
         }
 
         views[PageState.ORIGIN] = mOriginView

@@ -25,8 +25,7 @@ enum class PageState {
  *
  * 状态管理layout，
  */
-class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
-    : FrameLayout(context, attrs, 0) {
+class PageStateLayout : FrameLayout {
     /**
      * 被状态管理的View
      */
@@ -74,30 +73,36 @@ class PageStateLayout constructor(context: Context, attrs: AttributeSet? = null)
 
     private var duration = 500
 
-    init {
-        val array = resources.obtainAttributes(attrs, R.styleable.PageStateLayout)
+    constructor(context: Context) : this(context, null)
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
 
-        for (i in 0 until array.indexCount) {
-            val index = array.getIndex(i)
-            when (index) {
-                R.styleable.PageStateLayout_psl_load_error_layout -> {
-                    mLoadError = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
-                }
-                R.styleable.PageStateLayout_psl_no_data_layout -> {
-                    mNoDataView = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
-                    mNoDataView?.visibility = View.GONE
-                }
-                R.styleable.PageStateLayout_psl_no_network_layout -> {
-                    mNoNetwork = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
-                    mNoNetwork?.visibility = View.GONE
-                }
-                R.styleable.PageStateLayout_psl_loading_layout -> {
-                    mLoadingView = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
-                    mLoadingView?.visibility = View.GONE
+        if(attrs != null) {
+            val array = resources.obtainAttributes(attrs, R.styleable.PageStateLayout)
+
+            for (i in 0 until array.indexCount) {
+                val index = array.getIndex(i)
+                when (index) {
+                    R.styleable.PageStateLayout_psl_load_error_layout -> {
+                        mLoadError = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
+                        mLoadError?.visibility = View.GONE
+                    }
+                    R.styleable.PageStateLayout_psl_no_data_layout -> {
+                        mNoDataView = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
+                        mNoDataView?.visibility = View.GONE
+                    }
+                    R.styleable.PageStateLayout_psl_no_network_layout -> {
+                        mNoNetwork = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
+                        mNoNetwork?.visibility = View.GONE
+                    }
+                    R.styleable.PageStateLayout_psl_loading_layout -> {
+                        mLoadingView = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
+                        mLoadingView?.visibility = View.GONE
+                    }
                 }
             }
+            array.recycle()
         }
-        array.recycle()
     }
 
     override fun onFinishInflate() {

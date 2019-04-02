@@ -15,7 +15,6 @@ import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import io.github.keep2iron.android.comp.R
-import io.github.keep2iron.android.utilities.DisplayUtil.dp2px
 
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)
@@ -38,8 +37,8 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
 
     internal fun provideDefaultTextView(context: Context,
                                         tab: TabHolder,
-                                        tabIconWidth: Int,
-                                        tabIconHeight: Int,
+                                        tabIconWidth: Float,
+                                        tabIconHeight: Float,
                                         tabTextSize: Int,
                                         tabLayoutHeight: Float,
                                         drawablePadding: Int,
@@ -47,7 +46,7 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
         return BadgeTextView(context).apply {
             val drawable = ContextCompat.getDrawable(context, if (isSelect) tab.selIconResId else tab.iconResId)
             if (drawable != null) {
-                drawable.setBounds(0, 0, tabIconWidth, tabIconHeight)
+                drawable.setBounds(0, 0, tabIconWidth.toInt(), tabIconHeight.toInt())
                 setCompoundDrawables(null, drawable, null, null)
             }
 
@@ -127,8 +126,8 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
         lateinit var customView: View
 
         var isCustom: Boolean = false
-        var tabIconWidth: Int = 0
-        var tabIconHeight: Int = 0
+        var tabIconWidth: Float = 0f
+        var tabIconHeight: Float = 0f
         var badgeSize: Int = 0
         var isEnable = true
 
@@ -176,7 +175,7 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
             (customView as TextView).apply {
                 val drawable = ContextCompat.getDrawable(context, if (isSelect) selIconResId else iconResId)
                 if (drawable != null) {
-                    drawable.setBounds(0, 0, tabIconWidth, tabIconHeight)
+                    drawable.setBounds(0, 0, tabIconWidth.toInt(), tabIconHeight.toInt())
                     setCompoundDrawables(null, drawable, null, null)
                 }
                 if (!TextUtils.isEmpty(title)) {

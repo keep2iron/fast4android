@@ -1,6 +1,5 @@
 package io.github.keep2iron.android.adapter
 
-import android.content.Context
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -9,7 +8,6 @@ import android.view.View
 import com.alibaba.android.vlayout.LayoutHelper
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper
 import io.github.keep2iron.android.comp.R
-import io.github.keep2iron.android.utilities.WeakHandler
 
 /**
  *

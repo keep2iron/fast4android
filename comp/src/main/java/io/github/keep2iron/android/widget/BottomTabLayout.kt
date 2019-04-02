@@ -7,15 +7,12 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
+import com.scwang.smartrefresh.layout.util.DensityUtil.dp2px
 import io.github.keep2iron.android.comp.R
-import io.github.keep2iron.android.ext.dp2px
-import io.github.keep2iron.android.ext.sp
-import android.view.ViewGroup
-import android.content.res.TypedArray
-
 
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)
@@ -33,10 +30,10 @@ class BottomTabLayout : LinearLayout {
     private var positionOffset: Float = 0f
 
     private lateinit var adapter: BottomTabAdapter
-    private var tabIconWidth: Int = dp2px(10)
-    private var tabIconHeight: Int = dp2px(10)
-    private var tabTextSize: Float = sp(15)
-    private var tabHeight: Float = dp2px(50).toFloat()
+    private var tabIconWidth: Float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10f, context.resources.displayMetrics)
+    private var tabIconHeight: Float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10f, context.resources.displayMetrics)
+    private var tabTextSize: Float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 15f, context.resources.displayMetrics)
+    private var tabHeight: Float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50f, context.resources.displayMetrics)
     private var tabDrawablePadding: Int = 0
     private var tabItemMargin: Int = 0
     private var tabItemBackgroundRes: Int = -1
@@ -54,8 +51,8 @@ class BottomTabLayout : LinearLayout {
 
         val array = resources.obtainAttributes(attrs, R.styleable.BottomTabLayout)
         tabTextSize = array.getDimension(R.styleable.BottomTabLayout_tab_text_size, tabTextSize)
-        tabIconWidth = array.getDimension(R.styleable.BottomTabLayout_tab_icon_width, tabIconWidth.toFloat()).toInt()
-        tabIconHeight = array.getDimension(R.styleable.BottomTabLayout_tab_icon_height, tabIconHeight.toFloat()).toInt()
+        tabIconWidth = array.getDimension(R.styleable.BottomTabLayout_tab_icon_width, tabIconWidth)
+        tabIconHeight = array.getDimension(R.styleable.BottomTabLayout_tab_icon_height, tabIconHeight)
         tabDrawablePadding = array.getDimension(R.styleable.BottomTabLayout_tab_drawable_padding, 0f).toInt()
         tabItemMargin = array.getDimension(R.styleable.BottomTabLayout_tab_item_margin, 0f).toInt()
         tabItemBackgroundRes = array.getResourceId(R.styleable.BottomTabLayout_tab_item_background, -1)

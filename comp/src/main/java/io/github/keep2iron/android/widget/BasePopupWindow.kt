@@ -10,6 +10,7 @@ import android.os.Build
 import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.util.Log
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -17,6 +18,7 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.view.WindowManager
+import java.lang.reflect.TypeVariable
 
 /**
  * copy from qmui
@@ -170,11 +172,11 @@ abstract class BasePopupWindow(private var mContext: Context) {
     }
 
     protected fun makeWidthMeasureSpec(): Int {
-        return View.MeasureSpec.makeMeasureSpec(io.github.keep2iron.android.utilities.DisplayUtil.getScreenWidth(mContext), View.MeasureSpec.AT_MOST)
+        return View.MeasureSpec.makeMeasureSpec(mContext.resources.displayMetrics.widthPixels, View.MeasureSpec.AT_MOST)
     }
 
     protected fun makeHeightMeasureSpec(): Int {
-        return View.MeasureSpec.makeMeasureSpec(io.github.keep2iron.android.utilities.DisplayUtil.getScreenHeight(mContext), View.MeasureSpec.AT_MOST)
+        return View.MeasureSpec.makeMeasureSpec(mContext.resources.displayMetrics.widthPixels, View.MeasureSpec.AT_MOST)
     }
 
 

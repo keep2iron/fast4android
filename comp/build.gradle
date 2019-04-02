@@ -55,9 +55,9 @@ dependencies {
         transitive = true
     }
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
-    implementation 'com.github.keep2iron:pomelo:0.1.4'
-    api project(":utilities")
-    api project(":core")
+    implementation deps.fast4android.pomelo
+//    api project(":utilities")
+//    api project(":core")
 
     implementation deps.rxjava2
     implementation deps.rx_android

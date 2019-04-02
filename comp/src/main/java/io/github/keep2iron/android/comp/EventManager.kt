@@ -1,5 +1,6 @@
 package io.github.keep2iron.android.comp
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LifecycleOwner
@@ -12,7 +13,6 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.util.ArrayMap
-import io.github.keep2iron.android.Fast4Android
 import java.io.Serializable
 
 /**
@@ -28,11 +28,15 @@ class EventManager {
     companion object {
         const val DEFAULT_KEY = "Default_Key"
 
+        @SuppressLint("StaticFieldLeak")
+        lateinit var CONTEXT: Context
+
         private val INSTANCE: EventManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             EventManager()
         }
 
-        fun getInstance(): EventManager {
+        fun getInstance(context: Context): EventManager {
+            this.CONTEXT = context.applicationContext
             return EventManager.INSTANCE
         }
     }
@@ -40,7 +44,7 @@ class EventManager {
     fun register(lifecycleOwner: LifecycleOwner, action: String, handler: (Context, Intent) -> Unit) {
         val broadcastReceiver = InnerBroadcastReceiver(handler)
         val intentFilter = IntentFilter(action)
-        LocalBroadcastManager.getInstance(Fast4Android.CONTEXT).registerReceiver(broadcastReceiver, intentFilter)
+        LocalBroadcastManager.getInstance(CONTEXT).registerReceiver(broadcastReceiver, intentFilter)
 
         lifeCycleBroadcastMap[lifecycleOwner.hashCode().toString() + "#$action"] = broadcastReceiver
 
@@ -57,7 +61,7 @@ class EventManager {
             if (it.startsWith(lifecycleOwner.hashCode().toString())) {
                 val broadcastReceiver = lifeCycleBroadcastMap[it]
                 if (broadcastReceiver != null) {
-                    LocalBroadcastManager.getInstance(Fast4Android.CONTEXT).unregisterReceiver(broadcastReceiver)
+                    LocalBroadcastManager.getInstance(CONTEXT).unregisterReceiver(broadcastReceiver)
                     lifeCycleBroadcastMap[it] = null
                     lifeCycleBroadcastMap.remove(it)
                 }
@@ -68,19 +72,19 @@ class EventManager {
     fun sendEvent(action: String, data: Serializable) {
         val intent = Intent(action)
         intent.putExtra(DEFAULT_KEY, data)
-        LocalBroadcastManager.getInstance(Fast4Android.CONTEXT).sendBroadcast(intent)
+        LocalBroadcastManager.getInstance(CONTEXT).sendBroadcast(intent)
     }
 
     fun sendEvent(action: String, data: Parcelable) {
         val intent = Intent(action)
         intent.putExtra(DEFAULT_KEY, data)
-        LocalBroadcastManager.getInstance(Fast4Android.CONTEXT).sendBroadcast(intent)
+        LocalBroadcastManager.getInstance(CONTEXT).sendBroadcast(intent)
     }
 
     fun sendEvent(action: String, bundle: Bundle) {
         val intent = Intent(action)
         intent.putExtras(bundle)
-        LocalBroadcastManager.getInstance(Fast4Android.CONTEXT).sendBroadcast(intent)
+        LocalBroadcastManager.getInstance(CONTEXT).sendBroadcast(intent)
     }
 
     private class InnerBroadcastReceiver(val handler: (Context, Intent) -> Unit) : BroadcastReceiver() {

@@ -1,6 +1,5 @@
 package io.github.keep2iron.android.adapter
 
-import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.annotation.IdRes
@@ -12,7 +11,6 @@ import android.view.ViewGroup
 import com.alibaba.android.vlayout.DelegateAdapter
 import com.alibaba.android.vlayout.LayoutHelper
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper
-import io.github.keep2iron.android.Fast4Android
 
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)
@@ -20,10 +18,6 @@ import io.github.keep2iron.android.Fast4Android
  * @since 2017/11/17 16:30
  */
 abstract class AbstractSubAdapter : DelegateAdapter.Adapter<RecyclerViewHolder> {
-    protected var context: Context = Fast4Android.CONTEXT
-
-    protected lateinit var layoutHelper: LayoutHelper
-
     private var listenerMap = ArrayMap<@IdRes Int, (Int) -> Unit>()
 
     private var viewType: Int = 0
@@ -35,7 +29,6 @@ abstract class AbstractSubAdapter : DelegateAdapter.Adapter<RecyclerViewHolder> 
     private constructor()
 
     constructor(viewType: Int = 0) : this() {
-        this.layoutHelper = this.onCreateLayoutHelper()
         this.viewType = viewType
     }
 
@@ -59,7 +52,7 @@ abstract class AbstractSubAdapter : DelegateAdapter.Adapter<RecyclerViewHolder> 
     abstract fun render(holder: RecyclerViewHolder, position: Int)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        val view = LayoutInflater.from(context).inflate(getLayoutId(), parent, false)
+        val view = LayoutInflater.from(parent.context.applicationContext).inflate(getLayoutId(), parent, false)
         var binding: ViewDataBinding? = null
         try {
             binding = DataBindingUtil.bind(view)

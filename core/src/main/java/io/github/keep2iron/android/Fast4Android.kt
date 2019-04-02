@@ -21,7 +21,7 @@ object Fast4Android {
             it.createComponentModule(applicationContext as Application)
         }
         mainComponent.createComponentServiceProvider().forEach {
-            applicationContext.registerComponentService(it)
+            registerComponentService(it)
         }
     }
 }

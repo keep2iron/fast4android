@@ -20,7 +20,7 @@ class LoadMoreAdapter : AbstractLoadMoreAdapter {
                 onLoadListener: ((adapter: AbstractLoadMoreAdapter) -> Unit)?) : super(recyclerView, onLoadListener, false)
 
     override fun getLayoutId(): Int {
-        return R.layout.item_load_more
+        return R.layout.comp_item_load_more
     }
 
 }

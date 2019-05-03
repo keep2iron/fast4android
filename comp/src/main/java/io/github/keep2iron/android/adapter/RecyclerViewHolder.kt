@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import io.github.keep2iron.android.comp.R
 
 /**
  * @author keep2iron
@@ -93,6 +94,10 @@ open class RecyclerViewHolder : RecyclerView.ViewHolder {
 
     fun <T> getTag(key: Int): T {
         return itemView.getTag(key) as T
+    }
+
+    fun getRealPosition(): Int {
+        return getTag(R.id.comp_position)
     }
 
 }

@@ -16,24 +16,24 @@ import io.github.keep2iron.android.comp.R;
 /**
  * 可以控制drawable大小的TextView
  */
-public class TextViewPlus extends AppCompatTextView {
+public class CompTextViewPlus extends AppCompatTextView {
     class Size {
         int width;
         int height;
     }
 
-    public TextViewPlus(Context context) {
+    public CompTextViewPlus(Context context) {
         this(context, null);
     }
 
-    public TextViewPlus(Context context, AttributeSet attrs) {
+    public CompTextViewPlus(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public TextViewPlus(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CompTextViewPlus(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        TypedArray array = getResources().obtainAttributes(attrs, R.styleable.TextViewPlus);
+        TypedArray array = getResources().obtainAttributes(attrs, R.styleable.CompTextViewPlus);
 
         Size sLeftSize = new Size();
         Size sRightSize = new Size();
@@ -44,21 +44,21 @@ public class TextViewPlus extends AppCompatTextView {
 
         for (int i = 0; i < array.getIndexCount(); i++) {
             int index = array.getIndex(i);
-            if (R.styleable.TextViewPlus_drawableLeftWidth == index) {
+            if (R.styleable.CompTextViewPlus_compDrawableLeftWidth == index) {
                 sLeftSize.width = array.getDimensionPixelSize(index, defValue);
-            } else if (R.styleable.TextViewPlus_drawableLeftHeight == index) {
+            } else if (R.styleable.CompTextViewPlus_compDrawableLeftHeight == index) {
                 sLeftSize.height = (int) array.getDimension(index, defValue);
-            } else if (R.styleable.TextViewPlus_drawableRightWidth == index) {
+            } else if (R.styleable.CompTextViewPlus_compDrawableRightWidth == index) {
                 sRightSize.width = array.getDimensionPixelSize(index, defValue);
-            } else if (R.styleable.TextViewPlus_drawableRightHeight == index) {
+            } else if (R.styleable.CompTextViewPlus_compDrawableRightHeight == index) {
                 sRightSize.height = array.getDimensionPixelSize(index, defValue);
-            } else if (R.styleable.TextViewPlus_drawableTopWidth == index) {
+            } else if (R.styleable.CompTextViewPlus_compDrawableTopWidth == index) {
                 sTopSize.width = array.getDimensionPixelSize(index, defValue);
-            } else if (R.styleable.TextViewPlus_drawableTopHeight == index) {
+            } else if (R.styleable.CompTextViewPlus_compDrawableTopHeight == index) {
                 sTopSize.height = array.getDimensionPixelSize(index, defValue);
-            } else if (R.styleable.TextViewPlus_drawableBottomWidth == index) {
+            } else if (R.styleable.CompTextViewPlus_compDrawableBottomWidth == index) {
                 sBottomSize.width = array.getDimensionPixelSize(index, defValue);
-            } else if (R.styleable.TextViewPlus_drawableBottomHeight == index) {
+            } else if (R.styleable.CompTextViewPlus_compDrawableBottomHeight == index) {
                 sBottomSize.height = array.getDimensionPixelSize(index, defValue);
             }
         }
@@ -66,20 +66,15 @@ public class TextViewPlus extends AppCompatTextView {
 
         Drawable[] compoundDrawables = getCompoundDrawables();
 
-        if (compoundDrawables[0] != null)
-
-        {                                       //left
+        if (compoundDrawables[0] != null) {                                       //left
             compoundDrawables[0].setBounds(0, 0, sLeftSize.width, sLeftSize.height);
         }
 
-        if (compoundDrawables[1] != null)
-
-        {                                //top
+        if (compoundDrawables[1] != null) {                                //top
             compoundDrawables[1].setBounds(0, 0, sTopSize.width, sTopSize.height);
         }
 
-        if (compoundDrawables[2] != null)
-        {                                //right
+        if (compoundDrawables[2] != null) {                                //right
             compoundDrawables[2].setBounds(0, 0, sRightSize.width, sRightSize.height);
         }
 

@@ -39,10 +39,10 @@ def versions = [
                 retrofit      : "2.3.0",
                 rxjava2       : "2.2.0",
                 rx_android    : "2.1.0",
-                fresco_version: "1.11.0",
+                fresco_version: "1.13.0",
                 status_bar    : "2.3.0",
                 logger_android: "2.2.0",
-                fast4android  : "0.0.6.21"
+                fast4android  : "0.0.6.22"
         ],
 ]
 
@@ -56,6 +56,7 @@ def deps = [
         logger                     : "com.orhanobut:logger:2.2.0",
         status_bar                 : "com.gyf.barlibrary:barlibrary:$versions.third_part.status_bar",
         fresco                     : "com.facebook.fresco:fresco:$versions.third_part.fresco_version",
+        fresco_gif                 : "com.facebook.fresco:animated-gif:$versions.third_part.fresco_version",
         logging                    : "com.squareup.okhttp3:logging-interceptor:3.9.0",
 
         test                       : [
@@ -79,6 +80,7 @@ def deps = [
                 drawable         : "com.android.support:support-vector-drawable:$versions.android_support.support",
                 palette          : "com.android.support:palette-v7:$versions.android_support.support",
                 grid_layout      : "com.android.support:gridlayout-v7:$versions.android_support.support",
+                spring_animation:  "com.android.support:support-dynamic-animation:$versions.android_support.support"
         ],
         retrofit                   : [
                 runtime: "com.squareup.retrofit2:retrofit:$versions.third_part.retrofit",
@@ -104,8 +106,8 @@ def deps = [
                 core     : "com.github.keep2iron.fast4android:core:$versions.third_part.fast4android",
                 comp     : "com.github.keep2iron.fast4android:comp:$versions.third_part.fast4android",
                 utilities: "com.github.keep2iron.fast4android:utilities:$versions.third_part.fast4android",
-                pomelo   : "com.github.keep2iron:pomelo:0.1.8",
-                pineapple: "com.github.keep2iron:pineapple:0.17-beta"
+                pomelo   : "com.github.keep2iron:pomelo:0.1.9",
+                pineapple: "com.github.keep2iron:pineapple:0.18"
         ]
 ]
 

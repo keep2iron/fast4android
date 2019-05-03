@@ -1,19 +1,26 @@
 package io.github.keep2iron.android.databinding
 
 import android.databinding.Observable
+import android.view.View
 import io.github.keep2iron.android.widget.PageState
+import io.github.keep2iron.android.widget.CompPageStateLayout
 
-import io.github.keep2iron.android.widget.PageStateLayout
-
-open class PageStateObservable(private val pageStateLayout: PageStateLayout,
+open class PageStateObservable(private val pageStateLayout: CompPageStateLayout,
                                val state: PageState = PageState.ORIGIN) : Observable {
 
     private val callbacks: ArrayList<Observable.OnPropertyChangedCallback> = ArrayList(3)
 
-    init {
-        if (state != PageState.ORIGIN) {
+    val listener = object : View.OnAttachStateChangeListener {
+        override fun onViewAttachedToWindow(v: View?) {
             pageStateLayout.initPageState(state)
         }
+
+        override fun onViewDetachedFromWindow(v: View?) {
+        }
+    }
+
+    init {
+        pageStateLayout.addOnAttachStateChangeListener(listener)
     }
 
     companion object {
@@ -50,5 +57,9 @@ open class PageStateObservable(private val pageStateLayout: PageStateLayout,
 
     override fun removeOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback) {
         callbacks.remove(callback)
+    }
+
+    fun clear() {
+        pageStateLayout.removeOnAttachStateChangeListener(listener)
     }
 }

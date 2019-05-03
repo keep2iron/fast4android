@@ -22,7 +22,6 @@ class Application : MultiDexApplication(), MainComponent {
         return listOf(
                 LoggerModule(),
                 RefreshLayoutModule(),
-                TencentX5Module(),
                 ScreenDensityModule()
         )
     }

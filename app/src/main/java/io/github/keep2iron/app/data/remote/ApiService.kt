@@ -2,6 +2,7 @@ package io.github.keep2iron.app.data.remote
 
 import io.github.keep2iron.app.model.BaseResponse
 import io.github.keep2iron.app.model.GsonIndex
+import io.github.keep2iron.app.model.Movie
 import io.github.keep2iron.app.model.MultiModelWrapper
 import io.reactivex.Observable
 import retrofit2.http.Field
@@ -15,12 +16,12 @@ import retrofit2.http.POST
  */
 interface ApiService {
 
-    @POST("/api/index/models")
+    @POST("/api/index/movie")
     @FormUrlEncoded
-    fun indexModels(@Field("index") index: Int, @Field("size") size: Int): Observable<BaseResponse<List<GsonIndex>>>
+    fun indexModels(@Field("index") index: Int, @Field("size") size: Int): Observable<BaseResponse<List<Movie>>>
 
     @POST("/api/index/banner")
-    fun indexBanner(): Observable<BaseResponse<List<GsonIndex>>>
+    fun indexBanner(): Observable<BaseResponse<List<Movie>>>
 
     @FormUrlEncoded
     @POST("/api/multi/test")

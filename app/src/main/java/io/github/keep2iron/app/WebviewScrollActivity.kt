@@ -162,7 +162,7 @@ open class WebviewScrollActivity : AbstractActivity<ViewDataBinding>() {
 //        webSettings.loadWithOverviewMode = true
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -170,7 +170,7 @@ open class WebviewScrollActivity : AbstractActivity<ViewDataBinding>() {
                 if (this.uploadMessages == null)
                     return
 
-                this.uploadMessages?.onReceiveValue(arrayOf(Uri.fromFile(File(data.data.path))))
+                this.uploadMessages?.onReceiveValue(arrayOf(Uri.fromFile(File(data?.data?.path))))
                 this.uploadMessages = null
             }
         } else if (requestCode == FILECHOOSER_RESULTCODE) {

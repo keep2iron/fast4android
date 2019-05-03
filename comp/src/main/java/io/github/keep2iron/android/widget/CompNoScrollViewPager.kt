@@ -10,7 +10,7 @@ import android.view.MotionEvent
  * @version 1.0
  * @since 2018/03/08 17:23
  */
-class NoScrollViewPager : ViewPager {
+class CompNoScrollViewPager : ViewPager {
     private var isScroll: Boolean = false
 
     constructor(context: Context) : super(context)

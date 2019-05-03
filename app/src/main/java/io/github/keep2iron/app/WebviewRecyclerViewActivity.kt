@@ -50,7 +50,7 @@ class WebviewRecyclerViewActivity(override val resId: Int =  R.layout.activity_w
         delegateAdapter.addAdapter(WebViewAdapter(this, delegateAdapter))
         delegateAdapter.addAdapter(FooterAdapter(applicationContext))
 
-        recyclerView.recycledViewPool = viewPool
+        recyclerView.setRecycledViewPool(viewPool)
         recyclerView.layoutManager = virtualLayoutManager
         recyclerView.adapter = delegateAdapter
     }

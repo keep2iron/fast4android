@@ -7,6 +7,8 @@ group = 'com.github.keep2iron'
 version = 'SNAPSHOT'
 
 android {
+    resourcePrefix "comp"
+
     compileSdkVersion versions.build.target_sdk
     buildToolsVersion versions.build.build_tools
 
@@ -56,8 +58,6 @@ dependencies {
     }
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
     implementation deps.fast4android.pomelo
-//    api project(":utilities")
-//    api project(":core")
 
     implementation deps.rxjava2
     implementation deps.rx_android

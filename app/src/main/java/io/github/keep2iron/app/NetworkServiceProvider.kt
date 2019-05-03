@@ -20,6 +20,8 @@ import java.util.concurrent.TimeUnit
  */
 class NetworkServiceProvider : ComponentServiceProvider<NetworkManager> {
 
+    override fun providerComponentServiceClass(): Class<NetworkManager> = NetworkManager::class.java
+
     companion object {
         const val NETWORK_MANAGER = "network"
     }
@@ -37,10 +39,7 @@ class NetworkServiceProvider : ComponentServiceProvider<NetworkManager> {
         builder.addInterceptor(ReceivedCookiesInterceptor())
         builder.addInterceptor(AddCookiesInterceptor())
 
-        return NetworkManager.Builder("http://10.3.1.133:8080/")
-                .setBaseServerResponse(BaseResponse::class.java)
+        return NetworkManager.Builder("http://10.0.2.2:8080/")
                 .build(builder.build())
     }
-
-    override val componentName: String = NETWORK_MANAGER
 }

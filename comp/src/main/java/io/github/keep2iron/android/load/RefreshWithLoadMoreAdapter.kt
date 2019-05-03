@@ -20,6 +20,64 @@ interface RefreshLoadListener {
     }
 }
 
+abstract class RefreshLoadMoreSubscriber<T>(private val adapter: RefreshWithLoadMoreAdapter,
+                                            private val pageState: PageStateObservable? = null) : AndroidSubscriber<T>() {
+
+    abstract fun testRespEmpty(resp: T): Boolean
+
+    open fun doOnSuccess(resp: T, pager: Pager) {
+        pager.value = (pager.value as Int).inc()
+    }
+
+    override fun onSuccess(resp: T) {
+        adapter.refreshAble.setRefreshEnable(true)
+        adapter.loadMoreAble.setLoadMoreEnable(true)
+
+        adapter.refreshAble.showRefreshComplete()
+        adapter.loadMoreAble.showLoadMoreComplete()
+
+        val pager = adapter.pager
+
+        try {
+            if (testRespEmpty(resp)) {
+                if (pager.value == pager.defaultValue) {
+                    adapter.recyclerView.post {
+                        adapter.recyclerView.scrollToPosition(0)
+                    }
+                    pageState?.setPageState(PageState.NO_DATA)
+                }
+                doOnSuccess(resp, pager)
+                throw NoDataException()
+            } else {
+                if (pager.value == pager.defaultValue) {
+                    adapter.recyclerView.post {
+                        adapter.recyclerView.scrollToPosition(0)
+                    }
+                    pageState?.setPageState(PageState.ORIGIN)
+                }
+                doOnSuccess(resp, pager)
+            }
+        } catch (exp: NoDataException) {
+            adapter.refreshAble.setRefreshEnable(true)
+            adapter.loadMoreAble.showLoadMoreEnd()
+        }
+    }
+
+    override fun onError(throwable: Throwable) {
+        Logger.e(Log.getStackTraceString(throwable))
+        val pager = adapter.pager
+        if (pager.value == pager.defaultValue) {
+            pageState?.setPageState(PageState.LOAD_ERROR)
+        }
+
+        adapter.loadMoreAble.setLoadMoreEnable(true)
+        adapter.refreshAble.setRefreshEnable(true)
+        adapter.refreshAble.showRefreshComplete()
+        adapter.loadMoreAble.showLoadMoreFailed()
+    }
+
+}
+
 /**
  *
  * @author keep2iron <a href="http://keep2iron.github.io">Contract me.</a>
@@ -35,8 +93,8 @@ class RefreshWithLoadMoreAdapter private constructor(val recyclerView: RecyclerV
     var loadMoreAdapter: AbstractLoadMoreAdapter
     var pager: Pager = Pager(0)
 
-    private lateinit var loadMoreAble: LoadMoreAble
-    private lateinit var refreshAble: Refreshable
+    internal lateinit var loadMoreAble: LoadMoreAble
+    internal lateinit var refreshAble: Refreshable
     private var onLoadListener: RefreshLoadListener? = null
 
     fun loadMoreComplete() {
@@ -79,63 +137,6 @@ class RefreshWithLoadMoreAdapter private constructor(val recyclerView: RecyclerV
         loadMoreAble = VLayoutLoadMoreAble(loadMoreAdapter)
     }
 
-    abstract class Subscriber<T>(private val adapter: RefreshWithLoadMoreAdapter,
-                                 private val pageState: PageStateObservable? = null) : AndroidSubscriber<T>() {
-
-        abstract fun testRespEmpty(resp: T): Boolean
-
-        open fun doOnSuccess(resp: T, pager: Pager) {
-            pager.value = (pager.value as Int).inc()
-        }
-
-        override fun onSuccess(resp: T) {
-            adapter.refreshAble.setRefreshEnable(true)
-            adapter.loadMoreAble.setLoadMoreEnable(true)
-
-            adapter.refreshAble.showRefreshComplete()
-            adapter.loadMoreAble.showLoadMoreComplete()
-
-            val pager = adapter.pager
-
-            try {
-                if (testRespEmpty(resp)) {
-                    if (pager.value == pager.defaultValue) {
-                        adapter.recyclerView.post {
-                            adapter.recyclerView.scrollToPosition(0)
-                        }
-                        pageState?.setPageState(PageState.NO_DATA)
-                    }
-                    doOnSuccess(resp, pager)
-                    throw NoDataException()
-                } else {
-                    if (pager.value == pager.defaultValue) {
-                        adapter.recyclerView.post {
-                            adapter.recyclerView.scrollToPosition(0)
-                        }
-                        pageState?.setPageState(PageState.ORIGIN)
-                    }
-                    doOnSuccess(resp, pager)
-                }
-            } catch (exp: NoDataException) {
-                adapter.refreshAble.setRefreshEnable(true)
-                adapter.loadMoreAble.showLoadMoreEnd()
-            }
-        }
-
-        override fun onError(throwable: Throwable) {
-            Logger.e(Log.getStackTraceString(throwable))
-            val pager = adapter.pager
-            if (pager.value == pager.defaultValue) {
-                pageState?.setPageState(PageState.LOAD_ERROR)
-            }
-
-            adapter.loadMoreAble.setLoadMoreEnable(true)
-            adapter.refreshAble.setRefreshEnable(true)
-            adapter.refreshAble.showRefreshComplete()
-            adapter.loadMoreAble.showLoadMoreFailed()
-        }
-
-    }
 
     class Builder(recyclerView: RecyclerView,
                   refreshLayout: View,

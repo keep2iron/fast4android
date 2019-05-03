@@ -24,7 +24,7 @@ import io.github.keep2iron.android.comp.R
 class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
     private val supportFragmentManager: FragmentManager = (context as FragmentActivity).supportFragmentManager
 
-    val onTabStateChangedListeners: ArrayList<BottomTabLayout.OnTabChangeListener> = ArrayList()
+    val onTabStateChangedListeners: ArrayList<CompBottomTabLayout.OnTabChangeListener> = ArrayList()
     var selectPosition: Int = 0
 
     lateinit var showingFragment: Fragment
@@ -43,7 +43,7 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
                                         tabLayoutHeight: Float,
                                         drawablePadding: Int,
                                         isSelect: Boolean = false): TextView {
-        return BadgeTextView(context).apply {
+        return CompBadgeTextView(context).apply {
             val drawable = ContextCompat.getDrawable(context, if (isSelect) tab.selIconResId else tab.iconResId)
             if (drawable != null) {
                 drawable.setBounds(0, 0, tabIconWidth.toInt(), tabIconHeight.toInt())
@@ -134,7 +134,7 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
         constructor(@ColorRes colorRes: Int,
                     @ColorRes selectColorRes: Int,
                     @ColorRes badgeColor: Int = android.R.color.holo_red_light,
-                    @DimenRes badgeSize: Int = R.dimen.default_badge_size,
+                    @DimenRes badgeSize: Int = R.dimen.comp_default_badge_size,
                     title: String,
                     @DrawableRes iconResId: Int,
                     @DrawableRes selIconResId: Int,

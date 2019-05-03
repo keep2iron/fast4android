@@ -11,11 +11,10 @@ import io.github.keep2iron.pineapple.ImageLoaderManager
  * @date 2018/10/29
  */
 class ImageLoaderServiceProvider : ComponentServiceProvider<ImageLoaderManager> {
+    override fun providerComponentServiceClass(): Class<ImageLoaderManager> = ImageLoaderManager::class.java
 
     override fun provideComponentService(application: Application): ImageLoaderManager {
         ImageLoaderManager.init(application)
         return ImageLoaderManager.INSTANCE
     }
-
-    override val componentName: String = "ImageLoaderManager"
 }

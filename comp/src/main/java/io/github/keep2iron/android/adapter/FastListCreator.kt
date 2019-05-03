@@ -21,19 +21,22 @@ import io.github.keep2iron.android.load.RefreshWithLoadMoreAdapter
 abstract class FastListCreator internal constructor(val context: Context) {
 
     companion object {
-        fun createCommonAdapter(context: Context): FastCommonListAdapter {
-            return FastCommonListAdapter(context)
+        fun createCommonAdapter(context: Context, viewPool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()): FastCommonListAdapter {
+            val listAdapter = FastCommonListAdapter(context)
+            listAdapter.viewPool = viewPool
+            return listAdapter
         }
 
         fun createMultiTypeAdapter(context: Context,
-                                   data: ObservableList<Any>): FastMultiTypeListAdapter {
-            return FastMultiTypeListAdapter(context, data)
+                                   data: ObservableList<Any>,
+                                   viewPool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()): FastMultiTypeListAdapter {
+            val listAdapter = FastMultiTypeListAdapter(context, data)
+            listAdapter.viewPool = viewPool
+            return listAdapter
         }
     }
 
-    protected val viewPool by lazy {
-        RecyclerView.RecycledViewPool()
-    }
+    lateinit var viewPool: RecyclerView.RecycledViewPool
 
     protected val adapters by lazy {
         ArrayList<DelegateAdapter.Adapter<*>>()
@@ -54,9 +57,9 @@ abstract class FastListCreator internal constructor(val context: Context) {
     lateinit var refreshLoadMoreAdapter: RefreshWithLoadMoreAdapter
 
     fun getMultiTypeAdapter(): MultiTypeAdapter {
-        return if(this is FastMultiTypeListAdapter){
+        return if (this is FastMultiTypeListAdapter) {
             this.multiAdapter
-        }else{
+        } else {
             throw IllegalArgumentException("you must call FastListCreator.createMultiTypeAdapter() method to create multi type adapter")
         }
     }
@@ -75,6 +78,17 @@ abstract class FastListCreator internal constructor(val context: Context) {
                 .setOnLoadListener(listener!!)
                 .build()
         adapters.add(refreshLoadMoreAdapter.loadMoreAdapter)
+        if (this is FastCommonListAdapter) {
+            adapters.forEach {
+                if (it is AbstractSubAdapter) {
+                    viewPool.setMaxRecycledViews(it.getItemViewType(-1), it.cacheMaxViewCount)
+                }
+            }
+        } else if (this is FastMultiTypeListAdapter) {
+            multiAdapter.multiTypeAdapter.forEach {
+                viewPool.setMaxRecycledViews(it.viewType(), it.cacheMaxViewCount)
+            }
+        }
 
         virtualLayoutManager = if (useWrapperLayoutManager) {
             WrapperVirtualLayoutManager(context.applicationContext)

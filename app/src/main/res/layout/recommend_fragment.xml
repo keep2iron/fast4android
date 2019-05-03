@@ -2,37 +2,24 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="bundle"
-            type="io.github.keep2iron.android.databinding.ListBundle" />
-
-        <variable
-            name="string"
-            type="String" />
-
-    </data>
-
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <io.github.keep2iron.android.widget.PageStateLayout
+        <io.github.keep2iron.android.widget.CompPageStateLayout
             android:id="@+id/stateLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:psl_load_error_layout="@layout/layout_load_error"
-            app:psl_loading_layout="@layout/layout_loading">
+            app:comp_psl_layout_loadError="@layout/layout_load_error"
+            app:comp_psl_layout_loading="@layout/layout_loading">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rvRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:bundle="@{bundle}" />
-        </io.github.keep2iron.android.widget.PageStateLayout>
+                android:layout_height="match_parent" />
+        </io.github.keep2iron.android.widget.CompPageStateLayout>
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 

@@ -97,13 +97,12 @@ abstract class AbstractLoadMoreAdapter : AbstractSubAdapter {
 
     override fun render(holder: RecyclerViewHolder, position: Int) {
         val binding = holder.itemView
-        binding.findViewById<View>(R.id.load_more_load_fail_view).setOnClickListener {
+        binding.findViewById<View>(R.id.comp_load_more_load_fail_view).setOnClickListener {
             mOnLoadMoreListener?.invoke(this@AbstractLoadMoreAdapter)
             showLoading()
         }
         if (isEnableLoadMore && mCurrentShowState == STATE_DEFAULT) {
             mCurrentShowState = STATE_LOADING
-//            Logger.e("${mCurrentShowState} ${isEnableLoadMore}")
             holder.itemView.post {
                 mOnLoadMoreListener?.invoke(this@AbstractLoadMoreAdapter)
             }
@@ -134,19 +133,19 @@ abstract class AbstractLoadMoreAdapter : AbstractSubAdapter {
 
     open fun visibleLoading(binding: View, visible: Boolean) {
         binding.post {
-            binding.findViewById<View>(R.id.load_more_loading_view).visibility = if (visible) View.VISIBLE else View.GONE
+            binding.findViewById<View>(R.id.comp_load_more_loading_view).visibility = if (visible) View.VISIBLE else View.GONE
         }
     }
 
     open fun visibleLoadFail(binding: View, visible: Boolean) {
         binding.post {
-            binding.findViewById<View>(R.id.load_more_load_fail_view).visibility = if (visible) View.VISIBLE else View.GONE
+            binding.findViewById<View>(R.id.comp_load_more_load_fail_view).visibility = if (visible) View.VISIBLE else View.GONE
         }
     }
 
     open fun visibleLoadEnd(binding: View, visible: Boolean) {
         binding.post {
-            binding.findViewById<View>(R.id.load_more_load_end_view).visibility = if (visible) View.VISIBLE else View.GONE
+            binding.findViewById<View>(R.id.comp_load_more_load_end_view).visibility = if (visible) View.VISIBLE else View.GONE
         }
     }
 

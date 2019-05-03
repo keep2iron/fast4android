@@ -23,9 +23,9 @@ import io.github.keep2iron.android.comp.R
  *
  * 可以无限轮播的布局，里面包含了一个ViewPager和一个LinearLayout作为指示器
  */
-class LoopViewLayout : FrameLayout {
+class CompLoopViewLayout : FrameLayout {
     private lateinit var adapter: LooperWrapperPagerAdapter<out RecyclerViewHolder>
-    var viewPager: NoScrollViewPager
+    var viewPager: CompNoScrollViewPager
     private var indicators: LinearLayout
 
     /**
@@ -55,18 +55,18 @@ class LoopViewLayout : FrameLayout {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        LayoutInflater.from(context).inflate(R.layout.widget_banner, this, true)
+        LayoutInflater.from(context).inflate(R.layout.comp_widget_banner, this, true)
         flNoDataContainer = findViewById(R.id.flNoDataContainer)
         viewPager = findViewById(R.id.vpViewPager)
         viewPager.setScroll(true)
         indicators = findViewById(R.id.llIndicatorContainer)
 
-        val array = resources.obtainAttributes(attrs, R.styleable.LoopViewLayout)
-        indicatorSelectResId = array.getResourceId(R.styleable.LoopViewLayout_indicator_drawable_select, R.drawable.shape_gray_radius)
-        indicatorUnselectResId = array.getResourceId(R.styleable.LoopViewLayout_indicator_drawable_unselect, R.drawable.shape_white_radius)
-        indicatorWidth = array.getDimensionPixelSize(R.styleable.LoopViewLayout_indicator_drawable_width, indicatorWidth)
-        indicatorHeight = array.getDimensionPixelSize(R.styleable.LoopViewLayout_indicator_drawable_height, indicatorHeight)
-        indicatorMargin = array.getDimensionPixelSize(R.styleable.LoopViewLayout_indicator_drawable_margin, indicatorMargin)
+        val array = resources.obtainAttributes(attrs, R.styleable.CompLoopViewLayout)
+        indicatorSelectResId = array.getResourceId(R.styleable.CompLoopViewLayout_comp_loopLayout_indicatorDrawable_selected, R.drawable.comp_shape_gray_radius)
+        indicatorUnselectResId = array.getResourceId(R.styleable.CompLoopViewLayout_comp_loopLayout_indicatorDrawable_unselected, R.drawable.comp_shape_white_radius)
+        indicatorWidth = array.getDimensionPixelSize(R.styleable.CompLoopViewLayout_comp_loopLayout_indicatorDrawable_width, indicatorWidth)
+        indicatorHeight = array.getDimensionPixelSize(R.styleable.CompLoopViewLayout_comp_loopLayout_indicatorDrawable_height, indicatorHeight)
+        indicatorMargin = array.getDimensionPixelSize(R.styleable.CompLoopViewLayout_comp_loopLayout_indicatorDrawable_margin, indicatorMargin)
         array.recycle()
 
         initOnPageChangedListener()
@@ -165,14 +165,14 @@ class LoopViewLayout : FrameLayout {
             override fun onChanged() {
                 currentPosition = DEFAULT_POSITION
                 createIndicator()
-                this@LoopViewLayout.adapter.notifyDataSetChanged()
+                this@CompLoopViewLayout.adapter.notifyDataSetChanged()
                 flNoDataContainer.visibility = if (recycleAdapter.itemCount == 0) View.VISIBLE else View.GONE
             }
 
             override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
                 createIndicator()
                 currentPosition = DEFAULT_POSITION
-                this@LoopViewLayout.adapter.notifyDataSetChanged()
+                this@CompLoopViewLayout.adapter.notifyDataSetChanged()
                 flNoDataContainer.visibility = if (recycleAdapter.itemCount == 0) View.VISIBLE else View.GONE
             }
 
@@ -188,21 +188,21 @@ class LoopViewLayout : FrameLayout {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
                 currentPosition = DEFAULT_POSITION
                 createIndicator()
-                this@LoopViewLayout.adapter.notifyDataSetChanged()
+                this@CompLoopViewLayout.adapter.notifyDataSetChanged()
                 flNoDataContainer.visibility = if (recycleAdapter.itemCount == 0) View.VISIBLE else View.GONE
             }
 
             override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
                 currentPosition = DEFAULT_POSITION
                 createIndicator()
-                this@LoopViewLayout.adapter.notifyDataSetChanged()
+                this@CompLoopViewLayout.adapter.notifyDataSetChanged()
                 flNoDataContainer.visibility = if (recycleAdapter.itemCount == 0) View.VISIBLE else View.GONE
             }
 
             override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
                 currentPosition = DEFAULT_POSITION
                 createIndicator()
-                this@LoopViewLayout.adapter.notifyDataSetChanged()
+                this@CompLoopViewLayout.adapter.notifyDataSetChanged()
             }
         })
         createIndicator()

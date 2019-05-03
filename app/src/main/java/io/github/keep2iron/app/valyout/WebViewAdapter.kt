@@ -47,7 +47,7 @@ class WebViewAdapter(val ctx: Context, val adapter: DelegateAdapter) : AbstractS
         val viewHolder = super.onCreateViewHolder(parent, viewType)
         val webView = viewHolder.itemView as WebView
 
-        val bufferedReader = BufferedReader(InputStreamReader(context.assets.open("index.html"), "UTF-8"))
+        val bufferedReader = BufferedReader(InputStreamReader(ctx.assets.open("index.html"), "UTF-8"))
         var line: String?
         do {
             line = bufferedReader.readLine()

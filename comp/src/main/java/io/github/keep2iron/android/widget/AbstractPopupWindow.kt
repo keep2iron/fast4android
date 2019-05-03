@@ -10,7 +10,6 @@ import android.os.Build
 import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.util.Log
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -18,13 +17,12 @@ import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.view.WindowManager
-import java.lang.reflect.TypeVariable
 
 /**
  * copy from qmui
  * 修改自 @author Lorensius W. L. T <lorenz></lorenz>@londatiga.net>
  */
-abstract class BasePopupWindow(private var mContext: Context) {
+abstract class AbstractPopupWindow(private var mContext: Context) {
     protected var mWindow: android.widget.PopupWindow? = null
     private var mRootViewWrapper: RootView? = null
     protected lateinit var mRootView: View
@@ -204,7 +202,7 @@ abstract class BasePopupWindow(private var mContext: Context) {
         mRootViewWrapper!!.addView(root)
         mWindow!!.contentView = mRootViewWrapper
         mWindow!!.setOnDismissListener {
-            this@BasePopupWindow.onDismiss()
+            this@AbstractPopupWindow.onDismiss()
             if (mDismissListener != null) {
                 mDismissListener!!.onDismiss()
             }
@@ -249,7 +247,7 @@ abstract class BasePopupWindow(private var mContext: Context) {
             if (mWindow != null && mWindow!!.isShowing) {
                 mWindow!!.dismiss()
             }
-            this@BasePopupWindow.onConfigurationChanged(newConfig)
+            this@AbstractPopupWindow.onConfigurationChanged(newConfig)
         }
 
         override fun addView(child: View) {

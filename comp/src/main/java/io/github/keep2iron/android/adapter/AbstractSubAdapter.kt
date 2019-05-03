@@ -11,6 +11,9 @@ import android.view.ViewGroup
 import com.alibaba.android.vlayout.DelegateAdapter
 import com.alibaba.android.vlayout.LayoutHelper
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper
+import io.github.keep2iron.android.comp.R
+
+typealias OnItemClickListener = (Int) -> Unit
 
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)
@@ -22,14 +25,17 @@ abstract class AbstractSubAdapter : DelegateAdapter.Adapter<RecyclerViewHolder> 
 
     private var viewType: Int = 0
 
+    internal var cacheMaxViewCount = 1
+
     companion object {
         const val ILLEGAL_SIZE = -1
     }
 
     private constructor()
 
-    constructor(viewType: Int = 0) : this() {
+    constructor(viewType: Int = 0, cacheMaxViewCount: Int = 1) : this() {
         this.viewType = viewType
+        this.cacheMaxViewCount = cacheMaxViewCount
     }
 
     override fun onCreateLayoutHelper(): LayoutHelper {
@@ -53,39 +59,41 @@ abstract class AbstractSubAdapter : DelegateAdapter.Adapter<RecyclerViewHolder> 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         val view = LayoutInflater.from(parent.context.applicationContext).inflate(getLayoutId(), parent, false)
-        var binding: ViewDataBinding? = null
-        try {
-            binding = DataBindingUtil.bind(view)
-        } catch (exception: IllegalArgumentException) {
+
+        var viewDataBinding = DataBindingUtil.findBinding<ViewDataBinding>(view)
+        if (viewDataBinding != null) {
+            viewDataBinding = DataBindingUtil.bind(view)
         }
 
-        val holder = if (binding == null) {
+        val holder = if (viewDataBinding == null) {
             RecyclerViewHolder(view)
         } else {
-            RecyclerViewHolder(binding)
+            RecyclerViewHolder(viewDataBinding)
         }
         val rootListener = listenerMap[-1]
-        if(rootListener != null){
+        if (rootListener != null) {
             holder.itemView.setOnClickListener {
-                rootListener.invoke(holder.layoutPosition)
+                rootListener.invoke(holder.getTag(R.id.comp_position))
             }
         }
-        listenerMap.forEach { entry->
-            holder.findViewById<View>(entry.key).setOnClickListener {
-                entry.value.invoke(holder.layoutPosition)
-            }
-        }
+        listenerMap.filter { it.key > 0 }
+                .forEach { entry ->
+                    holder.findViewById<View>(entry.key).setOnClickListener {
+                        entry.value.invoke(holder.getTag(R.id.comp_position))
+                    }
+                }
         return holder
     }
 
     /**
      * [id]不传默认为-1则该listener添加到rootItem下面
      */
-    fun setOnItemClickListener(@IdRes id: Int? = -1, listener: (Int) -> Unit) {
+    fun setOnItemClickListener(@IdRes id: Int? = -1, listener: OnItemClickListener) {
         listenerMap[id] = listener
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
+        holder.setTag(R.id.comp_position, position)
         render(holder, position)
     }
 

@@ -18,7 +18,7 @@ import io.github.keep2iron.app.util.Constant
  * @version 1.0
  * @since 2018/03/12 11:22
  */
-class BannerItemAdapter(context: Context, private val viewModule: RecommendModel,
+class BannerItemAdapter(private val viewModule: RecommendModel,
                         private val fragmentManager: FragmentManager) : AbstractSubAdapter( Constant.RECYCLE_BANNER_SUB_ITEM) {
     override fun onCreateLayoutHelper(): LayoutHelper = LinearLayoutHelper()
 

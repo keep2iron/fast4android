@@ -9,8 +9,6 @@ interface ComponentServiceProvider<T> {
 
     fun provideComponentService(application: Application): T?
 
-    val componentName: String
-
     fun providerComponentServiceClass(): Class<T>
 
 }

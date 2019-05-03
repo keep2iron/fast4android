@@ -2,17 +2,23 @@ package io.github.keep2iron.app.valyout
 
 import android.content.Context
 import android.support.v4.app.FragmentManager
+import android.support.v4.content.ContextCompat
 import com.alibaba.android.vlayout.LayoutHelper
 import com.alibaba.android.vlayout.layout.GridLayoutHelper
+import com.orhanobut.logger.Logger
+import io.github.keep2iron.android.Fast4Android
 import io.github.keep2iron.android.adapter.AbstractSubAdapter
 import io.github.keep2iron.android.adapter.RecyclerViewHolder
 import io.github.keep2iron.android.databinding.RecyclerViewChangeAdapter
+import io.github.keep2iron.android.ext.dp2px
 import io.github.keep2iron.app.BR
 import io.github.keep2iron.app.R
 import io.github.keep2iron.app.model.GsonIndex
 import io.github.keep2iron.app.module.recommend.RecommendFragment
 import io.github.keep2iron.app.module.recommend.RecommendModel
 import io.github.keep2iron.app.util.Constant
+import io.github.keep2iron.pineapple.ImageLoaderManager
+import io.github.keep2iron.pineapple.MiddlewareView
 
 /**
  *
@@ -26,25 +32,21 @@ class VideoAdapter(context: Context,
 
     init {
         indexModule.indexItems.addOnListChangedCallback(RecyclerViewChangeAdapter<GsonIndex>(this))
+        setOnItemClickListener {
+            Logger.d("position :${it}")
+        }
     }
 
     override fun onCreateLayoutHelper(): LayoutHelper {
         val totalSpan = 2
 
-        val gridLayoutHelper = GridLayoutHelper(totalSpan)
-        gridLayoutHelper.setSpanSizeLookup(object : GridLayoutHelper.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                val realPosition = position - startPosition
-                return if (realPosition < indexModule.indexItems.size) {
-                    when (indexModule.indexItems[realPosition].type) {
-                        GsonIndex.TYPE_ARTICLE -> 1
-                        GsonIndex.TYPE_BANNER -> totalSpan
-                        GsonIndex.TYPE_VIDEO -> 1
-                        else -> 1
-                    }
-                } else totalSpan
-            }
-        })
+        val gridLayoutHelper = GridLayoutHelper(2)
+        gridLayoutHelper.hGap = dp2px(8)
+        gridLayoutHelper.vGap = dp2px(8)
+        gridLayoutHelper.bgColor = ContextCompat.getColor(Fast4Android.CONTEXT, android.R.color.darker_gray)
+        gridLayoutHelper.paddingLeft = dp2px(12)
+        gridLayoutHelper.paddingRight = dp2px(12)
+        gridLayoutHelper.setAutoExpand(true)
 
         return gridLayoutHelper
     }
@@ -54,14 +56,17 @@ class VideoAdapter(context: Context,
     }
 
     override fun render(holder: RecyclerViewHolder, position: Int) {
-        holder.getViewDataBinding()?.setVariable(BR.indexModel, indexModule.indexItems[position])
+        val movie = indexModule.indexItems[position]
+        holder.setText(R.id.tvVideoTitle, movie.movieName ?: "")
+        ImageLoaderManager.INSTANCE.showImageView(holder.findViewById<MiddlewareView>(R.id.ivMovieImage), movie.movieImage
+                ?: "")
 
-        holder.itemView.setOnClickListener {
-            val beginTransaction = fragmentManager.beginTransaction()
-            beginTransaction.replace(R.id.container, RecommendFragment.getInstance())
-            beginTransaction.addToBackStack(null)
-            beginTransaction.commit()
-        }
+//        holder.itemView.setOnClickListener {
+//            val beginTransaction = fragmentManager.beginTransaction()
+//            beginTransaction.replace(R.id.container, RecommendFragment.getInstance())
+//            beginTransaction.addToBackStack(null)
+//            beginTransaction.commit()
+//        }
     }
 
     override fun getItemCount(): Int {

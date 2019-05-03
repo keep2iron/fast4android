@@ -12,7 +12,10 @@
 
     <!--<item name="bottomLayoutController" type="id"/>-->
 
-    <item name="load_more_loading_view" type="id"/>
-    <item name="load_more_load_fail_view" type="id"/>
-    <item name="load_more_load_end_view" type="id"/>
+    <item name="comp_load_more_loading_view" type="id" />
+    <item name="comp_load_more_load_fail_view" type="id" />
+    <item name="comp_load_more_load_end_view" type="id" />
+
+    <item name="comp_position" type="id" />
+
 </resources>

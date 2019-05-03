@@ -22,7 +22,11 @@
         <activity
             android:name=".ui.MainActivity"
             android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".WebviewRecyclerViewActivity">
             <!--<intent-filter>-->
@@ -43,23 +47,9 @@
 
         <activity android:name=".module.ExpandActivity" />
 
-        <activity android:name=".ui.TabActivity">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
+        <activity android:name=".ui.TabActivity"></activity>
 
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
-
-        <activity android:name=".ui.DiffActivity">
-        </activity>
-
-        <activity android:name=".GridLayoutManagerActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".ui.LoopActivity">
         </activity>
 
     </application>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="200dp">
 
-    <io.github.keep2iron.android.widget.LoopViewLayout
+    <io.github.keep2iron.android.widget.CompLoopViewLayout
         android:id="@+id/lvlLoopView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

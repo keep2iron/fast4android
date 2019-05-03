@@ -4,7 +4,7 @@
     android:layout_height="60dp">
 
     <LinearLayout
-        android:id="@+id/load_more_loading_view"
+        android:id="@id/comp_load_more_loading_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -29,7 +29,7 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/load_more_load_fail_view"
+        android:id="@id/comp_load_more_load_fail_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -47,7 +47,7 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/load_more_load_end_view"
+        android:id="@id/comp_load_more_load_end_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

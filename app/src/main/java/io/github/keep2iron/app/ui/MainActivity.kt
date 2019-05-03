@@ -4,10 +4,10 @@ import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
 import io.github.keep2iron.app.databinding.MainActivityBinding
 import io.github.keep2iron.android.widget.BottomTabAdapter
-import io.github.keep2iron.android.widget.BottomTabLayout
 import io.github.keep2iron.android.core.AbstractActivity
 import io.github.keep2iron.android.ext.FindViewById
 import io.github.keep2iron.android.annotation.StatusColor
+import io.github.keep2iron.android.widget.CompBottomTabLayout
 import io.github.keep2iron.app.R
 import io.github.keep2iron.app.module.movie.MovieFragment
 import io.github.keep2iron.app.module.recommend.RecommendFragment
@@ -25,6 +25,7 @@ class MainActivity(override val resId: Int = R.layout.main_activity) : AbstractA
                 colorRes = R.color.gray,
                 selectColorRes = R.color.colorPrimary,
                 title = "123",
+                badgeSize = 0,
                 iconResId = R.drawable.ic_classification_unselect,
                 selIconResId = R.drawable.ic_classification_select,
                 fragment = MovieFragment.getInstance()))
@@ -32,6 +33,7 @@ class MainActivity(override val resId: Int = R.layout.main_activity) : AbstractA
                 colorRes = R.color.gray,
                 selectColorRes = R.color.colorPrimary,
                 title = "123",
+                badgeSize = 0,
                 iconResId = R.drawable.ic_whatshot_unselect,
                 selIconResId = R.drawable.ic_whatshot_select,
                 fragment = RecommendFragment.getInstance()))
@@ -47,7 +49,7 @@ class MainActivity(override val resId: Int = R.layout.main_activity) : AbstractA
 
         val adapter = BottomTabAdapter(this, list)
         dataBinding.bottomLayout.setBottomTabAdapter(adapter, dataBinding.viewPager, 1)
-        dataBinding.bottomLayout.addOnTabSelectedListener(object : BottomTabLayout.OnTabChangeListener {
+        dataBinding.bottomLayout.addOnTabSelectedListener(object : CompBottomTabLayout.OnTabChangeListener {
             override fun onTabSelect(position: Int) {
                 val gradientColor = intArrayOf(R.color.blue, R.color.purple, R.color.light_green)
                 val gradientStateColor = intArrayOf(R.color.deep_blue, R.color.deep_purple, R.color.deep_light_green)

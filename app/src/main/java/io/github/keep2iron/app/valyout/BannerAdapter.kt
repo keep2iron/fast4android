@@ -11,8 +11,7 @@ import io.github.keep2iron.app.util.Constant
 import io.github.keep2iron.android.adapter.AbstractSubAdapter
 import io.github.keep2iron.android.adapter.RecyclerViewHolder
 import io.github.keep2iron.android.databinding.RecyclerViewChangeAdapter
-import io.github.keep2iron.android.widget.LoopViewLayout
-import io.github.keep2iron.android.utilities.DisplayUtil
+import io.github.keep2iron.android.widget.CompLoopViewLayout
 import io.github.keep2iron.app.model.GsonIndex
 import io.github.keep2iron.app.module.recommend.RecommendModel
 
@@ -38,14 +37,14 @@ class BannerAdapter(context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         val holder = super.onCreateViewHolder(parent, viewType)
-        val loopViewLayout = holder.findViewById<LoopViewLayout>(R.id.lvlLoopView)
-        loopViewLayout.setAdapter(BannerItemAdapter(context, indexModule, fragmentManager), recyclerView.recycledViewPool)
+        val loopViewLayout = holder.findViewById<CompLoopViewLayout>(R.id.lvlLoopView)
+        loopViewLayout.setAdapter(BannerItemAdapter(indexModule, fragmentManager), recyclerView.recycledViewPool)
         indexModule.bannerItems.addOnListChangedCallback(RecyclerViewChangeAdapter<GsonIndex>(loopViewLayout.getRecyclerViewAdapter()))
         return holder
     }
 
     override fun render(holder: RecyclerViewHolder, position: Int) {
-//        val loopViewLayout = holder.findViewById<LoopViewLayout>(R.id.lvlLoopView)
+//        val loopViewLayout = holder.findViewById<CompLoopViewLayout>(R.id.lvlLoopView)
 ////        loopViewLayout.setOnEmptyLayoutResId(R.layout.banner_on_empty_layout)
 ////        loopViewLayout.viewPager.clipToPadding = false
 ////        val dp60 = DisplayUtil.dp2px(context.applicationContext, 60)

@@ -8,7 +8,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatTextView
 import android.util.TypedValue
 
-class BadgeTextView(context: Context) : AppCompatTextView(context) {
+class CompBadgeTextView(context: Context) : AppCompatTextView(context) {
 
     private var paint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
 

@@ -18,6 +18,8 @@ enum class PageState {
     LOADING,
 }
 
+typealias ReloadListener = (PageState, View) -> Unit
+
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)
  * @version 1.1
@@ -25,7 +27,7 @@ enum class PageState {
  *
  * 状态管理layout，
  */
-class PageStateLayout : FrameLayout {
+class CompPageStateLayout : FrameLayout {
     /**
      * 被状态管理的View
      */
@@ -40,6 +42,7 @@ class PageStateLayout : FrameLayout {
     var mNoDataView: View? = null
         set(value) {
             field = value
+            value?.visibility = View.GONE
             views[PageState.NO_DATA] = value
         }
     /**
@@ -48,6 +51,7 @@ class PageStateLayout : FrameLayout {
     var mNoNetwork: View? = null
         set(value) {
             field = value
+            value?.visibility = View.GONE
             views[PageState.NO_NETWORK] = value
         }
     /**
@@ -56,6 +60,7 @@ class PageStateLayout : FrameLayout {
     var mLoadError: View? = null
         set(value) {
             field = value
+            value?.visibility = View.GONE
             views[PageState.LOAD_ERROR] = value
         }
     /**
@@ -64,6 +69,7 @@ class PageStateLayout : FrameLayout {
     var mLoadingView: View? = null
         set(value) {
             field = value
+            value?.visibility = View.GONE
             views[PageState.LOADING] = value
         }
 
@@ -77,25 +83,25 @@ class PageStateLayout : FrameLayout {
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
 
-        if(attrs != null) {
-            val array = resources.obtainAttributes(attrs, R.styleable.PageStateLayout)
+        if (attrs != null) {
+            val array = resources.obtainAttributes(attrs, R.styleable.CompPageStateLayout)
 
             for (i in 0 until array.indexCount) {
                 val index = array.getIndex(i)
                 when (index) {
-                    R.styleable.PageStateLayout_psl_load_error_layout -> {
+                    R.styleable.CompPageStateLayout_comp_psl_layout_loadError -> {
                         mLoadError = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
                         mLoadError?.visibility = View.GONE
                     }
-                    R.styleable.PageStateLayout_psl_no_data_layout -> {
+                    R.styleable.CompPageStateLayout_comp_psl_layout_noData -> {
                         mNoDataView = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
                         mNoDataView?.visibility = View.GONE
                     }
-                    R.styleable.PageStateLayout_psl_no_network_layout -> {
+                    R.styleable.CompPageStateLayout_comp_psl_layout_noNetwork -> {
                         mNoNetwork = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
                         mNoNetwork?.visibility = View.GONE
                     }
-                    R.styleable.PageStateLayout_psl_loading_layout -> {
+                    R.styleable.CompPageStateLayout_comp_psl_layout_loading -> {
                         mLoadingView = LayoutInflater.from(getContext()).inflate(array.getResourceId(index, -1), this, false)
                         mLoadingView?.visibility = View.GONE
                     }
@@ -252,6 +258,12 @@ class PageStateLayout : FrameLayout {
                     view.visibility = View.GONE
                 }
             }
+        }
+    }
+
+    fun setPageStateReloadListener(pageState: PageState, reloadListener: ReloadListener) {
+        views[pageState]?.setOnClickListener {
+            reloadListener(pageState, it)
         }
     }
 }

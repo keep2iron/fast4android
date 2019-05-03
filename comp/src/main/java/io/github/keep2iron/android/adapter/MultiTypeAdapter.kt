@@ -20,9 +20,9 @@ import kotlin.reflect.KClass
  * 用于多类型Adapter
  */
 class MultiTypeAdapter(private val data: ObservableList<Any>) : DelegateAdapter.Adapter<RecyclerViewHolder>() {
-    private val multiTypeAdapter: ArrayList<SubMultiTypeAdapter<*>> = ArrayList()
-    private val clazzMap: SparseArrayCompat<Class<*>> = SparseArrayCompat()
-    private val adapterMap: ArrayMap<Class<*>, AbstractSubAdapter> = ArrayMap(10)
+    internal val multiTypeAdapter: ArrayList<SubMultiTypeAdapter<*>> = ArrayList()
+    internal val clazzMap: SparseArrayCompat<Class<*>> = SparseArrayCompat()
+    internal val adapterMap: ArrayMap<Class<*>, AbstractSubAdapter> = ArrayMap(10)
 
     init {
         data.addOnListChangedCallback(RecyclerViewChangeAdapter(this))
@@ -85,7 +85,9 @@ class MultiTypeAdapter(private val data: ObservableList<Any>) : DelegateAdapter.
     /**
      * [T]是要注册的数据类型
      */
-    abstract class SubMultiTypeAdapter<T : Any> : AbstractSubAdapter() {
+    abstract class SubMultiTypeAdapter<T : Any>(viewType: Int, cacheMaxViewCount: Int) : AbstractSubAdapter(
+            viewType = viewType,
+            cacheMaxViewCount = cacheMaxViewCount) {
         private lateinit var originList: List<Any>
 
         internal fun setOriginList(originList: List<Any>) {

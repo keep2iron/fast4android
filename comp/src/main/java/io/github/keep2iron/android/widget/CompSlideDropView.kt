@@ -24,7 +24,7 @@ import io.github.keep2iron.android.comp.R
  *
  * 下拉菜单显示控件，解决了PopWindow表现力不足的问题，动画效果为后面的阴影渐变，上面的container再进行下拉动画的显示，点击背景的阴影层，收起container
  */
-class SlideDropView(context: Context) : RelativeLayout(context) {
+class CompSlideDropView(context: Context) : RelativeLayout(context) {
     private var mContentView: View? = null
     var isShowing: Boolean = false
     private var isAnim: Boolean = false
@@ -34,7 +34,7 @@ class SlideDropView(context: Context) : RelativeLayout(context) {
 
     init {
 
-        LayoutInflater.from(context).inflate(R.layout.widget_slide_drop, this, true)
+        LayoutInflater.from(context).inflate(R.layout.comp_widget_slide_drop, this, true)
         background = findViewById(R.id.background)
         background.setOnClickListener { v ->
             if (!isAnim) {
@@ -72,7 +72,7 @@ class SlideDropView(context: Context) : RelativeLayout(context) {
         val params = FrameLayout.LayoutParams(MATCH_PARENT, rootView.height - y)
         params.setMargins(0, y, 0, 0)
         layoutParams = params
-        rootView.addView(this@SlideDropView)
+        rootView.addView(this@CompSlideDropView)
 
         startAnim(AnimationAdapter())
     }
@@ -87,7 +87,7 @@ class SlideDropView(context: Context) : RelativeLayout(context) {
         startAnim(object : AnimationAdapter() {
             override fun onAnimationEnd(animation: Animation) {
                 val rootView = rootView as ViewGroup
-                rootView?.removeView(this@SlideDropView)
+                rootView.removeView(this@CompSlideDropView)
                 isAnim = false
                 if (onDismissListener != null) {
                     onDismissListener!!.run()

@@ -11,15 +11,40 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.LinearLayout
-import com.scwang.smartrefresh.layout.util.DensityUtil.dp2px
 import io.github.keep2iron.android.comp.R
 
 /**
- * @author keep2iron [Contract me.](http://keep2iron.github.io)
- * @version 1.0
- * @since 2018/03/02 09:30
+ * use this can quick set a bottom tab layout.
+ * for exp:
+ * 1.create a list with BottomTabAdapter.
+ *
+ * ``val list = ArrayList<BottomTabAdapter.TabHolder>()``
+ * ``val adapter = BottomTabAdapter(context, list)``
+ *
+ *  list.add(BottomTabAdapter.TabHolder(
+ *           colorRes = R.color.gray,
+ *           selectColorRes = R.color.colorPrimary,
+ *           title = "123",
+ *           iconResId = R.drawable.ic_classification_unselect,
+ *           selIconResId = R.drawable.ic_classification_select,
+ *           fragment = YourFragment()))
+ *
+ * 2.new a BottomTabAdapter.TabHolder add tab with list
+ *
+ * if you have 4 tab item,you could use this method 4 times
+ *
+ * 3.set adapter with @see io.github.keep2iron.android.widget.CompBottomTabLayout
+ *
+ * val bottomTabLayout = findViewById<CompBottomTabLayout>(R.id.bottomTabLayout)
+ * bottomTabLayout.setBottomTabAdapter(adapter = adapter,container = yourContainerView,defaultPosition = 0)
+ *
+ * if container is ViewPager it auto can scroll with ViewPager well.
+ * if container is FrameLayout it only click tab to switch tab.
+ *
+ * @see android.widget.LinearLayout
+ * @author keep2iron
  */
-class BottomTabLayout : LinearLayout {
+class CompBottomTabLayout : LinearLayout {
     /**
      * 用于container是ViewPager的时候的position
      */
@@ -49,14 +74,14 @@ class BottomTabLayout : LinearLayout {
         setWillNotDraw(false)
         orientation = HORIZONTAL
 
-        val array = resources.obtainAttributes(attrs, R.styleable.BottomTabLayout)
-        tabTextSize = array.getDimension(R.styleable.BottomTabLayout_tab_text_size, tabTextSize)
-        tabIconWidth = array.getDimension(R.styleable.BottomTabLayout_tab_icon_width, tabIconWidth)
-        tabIconHeight = array.getDimension(R.styleable.BottomTabLayout_tab_icon_height, tabIconHeight)
-        tabDrawablePadding = array.getDimension(R.styleable.BottomTabLayout_tab_drawable_padding, 0f).toInt()
-        tabItemMargin = array.getDimension(R.styleable.BottomTabLayout_tab_item_margin, 0f).toInt()
-        tabItemBackgroundRes = array.getResourceId(R.styleable.BottomTabLayout_tab_item_background, -1)
-        tabHeight = array.getDimension(R.styleable.BottomTabLayout_tab_height, tabHeight)
+        val array = resources.obtainAttributes(attrs, R.styleable.CompBottomTabLayout)
+        tabTextSize = array.getDimension(R.styleable.CompBottomTabLayout_comp_tabItem_textSize, tabTextSize)
+        tabIconWidth = array.getDimension(R.styleable.CompBottomTabLayout_comp_tabItem_drawableWidth, tabIconWidth)
+        tabIconHeight = array.getDimension(R.styleable.CompBottomTabLayout_comp_tabItem_drawableHeight, tabIconHeight)
+        tabDrawablePadding = array.getDimension(R.styleable.CompBottomTabLayout_comp_tabItem_drawablePadding, 0f).toInt()
+        tabItemMargin = array.getDimension(R.styleable.CompBottomTabLayout_comp_tabItem_margin, 0f).toInt()
+        tabItemBackgroundRes = array.getResourceId(R.styleable.CompBottomTabLayout_comp_tabItem_background, -1)
+        tabHeight = array.getDimension(R.styleable.CompBottomTabLayout_comp_tabLayout_height, tabHeight)
 
         array.recycle()
     }
@@ -83,10 +108,16 @@ class BottomTabLayout : LinearLayout {
         setTabSelect(defaultPosition)
     }
 
+    /**
+     * add tab select listener
+     */
     fun addOnTabSelectedListener(listener: OnTabChangeListener) {
         adapter.onTabStateChangedListeners.add(listener)
     }
 
+    /**
+     * when container view is android.view.FrameLayout it can switch to [position] fragment
+     */
     private fun setTabSelect(position: Int) {
         val tab = adapter.tabs[position]
 
@@ -149,6 +180,11 @@ class BottomTabLayout : LinearLayout {
         }
     }
 
+    /**
+     * Switch to the container at the [position] location
+     *
+     * @param position position in the BottomTabAdapter tabs
+     */
     fun setCurrentPosition(position: Int) {
         if (container is ViewPager) {
             val viewPager = container as ViewPager
@@ -158,6 +194,11 @@ class BottomTabLayout : LinearLayout {
         }
     }
 
+    /**
+     * if container is ViewPager
+     *
+     * @param viewPager container view
+     */
     private fun setWithViewPager(viewPager: ViewPager) {
         if (context !is FragmentActivity) {
             throw IllegalArgumentException(String.format("%s 's context is not FragmentActivity", javaClass.simpleName))
@@ -170,8 +211,8 @@ class BottomTabLayout : LinearLayout {
             }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                this@BottomTabLayout.position = position
-                this@BottomTabLayout.positionOffset = positionOffset
+                this@CompBottomTabLayout.position = position
+                this@CompBottomTabLayout.positionOffset = positionOffset
                 invalidate()
             }
 
@@ -192,35 +233,28 @@ class BottomTabLayout : LinearLayout {
 
     interface OnTabChangeListener {
         /**
-         * 当点击tab进行回调该方法 holder中的isEnable不影响该方法的调用
-         * @link BottomTabAdapter.TabHolder
+         * on tab select
+         *
+         * @param position select position
          */
         fun onTabSelect(position: Int)
 
         /**
-         * 当切换tab时调用
-         * @param position 上一次选中的position
+         * on tab not select
+         *
+         * @param position not select position
          */
         fun onTabUnSelect(position: Int)
     }
 
-    inner class BottomTabViewPagerAdapter(fm: FragmentManager?, private val tabs: ArrayList<BottomTabAdapter.TabHolder>) : FragmentPagerAdapter(fm) {
+    internal class BottomTabViewPagerAdapter(fm: FragmentManager,
+                                             private val tabs: ArrayList<BottomTabAdapter.TabHolder>) : FragmentPagerAdapter(fm) {
+
         override fun getCount(): Int = tabs.size
 
         override fun getItem(position: Int): Fragment {
-            return tabs[position].fragment ?: Fragment()
+            return tabs[position].fragment
+                    ?: throw IllegalArgumentException("BottomTabHolder`s fragment is null,you must set a fragment in tabs[$position]")
         }
     }
-
-//    override fun onDraw(canvas: Canvas) {
-//        val paint = Paint()
-//        paint.color = Color.WHITE
-//
-//        val itemWith = width * 1f / adapter.tabs.size
-//        val startX = itemWith * position + itemWith * positionOffset
-//        val endX = startX + itemWith
-//
-//        canvas.drawRect(startX, (height - 10).toFloat(), endX, height.toFloat(), paint)
-//
-//    }
 }

@@ -40,7 +40,7 @@ import java.io.File
  * @date 2018/11/1
  */
 open class WebviewScrollActivity : AbstractActivity<ViewDataBinding>() {
-    override val resId: Int = R.layout.activity_webview_scroll
+    override fun resId(): Int = R.layout.activity_webview_scroll
 
     val webView: WebView by FindViewById(R.id.webView)
 

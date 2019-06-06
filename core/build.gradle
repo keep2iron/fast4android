@@ -17,10 +17,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    dataBinding {
-        enabled true
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -32,46 +28,29 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
-
-//uploadArchives {
-//    repositories {
-//        mavenDeployer {
-//            // 唯一标识
-//            pom.groupId = "com.github.keep2iron"
-//            // 项目名称
-//            pom.artifactId = "core"
-////            repository(url: uri(new File(rootProject.projectDir, 'components').absolutePath))
-//            // 版本号
-////            pom.version = "0.0.1"
-//        }
-//    }
-//}
 
 dependencies {
     //support
     implementation deps.support.app_compat
-//    implementation deps.support.recyclerview
-//    implementation deps.support.constraint_layout
     implementation deps.support.fragment
     implementation deps.support.annotations
 
     api deps.status_bar
     api deps.rxjava2
     api deps.rx_android
-//    api deps.logger
     api deps.kotlin.kotlin_reflect
     api deps.kotlin.stdlib_jdk7
 
-//    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
     api(deps.alibaba.vlayout) {
         transitive = true
     }
-    api 'com.github.anzewei:parallaxbacklayout:1.1.9'
-//    implementation project(":utilities")
+    implementation 'com.github.anzewei:parallaxbacklayout:1.1.9'
     api deps.arch.lifecycle
     api deps.arch.extensions
-    kapt deps.kotlin_databinding_compiler
 
     testImplementation deps.test.junit
     androidTestImplementation deps.test.runner

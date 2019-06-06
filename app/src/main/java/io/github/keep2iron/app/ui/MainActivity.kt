@@ -16,7 +16,9 @@ import io.github.keep2iron.app.widget.GradientBackgroundView
 
 @Route(path = "/main/activity")
 @StatusColor(isTrans = false, isDarkMode = false, value = R.color.white)
-class MainActivity(override val resId: Int = R.layout.main_activity) : AbstractActivity<MainActivityBinding>() {
+class MainActivity : AbstractActivity<MainActivityBinding>() {
+    override fun resId(): Int = R.layout.main_activity
+
     var gbvGradientView: GradientBackgroundView by FindViewById(R.id.gbvGradientView)
 
     override fun initVariables(savedInstanceState: Bundle?) {

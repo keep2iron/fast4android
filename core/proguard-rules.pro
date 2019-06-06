@@ -4,22 +4,10 @@
 #
 #############################################
 # Keep2iron-core的代码混淆
--keep class io.github.keep2iron.fast4android.**
--keep class io.github.keep2iron.fast4android.core.AppApplicatoin{*;}
--keep class io.github.keep2iron.fast4android.core.*{*;}
--keep class io.github.keep2iron.fast4android.ex.Constants{*;}
--keep class io.github.keep2iron.fast4android.ex.common.*{*;}
--keep class io.github.keep2iron.fast4android.net.common.RxTransUtil{*;}
--keep class io.github.keep2iron.fast4android.ex.common.ToastUtil{*;}
 -keep class io.github.keep2iron.fast4android.util.WeakHandler{
     public boolean post*(java.lang.Runnable);
     public boolean post*(java.lang.Runnable,long);
 }
--keep class io.github.keep2iron.fast4android.util.ViewUtil{*;}
--keep class * extends io.github.keep2iron.fast4android.core.AbstractActivity{
-}
--keep class io.github.keep2iron.fast4android.repository.AppRepository{*;}
-
 
 # 代码混淆压缩比，在0~7之间，默认为5，一般不做修改
 -optimizationpasses 5

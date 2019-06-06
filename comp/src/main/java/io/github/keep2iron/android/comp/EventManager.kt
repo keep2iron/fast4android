@@ -11,9 +11,10 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.util.ArrayMap
 import java.io.Serializable
+
+typealias OnEventReceiveListener = (Context, Intent) -> Unit
 
 /**
  *
@@ -41,7 +42,7 @@ class EventManager {
         }
     }
 
-    fun register(lifecycleOwner: LifecycleOwner, action: String, handler: (Context, Intent) -> Unit) {
+    fun register(lifecycleOwner: LifecycleOwner, action: String, handler: OnEventReceiveListener) {
         val broadcastReceiver = InnerBroadcastReceiver(handler)
         val intentFilter = IntentFilter(action)
         LocalBroadcastManager.getInstance(CONTEXT).registerReceiver(broadcastReceiver, intentFilter)
@@ -87,7 +88,7 @@ class EventManager {
         LocalBroadcastManager.getInstance(CONTEXT).sendBroadcast(intent)
     }
 
-    private class InnerBroadcastReceiver(val handler: (Context, Intent) -> Unit) : BroadcastReceiver() {
+    private class InnerBroadcastReceiver(val handler: OnEventReceiveListener) : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             handler.invoke(context, intent)
         }

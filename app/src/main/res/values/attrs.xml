@@ -5,6 +5,15 @@
         <attr name="ttl_line_length" format="dimension" />
         <attr name="ttl_tab_size" format="dimension" />
         <attr name="ttl_select_tab_size" format="dimension" />
+    </declare-styleable>
 
+    <declare-styleable name="NineGridImageView">
+        <attr name="singleImgSize" format="dimension" />
+        <attr name="imgGap" format="dimension" />
+        <attr name="maxSize" format="integer" />
+        <attr name="showStyle" format="enum">
+            <enum name="grid" value="0" />
+            <enum name="fill" value="1" />
+        </attr>
     </declare-styleable>
 </resources>

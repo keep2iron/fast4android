@@ -100,7 +100,7 @@ def deps = [
                 extensions: "android.arch.lifecycle:extensions:$versions.android_support.arch"
         ],
         alibaba                    : [
-                vlayout: "com.alibaba.android:vlayout:1.2.18@aar"
+                vlayout: "com.alibaba.android:vlayout:1.2.22@aar"
         ],
         fast4android               : [
                 core     : "com.github.keep2iron.fast4android:core:$versions.third_part.fast4android",

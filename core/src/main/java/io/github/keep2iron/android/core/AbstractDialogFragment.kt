@@ -86,6 +86,8 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment() {
             if (height != -1) {
                 params.height = height
             }
+            params.x = offsetX()
+            params.y = offsetY()
             params.gravity = gravity()
             window.attributes = params
             val anim = getWindowAnim()
@@ -103,6 +105,24 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment() {
 
     open fun height(): Int {
         return -1
+    }
+
+    /**
+     * X position for this window.  With the default gravity it is ignored.
+     * When using {@link Gravity#LEFT} or {@link Gravity#START} or {@link Gravity#RIGHT} or
+     * {@link Gravity#END} it provides an offset from the given edge.
+     */
+    open fun offsetX(): Int {
+        return 0
+    }
+
+    /**
+     * Y position for this window.  With the default gravity it is ignored.
+     * When using {@link Gravity#TOP} or {@link Gravity#BOTTOM} it provides
+     * an offset from the given edge.
+     */
+    open fun offsetY(): Int {
+        return 0
     }
 
     /**
@@ -125,17 +145,14 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment() {
             inflater.inflate(resId, null, false)
         }
         mContentView.fitsSystemWindows = false
-
-        beforeInitVariables()
         mContentView.isClickable = true
-
-        initVariables(mContentView)
-        Log.d("tag", "onCreateView")
-
-
         return mContentView
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initVariables(mContentView)
+    }
 
     fun <V : View> findViewById(@IdRes id: Int): V {
         return mContentView.findViewById(id)
@@ -178,6 +195,10 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment() {
     }
 
     open fun onTouchOutside() {
+    }
+
+    override fun isCancelable(): Boolean {
+        return super.isCancelable()
     }
 
     internal inner class InnerDialog(context: Context, themeResId: Int) : Dialog(context, themeResId) {

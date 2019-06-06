@@ -41,7 +41,7 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         beforeInit()
 
-        val createDataBinding: DB? = DataBindingUtil.setContentView(this, resId)
+        val createDataBinding: DB? = DataBindingUtil.setContentView(this, resId())
         if (createDataBinding != null) {
             dataBinding = createDataBinding
         }
@@ -148,8 +148,8 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
      *
      * @return 资源id
      */
-    @get:LayoutRes
-    protected abstract val resId: Int
+    @LayoutRes
+    abstract fun resId(): Int
 
     /**
      * 在这个方法中可以进行重新 编写控件的逻辑

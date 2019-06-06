@@ -18,10 +18,6 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    dataBinding {
-        enabled true
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -32,6 +28,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    dataBinding {
+        enabled = true
     }
 }
 
@@ -53,6 +53,7 @@ dependencies {
     //support
     implementation deps.support.app_compat
     implementation deps.support.recyclerview
+    implementation deps.support.v4
     implementation(deps.alibaba.vlayout) {
         transitive = true
     }

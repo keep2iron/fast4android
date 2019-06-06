@@ -30,7 +30,7 @@ class DiffActivity : AbstractActivity<ViewDataBinding>() {
 
     private val button: Button by FindViewById(R.id.button)
 
-    override val resId: Int = R.layout.activity_diff
+    override fun resId(): Int = R.layout.activity_diff
 
     override fun initVariables(savedInstanceState: Bundle?) {
         val data = AsyncDiffObservableList<String>(object : DiffUtil.ItemCallback<String>() {

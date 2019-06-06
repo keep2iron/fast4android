@@ -46,6 +46,8 @@ android {
 dependencies {
     //support
     implementation deps.support.app_compat
+    implementation deps.support.annotations
+    implementation deps.support.v4
     implementation deps.kotlin.stdlib_jdk7
 
     implementation deps.rxjava2

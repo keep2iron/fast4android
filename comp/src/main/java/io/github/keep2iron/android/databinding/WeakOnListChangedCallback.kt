@@ -2,8 +2,6 @@ package io.github.keep2iron.android.databinding
 
 import android.databinding.ObservableList
 import android.util.Log
-import com.orhanobut.logger.Logger
-
 import java.lang.ref.WeakReference
 
 open class WeakOnListChangedCallback<T : ObservableList<*>>(delegate: ObservableList.OnListChangedCallback<T>) : ObservableList.OnListChangedCallback<T>() {

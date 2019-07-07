@@ -131,13 +131,13 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
         var badgeSize: Int = 0
         var isEnable = true
 
-        constructor(@ColorRes colorRes: Int,
+        constructor(title: String,
+                    @ColorRes colorRes: Int,
                     @ColorRes selectColorRes: Int,
-                    @ColorRes badgeColor: Int = android.R.color.holo_red_light,
-                    @DimenRes badgeSize: Int = R.dimen.comp_default_badge_size,
-                    title: String,
                     @DrawableRes iconResId: Int,
                     @DrawableRes selIconResId: Int,
+                    @ColorRes badgeColor: Int = android.R.color.holo_red_light,
+                    @DimenRes badgeSize: Int = R.dimen.comp_default_badge_size,
                     fragment: Fragment) {
             this.colorRes = colorRes
             this.selectColorRes = selectColorRes
@@ -149,10 +149,6 @@ class BottomTabAdapter(context: Context, val tabs: ArrayList<TabHolder>) {
             this.badgeSize = badgeSize
             isCustom = false
         }
-
-        constructor(@DrawableRes iconResId: Int,
-                    @DrawableRes selIconResId: Int,
-                    fragment: Fragment) : this(0, 0, android.R.color.holo_red_light, 0, "", iconResId, selIconResId, fragment)
 
         constructor(mCustomView: View) {
             isCustom = true

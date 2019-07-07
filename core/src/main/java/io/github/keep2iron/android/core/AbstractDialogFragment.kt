@@ -67,11 +67,9 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val context = activity ?: contextHolder
 
-        val dialog = InnerDialog(context, R.style.dialog)
+        val dialog = InnerDialog(context, R.style.dialog, this)
         isCancelable = true
         dialog.setCanceledOnTouchOutside(true)
-        dialog.setCancelable(true)
-        Log.d("tag", "onCreateDialog")
 
         // 设置宽度为屏宽、靠近屏幕底部。
         val window = dialog.window
@@ -197,16 +195,17 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment() {
     open fun onTouchOutside() {
     }
 
-    override fun isCancelable(): Boolean {
-        return super.isCancelable()
-    }
-
-    internal inner class InnerDialog(context: Context, themeResId: Int) : Dialog(context, themeResId) {
+    internal class InnerDialog(context: Context,
+                               themeResId: Int,
+                               private val dialog: AbstractDialogFragment<out ViewDataBinding>) : Dialog(context, themeResId) {
 
         override fun onTouchEvent(event: MotionEvent): Boolean {
-//            Log.d("tag", "isCancelable ${isCancelable} isShowing : ${isShowing} event.action == MotionEvent.ACTION_DOWN ${event.action == MotionEvent.ACTION_DOWN} isTouchOutside(event) : ${isTouchOutside(event)}")
+            if (!dialog.isCancelable) {
+                return false
+            }
+
             if (isShowing && event.action == MotionEvent.ACTION_DOWN && isTouchOutside(event)) {
-                this@AbstractDialogFragment.onTouchOutside()
+                dialog.onTouchOutside()
                 dismiss()
                 return true
             }
@@ -219,8 +218,6 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment() {
             val y = event.y.toInt()
             val slop = ViewConfiguration.get(context).scaledWindowTouchSlop
             val decorView = window!!.decorView
-
-//            Log.d("tag", "wdith  : ${decorView.width + slop} height : ${decorView.height + slop}")
 
             return (x < -slop || y < -slop
                     || x > decorView.width + slop

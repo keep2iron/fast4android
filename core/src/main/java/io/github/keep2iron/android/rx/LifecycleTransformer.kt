@@ -19,7 +19,6 @@
 
 package io.github.keep2iron.android.rx
 
-import io.github.keep2iron.android.utilities.Preconditions
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Completable
 import io.reactivex.CompletableSource
@@ -41,10 +40,6 @@ import org.reactivestreams.Publisher
  * Transformer that continues a subscription until a second Observable emits an event.
  */
 class LifecycleTransformer<T> internal constructor(private val observable: Observable<*>) : ObservableTransformer<T, T>, FlowableTransformer<T, T>, SingleTransformer<T, T>, MaybeTransformer<T, T>, CompletableTransformer {
-
-    init {
-        Preconditions.checkNotNull(observable, "observable == null")
-    }
 
     override fun apply(upstream: Observable<T>): ObservableSource<T> {
         return upstream.takeUntil(observable)

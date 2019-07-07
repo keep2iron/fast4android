@@ -35,48 +35,20 @@ android {
     }
 }
 
-//uploadArchives {
-//    repositories {
-//        mavenDeployer {
-//            // 唯一标识
-//            pom.groupId = "com.github.keep2iron"
-//            // 项目名称
-//            pom.artifactId = "comp"
-////            repository(url: uri(new File(rootProject.projectDir, 'components').absolutePath))
-//            // 版本号
-////            pom.version = "0.0.4"
-//        }
-//    }
-//}
-
 dependencies {
     //support
     implementation deps.support.app_compat
     implementation deps.support.recyclerview
-    implementation deps.support.v4
+//    implementation deps.support.v4
     implementation(deps.alibaba.vlayout) {
         transitive = true
     }
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
-    implementation deps.fast4android.pomelo
+    implementation 'com.github.keep2iron.pomelo:pomelo:0.2.2'
 
     implementation deps.rxjava2
     implementation deps.rx_android
     implementation deps.kotlin.kotlin_reflect
-
-    testImplementation deps.test.junit
-    androidTestImplementation deps.test.runner
-    androidTestImplementation deps.test.rules
-    androidTestImplementation(deps.test.espresso_core) {
-        exclude group: 'com.android.support'
-        exclude module: 'appcompat-v7'
-        exclude module: 'support-v4'
-    }
-    androidTestImplementation(deps.test.espresso_contrib) {
-        exclude group: 'com.android.support'
-        exclude module: 'appcompat-v7'
-        exclude module: 'support-v4'
-    }
 }
 
 // 指定编码

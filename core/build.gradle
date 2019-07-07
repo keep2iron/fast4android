@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'maven'
 
@@ -38,19 +37,16 @@ dependencies {
     implementation deps.support.app_compat
     implementation deps.support.fragment
     implementation deps.support.annotations
+    api deps.arch.lifecycle
+    api deps.arch.extensions
 
     api deps.status_bar
     api deps.rxjava2
     api deps.rx_android
-    api deps.kotlin.kotlin_reflect
-    api deps.kotlin.stdlib_jdk7
+    implementation deps.kotlin.stdlib_jdk7
 
-    api(deps.alibaba.vlayout) {
-        transitive = true
-    }
     implementation 'com.github.anzewei:parallaxbacklayout:1.1.9'
-    api deps.arch.lifecycle
-    api deps.arch.extensions
+
 
     testImplementation deps.test.junit
     androidTestImplementation deps.test.runner

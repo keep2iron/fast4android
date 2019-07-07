@@ -15,12 +15,12 @@ ext.build = [:]
 
 def versions = [
         build          : [
-                min_sdk              : 19,
+                min_sdk              : 20,
                 target_sdk           : 28,
                 compile_sdk          : 28,
-                build_tools          : "27.0.3",
-                android_gradle_plugin: '3.1.3',
-                kotlin_version       : "1.3.21",
+                build_tools          : "29.0.0",
+                android_gradle_plugin: '3.4.1',
+                kotlin_version       : "1.3.31",
         ],
         android_support: [
                 arch             : "1.1.0",
@@ -36,13 +36,16 @@ def versions = [
                 espresso_contrib: "3.0.2",
         ],
         third_part     : [
-                retrofit      : "2.3.0",
+                retrofit      : "2.4.0",
                 rxjava2       : "2.2.0",
                 rx_android    : "2.1.0",
-                fresco_version: "1.13.0",
+                fresco_version: "1.11.0",
                 status_bar    : "2.3.0",
                 logger_android: "2.2.0",
-                fast4android  : "0.0.6.22"
+                fast4android  : "0.0.6.22",
+                zxing_lite    : "1.1.0",
+                rxpermissions : "0.10.2",
+                pickerView    : "4.1.8"
         ],
 ]
 
@@ -58,7 +61,9 @@ def deps = [
         fresco                     : "com.facebook.fresco:fresco:$versions.third_part.fresco_version",
         fresco_gif                 : "com.facebook.fresco:animated-gif:$versions.third_part.fresco_version",
         logging                    : "com.squareup.okhttp3:logging-interceptor:3.9.0",
-
+        zxing_lite                 : "com.king.zxing:zxing-lite:$versions.third_part.zxing_lite",
+        rxpermissions              : "com.github.tbruyelle:rxpermissions:$versions.third_part.rxpermissions",
+        android_pickerView         : "com.contrarywind:Android-PickerView:$versions.third_part.pickerView",
         test                       : [
                 rules           : "com.android.support.test:rules:$versions.test.rules",
                 junit           : "junit:junit:$versions.test.junit",
@@ -80,7 +85,7 @@ def deps = [
                 drawable         : "com.android.support:support-vector-drawable:$versions.android_support.support",
                 palette          : "com.android.support:palette-v7:$versions.android_support.support",
                 grid_layout      : "com.android.support:gridlayout-v7:$versions.android_support.support",
-                spring_animation:  "com.android.support:support-dynamic-animation:$versions.android_support.support"
+                spring_animation : "com.android.support:support-dynamic-animation:$versions.android_support.support"
         ],
         retrofit                   : [
                 runtime: "com.squareup.retrofit2:retrofit:$versions.third_part.retrofit",
@@ -90,24 +95,27 @@ def deps = [
                 logging: "com.squareup.okhttp3:logging-interceptor:3.9.0",
         ],
         kotlin                     : [
-                stdlib_jdk7   : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.build.kotlin_version",
-                test          : "org.jetbrains.kotlin:kotlin-test-junit:$versions.build.kotlin_version",
-                plugin        : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.build.kotlin_version",
-                kotlin_reflect: "org.jetbrains.kotlin:kotlin-reflect:$versions.build.kotlin_version",
+                stdlib_jdk7       : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.build.kotlin_version",
+                stdlib_jdk8       : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.build.kotlin_version",
+                test              : "org.jetbrains.kotlin:kotlin-test-junit:$versions.build.kotlin_version",
+                plugin            : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.build.kotlin_version",
+                kotlin_reflect    : "org.jetbrains.kotlin:kotlin-reflect:$versions.build.kotlin_version",
+                coroutines_android: "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0-M1",
+                coroutines_core   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0-M1"
         ],
         arch                       : [
                 lifecycle : "android.arch.lifecycle:common-java8:$versions.android_support.arch",
                 extensions: "android.arch.lifecycle:extensions:$versions.android_support.arch"
         ],
         alibaba                    : [
-                vlayout: "com.alibaba.android:vlayout:1.2.22@aar"
+                vlayout: "com.alibaba.android:vlayout:1.2.18@aar"
         ],
         fast4android               : [
                 core     : "com.github.keep2iron.fast4android:core:$versions.third_part.fast4android",
                 comp     : "com.github.keep2iron.fast4android:comp:$versions.third_part.fast4android",
                 utilities: "com.github.keep2iron.fast4android:utilities:$versions.third_part.fast4android",
                 pomelo   : "com.github.keep2iron:pomelo:0.1.9",
-                pineapple: "com.github.keep2iron:pineapple:0.18"
+                pineapple: "com.github.keep2iron:pineapple:0.21"
         ]
 ]
 
@@ -118,7 +126,7 @@ ext.versions = versions
  * 添加Maven仓库
  * @param handler 仓库处理者
  */
-def addRepos(RepositoryHandler handler) {
+def addRepos(handler) {
     handler.google()
     handler.jcenter()
 //    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }

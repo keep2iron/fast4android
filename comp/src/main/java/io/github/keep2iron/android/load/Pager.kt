@@ -15,4 +15,8 @@ class Pager(var defaultValue: Any) {
     fun reset() {
         this.value = defaultValue
     }
+
+    fun default(): Boolean {
+        return value == defaultValue
+    }
 }

@@ -53,7 +53,6 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
         subject.onNext(LifecycleEvent.CREATE)
     }
 
-
     internal fun setStatusColorFromAnnotation() {
         immersionBar = ImmersionBar
                 .with(this)
@@ -82,7 +81,7 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
     }
 
     fun setStatusColor(@ColorRes color: Int) {
-        immersionBar.getTag("defalut")
+        immersionBar.getTag("default")
                 .statusBarColor(color)
                 .init()
     }

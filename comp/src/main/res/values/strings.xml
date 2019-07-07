@@ -1,5 +1,5 @@
 <resources>
-    <string name="load_failed">加载失败</string>
-    <string name="load_end">没有更多数据</string>
-    <string name="loading">正在加载</string>
+    <string name="comp_load_failed">加载失败</string>
+    <string name="comp_load_end">没有更多数据</string>
+    <string name="comp_loading">正在加载</string>
 </resources>

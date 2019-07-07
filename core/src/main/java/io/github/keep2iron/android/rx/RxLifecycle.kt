@@ -19,7 +19,6 @@
 
 package io.github.keep2iron.android.rx
 
-import io.github.keep2iron.android.utilities.Preconditions
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import io.reactivex.functions.Function
@@ -44,8 +43,6 @@ class RxLifecycle private constructor() {
          */
         fun <T, R> bindUntilEvent(lifecycle: Observable<R>,
                                   event: R): LifecycleTransformer<T> {
-            Preconditions.checkNotNull(lifecycle, "lifecycle == null")
-            Preconditions.checkNotNull(event, "event == null")
             return bind(takeUntilEvent(lifecycle, event))
         }
 
@@ -86,8 +83,6 @@ class RxLifecycle private constructor() {
          */
         fun <T, R> bind(lifecycle: Observable<R>,
                         correspondingEvents: Function<R, R>): LifecycleTransformer<T> {
-            Preconditions.checkNotNull(lifecycle, "lifecycle == null")
-            Preconditions.checkNotNull(correspondingEvents, "correspondingEvents == null")
             return bind(takeUntilCorrespondingEvent(lifecycle.share(), correspondingEvents))
         }
 

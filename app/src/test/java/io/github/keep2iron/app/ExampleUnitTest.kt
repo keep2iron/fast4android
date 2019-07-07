@@ -103,4 +103,9 @@ class ExampleUnitTest {
         }
         System.out.println("reduce $reduce")
     }
+
+    @Test
+    fun testRange() {
+        System.out.println(10 downTo 1)
+    }
 }

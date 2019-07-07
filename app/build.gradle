@@ -47,8 +47,6 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.facebook.stetho:stetho:1.5.0'
-    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     //support
     implementation deps.support.cardview
     implementation deps.support.app_compat
@@ -81,8 +79,11 @@ dependencies {
     implementation project(':core')
     implementation project(':comp')
     implementation project(':utilities')
-    implementation deps.fast4android.pineapple
-    implementation deps.fast4android.pomelo
+    implementation 'com.github.keep2iron:pineapple:0.21'
+    implementation deps.fresco
+    implementation 'com.github.keep2iron.pomelo:pomelo:0.2.2'
+    implementation deps.retrofit.scalars
+    implementation deps.retrofit.adapter
 
     implementation 'me.everything:overscroll-decor-android:1.0.4'
 

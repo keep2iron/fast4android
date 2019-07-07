@@ -1,6 +1,6 @@
 package io.github.keep2iron.android.comp
 
-import android.annotation.SuppressLint
+import android.app.Application
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.LifecycleOwner
@@ -11,86 +11,125 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.v4.util.ArrayMap
+import android.support.v4.content.LocalBroadcastManager
+import io.reactivex.subjects.PublishSubject
 import java.io.Serializable
-
-typealias OnEventReceiveListener = (Context, Intent) -> Unit
 
 /**
  *
- * @author keep2iron <a href="http://keep2iron.github.io">Contract me.</a>
- * @version 1.0
- * @date 2019/1/7
  */
-class EventManager {
+class EventManager private constructor(private val lifecycleOwner: LifecycleOwner) {
 
-    private val lifeCycleBroadcastMap = ArrayMap<String, BroadcastReceiver>()
+    private val publishSubject: PublishSubject<Intent> = PublishSubject.create()
 
-    companion object {
-        const val DEFAULT_KEY = "Default_Key"
-
-        @SuppressLint("StaticFieldLeak")
-        lateinit var CONTEXT: Context
-
-        private val INSTANCE: EventManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
-            EventManager()
-        }
-
-        fun getInstance(context: Context): EventManager {
-            this.CONTEXT = context.applicationContext
-            return EventManager.INSTANCE
-        }
-    }
-
-    fun register(lifecycleOwner: LifecycleOwner, action: String, handler: OnEventReceiveListener) {
-        val broadcastReceiver = InnerBroadcastReceiver(handler)
-        val intentFilter = IntentFilter(action)
-        LocalBroadcastManager.getInstance(CONTEXT).registerReceiver(broadcastReceiver, intentFilter)
-
-        lifeCycleBroadcastMap[lifecycleOwner.hashCode().toString() + "#$action"] = broadcastReceiver
-
+    fun register(vararg actions: String): PublishSubject<Intent> {
+        val receiver = getModifyEvent()
         lifecycleOwner.lifecycle.addObserver(object : LifecycleObserver {
             @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
             fun onDestroy() {
-                unregisterAll(lifecycleOwner)
+                LocalBroadcastManager.getInstance(CONTEXT).unregisterReceiver(receiver)
             }
         })
+        val filter = IntentFilter()
+        val i = actions.iterator()
+        while (i.hasNext()) {
+            filter.addAction(i.next())
+        }
+        LocalBroadcastManager.getInstance(CONTEXT).registerReceiver(receiver, filter)
+        return publishSubject
     }
 
-    fun unregisterAll(lifecycleOwner: LifecycleOwner) {
-        lifeCycleBroadcastMap.keys.forEach {
-            if (it.startsWith(lifecycleOwner.hashCode().toString())) {
-                val broadcastReceiver = lifeCycleBroadcastMap[it]
-                if (broadcastReceiver != null) {
-                    LocalBroadcastManager.getInstance(CONTEXT).unregisterReceiver(broadcastReceiver)
-                    lifeCycleBroadcastMap[it] = null
-                    lifeCycleBroadcastMap.remove(it)
-                }
+    private fun getModifyEvent(): BroadcastReceiver {
+        return object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                publishSubject.onNext(intent)
             }
         }
     }
 
-    fun sendEvent(action: String, data: Serializable) {
-        val intent = Intent(action)
-        intent.putExtra(DEFAULT_KEY, data)
-        LocalBroadcastManager.getInstance(CONTEXT).sendBroadcast(intent)
-    }
+    companion object {
 
-    fun sendEvent(action: String, data: Parcelable) {
-        val intent = Intent(action)
-        intent.putExtra(DEFAULT_KEY, data)
-        LocalBroadcastManager.getInstance(CONTEXT).sendBroadcast(intent)
-    }
+        private lateinit var CONTEXT: Application
 
-    fun sendEvent(action: String, bundle: Bundle) {
-        val intent = Intent(action)
-        intent.putExtras(bundle)
-        LocalBroadcastManager.getInstance(CONTEXT).sendBroadcast(intent)
-    }
-
-    private class InnerBroadcastReceiver(val handler: OnEventReceiveListener) : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            handler.invoke(context, intent)
+        @JvmStatic
+        fun init(application: Application) {
+            this.CONTEXT = application
         }
+
+        @JvmStatic
+        fun observerEvent(lifecycleOwner: LifecycleOwner): EventManager {
+            return EventManager(lifecycleOwner)
+        }
+
+        @JvmStatic
+        fun sendEvent(action: String, vararg params: Pair<String, Any>) {
+            val intent = Intent(action)
+            val manager = LocalBroadcastManager.getInstance(CONTEXT)
+            for (arg in params) {
+                val value = arg.second
+                when (value) {
+                    is String -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is Int -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is Double -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is Float -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is Byte -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is Boolean -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is Bundle -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is Long -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is Char -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is Short -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is Parcelable -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is IntArray -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is ByteArray -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is FloatArray -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is DoubleArray -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is BooleanArray -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is Serializable -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is LongArray -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                    is CharSequence -> {
+                        intent.putExtra(arg.first, value)
+                    }
+                }
+            }
+            manager.sendBroadcast(intent)
+        }
+
     }
 }
+

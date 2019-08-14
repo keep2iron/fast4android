@@ -1,93 +1,55 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'maven'
-
-group='com.github.keep2iron'
-version = 'SNAPSHOT'
 
 android {
-    compileSdkVersion versions.build.target_sdk
-    buildToolsVersion versions.build.build_tools
+  compileSdkVersion versions.build.target_sdk
+  buildToolsVersion versions.build.build_tools
 
-    defaultConfig {
-        minSdkVersion versions.build.min_sdk
-        targetSdkVersion versions.build.target_sdk
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
+  defaultConfig {
+    minSdkVersion 15
+    targetSdkVersion versions.build.target_sdk
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-    dataBinding {
-        enabled = true
-    }
+  }
+  dataBinding {
+    enabled = true
+  }
 }
 
 dependencies {
-    //support
-    implementation deps.support.app_compat
-    implementation deps.support.fragment
-    implementation deps.support.annotations
-    api deps.arch.lifecycle
-    api deps.arch.extensions
+  //support
+  implementation deps.support.app_compat
+  implementation deps.support.fragment
+  implementation deps.support.annotations
+  api deps.arch.lifecycle
+  api deps.arch.extensions
 
-    api deps.status_bar
-    api deps.rxjava2
-    api deps.rx_android
-    implementation deps.kotlin.stdlib_jdk7
+  api deps.rxjava2
+  api deps.rx_android
+  implementation deps.kotlin.stdlib_jdk7
 
-    implementation 'com.github.anzewei:parallaxbacklayout:1.1.9'
-
-
-    testImplementation deps.test.junit
-    androidTestImplementation deps.test.runner
-    androidTestImplementation deps.test.rules
-    androidTestImplementation(deps.test.espresso_core) {
-        exclude group: 'com.android.support'
-        exclude module: 'appcompat-v7'
-        exclude module: 'support-v4'
-    }
-    androidTestImplementation(deps.test.espresso_contrib) {
-        exclude group: 'com.android.support'
-        exclude module: 'appcompat-v7'
-        exclude module: 'support-v4'
-    }
-}
-
-// 指定编码
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
-
-// 打包源码
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadoc(type: Javadoc) {
-    failOnError  false
-    source = android.sourceSets.main.java.sourceFiles
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    classpath += configurations.compile
-}
-
-// 制作文档(Javadoc)
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
+  testImplementation deps.test.junit
+  androidTestImplementation deps.test.runner
+  androidTestImplementation deps.test.rules
+  androidTestImplementation(deps.test.espresso_core) {
+    exclude group: 'com.android.support'
+    exclude module: 'appcompat-v7'
+    exclude module: 'support-v4'
+  }
+  androidTestImplementation(deps.test.espresso_contrib) {
+    exclude group: 'com.android.support'
+    exclude module: 'appcompat-v7'
+    exclude module: 'support-v4'
+  }
 }

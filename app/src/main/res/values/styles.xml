@@ -1,31 +1,31 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+  </style>
 
-    <declare-styleable name="MaterialMenuView">
-        <attr name="mm_color" format="color" />
-        <attr name="mm_visible" format="boolean" />
-        <attr name="mm_scale" format="integer" />
-        <attr name="mm_transformDuration" format="integer" />
-        <attr name="mm_strokeWidth" format="integer" />
-        <attr name="mm_rtlEnabled" format="boolean" />
-        <attr name="mm_iconState" format="enum">
-            <enum name="burger" value="0" />
-            <enum name="arrow" value="1" />
-            <enum name="x" value="2" />
-            <enum name="check" value="3" />
-        </attr>
-    </declare-styleable>
+  <declare-styleable name="MaterialMenuView">
+    <attr name="mm_color" format="color"/>
+    <attr name="mm_visible" format="boolean"/>
+    <attr name="mm_scale" format="integer"/>
+    <attr name="mm_transformDuration" format="integer"/>
+    <attr name="mm_strokeWidth" format="integer"/>
+    <attr name="mm_rtlEnabled" format="boolean"/>
+    <attr name="mm_iconState" format="enum">
+      <enum name="burger" value="0"/>
+      <enum name="arrow" value="1"/>
+      <enum name="x" value="2"/>
+      <enum name="check" value="3"/>
+    </attr>
+  </declare-styleable>
 
-    <declare-styleable name="GradientBackgroundView">
-        <attr name="gbv_default_color" format="color" />
-        <attr name="gbv_duration" format="integer" />
-    </declare-styleable>
+  <declare-styleable name="GradientBackgroundView">
+    <attr name="gbv_default_color" format="color"/>
+    <attr name="gbv_duration" format="integer"/>
+  </declare-styleable>
 
 </resources>

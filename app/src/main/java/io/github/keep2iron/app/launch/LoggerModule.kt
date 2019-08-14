@@ -3,7 +3,7 @@ package io.github.keep2iron.app.launch
 import android.app.Application
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
-import io.github.keep2iron.android.ComponentModuleProvider
+import io.github.keep2iron.fast4android.ComponentModuleProvider
 
 /**
  *
@@ -13,7 +13,7 @@ import io.github.keep2iron.android.ComponentModuleProvider
  */
 class LoggerModule : ComponentModuleProvider {
 
-    override fun createComponentModule(application: Application) {
-        Logger.addLogAdapter(AndroidLogAdapter())
-    }
+  override fun createComponentModule(application: Application) {
+    Logger.addLogAdapter(AndroidLogAdapter())
+  }
 }

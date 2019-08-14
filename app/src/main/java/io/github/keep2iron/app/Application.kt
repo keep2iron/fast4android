@@ -1,11 +1,15 @@
 package io.github.keep2iron.app
 
-import android.content.Context
-import android.support.multidex.MultiDex
-import android.support.multidex.MultiDexApplication
-import io.github.keep2iron.android.*
-import io.github.keep2iron.app.launch.*
-
+import androidx.multidex.MultiDexApplication
+import io.github.keep2iron.app.launch.ImageLoaderServiceProvider
+import io.github.keep2iron.app.launch.LoggerModule
+import io.github.keep2iron.app.launch.NetworkServiceProvider
+import io.github.keep2iron.app.launch.RefreshLayoutModule
+import io.github.keep2iron.app.launch.ScreenDensityModule
+import io.github.keep2iron.fast4android.ComponentModuleProvider
+import io.github.keep2iron.fast4android.ComponentServiceProvider
+import io.github.keep2iron.fast4android.Fast4Android
+import io.github.keep2iron.fast4android.MainComponent
 
 /**
  *
@@ -14,22 +18,24 @@ import io.github.keep2iron.app.launch.*
  * @since 2018/03/07 11:37
  */
 class Application : MultiDexApplication(), MainComponent {
-    override fun createComponentServiceProvider(): List<ComponentServiceProvider<*>> {
-        return listOf(ImageLoaderServiceProvider(),
-                NetworkServiceProvider())
-    }
+  override fun createComponentServiceProvider(): List<ComponentServiceProvider<*>> {
+    return listOf(
+      ImageLoaderServiceProvider(),
+      NetworkServiceProvider()
+    )
+  }
 
-    override fun createComponentModuleProvider(): List<ComponentModuleProvider> {
-        return listOf(
-                LoggerModule(),
-                RefreshLayoutModule(),
-                ScreenDensityModule()
-        )
-    }
+  override fun createComponentModuleProvider(): List<ComponentModuleProvider> {
+    return listOf(
+      LoggerModule(),
+      RefreshLayoutModule(),
+      ScreenDensityModule()
+    )
+  }
 
-    override fun onCreate() {
-        super.onCreate()
+  override fun onCreate() {
+    super.onCreate()
 
-        Fast4Android.init(this, this)
-    }
+    Fast4Android.init(this, this)
+  }
 }

@@ -1,5 +1,3 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.github.keep2iron.android.utilities" >
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<manifest
+    package="io.github.keep2iron.fast4android.utilities">
 </manifest>

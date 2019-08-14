@@ -3,95 +3,95 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion versions.build.target_sdk
-    buildToolsVersion versions.build.build_tools
+  compileSdkVersion versions.build.target_sdk
+  buildToolsVersion versions.build.build_tools
 
-    defaultConfig {
-        minSdkVersion versions.build.min_sdk
-        targetSdkVersion versions.build.target_sdk
+  defaultConfig {
+    minSdkVersion 15
+    targetSdkVersion versions.build.target_sdk
 
-        applicationId "io.github.keep2iron.app"
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
+    applicationId "io.github.keep2iron.app"
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    multiDexEnabled true
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [
-                        moduleName    : project.getName(),
-                        mainModuleName: 'app'
-                ]
-            }
-        }
-        ndk {
-            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
-        }
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments = [
+            moduleName: project.getName(),
+            mainModuleName: 'app'
+        ]
+      }
     }
-    buildTypes {
-        debug {}
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+    ndk {
+      abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
     }
-    dataBinding {
-        enabled true
+  }
+  buildTypes {
+    debug {}
+    release {
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+  }
+  dataBinding {
+    enabled true
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
+  api fileTree(dir: 'libs', include: ['*.jar'])
 
-    //support
-    implementation deps.support.cardview
-    implementation deps.support.app_compat
-    implementation deps.support.recyclerview
-    implementation deps.support.constraint_layout
-    implementation deps.support.fragment
-    implementation deps.support.design
-    implementation deps.support.annotations
+  //support
+  implementation deps.support.cardview
+  implementation deps.support.app_compat
+  implementation deps.support.recyclerview
+  implementation deps.support.constraint_layout
+  implementation deps.support.fragment
+  implementation deps.support.design
+  implementation deps.support.annotations
 
-    implementation deps.status_bar
+  implementation deps.status_bar
 
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    testImplementation deps.test.junit
+  implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+  testImplementation deps.test.junit
 
-    implementation deps.rxjava2
-    implementation deps.rx_android
-    implementation deps.logger
+  implementation deps.rxjava2
+  implementation deps.rx_android
+  implementation deps.logger
 
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+  implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
 
-    implementation(deps.alibaba.vlayout) {
-        transitive = true
-    }
-    implementation deps.kotlin.kotlin_reflect
-    implementation deps.kotlin.stdlib_jdk7
+  implementation(deps.alibaba.vlayout) {
+    transitive = true
+  }
+  implementation deps.kotlin.kotlin_reflect
+  implementation deps.kotlin.stdlib_jdk7
 
-    implementation deps.arch.lifecycle
-    implementation deps.arch.extensions
+  implementation deps.arch.lifecycle
+  implementation deps.arch.extensions
 
-    implementation project(':core')
-    implementation project(':comp')
-    implementation project(':utilities')
-    implementation 'com.github.keep2iron:pineapple:0.21'
-    implementation deps.fresco
-    implementation 'com.github.keep2iron.pomelo:pomelo:0.2.2'
-    implementation deps.retrofit.scalars
-    implementation deps.retrofit.adapter
+  implementation project(':core')
+  implementation project(':comp')
+  implementation project(':utilities')
+//  implementation 'com.github.keep2iron:pineapple:0.21'
+  implementation deps.fresco
+  implementation 'com.github.keep2iron.pomelo:pomelo:0.2.2'
+  implementation deps.retrofit.scalars
+  implementation deps.retrofit.adapter
 
-    implementation 'me.everything:overscroll-decor-android:1.0.4'
+  implementation 'me.everything:overscroll-decor-android:1.0.4'
 
-    implementation 'com.github.keep2iron.pitaya:pitaya-annotation:0.1.3'
-    implementation 'com.github.keep2iron.pitaya:pitaya-api:0.1.3'
-//    kapt 'com.github.keep2iron.pitaya:pitaya-compiler:0.1.3'
+//  implementation 'com.github.keep2iron.pitaya:pitaya-annotation:0.1.3'
+//  implementation 'com.github.keep2iron.pitaya:pitaya-api:0.1.3'
+  //    kapt 'com.github.keep2iron.pitaya:pitaya-compiler:0.1.3'
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+  testImplementation 'junit:junit:4.12'
+  androidTestImplementation 'androidx.test:runner:1.1.0'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 }

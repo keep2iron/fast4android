@@ -1,72 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="CompTextViewPlus">
-        <attr name="compDrawableLeftWidth" format="dimension" />
-        <attr name="compDrawableLeftHeight" format="dimension" />
 
-        <attr name="compDrawableTopWidth" format="dimension" />
-        <attr name="compDrawableTopHeight" format="dimension" />
+  <declare-styleable name="FastAlphaTextView">
+    <attr format="dimension" name="fastDrawableLeftWidth"/>
+    <attr format="dimension" name="fastDrawableLeftHeight"/>
 
-        <attr name="compDrawableRightWidth" format="dimension" />
-        <attr name="compDrawableRightHeight" format="dimension" />
+    <attr format="dimension" name="fastDrawableTopWidth"/>
+    <attr format="dimension" name="fastDrawableTopHeight"/>
 
-        <attr name="compDrawableBottomWidth" format="dimension" />
-        <attr name="compDrawableBottomHeight" format="dimension" />
-    </declare-styleable>
+    <attr format="dimension" name="fastDrawableRightWidth"/>
+    <attr format="dimension" name="fastDrawableRightHeight"/>
 
-    <declare-styleable name="CompPageStateLayout">
+    <attr format="dimension" name="fastDrawableBottomWidth"/>
+    <attr format="dimension" name="fastDrawableBottomHeight"/>
 
-        <!--NoData Layout resource id-->
-        <attr name="comp_psl_layout_noData" format="reference" />
+    <attr format="color" name="fastDrawableTint"/>
+    <attr format="color" name="fastDrawableLeftTint"/>
+    <attr format="color" name="fastDrawableTopTint"/>
+    <attr format="color" name="fastDrawableRightTint"/>
+    <attr format="color" name="fastDrawableBottomTint"/>
+  </declare-styleable>
+  <attr format="reference" name="FastAlphaTextViewStyle"/>
 
-        <!--NoNetwork Layout resource id-->
-        <attr name="comp_psl_layout_noNetwork" format="reference" />
+  <declare-styleable name="CompPageStateLayout">
 
-        <!--LoadError Layout resource id-->
-        <attr name="comp_psl_layout_loadError" format="reference" />
+    <!--NoData Layout resource id-->
+    <attr format="reference" name="comp_psl_layout_noData"/>
 
-        <!--Loading Layout resource id-->
-        <attr name="comp_psl_layout_loading" format="reference" />
-    </declare-styleable>
+    <!--NoNetwork Layout resource id-->
+    <attr format="reference" name="comp_psl_layout_noNetwork"/>
 
-    <!--<attr name="SwipeBackLayoutStyle" format="reference" />-->
+    <!--LoadError Layout resource id-->
+    <attr format="reference" name="comp_psl_layout_loadError"/>
 
-    <declare-styleable name="CompBottomTabLayout">
-        <!--
-            set tab item drawable width
-        -->
-        <attr name="comp_tabItem_drawableWidth" format="dimension" />
-        <!--
-            set tab item drawable height
-        -->
-        <attr name="comp_tabItem_drawableHeight" format="dimension" />
-        <!--
-            set tab item textSize
-        -->
-        <attr name="comp_tabItem_textSize" format="dimension" />
-        <!--
-            set tab item drawablePadding
-        -->
-        <attr name="comp_tabItem_drawablePadding" format="dimension" />
-        <!--
-            set tab item marginLeft and marginRight
-        -->
-        <attr name="comp_tabItem_margin" format="dimension" />
-        <!--
-            set tab item background
-        -->
-        <attr name="comp_tabItem_background" format="reference" />
-        <!--
-            set height with @io.github.keep2iron.android.widget.CompBottomTabLayout for better calculation text in layout position
-        -->
-        <attr name="comp_tabLayout_height" format="reference" />
-    </declare-styleable>
+    <!--Loading Layout resource id-->
+    <attr format="reference" name="comp_psl_layout_loading"/>
+  </declare-styleable>
 
-    <declare-styleable name="CompLoopViewLayout">
-        <attr name="comp_loopLayout_indicatorDrawable_selected" format="reference" />
-        <attr name="comp_loopLayout_indicatorDrawable_unselected" format="reference" />
-        <attr name="comp_loopLayout_indicatorDrawable_width" format="dimension" />
-        <attr name="comp_loopLayout_indicatorDrawable_height" format="dimension" />
-        <attr name="comp_loopLayout_indicatorDrawable_margin" format="dimension" />
-    </declare-styleable>
+  <!--<attr name="SwipeBackLayoutStyle" format="reference" />-->
+
+  <declare-styleable name="CompBottomTabLayout">
+    <!--
+        set tab item drawable width
+    -->
+    <attr format="dimension" name="comp_tabItem_drawableWidth"/>
+    <!--
+        set tab item drawable height
+    -->
+    <attr format="dimension" name="comp_tabItem_drawableHeight"/>
+    <!--
+        set tab item textSize
+    -->
+    <attr format="dimension" name="comp_tabItem_textSize"/>
+    <!--
+        set tab item drawablePadding
+    -->
+    <attr format="dimension" name="comp_tabItem_drawablePadding"/>
+    <!--
+        set tab item marginLeft and marginRight
+    -->
+    <attr format="dimension" name="comp_tabItem_margin"/>
+    <!--
+        set tab item background
+    -->
+    <attr format="reference" name="comp_tabItem_background"/>
+    <!--
+        set height with @io.github.keep2iron.android.widget.CompBottomTabLayout for better calculation text in layout position
+    -->
+    <attr format="reference" name="comp_tabLayout_height"/>
+  </declare-styleable>
+
+  <declare-styleable name="CompLoopViewLayout">
+    <attr format="reference" name="comp_loopLayout_indicatorDrawable_selected"/>
+    <attr format="reference" name="comp_loopLayout_indicatorDrawable_unselected"/>
+    <attr format="dimension" name="comp_loopLayout_indicatorDrawable_width"/>
+    <attr format="dimension" name="comp_loopLayout_indicatorDrawable_height"/>
+    <attr format="dimension" name="comp_loopLayout_indicatorDrawable_margin"/>
+  </declare-styleable>
 </resources>

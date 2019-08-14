@@ -7,75 +7,75 @@ group = 'com.github.keep2iron'
 version = 'SNAPSHOT'
 
 android {
-    resourcePrefix "comp"
+  resourcePrefix "fast"
 
-    compileSdkVersion versions.build.target_sdk
-    buildToolsVersion versions.build.build_tools
+  compileSdkVersion versions.build.target_sdk
+  buildToolsVersion versions.build.build_tools
 
-    defaultConfig {
-        minSdkVersion versions.build.min_sdk
-        targetSdkVersion versions.build.target_sdk
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  defaultConfig {
+    minSdkVersion 15
+    targetSdkVersion versions.build.target_sdk
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
+  }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    dataBinding {
-        enabled = true
-    }
+  dataBinding {
+    enabled = true
+  }
 }
 
 dependencies {
-    //support
-    implementation deps.support.app_compat
-    implementation deps.support.recyclerview
-//    implementation deps.support.v4
-    implementation(deps.alibaba.vlayout) {
-        transitive = true
-    }
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
-    implementation 'com.github.keep2iron.pomelo:pomelo:0.2.2'
+  //support
+  implementation deps.support.app_compat
+  implementation deps.support.recyclerview
+  //    implementation deps.support.v4
+  implementation(deps.alibaba.vlayout) {
+    transitive = true
+  }
+  api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+  implementation 'com.github.keep2iron.pomelo:pomelo:0.2.2'
 
-    implementation deps.rxjava2
-    implementation deps.rx_android
-    implementation deps.kotlin.kotlin_reflect
+  implementation deps.rxjava2
+  implementation deps.rx_android
+  implementation deps.kotlin.kotlin_reflect
 }
 
 // 指定编码
 tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
+  options.encoding = "UTF-8"
 }
 
 // 打包源码
 task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
+  from android.sourceSets.main.java.srcDirs
+  classifier = 'sources'
 }
 
 task javadoc(type: Javadoc) {
-    failOnError false
-    source = android.sourceSets.main.java.sourceFiles
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    classpath += configurations.compile
+  failOnError false
+  source = android.sourceSets.main.java.sourceFiles
+  classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+  classpath += configurations.compile
 }
 
 // 制作文档(Javadoc)
 task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
+  classifier = 'javadoc'
+  from javadoc.destinationDir
 }
 
 artifacts {
-    archives sourcesJar
-    archives javadocJar
+  archives sourcesJar
+  archives javadocJar
 }

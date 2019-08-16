@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--**************** QMUITabSegment ******************-->
+  <declare-styleable name="FastTabSegmentLayout">
+    <attr format="dimension" name="fast_tab_indicator_height"/>
+    <attr name="android:textSize"/>
+    <attr format="boolean" name="fast_tab_indicator_top"/>
+    <attr format="enum" name="fast_tab_mode">
+      <enum name="scrollable" value="0"/>
+      <enum name="fixed" value="1"/>
+    </attr>
+    <attr format="dimension" name="fast_tab_space"/>
+    <attr format="enum" name="fast_tab_icon_direction">
+      <enum name="left" value="0"/>
+      <enum name="top" value="1"/>
+      <enum name="right" value="2"/>
+      <enum name="bottom" value="3"/>
+    </attr>
+    <attr format="string" name="fast_tab_typeface_provider"/>
+  </declare-styleable>
+  <attr format="reference" name="FastTabSegmentLayoutStyle"/>
+</resources>

@@ -1,8 +1,8 @@
-package io.github.keep2iron.fast4android.utilities;
+package io.github.keep2iron.fast4android.widget;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * Example local unit test, which will execute on the development machine (host).

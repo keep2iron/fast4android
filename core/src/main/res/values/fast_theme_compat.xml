@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="Fast4Android">
+    <item name="fast_alpha_pressed">0.5</item>
+    <item name="fast_alpha_disabled">0.5</item>
+
+    <item name="fast_general_shadow_elevation">14dp</item>
+    <item name="fast_general_shadow_alpha">0.25</item>
+
+    <item name="fast_config_color_separator">@color/fast_config_color_separator</item>
+  </style>
+
+</resources>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <declare-styleable name="FastAlphaTextView">
+    <attr format="dimension" name="fast_drawableLeftWidth"/>
+    <attr format="dimension" name="fast_drawableLeftHeight"/>
+
+    <attr format="dimension" name="fast_drawableTopWidth"/>
+    <attr format="dimension" name="fast_drawableTopHeight"/>
+
+    <attr format="dimension" name="fast_drawableRightWidth"/>
+    <attr format="dimension" name="fast_drawableRightHeight"/>
+
+    <attr format="dimension" name="fast_drawableBottomWidth"/>
+    <attr format="dimension" name="fast_drawableBottomHeight"/>
+
+    <attr format="color" name="fast_drawableTint"/>
+    <attr format="color" name="fast_drawableLeftTint"/>
+    <attr format="color" name="fast_drawableTopTint"/>
+    <attr format="color" name="fast_drawableRightTint"/>
+    <attr format="color" name="fast_drawableBottomTint"/>
+  </declare-styleable>
+  <attr format="reference" name="FastAlphaTextViewStyle"/>
+
+  <declare-styleable name="FastLayout">
+    <attr name="android:maxWidth"/>
+    <attr name="android:maxHeight"/>
+    <attr name="android:minWidth"/>
+    <attr name="android:minHeight"/>
+    <attr format="dimension" name="fast_bottomDividerHeight"/>
+    <attr format="color|reference" name="fast_bottomDividerColor"/>
+    <attr format="dimension" name="fast_bottomDividerInsetLeft"/>
+    <attr format="dimension" name="fast_bottomDividerInsetRight"/>
+    <attr format="dimension" name="fast_topDividerHeight"/>
+    <attr format="color|reference" name="fast_topDividerColor"/>
+    <attr format="dimension" name="fast_topDividerInsetLeft"/>
+    <attr format="dimension" name="fast_topDividerInsetRight"/>
+    <attr format="dimension" name="fast_leftDividerWidth"/>
+    <attr format="color|reference" name="fast_leftDividerColor"/>
+    <attr format="dimension" name="fast_leftDividerInsetTop"/>
+    <attr format="dimension" name="fast_leftDividerInsetBottom"/>
+    <attr format="dimension" name="fast_rightDividerWidth"/>
+    <attr format="color|reference" name="fast_rightDividerColor"/>
+    <attr format="dimension" name="fast_rightDividerInsetTop"/>
+    <attr format="dimension" name="fast_rightDividerInsetBottom"/>
+    <attr name="fast_radius"/>
+    <attr name="fast_borderColor"/>
+    <attr name="fast_borderWidth"/>
+    <attr format="color|reference" name="fast_outerNormalColor"/>
+    <attr format="enum" name="fast_hideRadiusSide">
+      <enum name="none" value="0"/>
+      <enum name="top" value="1"/>
+      <enum name="right" value="2"/>
+      <enum name="bottom" value="3"/>
+      <enum name="left" value="4"/>
+    </attr>
+    <attr format="boolean" name="fast_showBorderOnlyBeforeL"/>
+    <attr format="dimension" name="fast_shadowElevation"/>
+    <attr format="boolean" name="fast_useThemeGeneralShadowElevation"/>
+    <attr format="float" name="fast_shadowAlpha"/>
+    <attr format="dimension" name="fast_outlineInsetTop"/>
+    <attr format="dimension" name="fast_outlineInsetLeft"/>
+    <attr format="dimension" name="fast_outlineInsetRight"/>
+    <attr format="dimension" name="fast_outlineInsetBottom"/>
+    <attr format="boolean" name="fast_outlineExcludePadding"/>
+  </declare-styleable>
+
+  <!--<declare-styleable name="CompPageStateLayout">-->
+
+  <!--&lt;!&ndash;NoData Layout resource id&ndash;&gt;-->
+  <!--<attr format="reference" name="comp_psl_layout_noData"/>-->
+
+  <!--&lt;!&ndash;NoNetwork Layout resource id&ndash;&gt;-->
+  <!--<attr format="reference" name="comp_psl_layout_noNetwork"/>-->
+
+  <!--&lt;!&ndash;LoadError Layout resource id&ndash;&gt;-->
+  <!--<attr format="reference" name="comp_psl_layout_loadError"/>-->
+
+  <!--&lt;!&ndash;Loading Layout resource id&ndash;&gt;-->
+  <!--<attr format="reference" name="comp_psl_layout_loading"/>-->
+  <!--</declare-styleable>-->
+
+  <!--&lt;!&ndash;<attr name="SwipeBackLayoutStyle" format="reference" />&ndash;&gt;-->
+
+  <!--<declare-styleable name="CompBottomTabLayout">-->
+  <!--&lt;!&ndash;-->
+  <!--set tab item drawable width-->
+  <!--&ndash;&gt;-->
+  <!--<attr format="dimension" name="comp_tabItem_drawableWidth"/>-->
+  <!--&lt;!&ndash;-->
+  <!--set tab item drawable height-->
+  <!--&ndash;&gt;-->
+  <!--<attr format="dimension" name="comp_tabItem_drawableHeight"/>-->
+  <!--&lt;!&ndash;-->
+  <!--set tab item textSize-->
+  <!--&ndash;&gt;-->
+  <!--<attr format="dimension" name="comp_tabItem_textSize"/>-->
+  <!--&lt;!&ndash;-->
+  <!--set tab item drawablePadding-->
+  <!--&ndash;&gt;-->
+  <!--<attr format="dimension" name="comp_tabItem_drawablePadding"/>-->
+  <!--&lt;!&ndash;-->
+  <!--set tab item marginLeft and marginRight-->
+  <!--&ndash;&gt;-->
+  <!--<attr format="dimension" name="comp_tabItem_margin"/>-->
+  <!--&lt;!&ndash;-->
+  <!--set tab item background-->
+  <!--&ndash;&gt;-->
+  <!--<attr format="reference" name="comp_tabItem_background"/>-->
+  <!--&lt;!&ndash;-->
+  <!--set height with @io.github.keep2iron.android.widget.CompBottomTabLayout for better calculation text in layout position-->
+  <!--&ndash;&gt;-->
+  <!--<attr format="reference" name="comp_tabLayout_height"/>-->
+  <!--</declare-styleable>-->
+
+  <!--<declare-styleable name="CompLoopViewLayout">-->
+  <!--<attr format="reference" name="comp_loopLayout_indicatorDrawable_selected"/>-->
+  <!--<attr format="reference" name="comp_loopLayout_indicatorDrawable_unselected"/>-->
+  <!--<attr format="dimension" name="comp_loopLayout_indicatorDrawable_width"/>-->
+  <!--<attr format="dimension" name="comp_loopLayout_indicatorDrawable_height"/>-->
+  <!--<attr format="dimension" name="comp_loopLayout_indicatorDrawable_margin"/>-->
+  <!--</declare-styleable>-->
+</resources>

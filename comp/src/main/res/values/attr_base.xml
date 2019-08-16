@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <attr format="float" name="fast_alpha_pressed"/>
-  <attr format="float" name="fast_alpha_disabled"/>
-
-  <attr format="dimension" name="fast_general_shadow_elevation"/>
-  <attr format="float" name="fast_general_shadow_alpha"/>
-</resources>

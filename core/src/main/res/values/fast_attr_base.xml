@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <attr format="float" name="fast_alpha_pressed"/>
+  <attr format="float" name="fast_alpha_disabled"/>
+
+  <!--阴影elevation size-->
+  <attr format="dimension" name="fast_general_shadow_elevation"/>
+  <!--透明度alpha-->
+  <attr format="float" name="fast_general_shadow_alpha"/>
+
+  <!--分割线颜色-->
+  <attr format="color" name="fast_config_color_separator"/>
+
+  <!--***************************************
+  *                color                    *
+  ****************************************-->
+</resources>

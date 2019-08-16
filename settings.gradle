@@ -1,1 +1,1 @@
-include ':app', ':core', ':utilities', ':comp', ':comp-textviewplus', ':comp-popwindowplus'
+include ':sample', ':arch', ':core', ':comp-popwindowplus', ':comp-tabsegment'

@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+  compileSdkVersion versions.build.target_sdk
+  buildToolsVersion versions.build.build_tools
+
+  defaultConfig {
+    minSdkVersion 15
+    targetSdkVersion versions.build.target_sdk
+
+    applicationId "io.github.keep2iron.fast4android"
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    multiDexEnabled true
+
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments = [
+            moduleName: project.getName(),
+            mainModuleName: 'app'
+        ]
+      }
+    }
+    ndk {
+      abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+    }
+  }
+  buildTypes {
+    debug {}
+    release {
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+  dataBinding {
+    enabled true
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+
+dependencies {
+  api fileTree(dir: 'libs', include: ['*.jar'])
+
+  //support
+  implementation deps.support.cardview
+  implementation deps.support.app_compat
+  implementation deps.support.recyclerview
+  implementation deps.support.constraint_layout
+  implementation deps.support.fragment
+  implementation deps.support.design
+  implementation deps.support.annotations
+
+  implementation deps.status_bar
+
+  implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+  testImplementation deps.test.junit
+
+  implementation deps.rxjava2
+  implementation deps.rx_android
+  implementation deps.logger
+
+  implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+
+  implementation(deps.alibaba.vlayout) {
+    transitive = true
+  }
+  implementation deps.kotlin.kotlin_reflect
+  implementation deps.kotlin.stdlib_jdk7
+
+  implementation deps.arch.lifecycle
+  implementation deps.arch.extensions
+
+  implementation project(':arch')
+  implementation project(':core')
+  implementation project(':comp-tabsegment')
+//  implementation project(':utilities')
+
+  implementation 'me.everything:overscroll-decor-android:1.0.4'
+
+  testImplementation 'junit:junit:4.12'
+  androidTestImplementation 'androidx.test:runner:1.1.0'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+}
+

@@ -25,7 +25,7 @@ import android.util.TypedValue
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
-import io.github.keep2iron.fast4android.comp.R
+import io.github.keep2iron.fast4android.arch.R
 
 fun Context.getAttrFloatValue(attrRes: Int): Float {
   val typedValue = TypedValue()

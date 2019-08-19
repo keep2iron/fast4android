@@ -1,10 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.github.dcendents.android-maven'
 
 android {
-  resourcePrefix "fast"
-
   compileSdkVersion versions.build.target_sdk
   buildToolsVersion versions.build.build_tools
 
@@ -25,12 +22,37 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+
+  dataBinding {
+    enabled = true
+  }
 }
 
 dependencies {
   //support
-  implementation deps.support.recyclerview
   implementation deps.support.app_compat
+  implementation deps.support.fragment
+  implementation deps.support.annotations
+  api deps.arch.lifecycle
+  api deps.arch.extensions
 
+  compileOnly project(':core')
+
+  api deps.rxjava2
+  api deps.rx_android
   implementation deps.kotlin.stdlib_jdk7
+
+  testImplementation deps.test.junit
+  androidTestImplementation deps.test.runner
+  androidTestImplementation deps.test.rules
+  androidTestImplementation(deps.test.espresso_core) {
+    exclude group: 'com.android.support'
+    exclude module: 'appcompat-v7'
+    exclude module: 'support-v4'
+  }
+  androidTestImplementation(deps.test.espresso_contrib) {
+    exclude group: 'com.android.support'
+    exclude module: 'appcompat-v7'
+    exclude module: 'support-v4'
+  }
 }

@@ -16,10 +16,9 @@
 
 package io.github.keep2iron.fast4android.layout
 
-import android.view.View
 import androidx.annotation.ColorInt
+import androidx.annotation.FloatRange
 import androidx.annotation.IntDef
-import kotlin.annotation.AnnotationRetention.SOURCE
 
 /**
  * Created by cgspine on 2018/3/23.
@@ -27,68 +26,39 @@ import kotlin.annotation.AnnotationRetention.SOURCE
 
 interface IFastLayout {
 
-  /**
-   * See [View.getElevation]
-   *
-   * @return
-   */
-  /**
-   * See [android.view.View.setElevation]
-   *
-   * @param elevation
-   */
-  var shadowElevation: Int
+  companion object {
+    const val HIDE_RADIUS_SIDE_LEFT_TOP = 1
+    const val HIDE_RADIUS_SIDE_RIGHT_TOP = 2
+    const val HIDE_RADIUS_SIDE_LEFT_BOTTOM = 3
+    const val HIDE_RADIUS_SIDE_RIGHT_BOTTOM = 4
 
-  /**
-   * get the outline alpha we set
-   *
-   * @return
-   */
-  /**
-   * set the outline alpha, which will change the shadow
-   *
-   * @param shadowAlpha
-   */
-  var shadowAlpha: Float
+    const val DIRECTION_LEFT = 1
+    const val DIRECTION_TOP = 2
+    const val DIRECTION_RIGHT = 3
+    const val DIRECTION_BOTTOM = 4
+  }
 
-  /**
-   *
-   * @return opaque color
-   */
-  /**
-   *
-   * @param shadowColor opaque color
-   * @return
-   */
-  var shadowColor: Int
+  @IntDef(
+    value = [
+      HIDE_RADIUS_SIDE_LEFT_TOP,
+      HIDE_RADIUS_SIDE_RIGHT_TOP,
+      HIDE_RADIUS_SIDE_LEFT_BOTTOM,
+      HIDE_RADIUS_SIDE_RIGHT_BOTTOM
+    ]
+  )
+  @Retention(AnnotationRetention.SOURCE)
+  annotation class HideRadiusCorner
 
-  /**
-   * get the layout radius
-   * @return
-   */
-  /**
-   * set the layout radius
-   * @param radius
-   */
-  var radius: Int
-
-  /**
-   * get the side that we have hidden the radius
-   *
-   * @return
-   */
-  /**
-   * in some case, we maybe hope the layout only have radius in one side.
-   * but there is no convenient way to write the code like canvas.drawPath,
-   * so we take another way that hide one radius side
-   *
-   * @param hideRadiusSide
-   */
-  var hideRadiusSide: Int
-
-  @IntDef(value = [HIDE_RADIUS_SIDE_NONE, HIDE_RADIUS_SIDE_TOP, HIDE_RADIUS_SIDE_RIGHT, HIDE_RADIUS_SIDE_BOTTOM, HIDE_RADIUS_SIDE_LEFT])
-  @kotlin.annotation.Retention(SOURCE)
-  annotation class HideRadiusSide
+  @IntDef(
+    value = [
+      DIRECTION_LEFT,
+      DIRECTION_TOP,
+      DIRECTION_RIGHT,
+      DIRECTION_BOTTOM
+    ]
+  )
+  @Retention(AnnotationRetention.SOURCE)
+  annotation class Direction
 
   /**
    * limit the width of a layout
@@ -119,11 +89,64 @@ interface IFastLayout {
   fun setOutlineExcludePadding(outlineExcludePadding: Boolean)
 
   /**
+   * See {@link android.view.View#setElevation(float)}
+   *
+   * @param elevation
+   */
+  fun setShadowElevation(elevation: Int)
+
+  /**
+   * See {@link View#getElevation()}
+   *
+   * @return
+   */
+  fun getShadowElevation(): Int
+
+  /**
+   * set the outline alpha, which will change the shadow
+   *
+   * @param shadowAlpha
+   */
+  fun setShadowAlpha(@FloatRange(from = 0.0, to = 1.0) shadowAlpha: Float)
+
+  /**
+   * get the outline alpha we set
+   *
+   * @return
+   */
+  @FloatRange(from = 0.0, to = 1.0) fun getShadowAlpha(): Float
+
+  /**
+   *
+   * @param shadowColor opaque color
+   * @return
+   */
+  fun setShadowColor(@ColorInt shadowColor: Int)
+
+  /**
+   *
+   * @return opaque color
+   */
+  @ColorInt fun getShadowColor(): Int
+
+  /**
+   * set the layout radius
+   * @param radius
+   */
+  fun setRadius(radius: Int)
+
+  /**
    * set the layout radius with one or none side been hidden
    * @param radius
-   * @param hideRadiusSide
+   * @param hideRadiusCorner
    */
-  fun setRadius(radius: Int, @HideRadiusSide hideRadiusSide: Int)
+  fun setRadius(radius: Int, @HideRadiusCorner vararg hideRadiusCorner: Int)
+
+  /**
+   * get the layout radius
+   * @return
+   */
+  fun getRadius(): Int
 
   /**
    * inset the outline if needed
@@ -145,43 +168,44 @@ interface IFastLayout {
   fun setShowBorderOnlyBeforeL(showBorderOnlyBeforeL: Boolean)
 
   /**
+   * get the side that we have hidden the radius
+   *
+   * leftTop rightTop rightBottom leftBottom
+   *
+   * @return true is hide ,false is show
+   */
+  fun getHideRadiusSide(): BooleanArray
+
+  /**
    * this method will determine the radius and shadow.
    *
    * @param radius
-   * @param shadowElevation
-   * @param shadowAlpha
-   */
-  fun setRadiusAndShadow(radius: Int, shadowElevation: Int, shadowAlpha: Float)
-
-  /**
-   * this method will determine the radius and shadow with one or none side be hidden
-   *
-   * @param radius
-   * @param hideRadiusSide
-   * @param shadowElevation
-   * @param shadowAlpha
-   */
-  fun setRadiusAndShadow(
-    radius: Int, @HideRadiusSide hideRadiusSide: Int,
-    shadowElevation: Int,
-    shadowAlpha: Float
-  )
-
-  /**
-   * this method will determine the radius and shadow (support shadowColor if after android 9)with one or none side be hidden
-   *
-   * @param radius
-   * @param hideRadiusSide
    * @param shadowElevation
    * @param shadowColor
    * @param shadowAlpha
    */
   fun setRadiusAndShadow(
-    radius: Int, @HideRadiusSide hideRadiusSide: Int,
+    radius: Int,
     shadowElevation: Int,
-    shadowColor: Int,
+    @ColorInt shadowColor: Int = 0,
     shadowAlpha: Float
   )
+
+//  /**
+//   * this method will determine the radius and shadow with one or none side be hidden
+//   *
+//   * @param radius
+//   * @param hideRadiusSide
+//   * @param shadowElevation
+//   * @param shadowAlpha
+//   */
+//  fun setRadiusAndShadow(
+//    radius: Int,
+//    @HideRadiusCorner vararg hideRadiusSide: Int,
+//    shadowElevation: Int,
+//    @ColorInt shadowColor: Int = 0,
+//    shadowAlpha: Float
+//  )
 
   /**
    * border color, if you don not set it, the layout will not draw the border
@@ -197,161 +221,31 @@ interface IFastLayout {
    */
   fun setBorderWidth(borderWidth: Int)
 
-  /**
-   * config the top divider
-   *
-   * @param topInsetLeft
-   * @param topInsetRight
-   * @param topDividerHeight
-   * @param topDividerColor
-   */
-  fun updateTopDivider(
-    topInsetLeft: Int,
-    topInsetRight: Int,
-    topDividerHeight: Int,
-    topDividerColor: Int
-  )
-
-  /**
-   * config the bottom divider
-   *
-   * @param bottomInsetLeft
-   * @param bottomInsetRight
-   * @param bottomDividerHeight
-   * @param bottomDividerColor
-   */
-  fun updateBottomDivider(
-    bottomInsetLeft: Int,
-    bottomInsetRight: Int,
-    bottomDividerHeight: Int,
-    bottomDividerColor: Int
-  )
-
-  /**
-   * config the left divider
-   *
-   * @param leftInsetTop
-   * @param leftInsetBottom
-   * @param leftDividerWidth
-   * @param leftDividerColor
-   */
-  fun updateLeftDivider(
-    leftInsetTop: Int,
-    leftInsetBottom: Int,
-    leftDividerWidth: Int,
-    leftDividerColor: Int
-  )
-
-  /**
-   * config the right divider
-   *
-   * @param rightInsetTop
-   * @param rightInsetBottom
-   * @param rightDividerWidth
-   * @param rightDividerColor
-   */
-  fun updateRightDivider(
-    rightInsetTop: Int,
-    rightInsetBottom: Int,
-    rightDividerWidth: Int,
-    rightDividerColor: Int
-  )
-
-  /**
-   * show top divider, and hide others
-   *
-   * @param topInsetLeft
-   * @param topInsetRight
-   * @param topDividerHeight
-   * @param topDividerColor
-   */
-  fun onlyShowTopDivider(
-    topInsetLeft: Int,
-    topInsetRight: Int,
-    topDividerHeight: Int,
-    topDividerColor: Int
-  )
-
-  /**
-   * show bottom divider, and hide others
-   *
-   * @param bottomInsetLeft
-   * @param bottomInsetRight
-   * @param bottomDividerHeight
-   * @param bottomDividerColor
-   */
-  fun onlyShowBottomDivider(
-    bottomInsetLeft: Int,
-    bottomInsetRight: Int,
-    bottomDividerHeight: Int,
-    bottomDividerColor: Int
-  )
-
-  /**
-   * show left divider, and hide others
-   *
-   * @param leftInsetTop
-   * @param leftInsetBottom
-   * @param leftDividerWidth
-   * @param leftDividerColor
-   */
-  fun onlyShowLeftDivider(
-    leftInsetTop: Int,
-    leftInsetBottom: Int,
-    leftDividerWidth: Int,
-    leftDividerColor: Int
-  )
-
-  /**
-   * show right divider, and hide others
-   *
-   * @param rightInsetTop
-   * @param rightInsetBottom
-   * @param rightDividerWidth
-   * @param rightDividerColor
-   */
-  fun onlyShowRightDivider(
-    rightInsetTop: Int,
-    rightInsetBottom: Int,
-    rightDividerWidth: Int,
-    rightDividerColor: Int
+  fun setDivider(
+    dividerSize: Int,
+    insetStart: Int,
+    insetEnd: Int,
+    @ColorInt dividerColor: Int,
+    @Direction vararg direction: Int
   )
 
   /**
    * after config the border, sometimes we need change the alpha of divider with animation,
    * so we provide a method to individually change the alpha
    *
-   * @param dividerAlpha [0, 255]
+   * @param dividerAlpha [0, 1]
    */
-  fun setTopDividerAlpha(dividerAlpha: Int)
-
-  /**
-   * @param dividerAlpha [0, 255]
-   */
-  fun setBottomDividerAlpha(dividerAlpha: Int)
-
-  /**
-   * @param dividerAlpha [0, 255]
-   */
-  fun setLeftDividerAlpha(dividerAlpha: Int)
-
-  /**
-   * @param dividerAlpha [0, 255]
-   */
-  fun setRightDividerAlpha(dividerAlpha: Int)
+  fun setDividerAlpha(
+    @FloatRange(
+      from = 0.0,
+      to = 1.0
+    ) dividerAlpha: Float, @Direction vararg direction: Int
+  )
 
   /**
    * only available before android L
    * @param color
    */
-  fun setOuterNormalColor(color: Int)
-
-  companion object {
-    const val HIDE_RADIUS_SIDE_NONE = 0
-    const val HIDE_RADIUS_SIDE_TOP = 1
-    const val HIDE_RADIUS_SIDE_RIGHT = 2
-    const val HIDE_RADIUS_SIDE_BOTTOM = 3
-    const val HIDE_RADIUS_SIDE_LEFT = 4
-  }
+  fun setOuterNormalColor(@ColorInt color: Int)
 
 }

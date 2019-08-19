@@ -9,7 +9,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import androidx.annotation.StyleableRes
 import androidx.appcompat.widget.AppCompatTextView
-import io.github.keep2iron.fast4android.comp.R
+import io.github.keep2iron.fast4android.arch.R
 import kotlin.LazyThreadSafetyMode.NONE
 
 class FastAlphaTextView @JvmOverloads constructor(

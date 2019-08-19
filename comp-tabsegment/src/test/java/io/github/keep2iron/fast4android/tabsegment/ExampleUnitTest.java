@@ -1,4 +1,4 @@
-package io.github.keep2iron.fast4android.widget;
+package io.github.keep2iron.fast4android.tabsegment;
 
 import org.junit.Test;
 

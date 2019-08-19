@@ -1,17 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <attr format="dimension" name="fast_content_spacing_horizontal"/> <!-- margin 和 padding 等使用的内容通用水平间距 -->
+
+  <!--**********************************************
+  *                qmui common color               *
+  **********************************************-->
+  <attr format="color" name="fast_config_color_blue"/>
+  <attr format="color" name="fast_config_color_red"/>
+  <!--分割线颜色-->
+  <attr format="color" name="fast_config_color_separator"/>
+  <attr format="color" name="fast_config_color_separator_darken"/>
+  <attr format="color" name="fast_config_color_background"/>
+  <attr format="color" name="fast_config_color_background_pressed"/>
+  <attr format="color" name="fast_config_color_black"/>
+  <attr format="color" name="fast_config_color_link"/>
+  <attr format="color" name="fast_config_color_pressed"/>
+
+  <attr format="color" name="fast_config_color_gray_1"/>
+  <attr format="color" name="fast_config_color_gray_2"/>
+  <attr format="color" name="fast_config_color_gray_3"/>
+  <attr format="color" name="fast_config_color_gray_4"/>
+  <attr format="color" name="fast_config_color_gray_5"/>
+  <attr format="color" name="fast_config_color_gray_6"/>
+  <attr format="color" name="fast_config_color_gray_7"/>
+  <attr format="color" name="fast_config_color_gray_8"/>
+  <attr format="color" name="fast_config_color_gray_9"/>
+
   <attr format="float" name="fast_alpha_pressed"/>
   <attr format="float" name="fast_alpha_disabled"/>
-
   <!--阴影elevation size-->
   <attr format="dimension" name="fast_general_shadow_elevation"/>
   <!--透明度alpha-->
   <attr format="float" name="fast_general_shadow_alpha"/>
 
-  <!--分割线颜色-->
-  <attr format="color" name="fast_config_color_separator"/>
+  <!--**********************************************
+  *                qmui dialog                     *
+  **********************************************-->
+  <attr format="dimension" name="fast_dialog_min_width"/>
+  <attr format="dimension" name="fast_dialog_max_width"/>
+  <attr format="reference" name="fast_dialog_bg"/>
+  <attr format="dimension" name="fast_dialog_radius"/>
+  <attr format="dimension" name="fast_dialog_margin_vertical"/>
+  <attr format="dimension" name="fast_dialog_padding_horizontal"/>
+  <attr format="float" name="fast_dialog_background_dim_amount"/>
+  <attr format="reference" name="fast_dialog_wrapper_style"/>
+  <attr format="reference" name="fast_dialog_title_style"/>
+  <attr format="reference" name="fast_dialog_action_container_style"/>
+  <attr format="reference" name="fast_dialog_action_style"/>
+  <attr format="reference" name="fast_dialog_message_content_style"/>
+  <attr format="reference" name="fast_dialog_edit_content_style"/>
+  <attr format="reference" name="fast_dialog_menu_container_style"/>
+  <attr format="reference" name="fast_dialog_menu_item_style"/>
 
-  <!--***************************************
-  *                color                    *
-  ****************************************-->
+  <!-- tips -->
+  <attr format="reference" name="fast_tip_dialog_bg"/>
+  <attr format="dimension" name="fast_tip_dialog_min_width"/>
+  <attr format="dimension" name="fast_tip_dialog_min_height"/>
+  <attr format="dimension" name="fast_tip_dialog_padding_vertical"/>
+  <attr format="dimension" name="fast_tip_dialog_padding_horizontal"/>
+  <attr format="dimension" name="fast_tip_dialog_margin_horizontal"/>
+
+  <!--**********************************************
+  *              qmui common list                  *
+  **********************************************-->
+
+  <attr format="dimension" name="fast_common_list_item_icon_margin_right"/>
+  <attr format="dimension" name="fast_common_list_item_accessory_margin_left"/>
+  <attr format="dimension" name="fast_common_list_item_title_v_text_size"/>
+  <attr format="dimension" name="fast_common_list_item_title_h_text_size"/>
+  <attr format="dimension" name="fast_common_list_item_h_space_min_width"/>
+  <attr format="dimension" name="fast_common_list_item_detail_v_text_size"/>
+  <attr format="dimension" name="fast_common_list_item_detail_h_text_size"/>
+  <attr format="dimension" name="fast_common_list_item_detail_line_space"/>
+
+
+  <!--**********************************************
+  *              qmui bottom sheet                 *
+  **********************************************-->
+  <attr format="dimension" name="fast_bottom_sheet_title_height"/>
+  <attr format="reference" name="fast_bottom_sheet_title_appearance"/>
+  <attr format="reference" name="fast_bottom_sheet_title_bg"/>
+
+  <attr format="dimension" name="fast_bottom_sheet_list_item_padding_horizontal"/>
+  <attr format="dimension" name="fast_bottom_sheet_list_item_height"/>
+  <attr format="dimension" name="fast_bottom_sheet_list_item_mark_margin_left"/>
+  <attr format="dimension" name="fast_bottom_sheet_list_item_tip_point_margin_left"/>
+  <attr format="reference" name="fast_bottom_sheet_list_item_text_appearance"/>
+  <attr format="reference" name="fast_bottom_sheet_list_item_bg"/>
+  <attr format="dimension" name="fast_bottom_sheet_list_item_icon_size"/>
+  <attr format="dimension" name="fast_bottom_sheet_list_item_icon_margin_right"/>
+
+  <attr format="dimension" name="fast_bottom_sheet_grid_padding_vertical"/>
+  <attr format="dimension" name="fast_bottom_sheet_grid_line_padding_horizontal"/>
+  <attr format="dimension" name="fast_bottom_sheet_grid_line_vertical_space"/>
+
+  <attr format="dimension" name="fast_bottom_sheet_grid_item_mini_width"/>
+  <attr format="dimension" name="fast_bottom_sheet_grid_item_paddingTop"/>
+  <attr format="dimension" name="fast_bottom_sheet_grid_item_paddingBottom"/>
+  <attr format="dimension" name="fast_bottom_sheet_grid_item_icon_size"/>
+  <attr format="dimension" name="fast_bottom_sheet_grid_item_icon_marginTop"/>
+  <attr format="dimension" name="fast_bottom_sheet_grid_item_icon_marginBottom"/>
+  <attr format="reference" name="fast_bottom_sheet_grid_item_text_appearance"/>
+
+  <attr format="dimension" name="fast_bottom_sheet_button_height"/>
+  <attr format="dimension" name="fast_bottom_sheet_button_text_size"/>
+  <attr format="reference" name="fast_bottom_sheet_button_text_color"/>
+  <attr format="reference" name="fast_bottom_sheet_button_background"/>
+
+
+  <!--**********************************************
+  *             qmui list item bg                  *
+  **********************************************-->
+  <attr format="dimension" name="fast_list_item_height"/>
+  <attr format="dimension" name="fast_list_item_height_higher"/>
+
+
+  <!-- android 5.0以下不支持在drawable中用?attr，所以必须把所有的drawable放到theme中 -->
+  <attr format="reference" name="fast_list_item_bg_with_border_bottom"/>
+  <attr format="reference" name="fast_list_item_bg_with_border_bottom_pressed"/>
+  <attr format="reference" name="fast_list_item_bg_with_border_bottom_inset_left"/>
+  <attr format="reference" name="fast_list_item_bg_with_border_bottom_inset_left_pressed"/>
+  <attr format="reference" name="fast_list_item_bg_with_border_top"/>
+  <attr format="reference" name="fast_list_item_bg_with_border_top_pressed"/>
+  <attr format="reference" name="fast_list_item_bg_with_border_top_inset_left"/>
+  <attr format="reference" name="fast_list_item_bg_with_border_top_inset_left_pressed"/>
+  <attr format="reference" name="fast_list_item_bg_with_border_double"/>
+  <attr format="reference" name="fast_list_item_bg_with_border_double_pressed"/>
+
+  <attr format="reference" name="fast_s_list_item_bg_with_border_bottom"/>
+  <attr format="reference" name="fast_s_list_item_bg_with_border_bottom_inset"/>
+  <attr format="reference" name="fast_s_list_item_bg_with_border_bottom_inset_left"/>
+  <attr format="reference" name="fast_s_list_item_bg_with_border_top"/>
+  <attr format="reference" name="fast_s_list_item_bg_with_border_top_inset_left"/>
+  <attr format="reference" name="fast_s_list_item_bg_with_border_double"/>
+  <attr format="reference" name="fast_s_list_item_bg_with_border_none"/>
+
+  <!--**********************************************
+  *             qmui drawbale                      *
+  **********************************************-->
+  <attr format="reference" name="fast_icon_check_mark"/>
+  <attr format="reference" name="fast_s_checkbox"/>
+
+
+  <!--**********************************************
+  *                  qmui btn                      *
+  **********************************************-->
+  <attr format="dimension" name="fast_round_btn_text_size"/>
+  <attr format="dimension" name="fast_round_btn_border_width"/>
+  <!-- android 5.0一下不能再selector中用?attr,必须要整个drawable由使用者提供 -->
+  <attr format="color" name="fast_round_btn_bg_color"/>
+  <attr format="color" name="fast_round_btn_border_color"/>
+  <attr format="color" name="fast_round_btn_text_color"/>
+
+  <!--**********************************************
+  *                  qmui topbar                   *
+  ***********************************************-->
+  <attr format="dimension" name="fast_topbar_height"/>
+
+  <!--**********************************************
+  *               qmui loading view                *
+  ***********************************************-->
+  <attr format="dimension" name="fast_loading_size"/>
+  <attr format="color" name="fast_loading_color"/>
+
+  <!--**********************************************
+  *                  qmui popup                    *
+  ***********************************************-->
+  <attr format="reference" name="fast_popup_bg"/>
+  <attr format="reference" name="fast_popup_arrow_down"/>
+  <attr format="reference" name="fast_popup_arrow_up"/>
+  <attr format="dimension" name="fast_popup_arrow_up_margin_top"/> <!-- 一般与fast_popup_bg上阴影相等 -->
+  <attr format="dimension" name="fast_popup_arrow_down_margin_bottom"/> <!-- 一般与fast_popup_bg下阴影相等 -->
+
+  <!--**********************************************
+  *                  qmui tabSegment              *
+  ***********************************************-->
+  <attr format="reference" name="fast_tab_sign_count_view"/>
+  <attr format="dimension" name="fast_tab_sign_count_view_minSize"/>
+  <attr format="dimension" name="fast_tab_sign_count_view_minSize_with_text"/>
+  <attr format="reference" name="fast_tab_sign_count_view_bg"/>
+  <attr format="dimension" name="fast_tab_sign_count_view_padding_horizontal"/>
 </resources>

@@ -1,4 +1,4 @@
-package io.github.keep2iron.fast4android.core
+package io.github.keep2iron.fast4android.arch
 
 import android.content.Context
 import android.os.Bundle

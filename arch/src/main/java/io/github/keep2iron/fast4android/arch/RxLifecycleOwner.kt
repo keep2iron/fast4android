@@ -1,4 +1,4 @@
-package io.github.keep2iron.fast4android.core
+package io.github.keep2iron.fast4android.arch
 
 import io.github.keep2iron.fast4android.ext.ioAsyncScheduler
 import io.github.keep2iron.fast4android.rx.LifecycleEvent

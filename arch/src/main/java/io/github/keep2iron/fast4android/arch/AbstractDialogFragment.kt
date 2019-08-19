@@ -1,4 +1,4 @@
-package io.github.keep2iron.fast4android.core
+package io.github.keep2iron.fast4android.arch
 
 import android.app.Dialog
 import android.content.Context
@@ -13,7 +13,8 @@ import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import io.github.keep2iron.fast4android.R
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import io.github.keep2iron.fast4android.rx.LifecycleEvent
 import io.reactivex.subjects.BehaviorSubject
 
@@ -22,7 +23,7 @@ import io.reactivex.subjects.BehaviorSubject
  * @version 1.0
  * @since 2018/01/29 16:02
  */
-abstract class AbstractDialogFragment<DB : ViewDataBinding> : androidx.fragment.app.DialogFragment(), RxLifecycleOwner {
+abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), RxLifecycleOwner {
 
   override val publishSubject: BehaviorSubject<LifecycleEvent> = BehaviorSubject.create()
 
@@ -222,5 +223,19 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : androidx.fragment.
           || x > decorView.width + slop
           || y > decorView.height + slop)
     }
+  }
+
+  fun showAllowingStateLoss(manager: FragmentManager, tag: String) {
+    val mDismissed = this::class.java.getDeclaredField("mDismissed")
+    mDismissed.isAccessible = true
+    val mShownByMe = this::class.java.getDeclaredField("mShownByMe")
+    mShownByMe.isAccessible = true
+
+    mDismissed.setBoolean(this, false)
+    mShownByMe.setBoolean(this, true)
+
+    val ft = manager.beginTransaction()
+    ft.add(this, tag)
+    ft.commitAllowingStateLoss()
   }
 }

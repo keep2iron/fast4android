@@ -29,26 +29,3 @@ fun <T> registerComponentService(vararg providers: ComponentServiceProvider<T>) 
 fun <T> getComponentService(clazz: Class<T>): T {
   return COMPONENT_SERVICE[clazz] as T
 }
-
-fun layout(@LayoutRes layoutId: Int, parent: ViewGroup? = null): View {
-  return LayoutInflater.from(Fast4Android.CONTEXT).inflate(layoutId, parent)
-}
-
-fun dp2px(dp: Int): Int {
-  val density = Fast4Android.CONTEXT.resources.displayMetrics.density
-  return (dp * density).toInt()
-}
-
-fun px2dp(px: Int): Int {
-  val density = Fast4Android.CONTEXT.resources.displayMetrics.density
-  return (px / density).toInt()
-}
-
-fun sp(sp: Int): Float {
-  val scaledDensity = Fast4Android.CONTEXT.resources.displayMetrics.scaledDensity
-  return sp * scaledDensity
-}
-
-fun toast() {
-
-}

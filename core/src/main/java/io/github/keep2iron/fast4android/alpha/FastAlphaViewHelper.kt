@@ -17,7 +17,7 @@
 package io.github.keep2iron.fast4android.alpha
 
 import android.view.View
-import io.github.keep2iron.fast4android.comp.R
+import io.github.keep2iron.fast4android.arch.R
 import io.github.keep2iron.fast4android.util.getAttrFloatValue
 import java.lang.ref.WeakReference
 

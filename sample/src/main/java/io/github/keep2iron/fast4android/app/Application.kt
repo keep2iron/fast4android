@@ -1,4 +1,4 @@
-package io.github.keep2iron.fast4android
+package io.github.keep2iron.fast4android.app
 
 import androidx.multidex.MultiDexApplication
 //import io.github.keep2iron.fast4android.launch.ImageLoaderServiceProvider

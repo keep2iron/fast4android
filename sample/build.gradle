@@ -10,7 +10,7 @@ android {
     minSdkVersion 15
     targetSdkVersion versions.build.target_sdk
 
-    applicationId "io.github.keep2iron.fast4android"
+    applicationId "io.github.keep2iron.fast4android.app"
     versionCode 1
     versionName "1.0"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

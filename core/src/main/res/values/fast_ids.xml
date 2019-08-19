@@ -18,4 +18,18 @@
 
   <!--<item name="comp_position" type="id"/>-->
 
+  <!-- dialog -->
+  <item name="fast_dialog_edit_input" type="id"/>
+  <item name="fast_dialog_edit_right_icon" type="id"/>
+
+  <item name="fast_tab_segment_item_id" type="id"/>
+
+  <item name="fast_view_can_not_cache_tag" type="id"/>
+
+  <item name="fast_topbar_item_left_back" type="id"/>
+
+  <item name="fast_view_offset_helper" type="id"/>
+
+  <!--键盘空白区域-->
+  <item name="fast_window_inset_keyboard_area_consumer" type="id"/>
 </resources>

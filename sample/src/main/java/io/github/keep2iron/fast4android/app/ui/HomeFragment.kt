@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import io.github.keep2iron.fast4android.app.R
@@ -18,18 +19,24 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
   override fun resId(): Int = R.layout.fragment_main
 
   val items = listOf(
-    Description(R.id.)
+    Description("RoundButton", R.mipmap.icon_grid_button)
   )
 
   override fun initVariables(container: View, savedInstanceState: Bundle?) {
-
-    recyclerView.adapter = MainAdapter()
+    recyclerView.adapter = MainAdapter(items)
+    recyclerView.layoutManager = LinearLayoutManager(requireContext().applicationContext)
   }
 
-  class MainAdapter(val data: List<Description>) : RecyclerView.Adapter<ViewHolder>() {
+  class MainAdapter(private val data: List<Description>) : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-      return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.home_item_main, parent, false))
+      return MyViewHolder(
+        LayoutInflater.from(parent.context).inflate(
+          R.layout.home_item_main,
+          parent,
+          false
+        )
+      )
     }
 
     override fun getItemCount(): Int = data.size
@@ -40,7 +47,7 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
 
   }
 
-  class MyViewHolder(itemView:View): RecyclerView.ViewHolder(itemView)
+  class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
   class Description(
     val title: String,

@@ -38,7 +38,7 @@
   </style>
 
 
-  <style name="AppConfigTheme.Compat" parent="AppBaseTheme.Compat" >
+  <style name="FastAppConfigTheme.Compat" parent="FastAppBaseTheme.Compat" >
     <item name="colorPrimary">?attr/fast_config_color_blue</item>
     <item name="colorPrimaryDark">?attr/fast_config_color_blue</item>
     <item name="colorAccent">?attr/fast_config_color_blue</item>
@@ -49,8 +49,7 @@
     <item name="android:editTextColor">?attr/fast_config_color_black</item>
   </style>
 
-  <style name="Fast.Compat" parent="AppConfigTheme.Compat">
-    <item name="fast_content_spacing_horizontal">@dimen/fast_content_spacing_horizontal</item> <!-- 已废弃 -->
+  <style name="Fast.Compat" parent="FastAppConfigTheme.Compat">
     <item name="fast_content_spacing_horizontal">@dimen/fast_content_spacing_horizontal</item>
 
     <!--**********************************************

@@ -23,15 +23,9 @@ import android.content.Context
 import android.graphics.Rect
 import android.os.Build
 import android.util.Log
-import android.view.Display
-import android.view.DisplayCutout
 import android.view.Surface
 import android.view.View
-import android.view.Window
-import android.view.WindowInsets
 import android.view.WindowManager
-
-import java.lang.reflect.Method
 
 object FastNotchHelper {
 
@@ -312,7 +306,7 @@ object FastNotchHelper {
       rect.bottom = 0
     } else if (FastDeviceHelper.isOppo) {
       // TODO OPPO 设置-显示-应用全屏显示-凹形区域显示控制
-      rect.top = QMUIStatusBarHelper.getStatusbarHeight(context)
+      rect.top = FastStatusBarHelper.getStatusBarHeight(context)
       rect.bottom = 0
     } else if (FastDeviceHelper.isHuawei) {
       val notchSize = getNotchSizeInHuawei(context)
@@ -331,7 +325,7 @@ object FastNotchHelper {
       rect.left = getNotchHeightInVivo(context)
       rect.right = 0
     } else if (FastDeviceHelper.isOppo) {
-      rect.left = QMUIStatusBarHelper.getStatusbarHeight(context)
+      rect.left = FastStatusBarHelper.getStatusBarHeight(context)
       rect.right = 0
     } else if (FastDeviceHelper.isHuawei) {
       if (sHuaweiIsNotchSetToShow!!) {
@@ -354,7 +348,7 @@ object FastNotchHelper {
       rect.bottom = getNotchHeightInVivo(context)
     } else if (FastDeviceHelper.isOppo) {
       rect.top = 0
-      rect.bottom = QMUIStatusBarHelper.getStatusbarHeight(context)
+      rect.bottom = FastStatusBarHelper.getStatusBarHeight(context)
     } else if (FastDeviceHelper.isHuawei) {
       val notchSize = getNotchSizeInHuawei(context)
       rect.top = 0
@@ -372,7 +366,7 @@ object FastNotchHelper {
       rect.right = getNotchHeightInVivo(context)
       rect.left = 0
     } else if (FastDeviceHelper.isOppo) {
-      rect.right = QMUIStatusBarHelper.getStatusbarHeight(context)
+      rect.right = FastStatusBarHelper.getStatusBarHeight(context)
       rect.left = 0
     } else if (FastDeviceHelper.isHuawei) {
       if (sHuaweiIsNotchSetToShow!!) {
@@ -403,9 +397,8 @@ object FastNotchHelper {
       } catch (e: Exception) {
         Log.e(TAG, "getNotchSizeInHuawei Exception")
       }
-
     }
-    return sNotchSizeInHawei
+    return sNotchSizeInHawei!!
   }
 
   fun getNotchWidthInXiaomi(context: Context): Int {

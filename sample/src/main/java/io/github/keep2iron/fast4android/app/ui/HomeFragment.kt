@@ -8,7 +8,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import io.github.keep2iron.fast4android.app.R
-import io.github.keep2iron.fast4android.app.R.layout
 import io.github.keep2iron.fast4android.arch.AbstractFragment
 import io.github.keep2iron.fast4android.arch.FindViewById
 
@@ -16,7 +15,11 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
 
   private val recyclerView: RecyclerView by FindViewById(R.id.recyclerView)
 
-  override fun resId(): Int = layout.fragment_main
+  override fun resId(): Int = R.layout.fragment_main
+
+  val items = listOf(
+    Description(R.id.)
+  )
 
   override fun initVariables(container: View, savedInstanceState: Bundle?) {
 
@@ -26,7 +29,7 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
   class MainAdapter(val data: List<Description>) : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-      return LayoutInflater.from(parent.context).inflate(R.layout.home_item_main, parent, false)
+      return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.home_item_main, parent, false))
     }
 
     override fun getItemCount(): Int = data.size
@@ -36,6 +39,8 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
     }
 
   }
+
+  class MyViewHolder(itemView:View): RecyclerView.ViewHolder(itemView)
 
   class Description(
     val title: String,

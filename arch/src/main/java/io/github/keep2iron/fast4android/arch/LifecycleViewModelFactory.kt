@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import io.github.keep2iron.fast4android.Fast4Android
 
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)

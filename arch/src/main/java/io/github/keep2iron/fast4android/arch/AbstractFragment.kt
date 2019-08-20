@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import io.github.keep2iron.fast4android.rx.LifecycleEvent
+import io.github.keep2iron.fast4android.rx.RxLifecycleDispatcher
 import io.reactivex.subjects.BehaviorSubject
 
 /**
@@ -17,15 +19,18 @@ import io.reactivex.subjects.BehaviorSubject
  * @version 1.0
  * @since 2018/05/19 11:08
  */
-abstract class AbstractFragment<DB : ViewDataBinding> : androidx.fragment.app.Fragment(), RxLifecycleOwner {
+abstract class AbstractFragment<DB : ViewDataBinding> : Fragment(),
+  RxLifecycleOwner {
+
   private var isInit: Boolean = false
 
   private var isOnAttach: Boolean = false
 
   private var waitingForUser: Boolean = false
 
-  override val publishSubject: BehaviorSubject<LifecycleEvent> =
-    BehaviorSubject.create<LifecycleEvent>()
+  private val lifecycleDispatcher = RxLifecycleDispatcher(this)
+
+  override val publishSubject: BehaviorSubject<LifecycleEvent> = lifecycleDispatcher.publishSubject
 
   lateinit var dataBinding: DB
 
@@ -74,31 +79,6 @@ abstract class AbstractFragment<DB : ViewDataBinding> : androidx.fragment.app.Fr
     }
   }
 
-  override fun onStart() {
-    super.onStart()
-    publishSubject.onNext(LifecycleEvent.START)
-  }
-
-  override fun onResume() {
-    super.onResume()
-    publishSubject.onNext(LifecycleEvent.RESUME)
-  }
-
-  override fun onPause() {
-    super.onPause()
-    publishSubject.onNext(LifecycleEvent.PAUSE)
-  }
-
-  override fun onStop() {
-    super.onStop()
-    publishSubject.onNext(LifecycleEvent.STOP)
-  }
-
-  override fun onDestroy() {
-    publishSubject.onNext(LifecycleEvent.DESTROY)
-    super.onDestroy()
-  }
-
   /**
    * 延迟加载
    * 子类必须重写此方法
@@ -126,7 +106,7 @@ abstract class AbstractFragment<DB : ViewDataBinding> : androidx.fragment.app.Fr
     }
 
     if (isOnAttach && host != null) {
-      val fragments: List<androidx.fragment.app.Fragment>? = childFragmentManager.fragments
+      val fragments: List<Fragment>? = childFragmentManager.fragments
       fragments?.forEach {
         if (it is AbstractFragment<*>) {
           if (userVisibleHint) {
@@ -158,7 +138,7 @@ abstract class AbstractFragment<DB : ViewDataBinding> : androidx.fragment.app.Fr
     super.onHiddenChanged(hidden)
 
     if (isAdded) {
-      val fragments: List<androidx.fragment.app.Fragment>? = childFragmentManager.fragments
+      val fragments: List<Fragment>? = childFragmentManager.fragments
       fragments?.forEach {
         if (!it.isHidden && it.userVisibleHint) {
           it.onHiddenChanged(hidden)

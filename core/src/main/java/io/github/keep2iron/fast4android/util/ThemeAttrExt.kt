@@ -82,46 +82,36 @@ fun TextView.assignTextViewWithAttr(attrRes: Int) {
   var paddingBottom = 0
   for (i in 0 until count) {
     val attr = a.getIndex(i)
-    if (attr == R.styleable.FastTextCommonStyleDef_android_gravity) {
-      gravity = a.getInt(attr, -1)
-    } else if (attr == R.styleable.FastTextCommonStyleDef_android_textColor) {
-      setTextColor(a.getColorStateList(attr))
-    } else if (attr == R.styleable.FastTextCommonStyleDef_android_textSize) {
-      setTextSize(TypedValue.COMPLEX_UNIT_PX, a.getDimensionPixelSize(attr, 0).toFloat())
-    } else if (attr == R.styleable.FastTextCommonStyleDef_android_paddingLeft) {
-      paddingLeft = a.getDimensionPixelSize(attr, 0)
-    } else if (attr == R.styleable.FastTextCommonStyleDef_android_paddingRight) {
-      paddingRight = a.getDimensionPixelSize(attr, 0)
-    } else if (attr == R.styleable.FastTextCommonStyleDef_android_paddingTop) {
-      paddingTop = a.getDimensionPixelSize(attr, 0)
-    } else if (attr == R.styleable.FastTextCommonStyleDef_android_paddingBottom) {
-      paddingBottom = a.getDimensionPixelSize(attr, 0)
-    } else if (attr == R.styleable.FastTextCommonStyleDef_android_singleLine) {
-      setSingleLine(a.getBoolean(attr, false))
-    } else if (attr == R.styleable.FastTextCommonStyleDef_android_ellipsize) {
-      val ellipsize = a.getInt(attr, 3)
-      setEllipsize(
-        when (ellipsize) {
-          1 -> TextUtils.TruncateAt.START
-          2 -> TextUtils.TruncateAt.MIDDLE
-          3 -> TextUtils.TruncateAt.END
-          4 -> TextUtils.TruncateAt.MARQUEE
-          else -> throw IllegalArgumentException("not support ellipsize $ellipsize")
-        }
-      )
-    } else if (attr == R.styleable.FastTextCommonStyleDef_android_maxLines) {
-      maxLines = a.getInt(attr, -1)
-    } else if (attr == R.styleable.FastTextCommonStyleDef_android_background) {
-      setBackgroundKeepingPadding(a.getDrawable(attr))
-    } else if (attr == R.styleable.FastTextCommonStyleDef_android_lineSpacingExtra) {
-      setLineSpacing(a.getDimensionPixelSize(attr, 0).toFloat(), 1f)
-    } else if (attr == R.styleable.FastTextCommonStyleDef_android_drawablePadding) {
-      compoundDrawablePadding = a.getDimensionPixelSize(attr, 0)
-    } else if (attr == R.styleable.FastTextCommonStyleDef_android_textColorHint) {
-      setHintTextColor(a.getColor(attr, 0))
-    } else if (attr == R.styleable.FastTextCommonStyleDef_android_textStyle) {
-      val styleIndex = a.getInt(attr, -1)
-      setTypeface(null, styleIndex)
+    when (attr) {
+      R.styleable.FastTextCommonStyleDef_android_gravity -> gravity = a.getInt(attr, -1)
+      R.styleable.FastTextCommonStyleDef_android_textColor -> setTextColor(a.getColorStateList(attr))
+      R.styleable.FastTextCommonStyleDef_android_textSize -> setTextSize(TypedValue.COMPLEX_UNIT_PX, a.getDimensionPixelSize(attr, 0).toFloat())
+      R.styleable.FastTextCommonStyleDef_android_paddingLeft -> paddingLeft = a.getDimensionPixelSize(attr, 0)
+      R.styleable.FastTextCommonStyleDef_android_paddingRight -> paddingRight = a.getDimensionPixelSize(attr, 0)
+      R.styleable.FastTextCommonStyleDef_android_paddingTop -> paddingTop = a.getDimensionPixelSize(attr, 0)
+      R.styleable.FastTextCommonStyleDef_android_paddingBottom -> paddingBottom = a.getDimensionPixelSize(attr, 0)
+      R.styleable.FastTextCommonStyleDef_android_singleLine -> setSingleLine(a.getBoolean(attr, false))
+      R.styleable.FastTextCommonStyleDef_android_ellipsize -> {
+        val ellipsize = a.getInt(attr, 3)
+        setEllipsize(
+          when (ellipsize) {
+            1 -> TextUtils.TruncateAt.START
+            2 -> TextUtils.TruncateAt.MIDDLE
+            3 -> TextUtils.TruncateAt.END
+            4 -> TextUtils.TruncateAt.MARQUEE
+            else -> throw IllegalArgumentException("not support ellipsize $ellipsize")
+          }
+        )
+      }
+      R.styleable.FastTextCommonStyleDef_android_maxLines -> maxLines = a.getInt(attr, -1)
+      R.styleable.FastTextCommonStyleDef_android_background -> setBackgroundKeepingPadding(a.getDrawable(attr))
+      R.styleable.FastTextCommonStyleDef_android_lineSpacingExtra -> setLineSpacing(a.getDimensionPixelSize(attr, 0).toFloat(), 1f)
+      R.styleable.FastTextCommonStyleDef_android_drawablePadding -> compoundDrawablePadding = a.getDimensionPixelSize(attr, 0)
+      R.styleable.FastTextCommonStyleDef_android_textColorHint -> setHintTextColor(a.getColor(attr, 0))
+      R.styleable.FastTextCommonStyleDef_android_textStyle -> {
+        val styleIndex = a.getInt(attr, -1)
+        setTypeface(null, styleIndex)
+      }
     }
   }
   setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)

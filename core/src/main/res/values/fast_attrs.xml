@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+  <attr name="fast_backgroundColor" format="color"/>
+  <attr name="fast_borderColor" format="color"/>
+  <attr name="fast_borderWidth" format="dimension"/>
+  <attr name="fast_linkColor" format="color"/>
+  <attr name="fast_orientation" format="enum">
+    <enum name="horizontal" value="0"/>
+    <enum name="vertical" value="1"/>
+  </attr>
+  <attr name="fast_title" format="string"/>
+
   <declare-styleable name="FastAlphaTextView">
     <attr format="dimension" name="fast_drawableLeftWidth"/>
     <attr format="dimension" name="fast_drawableLeftHeight"/>
@@ -65,59 +75,348 @@
     <attr format="boolean" name="fast_outlineExcludePadding"/>
   </declare-styleable>
 
-  <!--<declare-styleable name="CompPageStateLayout">-->
-
-  <!--&lt;!&ndash;NoData Layout resource id&ndash;&gt;-->
-  <!--<attr format="reference" name="comp_psl_layout_noData"/>-->
-
-  <!--&lt;!&ndash;NoNetwork Layout resource id&ndash;&gt;-->
-  <!--<attr format="reference" name="comp_psl_layout_noNetwork"/>-->
-
-  <!--&lt;!&ndash;LoadError Layout resource id&ndash;&gt;-->
-  <!--<attr format="reference" name="comp_psl_layout_loadError"/>-->
-
-  <!--&lt;!&ndash;Loading Layout resource id&ndash;&gt;-->
-  <!--<attr format="reference" name="comp_psl_layout_loading"/>-->
+  <!--&lt;!&ndash;**************** FastTabSegment ******************&ndash;&gt;-->
+  <!--<declare-styleable name="FastTabSegment">-->
+    <!--<attr name="fast_tab_indicator_height" format="dimension"/>-->
+    <!--<attr name="fast_tab_has_indicator" format="boolean"/>-->
+    <!--<attr name="android:textSize"/>-->
+    <!--<attr name="fast_tab_indicator_top" format="boolean"/>-->
+    <!--<attr name="fast_tab_mode" format="enum">-->
+      <!--<enum name="scrollable" value="0"/>-->
+      <!--<enum name="fixed" value="1"/>-->
+    <!--</attr>-->
+    <!--<attr name="fast_tab_space" format="dimension"/>-->
+    <!--<attr name="fast_tab_icon_position" format="enum">-->
+      <!--<enum name="left" value="0"/>-->
+      <!--<enum name="top" value="1"/>-->
+      <!--<enum name="right" value="2"/>-->
+      <!--<enum name="bottom" value="3"/>-->
+    <!--</attr>-->
+    <!--<attr name="fast_tab_typeface_provider" format="string"/>-->
   <!--</declare-styleable>-->
+  <!--<attr name="FastTabSegmentStyle" format="reference"/>-->
 
-  <!--&lt;!&ndash;<attr name="SwipeBackLayoutStyle" format="reference" />&ndash;&gt;-->
+  <!--************** FastGroupListView **************-->
+  <declare-styleable name="FastGroupListView">
+    <attr name="fast_separatorStyle" format="enum">
+      <enum name="normal" value="0"/>
+      <enum name="none" value="1"/>
+    </attr>
+  </declare-styleable>
+  <attr name="FastGroupListViewStyle" format="reference"/>
+  <attr name="FastCommonListItemViewStyle" format="reference"/>
+  <attr name="fast_common_list_item_chevron" format="reference"/>
+  <attr name="fast_common_list_item_switch" format="reference"/>
+  <declare-styleable name="FastCommonListItemView">
+    <attr name="fast_orientation"/>
+    <attr name="fast_accessory_type" format="enum">
+      <enum name="none" value="0"/>
+      <enum name="chevron" value="1"/>
+      <enum name="switcher" value="2"/>
+      <enum name="custom" value="3"/>
+    </attr>
+    <attr name="fast_commonList_titleColor" format="color"/>
+    <attr name="fast_commonList_detailColor" format="color"/>
+  </declare-styleable>
+  <attr name="FastGroupListSectionViewStyle" format="reference"/>
 
-  <!--<declare-styleable name="CompBottomTabLayout">-->
-  <!--&lt;!&ndash;-->
-  <!--set tab item drawable width-->
-  <!--&ndash;&gt;-->
-  <!--<attr format="dimension" name="comp_tabItem_drawableWidth"/>-->
-  <!--&lt;!&ndash;-->
-  <!--set tab item drawable height-->
-  <!--&ndash;&gt;-->
-  <!--<attr format="dimension" name="comp_tabItem_drawableHeight"/>-->
-  <!--&lt;!&ndash;-->
-  <!--set tab item textSize-->
-  <!--&ndash;&gt;-->
-  <!--<attr format="dimension" name="comp_tabItem_textSize"/>-->
-  <!--&lt;!&ndash;-->
-  <!--set tab item drawablePadding-->
-  <!--&ndash;&gt;-->
-  <!--<attr format="dimension" name="comp_tabItem_drawablePadding"/>-->
-  <!--&lt;!&ndash;-->
-  <!--set tab item marginLeft and marginRight-->
-  <!--&ndash;&gt;-->
-  <!--<attr format="dimension" name="comp_tabItem_margin"/>-->
-  <!--&lt;!&ndash;-->
-  <!--set tab item background-->
-  <!--&ndash;&gt;-->
-  <!--<attr format="reference" name="comp_tabItem_background"/>-->
-  <!--&lt;!&ndash;-->
-  <!--set height with @io.github.keep2iron.android.widget.CompBottomTabLayout for better calculation text in layout position-->
-  <!--&ndash;&gt;-->
-  <!--<attr format="reference" name="comp_tabLayout_height"/>-->
-  <!--</declare-styleable>-->
 
-  <!--<declare-styleable name="CompLoopViewLayout">-->
-  <!--<attr format="reference" name="comp_loopLayout_indicatorDrawable_selected"/>-->
-  <!--<attr format="reference" name="comp_loopLayout_indicatorDrawable_unselected"/>-->
-  <!--<attr format="dimension" name="comp_loopLayout_indicatorDrawable_width"/>-->
-  <!--<attr format="dimension" name="comp_loopLayout_indicatorDrawable_height"/>-->
-  <!--<attr format="dimension" name="comp_loopLayout_indicatorDrawable_margin"/>-->
-  <!--</declare-styleable>-->
+  <!--************ 更新小红点与 new 的样式配置 ***********-->
+  <attr name="FastTipPointStyle" format="reference"/>
+  <attr name="FastTipNewStyle" format="reference"/>
+
+  <!--************ FastLoading ***********-->
+  <declare-styleable name="FastLoadingView">
+    <attr name="fast_loading_view_size" format="dimension"/>
+    <attr name="android:color"/>
+  </declare-styleable>
+  <attr name="FastLoadingStyle" format="reference"/>
+
+  <!--************ FastTopBar ***********-->
+  <declare-styleable name="FastTopBar">
+    <attr name="fast_topbar_title_gravity" format="enum">
+      <enum name="left_center" value="19"/>
+      <enum name="center" value="17"/>
+    </attr>
+    <attr name="fast_topbar_need_separator" format="boolean"/>
+    <attr name="fast_topbar_separator_color" format="color"/>
+    <attr name="fast_topbar_separator_height" format="dimension"/>
+    <attr name="fast_topbar_bg_color" format="color"/>
+    <attr name="fast_topbar_left_back_drawable_id" format="reference"/>
+    <attr name="fast_topbar_title_text_size" format="dimension"/>
+    <attr name="fast_topbar_title_text_size_with_subtitle" format="dimension"/>
+    <attr name="fast_topbar_subtitle_text_size" format="dimension"/>
+    <attr name="fast_topbar_title_color" format="color"/>
+    <attr name="fast_topbar_subtitle_color" format="color"/>
+    <attr name="fast_topbar_title_margin_horizontal_when_no_btn_aside" format="dimension"/>
+    <attr name="fast_topbar_title_container_padding_horizontal" format="dimension"/>
+    <attr name="fast_topbar_image_btn_width" format="dimension"/>
+    <attr name="fast_topbar_image_btn_height" format="dimension"/>
+    <attr name="fast_topbar_text_btn_padding_horizontal" format="dimension"/>
+    <attr name="fast_topbar_text_btn_color_state_list" format="reference"/>
+    <attr name="fast_topbar_text_btn_text_size" format="dimension"/>
+  </declare-styleable>
+  <attr name="FastTopBarStyle" format="reference"/>
+
+  <!--**************** FastPullRefreshLayout ******************-->
+  <declare-styleable name="FastPullRefreshLayout">
+    <!-- RefreshView的初始offset -->
+    <attr name="fast_refresh_init_offset" format="dimension"/>
+    <!-- 刷新时RefreshView的offset -->
+    <attr name="fast_refresh_end_offset" format="dimension"/>
+    <!-- TargetView(ListView或者ScrollView等)的初始位置 -->
+    <attr name="fast_target_init_offset" format="dimension"/>
+    <!-- 刷新时TargetView(ListView或者ScrollView等)的位置-->
+    <attr name="fast_target_refresh_offset" format="dimension"/>
+    <!-- 是否自动根据RefreshView的高度计算RefreshView的初始位置-->
+    <attr name="fast_auto_calculate_refresh_init_offset" format="boolean"/>
+    <!-- 是否自动根据TargetView在刷新时的位置计算RefreshView的结束位置-->
+    <attr name="fast_auto_calculate_refresh_end_offset" format="boolean"/>
+    <!-- TargetView的刷新位置与RefreshView高度相等-->
+    <attr name="fast_equal_target_refresh_offset_to_refresh_view_height" format="boolean"/>
+  </declare-styleable>
+  <attr name="FastPullRefreshLayoutStyle" format="reference"/>
+
+  <!--************** FastRadiusImageView ****************-->
+  <attr name="fast_border_width" format="dimension"/>
+  <attr name="fast_border_color" format="color"/>
+  <attr name="fast_selected_mask_color" format="color"/>
+  <attr name="fast_selected_border_color" format="color"/>
+  <attr name="fast_selected_border_width" format="dimension"/>
+  <attr name="fast_corner_radius" format="dimension"/>
+  <attr name="fast_is_oval" format="boolean"/>
+  <attr name="fast_is_circle" format="boolean"/>
+  <attr name="fast_is_touch_select_mode_enabled" format="boolean"/>
+  <declare-styleable name="FastRadiusImageView">
+    <attr name="fast_border_width"/>
+    <attr name="fast_border_color"/>
+    <attr name="fast_selected_mask_color"/>
+    <attr name="fast_selected_border_color"/>
+    <attr name="fast_selected_border_width"/>
+    <attr name="fast_corner_radius"/>
+    <attr name="fast_is_oval"/>
+    <attr name="fast_is_circle"/>
+    <attr name="fast_is_touch_select_mode_enabled"/>
+  </declare-styleable>
+  <declare-styleable name="FastRadiusImageView2">
+    <attr name="fast_border_width"/>
+    <attr name="fast_border_color"/>
+    <attr name="fast_selected_mask_color"/>
+    <attr name="fast_selected_border_color"/>
+    <attr name="fast_selected_border_width"/>
+    <attr name="fast_corner_radius"/>
+    <attr name="fast_is_circle"/>
+    <attr name="fast_is_touch_select_mode_enabled"/>
+  </declare-styleable>
+
+  <attr name="FastRadiusImageViewStyle" format="reference"/>
+
+  <!--************** FastQQFaceView ****************-->
+  <declare-styleable name="FastQQFaceView">
+    <attr name="android:textColor"/>
+    <attr name="android:textSize"/>
+    <attr name="android:singleLine"/>
+    <attr name="android:maxLines"/>
+    <attr name="android:lineSpacingExtra"/>
+    <attr name="android:ellipsize"/>
+    <attr name="android:maxWidth"/>
+    <attr name="android:text"/>
+    <attr name="fast_special_drawable_padding" format="dimension"/>
+    <attr name="fast_more_action_text" format="string"/>
+    <attr name="fast_more_action_color" format="color"/>
+  </declare-styleable>
+  <attr name="FastQQFaceStyle" format="reference"/>
+
+  <!-- FastFloatLayout start -->
+  <attr name="fast_childHorizontalSpacing" format="dimension"/>
+  <attr name="fast_childVerticalSpacing" format="dimension"/>
+  <attr name="fast_maxNumber" format="integer"/>
+  <declare-styleable name="FastFloatLayout">
+    <attr name="android:gravity"/>
+    <attr name="fast_childHorizontalSpacing"/>
+    <attr name="fast_childVerticalSpacing"/>
+    <attr name="android:maxLines"/>
+    <attr name="fast_maxNumber"/>
+  </declare-styleable>
+  <!-- FastFloatLayout end -->
+
+  <!-- EmptyView start -->
+  <declare-styleable name="FastEmptyView">
+    <attr name="fast_show_loading" format="boolean"/>
+    <attr name="fast_title_text" format="string"/>
+    <attr name="fast_detail_text" format="string"/>
+    <attr name="fast_btn_text" format="string"/>
+  </declare-styleable>
+  <!-- EmptyView end -->
+
+  <!-- FastProgressBar start -->
+  <declare-styleable name="FastProgressBar">
+    <attr name="fast_type" format="enum">
+      <enum name="type_rect" value="0"/>
+      <enum name="type_circle" value="1"/>
+    </attr>
+    <attr name="fast_progress_color" format="color"/>
+    <attr name="fast_background_color" format="color"/>
+    <attr name="fast_max_value" format="integer"/>
+    <attr name="fast_value" format="integer"/>
+    <attr name="fast_stroke_width" format="dimension"/>
+    <attr name="fast_stroke_round_cap" format="boolean"/>
+    <attr name="android:textSize"/>
+    <attr name="android:textColor"/>
+  </declare-styleable>
+  <!-- FastProgressBar end -->
+
+  <!-- FontFitTextView start -->
+  <attr name="fast_minTextSize" format="dimension"/>
+  <attr name="fast_maxTextSize" format="dimension"/>
+  <declare-styleable name="FastFontFitTextView">
+    <attr name="fast_minTextSize"/>
+    <attr name="fast_maxTextSize"/>
+  </declare-styleable>
+  <!-- FontFitTextView end -->
+
+  <declare-styleable name="FastLinkTextView">
+    <attr name="fast_linkBackgroundColor" format="color"/>
+    <attr name="fast_linkTextColor" format="color"/>
+  </declare-styleable>
+
+  <!-- RoundWidget start -->
+
+  <!-- 圆角是否要自适应为 View 高度的一半 -->
+  <attr name="fast_isRadiusAdjustBounds" format="boolean"/>
+  <!-- 同时指定四个方向的圆角大小 -->
+  <attr name="fast_radius" format="dimension"/>
+  <!-- 指定左上方圆角的大小 -->
+  <attr name="fast_radiusTopLeft" format="dimension"/>
+  <!-- 指定右上方圆角的大小 -->
+  <attr name="fast_radiusTopRight" format="dimension"/>
+  <!-- 指定左下方圆角的大小 -->
+  <attr name="fast_radiusBottomLeft" format="dimension"/>
+  <!-- 指定右下方圆角的大小 -->
+  <attr name="fast_radiusBottomRight" format="dimension"/>
+
+  <attr name="FastButtonStyle" format="reference"/>
+
+  <declare-styleable name="FastRoundButton">
+    <attr name="fast_backgroundColor"/>
+    <attr name="fast_borderColor"/>
+    <attr name="fast_borderWidth"/>
+    <attr name="fast_isRadiusAdjustBounds"/>
+    <attr name="fast_radius"/>
+    <attr name="fast_radiusTopLeft"/>
+    <attr name="fast_radiusTopRight"/>
+    <attr name="fast_radiusBottomLeft"/>
+    <attr name="fast_radiusBottomRight"/>
+  </declare-styleable>
+
+  <declare-styleable name="FastRoundFrameLayout">
+    <attr name="fast_backgroundColor"/>
+    <attr name="fast_borderColor"/>
+    <attr name="fast_borderWidth"/>
+    <attr name="fast_isRadiusAdjustBounds"/>
+    <attr name="fast_radius"/>
+    <attr name="fast_radiusTopLeft"/>
+    <attr name="fast_radiusTopRight"/>
+    <attr name="fast_radiusBottomLeft"/>
+    <attr name="fast_radiusBottomRight"/>
+  </declare-styleable>
+
+  <declare-styleable name="FastRoundLinearLayout">
+    <attr name="fast_backgroundColor"/>
+    <attr name="fast_borderColor"/>
+    <attr name="fast_borderWidth"/>
+    <attr name="fast_isRadiusAdjustBounds"/>
+    <attr name="fast_radius"/>
+    <attr name="fast_radiusTopLeft"/>
+    <attr name="fast_radiusTopRight"/>
+    <attr name="fast_radiusBottomLeft"/>
+    <attr name="fast_radiusBottomRight"/>
+  </declare-styleable>
+
+  <declare-styleable name="FastRoundRelativeLayout">
+    <attr name="fast_backgroundColor"/>
+    <attr name="fast_borderColor"/>
+    <attr name="fast_borderWidth"/>
+    <attr name="fast_isRadiusAdjustBounds"/>
+    <attr name="fast_radius"/>
+    <attr name="fast_radiusTopLeft"/>
+    <attr name="fast_radiusTopRight"/>
+    <attr name="fast_radiusBottomLeft"/>
+    <attr name="fast_radiusBottomRight"/>
+  </declare-styleable>
+
+  <!-- RoundWidget end -->
+
+  <!-- FastCollapsingTopBarLayout start -->
+  <declare-styleable name="FastCollapsingTopBarLayout">
+    <attr name="fast_expandedTitleMargin" format="dimension"/>
+    <attr name="fast_expandedTitleMarginStart" format="dimension"/>
+    <attr name="fast_expandedTitleMarginTop" format="dimension"/>
+    <attr name="fast_expandedTitleMarginEnd" format="dimension"/>
+    <attr name="fast_expandedTitleMarginBottom" format="dimension"/>
+    <attr name="fast_expandedTitleTextAppearance" format="reference"/>
+    <attr name="fast_collapsedTitleTextAppearance" format="reference"/>
+    <attr name="fast_contentScrim" format="color"/>
+    <attr name="fast_statusBarScrim" format="color"/>
+    <attr name="fast_topBarId" format="reference"/>
+    <attr name="fast_scrimVisibleHeightTrigger" format="dimension"/>
+    <attr name="fast_scrimAnimationDuration" format="integer"/>
+    <attr name="fast_collapsedTitleGravity">
+      <flag name="top" value="0x30"/>
+      <flag name="bottom" value="0x50"/>
+      <flag name="left" value="0x03"/>
+      <flag name="right" value="0x05"/>
+      <flag name="center_vertical" value="0x10"/>
+      <flag name="fill_vertical" value="0x70"/>
+      <flag name="center_horizontal" value="0x01"/>
+      <flag name="center" value="0x11"/>
+      <flag name="start" value="0x00800003"/>
+      <flag name="end" value="0x00800005"/>
+    </attr>
+    <attr name="fast_expandedTitleGravity">
+      <flag name="top" value="0x30"/>
+      <flag name="bottom" value="0x50"/>
+      <flag name="left" value="0x03"/>
+      <flag name="right" value="0x05"/>
+      <flag name="center_vertical" value="0x10"/>
+      <flag name="fill_vertical" value="0x70"/>
+      <flag name="center_horizontal" value="0x01"/>
+      <flag name="center" value="0x11"/>
+      <flag name="start" value="0x00800003"/>
+      <flag name="end" value="0x00800005"/>
+    </attr>
+    <attr name="fast_titleEnabled" format="boolean"/>
+    <attr name="fast_title"/>
+  </declare-styleable>
+  <declare-styleable name="FastCollapsingTopBarLayout_Layout">
+    <attr name="fast_layout_collapseMode">
+      <enum name="none" value="0"/>
+      <enum name="pin" value="1"/>
+      <enum name="parallax" value="2"/>
+    </attr>
+    <attr name="fast_layout_collapseParallaxMultiplier" format="float"/>
+  </declare-styleable>
+  <!-- FastCollapsingTopBarLayout end -->
+
+  <declare-styleable name="FastPriorityLinearLayout_Layout">
+    <attr name="fast_layout_priority" format="enum">
+      <enum name="disposable" value="1"/>
+      <enum name="mini_content_protection" value="2"/>
+      <enum name="incompressible" value="3"/>
+    </attr>
+    <attr name="fast_layout_miniContentProtectionSize" format="dimension"/>
+  </declare-styleable>
+
+  <declare-styleable name="FastTextAppearance">
+    <attr name="android:textSize"/>
+    <attr name="android:textColor"/>
+    <attr name="android:textColorHint"/>
+    <attr name="android:textStyle"/>
+    <attr name="android:typeface"/>
+    <attr name="android:textAllCaps"/>
+    <attr name="android:shadowColor"/>
+    <attr name="android:shadowDy"/>
+    <attr name="android:shadowDx"/>
+    <attr name="android:shadowRadius"/>
+  </declare-styleable>
 </resources>

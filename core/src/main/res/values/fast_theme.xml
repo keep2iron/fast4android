@@ -18,7 +18,7 @@ AppConfigTheme（可配置的 Theme，各个 API Level 自行配置各自的 sty
 |-values-v21
 |-values-...
 |
-QMUI（QMUI提供的theme控制， 供外界使用）
+Fast（Fast提供的theme控制， 供外界使用）
 
 So，
 如果要对某 API Level 配置继承自某个系统的 Theme，在 values-v* 目录下修改 fast_themes.xml 的 AppRootTheme。
@@ -29,14 +29,14 @@ So，
 
   <style name="FastBaseTheme" parent="FastRootTheme">
     <item name="android:listDivider">@drawable/fast_divider</item>
-    <item name="android:listViewStyle">@style/ListView</item>
-    <item name="android:gridViewStyle">@style/GridView</item>
-    <item name="android:imageButtonStyle">@style/ImageButton</item>
-    <item name="android:buttonStyle">@style/Button</item>
-    <item name="android:editTextStyle">@style/EditText</item>
-    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextView</item>
-    <item name="android:dropDownListViewStyle">@style/DropDownListView</item>
-    <item name="android:textViewStyle">@style/TextView</item>
+    <item name="android:listViewStyle">@style/FastListView</item>
+    <item name="android:gridViewStyle">@style/FastGridView</item>
+    <item name="android:imageButtonStyle">@style/FastImageButton</item>
+    <item name="android:buttonStyle">@style/FastButton</item>
+    <item name="android:editTextStyle">@style/FastEditText</item>
+    <item name="android:autoCompleteTextViewStyle">@style/FastAutoCompleteTextView</item>
+    <item name="android:dropDownListViewStyle">@style/FastDropDownListView</item>
+    <item name="android:textViewStyle">@style/FastTextView</item>
   </style>
 
   <style name="FastConfigTheme" parent="FastBaseTheme"/>
@@ -84,14 +84,14 @@ So，
     <item name="fast_dialog_margin_vertical">20dp</item>
     <item name="fast_dialog_padding_horizontal">24dp</item>
     <item name="fast_dialog_background_dim_amount">0.6</item>
-    <item name="fast_dialog_wrapper_style">@style/QMUI.Dialog.Wrapper</item>
-    <item name="fast_dialog_title_style">@style/QMUI.Dialog.Title</item>
-    <item name="fast_dialog_action_container_style">@style/QMUI.Dialog.ActionContainer</item>
-    <item name="fast_dialog_action_style">@style/QMUI.Dialog.Action</item>
-    <item name="fast_dialog_message_content_style">@style/QMUI.Dialog.MessageContent</item>
-    <item name="fast_dialog_edit_content_style">@style/QMUI.Dialog.EditContent</item>
-    <item name="fast_dialog_menu_container_style">@style/QMUI.Dialog.MenuContainer</item>
-    <item name="fast_dialog_menu_item_style">@style/QMUI.Dialog_MenuItem</item>
+    <item name="fast_dialog_wrapper_style">@style/Fast.Dialog.Wrapper</item>
+    <item name="fast_dialog_title_style">@style/Fast.Dialog.Title</item>
+    <item name="fast_dialog_action_container_style">@style/Fast.Dialog.ActionContainer</item>
+    <item name="fast_dialog_action_style">@style/Fast.Dialog.Action</item>
+    <item name="fast_dialog_message_content_style">@style/Fast.Dialog.MessageContent</item>
+    <item name="fast_dialog_edit_content_style">@style/Fast.Dialog.EditContent</item>
+    <item name="fast_dialog_menu_container_style">@style/Fast.Dialog.MenuContainer</item>
+    <item name="fast_dialog_menu_item_style">@style/Fast.Dialog_MenuItem</item>
 
     <!-- tip -->
     <item name="fast_tip_dialog_bg">@drawable/fast_tip_dialog_bg</item>
@@ -99,7 +99,7 @@ So，
     <item name="fast_tip_dialog_min_height">56dp</item>
     <item name="fast_tip_dialog_margin_horizontal">?attr/fast_content_spacing_horizontal</item>
     <item name="fast_tip_dialog_padding_vertical">12dp</item>
-    <item name="fast_tip_dialog_padding_horizontal">?attr/fast_content_padding_horizontal</item>
+    <item name="fast_tip_dialog_padding_horizontal">?attr/fast_content_spacing_horizontal</item>
 
 
     <!--**********************************************
@@ -197,16 +197,16 @@ So，
     *                 qmui bottom sheet              *
     ***********************************************-->
     <item name="fast_bottom_sheet_title_height">56dp</item>
-    <item name="fast_bottom_sheet_title_appearance">@style/QMUITextAppearance.Title.Gray</item>
+    <item name="fast_bottom_sheet_title_appearance">@style/FastTextAppearance.Title.Gray</item>
     <item name="fast_bottom_sheet_title_bg">?attr/fast_list_item_bg_with_border_bottom</item>
 
     <item name="fast_bottom_sheet_list_item_padding_horizontal">
-      ?attr/fast_content_padding_horizontal
+      ?attr/fast_content_spacing_horizontal
     </item>
     <item name="fast_bottom_sheet_list_item_height">56dp</item>
     <item name="fast_bottom_sheet_list_item_mark_margin_left">12dp</item>
     <item name="fast_bottom_sheet_list_item_tip_point_margin_left">4dp</item>
-    <item name="fast_bottom_sheet_list_item_text_appearance">@style/QMUITextAppearance.ListItem
+    <item name="fast_bottom_sheet_list_item_text_appearance">@style/FastTextAppearance.ListItem
     </item>
     <item name="fast_bottom_sheet_list_item_bg">?attr/fast_s_list_item_bg_with_border_bottom</item>
     <item name="fast_bottom_sheet_list_item_icon_size">22dp</item>
@@ -222,7 +222,7 @@ So，
     <item name="fast_bottom_sheet_grid_item_icon_marginTop">12dp</item>
     <item name="fast_bottom_sheet_grid_item_icon_marginBottom">9dp</item>
     <item name="fast_bottom_sheet_grid_item_text_appearance">
-      @style/QMUITextAppearance.GridItem.Small
+      @style/FastTextAppearance.GridItem.Small
     </item>
 
     <item name="fast_bottom_sheet_button_height">56dp</item>
@@ -265,46 +265,45 @@ So，
     <!--**********************************************
     *               qmui 提供的控件样式                *
     ***********************************************-->
-    <item name="QMUIButtonStyle">@style/QMUI.RoundButton</item>
-    <item name="QMUITabSegmentStyle">@style/QMUI.TabSegment</item>
-    <item name="QMUIGroupListViewStyle">@style/QMUI.GroupListView</item>
-    <item name="QMUICommonListItemViewStyle">@style/QMUI.CommonListItemView</item>
-    <item name="QMUIGroupListSectionViewStyle">@style/QMUI.GroupListSectionView</item>
-    <item name="QMUITopBarStyle">@style/QMUI.TopBar</item>
+    <item name="FastButtonStyle">@style/Fast.RoundButton</item>
+    <item name="FastGroupListViewStyle">@style/Fast.GroupListView</item>
+    <item name="FastCommonListItemViewStyle">@style/Fast.CommonListItemView</item>
+    <item name="FastGroupListSectionViewStyle">@style/Fast.GroupListSectionView</item>
+    <item name="FastTopBarStyle">@style/Fast.TopBar</item>
 
-    <item name="QMUITipPointStyle">@style/QMUI.TipPoint</item>
-    <item name="QMUITipNewStyle">@style/QMUI.TipNew</item>
+    <item name="FastTipPointStyle">@style/Fast.TipPoint</item>
+    <item name="FastTipNewStyle">@style/Fast.TipNew</item>
 
-    <item name="QMUILoadingStyle">@style/QMUI.Loading</item>
-    <item name="QMUIPullRefreshLayoutStyle">@style/QMUI.PullRefreshLayout</item>
-    <item name="QMUIRadiusImageViewStyle">@style/QMUI.RadiusImageView</item>
-    <item name="QMUIQQFaceStyle">@style/QMUI.QQFaceView</item>
+    <item name="FastLoadingStyle">@style/Fast.Loading</item>
+    <item name="FastPullRefreshLayoutStyle">@style/Fast.PullRefreshLayout</item>
+    <item name="FastRadiusImageViewStyle">@style/Fast.RadiusImageView</item>
+    <item name="FastQQFaceStyle">@style/Fast.QQFaceView</item>
   </style>
 
-  <style name="QMUI.NoActionBar">
+  <style name="Fast.NoActionBar">
     <item name="android:windowActionBar">false</item>
     <item name="android:windowNoTitle">true</item>
   </style>
 
-  <style name="ActionBarBase" parent="android:Widget.Holo.Light.ActionBar"/>
+  <style name="FastActionBarBase" parent="android:Widget.Holo.Light.ActionBar"/>
 
-  <style name="ActionBarTitleTextBase" parent="android:TextAppearance.Holo.Widget.ActionBar.Title"/>
+  <style name="FastActionBarTitleTextBase" parent="android:TextAppearance.Holo.Widget.ActionBar.Title"/>
 
-  <style name="ListViewBase" parent="android:Widget.Holo.Light.ListView"/>
+  <style name="FastListViewBase" parent="android:Widget.Holo.Light.ListView"/>
 
-  <style name="GridViewBase" parent="android:Widget.Holo.Light.GridView"/>
+  <style name="FastGridViewBase" parent="android:Widget.Holo.Light.GridView"/>
 
-  <style name="ImageButtonBase" parent="android:Widget.Holo.Light.ImageButton"/>
+  <style name="FastImageButtonBase" parent="android:Widget.Holo.Light.ImageButton"/>
 
-  <style name="ButtonBase" parent="android:Widget.Holo.Light.Button"/>
+  <style name="FastButtonBase" parent="android:Widget.Holo.Light.Button"/>
 
-  <style name="EditTextBase" parent="android:Widget.Holo.Light.EditText"/>
+  <style name="FastEditTextBase" parent="android:Widget.Holo.Light.EditText"/>
 
-  <style name="AutoCompleteTextViewBase" parent="android:Widget.Holo.Light.AutoCompleteTextView"/>
+  <style name="FastAutoCompleteTextViewBase" parent="android:Widget.Holo.Light.AutoCompleteTextView"/>
 
-  <style name="DropDownListViewBase" parent="android:Widget.Holo.Light.ListView.DropDown"/>
+  <style name="FastDropDownListViewBase" parent="android:Widget.Holo.Light.ListView.DropDown"/>
 
-  <style name="TextAppearanceBase" parent="android:TextAppearance.Holo"/>
+  <style name="FastTextAppearanceBase" parent="android:TextAppearance.Holo"/>
 
   <!--<style name="Animation" parent="Animation">-->
   <!--<item name="android:fragmentOpenEnterAnimation">@animator/fragment_open_enter</item>-->
@@ -315,7 +314,7 @@ So，
 
 
   <!-- ListView Start -->
-  <style name="ListView" parent="ListViewBase">
+  <style name="FastListView" parent="FastListViewBase">
     <item name="android:background">@color/fast_config_color_transparent</item>
     <item name="android:listSelector">@color/fast_config_color_transparent</item>
     <item name="android:divider">@drawable/fast_divider_bottom_bitmap</item>
@@ -324,32 +323,32 @@ So，
   <!-- ListView End -->
 
   <!-- GridView -->
-  <style name="GridView" parent="GridViewBase">
+  <style name="FastGridView" parent="FastGridViewBase">
     <item name="android:background">@color/fast_config_color_transparent</item>
     <item name="android:listSelector">@color/fast_config_color_transparent</item>
   </style>
 
-  <style name="ImageButton" parent="ImageButtonBase">
+  <style name="FastImageButton" parent="FastImageButtonBase">
     <item name="android:background">@color/fast_config_color_transparent</item>
   </style>
 
-  <style name="Button" parent="ButtonBase"/>
+  <style name="FastButton" parent="FastButtonBase"/>
 
-  <style name="EditText" parent="EditTextBase">
+  <style name="FastEditText" parent="FastEditTextBase">
     <item name="android:textColor">?attr/fast_config_color_gray_1</item>
     <item name="android:textColorHint">?attr/fast_config_color_gray_4</item>
     <!-- 光标颜色与textColor一致，若要自定义，应该用ShapeDrawable，不能简单指定一个color -->
     <item name="android:textCursorDrawable">@null</item>
   </style>
 
-  <style name="TextView" parent="android:Widget.TextView">
-    <item name="android:textAppearance">@style/QMUITextAppearance</item>
+  <style name="FastTextView" parent="android:Widget.TextView">
+    <item name="android:textAppearance">@style/FastTextAppearance</item>
     <!-- textColorHighlight 放在appearance中无效，好像TextView总是默认存在一个textColorHighlight
          会覆盖掉它，并不知道原因 -->
     <item name="android:textColorHighlight">?attr/fast_config_color_background_pressed</item>
   </style>
 
-  <style name="AutoCompleteTextView" parent="AutoCompleteTextViewBase">
+  <style name="FastAutoCompleteTextView" parent="FastAutoCompleteTextViewBase">
     <item name="android:textColor">?attr/fast_config_color_gray_1</item>
     <item name="android:textColorHint">?attr/fast_config_color_gray_4</item>
     <!-- 光标颜色与textColor一致，若要自定义，应该用ShapeDrawable，不能简单指定一个color -->
@@ -357,7 +356,7 @@ So，
   </style>
 
   <!-- 下拉列表，例如AutoCompleteTextView的补全列表 -->
-  <style name="DropDownListView" parent="DropDownListViewBase">
+  <style name="FastDropDownListView" parent="FastDropDownListViewBase">
     <item name="android:divider">@drawable/fast_divider_bottom_bitmap</item>
     <item name="android:dividerHeight">@dimen/fast_list_divider_height</item>
     <item name="android:background">@color/fast_config_color_white</item>

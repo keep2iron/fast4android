@@ -16,6 +16,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import io.github.keep2iron.fast4android.rx.LifecycleEvent
+import io.github.keep2iron.fast4android.rx.RxLifecycleDispatcher
 import io.reactivex.subjects.BehaviorSubject
 
 /**
@@ -25,13 +26,17 @@ import io.reactivex.subjects.BehaviorSubject
  */
 abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), RxLifecycleOwner {
 
-  override val publishSubject: BehaviorSubject<LifecycleEvent> = BehaviorSubject.create()
+  protected lateinit var contentView: View
 
-  lateinit var contentView: View
+  protected lateinit var dataBinding: DB
 
-  lateinit var dataBinding: DB
+  protected lateinit var contextHolder: Context
 
-  lateinit var contextHolder: Context
+  private var hasWindowLayout = false
+
+  private val lifecycleDispatcher = RxLifecycleDispatcher(this)
+
+  override val publishSubject: BehaviorSubject<LifecycleEvent> = lifecycleDispatcher.publishSubject
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -160,34 +165,20 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), 
 
   override fun onStart() {
     super.onStart()
-    publishSubject.onNext(LifecycleEvent.START)
   }
 
   override fun onResume() {
     super.onResume()
-    publishSubject.onNext(LifecycleEvent.RESUME)
 
-    val dialog = dialog
-    val pair = setWidthAndHeight()
-    if (pair.size != 2) {
-      throw IllegalArgumentException("setWidthAndHeight() must return 2 integer value => [width,height]")
+    if (!hasWindowLayout) {
+      val dialog = dialog
+      val pair = setWidthAndHeight()
+      if (pair.size != 2) {
+        throw IllegalArgumentException("setWidthAndHeight() must return 2 integer value => [width,height]")
+      }
+      dialog.window?.setLayout(pair[0], pair[1])
+      hasWindowLayout = true
     }
-    dialog.window!!.setLayout(pair[0], pair[1])
-  }
-
-  override fun onPause() {
-    super.onPause()
-    publishSubject.onNext(LifecycleEvent.PAUSE)
-  }
-
-  override fun onStop() {
-    super.onStop()
-    publishSubject.onNext(LifecycleEvent.STOP)
-  }
-
-  override fun onDestroy() {
-    publishSubject.onNext(LifecycleEvent.DESTROY)
-    super.onDestroy()
   }
 
   open fun onTouchOutside() {

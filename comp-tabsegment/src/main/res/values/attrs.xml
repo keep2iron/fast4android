@@ -3,6 +3,7 @@
   <!--**************** QMUITabSegment ******************-->
   <declare-styleable name="FastTabSegmentLayout">
     <attr format="dimension" name="fast_tab_indicator_height"/>
+    <attr format="boolean" name="fast_tab_has_indicator"/>
     <attr name="android:textSize"/>
     <attr format="boolean" name="fast_tab_indicator_top"/>
     <attr format="enum" name="fast_tab_mode">
@@ -10,7 +11,7 @@
       <enum name="fixed" value="1"/>
     </attr>
     <attr format="dimension" name="fast_tab_space"/>
-    <attr format="enum" name="fast_tab_icon_direction">
+    <attr format="enum" name="fast_tab_icon_position">
       <enum name="left" value="0"/>
       <enum name="top" value="1"/>
       <enum name="right" value="2"/>
@@ -19,4 +20,7 @@
     <attr format="string" name="fast_tab_typeface_provider"/>
   </declare-styleable>
   <attr format="reference" name="FastTabSegmentLayoutStyle"/>
+
+  <!--<item name="FastTabSegmentStyle">@style/Fast.TabSegment</item>-->
+
 </resources>

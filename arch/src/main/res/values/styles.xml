@@ -18,4 +18,11 @@
     <!--显示区域以外是否使用黑色半透明背景-->
     <item name="android:backgroundDimEnabled">true</item>
   </style>
+
+  <style name="SwipeBackLayout">
+    <item name="shadow_left">@drawable/shadow_left</item>
+    <item name="shadow_right">@drawable/shadow_right</item>
+    <item name="shadow_bottom">@drawable/shadow_bottom</item>
+  </style>
+
 </resources>

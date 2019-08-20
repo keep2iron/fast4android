@@ -72,8 +72,7 @@ object FastDisplayHelper {
   private const val VIVO_NAVIGATION_GESTURE = "navigation_gesture_on"
   private const val HUAWAI_DISPLAY_NOTCH_STATUS = "display_notch_status"
   private const val XIAOMI_DISPLAY_NOTCH_STATUS = "force_black"
-  private const val XIAOMI_FULLSCREEN_GESTURE: String
-    get() = "force_fsg_nav_bar"
+  private const val XIAOMI_FULLSCREEN_GESTURE: String = "force_fsg_nav_bar"
 
   //    private static int[] sPortraitRealSizeCache = null;
   //    private static int[] sLandscapeRealSizeCache = null;
@@ -238,7 +237,7 @@ object FastDisplayHelper {
       ) {
         // https://arstechnica.com/gadgets/2017/09/essential-phone-review-impressive-for-a-new-company-but-not-competitive/
         // 这里说挖孔屏是状态栏高度的两倍， 但横屏好像小了一点点
-        result -= 2 * QMUIStatusBarHelper.getStatusbarHeight(context)
+        result -= 2 * FastStatusBarHelper.getStatusBarHeight(context)
       }
       return result
     }
@@ -279,7 +278,7 @@ object FastDisplayHelper {
       ) {
         // https://arstechnica.com/gadgets/2017/09/essential-phone-review-impressive-for-a-new-company-but-not-competitive/
         // 这里说挖孔屏是状态栏高度的两倍
-        result -= 2 * QMUIStatusBarHelper.getStatusbarHeight(context)
+        result -= 2 * FastStatusBarHelper.getStatusBarHeight(context)
       }
       return result
     }

@@ -45,7 +45,7 @@ So，
     <item name="fast_content_spacing_horizontal">@dimen/fast_content_spacing_horizontal</item>
 
     <!--**********************************************
-    *                qmui common color               *
+    *                fast common color               *
     **********************************************-->
     <item name="fast_config_color_blue">@color/fast_config_color_blue</item>
     <item name="fast_config_color_red">@color/fast_config_color_red</item>
@@ -75,7 +75,7 @@ So，
     <item name="fast_general_shadow_alpha">0.25</item>
 
     <!--**********************************************
-    *                qmui dialog                     *
+    *                fast dialog                     *
     **********************************************-->
     <item name="fast_dialog_min_width">260dp</item>
     <item name="fast_dialog_max_width">304dp</item>
@@ -103,7 +103,7 @@ So，
 
 
     <!--**********************************************
-    *              qmui common list                  *
+    *              fast common list                  *
     **********************************************-->
 
     <item name="fast_common_list_item_icon_margin_right">12dp</item>
@@ -116,7 +116,7 @@ So，
     <item name="fast_common_list_item_detail_line_space">5dp</item>
 
     <!--**********************************************
-    *             qmui list item bg                  *
+    *             fast list item bg                  *
     **********************************************-->
     <item name="fast_list_item_height">@dimen/fast_list_item_height</item>
     <item name="fast_list_item_height_higher">@dimen/fast_list_item_height_higher</item>
@@ -173,13 +173,13 @@ So，
     </item>
 
     <!--**********************************************
-    *             qmui drawable                      *
+    *             fast drawable                      *
     ***********************************************-->
     <item name="fast_s_checkbox">@drawable/fast_s_checkbox</item>
     <item name="fast_icon_check_mark">@drawable/fast_icon_checkmark</item>
 
     <!--**********************************************
-    *                   qmui btn                     *
+    *                   fast btn                     *
     ***********************************************-->
     <item name="fast_round_btn_text_size">@dimen/fast_btn_text_size</item>
     <item name="fast_round_btn_border_width">@dimen/fast_btn_border_width</item>
@@ -189,12 +189,12 @@ So，
 
 
     <!--**********************************************
-    *                  qmui topbar                   *
+    *                  fast topbar                   *
     ***********************************************-->
     <item name="fast_topbar_height">56dp</item>
 
     <!--**********************************************
-    *                 qmui bottom sheet              *
+    *                 fast bottom sheet              *
     ***********************************************-->
     <item name="fast_bottom_sheet_title_height">56dp</item>
     <item name="fast_bottom_sheet_title_appearance">@style/FastTextAppearance.Title.Gray</item>
@@ -231,19 +231,19 @@ So，
     <item name="fast_bottom_sheet_button_background">@drawable/fast_divider_top_bitmap</item>
 
     <!--**********************************************
-    *                 qmui common list item          *
+    *                 fast common list item          *
     ***********************************************-->
     <item name="fast_common_list_item_chevron">@drawable/fast_icon_chevron</item>
     <item name="fast_common_list_item_switch">@drawable/fast_s_icon_switch</item>
 
     <!--**********************************************
-    *               qmui loading view                *
+    *               fast loading view                *
     ***********************************************-->
     <item name="fast_loading_size">20dp</item>
     <item name="fast_loading_color">@color/fast_config_color_gray_5</item>
 
     <!--**********************************************
-    *                   qmui popup                   *
+    *                   fast popup                   *
     ***********************************************-->
     <item name="fast_popup_bg">@drawable/fast_popup_bg</item>
     <item name="fast_popup_arrow_down">@drawable/fast_popup_arrow_down</item>
@@ -252,7 +252,7 @@ So，
     <item name="fast_popup_arrow_down_margin_bottom">13dp</item>
 
     <!--**********************************************
-    *                  qmui tabSegment               *
+    *                  fast tabSegment               *
     ***********************************************-->
     <item name="fast_tab_sign_count_view">@style/fast_tab_sign_count_view</item>
     <item name="fast_tab_sign_count_view_minSize">@dimen/fast_tab_sign_count_view_minSize</item>
@@ -263,7 +263,7 @@ So，
     <item name="fast_tab_sign_count_view_padding_horizontal">4dp</item>
 
     <!--**********************************************
-    *               qmui 提供的控件样式                *
+    *               fast 提供的控件样式                *
     ***********************************************-->
     <item name="FastButtonStyle">@style/Fast.RoundButton</item>
     <item name="FastGroupListViewStyle">@style/Fast.GroupListView</item>

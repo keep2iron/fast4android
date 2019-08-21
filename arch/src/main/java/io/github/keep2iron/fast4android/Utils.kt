@@ -24,6 +24,7 @@ import android.os.Build
 import android.os.Looper
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import io.github.keep2iron.fast4android.core.FastLogger
 import java.lang.reflect.Field
 
 /**

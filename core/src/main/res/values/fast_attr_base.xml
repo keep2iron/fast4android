@@ -3,7 +3,7 @@
   <attr format="dimension" name="fast_content_spacing_horizontal"/> <!-- margin 和 padding 等使用的内容通用水平间距 -->
 
   <!--**********************************************
-  *                qmui common color               *
+  *                fast common color               *
   **********************************************-->
   <attr format="color" name="fast_config_color_blue"/>
   <attr format="color" name="fast_config_color_red"/>
@@ -34,7 +34,7 @@
   <attr format="float" name="fast_general_shadow_alpha"/>
 
   <!--**********************************************
-  *                qmui dialog                     *
+  *                fast dialog                     *
   **********************************************-->
   <attr format="dimension" name="fast_dialog_min_width"/>
   <attr format="dimension" name="fast_dialog_max_width"/>
@@ -61,7 +61,7 @@
   <attr format="dimension" name="fast_tip_dialog_margin_horizontal"/>
 
   <!--**********************************************
-  *              qmui common list                  *
+  *              fast common list                  *
   **********************************************-->
 
   <attr format="dimension" name="fast_common_list_item_icon_margin_right"/>
@@ -75,7 +75,7 @@
 
 
   <!--**********************************************
-  *              qmui bottom sheet                 *
+  *              fast bottom sheet                 *
   **********************************************-->
   <attr format="dimension" name="fast_bottom_sheet_title_height"/>
   <attr format="reference" name="fast_bottom_sheet_title_appearance"/>
@@ -109,7 +109,7 @@
 
 
   <!--**********************************************
-  *             qmui list item bg                  *
+  *             fast list item bg                  *
   **********************************************-->
   <attr format="dimension" name="fast_list_item_height"/>
   <attr format="dimension" name="fast_list_item_height_higher"/>
@@ -136,14 +136,14 @@
   <attr format="reference" name="fast_s_list_item_bg_with_border_none"/>
 
   <!--**********************************************
-  *             qmui drawbale                      *
+  *             fast drawbale                      *
   **********************************************-->
   <attr format="reference" name="fast_icon_check_mark"/>
   <attr format="reference" name="fast_s_checkbox"/>
 
 
   <!--**********************************************
-  *                  qmui btn                      *
+  *                  fast btn                      *
   **********************************************-->
   <attr format="dimension" name="fast_round_btn_text_size"/>
   <attr format="dimension" name="fast_round_btn_border_width"/>
@@ -153,18 +153,18 @@
   <attr format="color" name="fast_round_btn_text_color"/>
 
   <!--**********************************************
-  *                  qmui topbar                   *
+  *                  fast topbar                   *
   ***********************************************-->
   <attr format="dimension" name="fast_topbar_height"/>
 
   <!--**********************************************
-  *               qmui loading view                *
+  *               fast loading view                *
   ***********************************************-->
   <attr format="dimension" name="fast_loading_size"/>
   <attr format="color" name="fast_loading_color"/>
 
   <!--**********************************************
-  *                  qmui popup                    *
+  *                  fast popup                    *
   ***********************************************-->
   <attr format="reference" name="fast_popup_bg"/>
   <attr format="reference" name="fast_popup_arrow_down"/>
@@ -173,7 +173,7 @@
   <attr format="dimension" name="fast_popup_arrow_down_margin_bottom"/> <!-- 一般与fast_popup_bg下阴影相等 -->
 
   <!--**********************************************
-  *                  qmui tabSegment              *
+  *                  fast tabSegment              *
   ***********************************************-->
   <attr format="reference" name="fast_tab_sign_count_view"/>
   <attr format="dimension" name="fast_tab_sign_count_view_minSize"/>

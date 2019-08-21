@@ -1,12 +1,8 @@
 package io.github.keep2iron.fast4android.ext
 
 import android.app.Application
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import io.github.keep2iron.fast4android.ComponentServiceProvider
-import io.github.keep2iron.fast4android.Fast4Android
+import io.github.keep2iron.fast4android.core.Fast4Android
 
 /**
  * 用于扩展 Application 的扩展方法类

@@ -29,7 +29,7 @@ import static androidx.customview.widget.ViewDragHelper.EDGE_RIGHT;
 import static androidx.customview.widget.ViewDragHelper.EDGE_TOP;
 
 /**
- * The type Parallax back layout.
+ * The type Parallax back layoutInflate.
  */
 public class ParallaxBackLayout extends FrameLayout {
 
@@ -124,7 +124,7 @@ public class ParallaxBackLayout extends FrameLayout {
     //region super method
 
     /**
-     * Instantiates a new Parallax back layout.
+     * Instantiates a new Parallax back layoutInflate.
      *
      * @param context the context
      */
@@ -462,9 +462,9 @@ public class ParallaxBackLayout extends FrameLayout {
     }
 
     /**
-     * Sets layout type.
+     * Sets layoutInflate type.
      *
-     * @param layoutType the layout type
+     * @param layoutType the layoutInflate type
      */
     public void setLayoutType(@LayoutType int layoutType, ITransform transform) {
         mLayoutType = layoutType;

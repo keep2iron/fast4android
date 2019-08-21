@@ -5,10 +5,10 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.HorizontalScrollView
-import io.github.keep2iron.fast4android.util.getAttrColor
+import io.github.keep2iron.fast4android.core.util.getAttrColor
 
 /**
- * use this can quick set a bottom tab layout.
+ * use this can quick set a bottom tab layoutInflate.
  * for exp:
  * 1.create a list with BottomTabAdapter.
  *

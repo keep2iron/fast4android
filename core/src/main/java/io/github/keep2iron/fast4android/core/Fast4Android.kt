@@ -10,7 +10,7 @@ object Fast4Android {
   lateinit var CONTEXT: Context
 
   fun logger(logger: FastLogDelegate) {
-    FastLogger.setDelegete(logger)
+    FastLogger.setDelegate(logger)
   }
 
   fun init(applicationContext: Context) {

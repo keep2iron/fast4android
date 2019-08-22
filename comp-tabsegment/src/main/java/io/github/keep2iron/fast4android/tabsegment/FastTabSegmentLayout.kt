@@ -1,6 +1,7 @@
 package io.github.keep2iron.fast4android.tabsegment
 
 import android.content.Context
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -43,6 +44,78 @@ class FastTabSegmentLayout @JvmOverloads constructor(
   attrs: AttributeSet? = null,
   defStyleAttr: Int = R.attr.FastTabSegmentLayoutStyle
 ) : HorizontalScrollView(context, attrs, defStyleAttr) {
+
+  companion object {
+    // mode 自适应宽度/均分
+    const val MODE_FIXED = 0
+    // mode 可滚动
+    const val MODE_SCROLLABLE = 1
+
+    // icon 位置
+    const val ICON_POSITION_LEFT = 0
+    const val ICON_POSITION_TOP = 1
+    const val ICON_POSITION_RIGHT = 2
+    const val ICON_POSITION_BOTTOM = 3
+    // 没有图标
+    const val ICON_NONE = -1
+
+    // 设置int的一些属性的默认值 init方法会将其覆盖
+    private const val DEFAULT_DIMEN_VALUE = 0
+  }
+
+  interface OnTabSelectedListener {
+
+    /**
+     * 当tab选中时触发
+     *
+     * @param index 选中的tab的下标
+     * @param reselected 第一次从不选中到选中时为false,当选中状态时再次选中为true
+     */
+    fun onTabSelected(index: Int, reselected: Boolean) {}
+
+    /**
+     * 当tab从选中时到不选中时触发
+     *
+     * @param index 被取消选中状态的index下标
+     */
+    fun onTabUnselected(index: Int) {}
+
+    /**
+     * 当tab双击时触发
+     *
+     * @param index 双击时的下标
+     */
+    fun onTabDoubleTap(index: Int) {}
+
+  }
+
+  /**
+   * selected changed listener
+   */
+  val selectedListeners = ArrayList<OnTabSelectedListener>()
+  /**
+   * 默认状态的文字是否加粗
+   */
+  var isNormalTabBold = false
+  /**
+   * 选中状态的文字是否加粗
+   */
+  var isSelectedTabBold = true
+  /**
+   * 字体
+   */
+  var typeface: Typeface? = null
+  /**
+   * 指示器高度
+   */
+  var indicatorHeight: Int = DEFAULT_DIMEN_VALUE
+  /**
+   * 指示器颜色
+   */
+  var indicatorColor: Int = DEFAULT_DIMEN_VALUE
+
+
+
   /**
    * 用于container是ViewPager的时候的position
    */
@@ -70,21 +143,25 @@ class FastTabSegmentLayout @JvmOverloads constructor(
   /**
    * 选中颜色
    */
-  private var itemSelectTextColor: Int = 0
+  var itemSelectTextColor: Int = 0
   /**
    * 默认颜色
    */
-  private var itemTextColor: Int = 0
+  var itemTextColor: Int = 0
 
   var container: View? = null
 
   init {
-
-    itemTextColor = context.getAttrColor(android.R.attr.textColorSecondary)
-    itemSelectTextColor = context.getAttrColor(android.R.attr.textColorPrimary)
+    val defaultNormal = context.getAttrColor(R.attr.fast_config_color_gray_5)
+    val selectedColor = context.getAttrColor(android.R.attr.textColorPrimary)
 
     val array =
       context.obtainStyledAttributes(attrs, R.styleable.FastTabSegmentLayout, defStyleAttr, 0)
+    array.getDimensionPixelSize(
+      R.styleable.FastTabSegmentLayout_fast_tab_indicator_height,
+      resources.getDimensionPixelSize(R.dimen.fast_tab_segment_indicator_height)
+    )
+
 //    tabTextSize =
 //      array.getDimension(R.styleable.CompBottomTabLayout_comp_tabItem_textSize, tabTextSize)
 //    tabIconWidth =

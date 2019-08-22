@@ -1,6 +1,7 @@
 package io.github.keep2iron.fast4android.app
 
 import androidx.multidex.MultiDexApplication
+import io.github.keep2iron.fast4android.core.DefaultLogger
 import io.github.keep2iron.fast4android.core.Fast4Android
 
 //import io.github.keep2iron.fast4android.launch.ImageLoaderServiceProvider
@@ -19,6 +20,8 @@ class Application : MultiDexApplication() {
   override fun onCreate() {
     super.onCreate()
 
-    Fast4Android.init(this)
+    Fast4Android.init(this) {
+      logger(DefaultLogger())
+    }
   }
 }

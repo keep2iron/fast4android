@@ -33,7 +33,7 @@ object FastLogger {
     fun printErrStackTrace(tag: String, tr: Throwable, format: String, vararg obj: Any)
   }
 
-  fun setDelegete(delegate: FastLogDelegate) {
+  fun setDelegate(delegate: FastLogDelegate) {
     sDelegate = delegate
   }
 

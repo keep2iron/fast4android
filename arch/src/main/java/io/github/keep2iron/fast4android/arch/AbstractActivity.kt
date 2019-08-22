@@ -8,9 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import io.github.keep2iron.fast4android.Utils
+import io.github.keep2iron.fast4android.core.FastLogger
+import io.github.keep2iron.fast4android.core.util.FastStatusBarHelper
 import io.github.keep2iron.fast4android.rx.LifecycleEvent
 import io.github.keep2iron.fast4android.rx.RxLifecycleDispatcher
-import io.github.keep2iron.fast4android.core.util.FastStatusBarHelper
 import io.reactivex.subjects.BehaviorSubject
 
 abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity(), RxLifecycleOwner {
@@ -35,6 +36,7 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity(), RxL
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    val startTime = System.currentTimeMillis()
     super.onCreate(savedInstanceState)
     FastStatusBarHelper.setStatusBarLightMode(this)
     beforeInit()
@@ -43,6 +45,8 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity(), RxL
     if (createDataBinding != null) {
       dataBinding = createDataBinding
     }
+    val endTime = System.currentTimeMillis()
+    FastLogger.d(AbstractActivity::class.java.name, "cast time : ${endTime - startTime}")
 
     initVariables(savedInstanceState)
   }

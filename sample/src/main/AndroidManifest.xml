@@ -17,8 +17,7 @@
       tools:ignore="AllowBackup">
 
     <activity
-        android:name=".ui.MainActivity"
-        android:launchMode="singleTask">
+        android:name=".ui.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
@@ -27,7 +26,6 @@
       </intent-filter>
     </activity>
     <activity android:name=".ui.tabsegment.TabSegmentActivity"/>
-
   </application>
 
 </manifest>

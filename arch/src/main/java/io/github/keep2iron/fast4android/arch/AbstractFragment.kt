@@ -44,12 +44,7 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment(),
   @LayoutRes
   abstract fun resId(): Int
 
-  /**
-   * 初始化方法
-   *
-   * @param container 被映射的container对象
-   */
-  abstract fun initVariables(container: View, savedInstanceState: Bundle?)
+  abstract fun initVariables(savedInstanceState: Bundle?)
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -72,7 +67,7 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    initVariables(contentView, savedInstanceState)
+    initVariables(savedInstanceState)
     if (userVisibleHint && !isInit) {
       isInit = true
       lazyLoad(contentView)

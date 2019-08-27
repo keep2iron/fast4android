@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+  <data>
+
+  </data>
+
+  <io.github.keep2iron.fast4android.core.widget.FastWindowInsetLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.roundbutton.RoundButtonFragment"
+        >
+
+      <io.github.keep2iron.fast4android.core.alpha.FastAlphaTextView
+          android:id="@+id/tvRightAlphaTextView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="?attr/fast_s_list_item_bg_with_border_bottom"
+          android:drawableBottom="@drawable/fast_icon_chevron"
+          android:drawableLeft="@drawable/fast_icon_chevron"
+          android:drawablePadding="15dp"
+          android:drawableRight="@drawable/fast_icon_chevron"
+          android:drawableTop="@drawable/fast_icon_chevron"
+          android:gravity="center"
+          android:text="click Text will be alpha,and this has a bottom line"
+          app:fast_drawableBottomHeight="20dp"
+          app:fast_drawableBottomTint="@color/fast_config_color_75_pure_black"
+          app:fast_drawableBottomWidth="15dp"
+          app:fast_drawableLeftHeight="20dp"
+          app:fast_drawableLeftTint="@color/fast_config_color_gray_5"
+          app:fast_drawableLeftWidth="15dp"
+          app:fast_drawableRightHeight="20dp"
+          app:fast_drawableRightTint="?attr/colorPrimary"
+          app:fast_drawableRightWidth="15dp"
+          app:fast_drawableTopHeight="20dp"
+          app:fast_drawableTopTint="@color/fast_config_color_75_pure_black"
+          app:fast_drawableTopWidth="15dp"
+          style="@style/FastTextView.Compat"
+          />
+
+
+      <io.github.keep2iron.fast4android.core.alpha.FastAlphaTextView
+          android:id="@+id/tvRadiusTextView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="30dp"
+          android:background="?attr/fast_s_list_item_bg_with_border_bottom"
+          android:drawableBottom="@drawable/fast_icon_chevron"
+          android:drawableLeft="@drawable/fast_icon_chevron"
+          android:drawablePadding="15dp"
+          android:drawableRight="@drawable/fast_icon_chevron"
+          android:drawableTop="@drawable/fast_icon_chevron"
+          android:gravity="center"
+          android:text="click Text have raius"
+          android:textColor="@color/fast_config_color_white"
+          app:fast_drawableBottomHeight="20dp"
+          app:fast_drawableBottomTint="@color/fast_config_color_75_pure_black"
+          app:fast_drawableBottomWidth="15dp"
+          app:fast_drawableLeftHeight="20dp"
+          app:fast_drawableLeftTint="@color/fast_config_color_gray_5"
+          app:fast_drawableLeftWidth="15dp"
+          app:fast_drawableRightHeight="20dp"
+          app:fast_drawableRightTint="?attr/colorPrimary"
+          app:fast_drawableRightWidth="15dp"
+          app:fast_drawableTopHeight="20dp"
+          app:fast_drawableTopTint="@color/fast_config_color_75_pure_black"
+          app:fast_drawableTopWidth="15dp"
+          app:fast_drawable_color_angle="angle_315"
+          app:fast_drawable_color_center="#321654"
+          app:fast_drawable_color_end="#654321"
+          app:fast_drawable_color_start="#123456"
+          app:fast_drawable_left_top_radius="0dp"
+          app:fast_drawable_radius="20dp"
+          app:fast_drawable_right_top_radius="0dp"
+          app:fast_drawable_stroke_color="#123456"
+          app:fast_drawable_stroke_width="1dp"
+          style="@style/FastTextView.Compat"
+          />
+
+      <io.github.keep2iron.fast4android.core.alpha.FastAlphaButton
+          android:id="@+id/btnAlphaButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:clickable="true"
+          android:text="button"
+          />
+
+    </LinearLayout>
+  </io.github.keep2iron.fast4android.core.widget.FastWindowInsetLayout>
+
+</layout>

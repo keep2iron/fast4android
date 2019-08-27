@@ -9,7 +9,7 @@ android {
   buildToolsVersion versions.build.build_tools
 
   defaultConfig {
-    minSdkVersion 15
+    minSdkVersion 16
     targetSdkVersion versions.build.target_sdk
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
@@ -31,6 +31,7 @@ dependencies {
   //support
   implementation deps.support.recyclerview
   implementation deps.support.app_compat
+  api 'io.github.keep2iron:peach:0.0.1'
 
   implementation deps.kotlin.stdlib_jdk7
 }

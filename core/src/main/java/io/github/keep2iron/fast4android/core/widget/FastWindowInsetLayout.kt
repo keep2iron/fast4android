@@ -46,6 +46,11 @@ open class FastWindowInsetLayout @JvmOverloads constructor(
   protected var mQMUIWindowInsetHelper: FastWindowInsetHelper =
     FastWindowInsetHelper(this, this)
 
+  init {
+    setChangeAlphaWhenDisable(false)
+    setChangeAlphaWhenPress(false)
+  }
+
   override fun fitSystemWindows(insets: Rect): Boolean {
     return if (Build.VERSION.SDK_INT in 19..20) {
       applySystemWindowInsets19(insets)

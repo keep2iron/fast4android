@@ -114,8 +114,6 @@ class FastTabSegmentLayout @JvmOverloads constructor(
    */
   var indicatorColor: Int = DEFAULT_DIMEN_VALUE
 
-
-
   /**
    * 用于container是ViewPager的时候的position
    */

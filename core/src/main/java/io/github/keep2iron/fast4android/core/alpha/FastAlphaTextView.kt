@@ -9,16 +9,14 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import androidx.annotation.StyleableRes
 import androidx.appcompat.widget.AppCompatTextView
-import io.github.keep2iron.fast4android.arch.R
-import kotlin.LazyThreadSafetyMode.NONE
+import io.github.keep2iron.fast4android.core.R
+import io.github.keep2iron.fast4android.core.util.FastDrawableViewHelper
 
 class FastAlphaTextView @JvmOverloads constructor(
   context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.FastAlphaTextViewStyle
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
 
-  private val fastAlphaViewHelper by lazy(NONE) {
-    FastAlphaViewHelper(this)
-  }
+  private val fastAlphaViewHelper = FastAlphaViewHelper(this)
 
   init {
     val defValue = TypedValue.applyDimension(
@@ -27,7 +25,8 @@ class FastAlphaTextView @JvmOverloads constructor(
 
     val typedArray =
       context.obtainStyledAttributes(attrs, R.styleable.FastAlphaTextView, defStyleAttr, 0)
-    typedArray.hasValue(R.styleable.FastAlphaTextView_fast_drawableTopHeight)
+
+    FastDrawableViewHelper.resolveAttribute(this, typedArray)
 
     setCompoundTextView(
       compoundDrawables[0],
@@ -82,6 +81,12 @@ class FastAlphaTextView @JvmOverloads constructor(
       R.styleable.FastAlphaTextView_fast_drawableBottomTint
     )
 
+    setCompoundDrawables(
+      compoundDrawables[0],
+      compoundDrawables[1],
+      compoundDrawables[2],
+      compoundDrawables[3]
+    )
     typedArray.recycle()
   }
 

@@ -17,7 +17,7 @@
 package io.github.keep2iron.fast4android.core.alpha
 
 import android.view.View
-import io.github.keep2iron.fast4android.arch.R
+import io.github.keep2iron.fast4android.core.R
 import io.github.keep2iron.fast4android.core.util.getAttrFloatValue
 import java.lang.ref.WeakReference
 
@@ -41,8 +41,10 @@ class FastAlphaViewHelper {
 
   constructor(target: View) {
     mTarget = WeakReference(target)
-    mPressedAlpha = target.context.getAttrFloatValue(R.attr.fast_alpha_pressed)
-    mDisabledAlpha = target.context.getAttrFloatValue(R.attr.fast_alpha_disabled)
+    val context = target.context
+    mPressedAlpha = context.getAttrFloatValue(R.attr.fast_alpha_pressed)
+    mDisabledAlpha = context.getAttrFloatValue(R.attr.fast_alpha_disabled)
+
   }
 
   constructor(target: View, pressedAlpha: Float, disabledAlpha: Float) {
@@ -104,7 +106,6 @@ class FastAlphaViewHelper {
     if (target != null) {
       onEnabledChanged(target, target.isEnabled)
     }
-
   }
 
 }

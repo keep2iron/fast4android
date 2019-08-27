@@ -31,7 +31,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import io.github.keep2iron.fast4android.arch.R
+import io.github.keep2iron.fast4android.core.R
 import io.github.keep2iron.fast4android.core.widget.INotchInsetConsumer
 import io.github.keep2iron.fast4android.core.widget.IWindowInsetLayout
 import java.lang.ref.WeakReference

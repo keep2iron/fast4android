@@ -29,7 +29,7 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
-import io.github.keep2iron.fast4android.arch.R
+import io.github.keep2iron.fast4android.core.R
 
 fun Context.layoutInflate(
   @LayoutRes layoutId: Int, parent: ViewGroup? = null,

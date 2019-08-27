@@ -7,8 +7,9 @@ import io.github.keep2iron.fast4android.arch.AbstractActivity
 
 class TabSegmentActivity : AbstractActivity<ViewDataBinding>() {
 
-  override fun resId(): Int = R.layout.activity_main
+  override fun resId(): Int = R.layout.tab_segment_activity
 
   override fun initVariables(savedInstanceState: Bundle?) {
+
   }
 }

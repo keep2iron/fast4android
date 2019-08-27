@@ -2,8 +2,9 @@
 <resources>
   <!--**************** QMUITabSegment ******************-->
   <declare-styleable name="FastTabSegmentLayout">
+    <!--when fast_tab_indicator_height equals 0,it should be hide-->
     <attr format="dimension" name="fast_tab_indicator_height"/>
-    <!--<attr format="boolean" name="fast_tab_has_indicator"/>-->
+    <attr format="dimension" name="fast_tab_indicator_component_padding"/>
     <attr name="android:textSize"/>
     <attr format="boolean" name="fast_tab_indicator_top"/>
     <attr format="enum" name="fast_tab_mode">

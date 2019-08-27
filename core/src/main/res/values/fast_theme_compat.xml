@@ -75,8 +75,8 @@
     <item name="fast_config_color_gray_8">@color/fast_config_color_gray_8</item>
     <item name="fast_config_color_gray_9">@color/fast_config_color_gray_9</item>
 
-    <item name="fast_alpha_pressed">0.5</item>
-    <item name="fast_alpha_disabled">0.5</item>
+    <item name="fast_alpha_pressed">0.7</item>
+    <item name="fast_alpha_disabled">0.7</item>
 
     <item name="fast_general_shadow_elevation">14dp</item>
     <item name="fast_general_shadow_alpha">0.25</item>

@@ -36,7 +36,6 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity(), RxL
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    val startTime = System.currentTimeMillis()
     super.onCreate(savedInstanceState)
     FastStatusBarHelper.setStatusBarLightMode(this)
     beforeInit()
@@ -45,8 +44,6 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity(), RxL
     if (createDataBinding != null) {
       dataBinding = createDataBinding
     }
-    val endTime = System.currentTimeMillis()
-    FastLogger.d(AbstractActivity::class.java.name, "cast time : ${endTime - startTime}")
 
     initVariables(savedInstanceState)
   }

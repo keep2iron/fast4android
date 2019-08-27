@@ -7,7 +7,7 @@ android {
   buildToolsVersion versions.build.build_tools
 
   defaultConfig {
-    minSdkVersion 15
+    minSdkVersion 16
     targetSdkVersion versions.build.target_sdk
 
     applicationId "io.github.keep2iron.fast4android.app"

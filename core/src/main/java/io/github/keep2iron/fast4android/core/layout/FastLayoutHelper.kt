@@ -31,8 +31,8 @@ import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import io.github.keep2iron.fast4android.arch.R
-import io.github.keep2iron.fast4android.arch.R.color
+import io.github.keep2iron.fast4android.core.R
+import io.github.keep2iron.fast4android.core.R.color
 import io.github.keep2iron.fast4android.core.layout.IFastLayout.HideRadiusCorner
 import io.github.keep2iron.fast4android.core.util.getAttrColor
 import io.github.keep2iron.fast4android.core.util.getAttrDimen

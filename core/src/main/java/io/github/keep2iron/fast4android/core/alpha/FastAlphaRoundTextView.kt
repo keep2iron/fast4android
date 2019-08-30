@@ -10,75 +10,76 @@ import android.util.TypedValue
 import androidx.annotation.StyleableRes
 import androidx.appcompat.widget.AppCompatTextView
 import io.github.keep2iron.fast4android.core.R
-import io.github.keep2iron.fast4android.core.util.FastDrawableViewHelper
 
-class FastAlphaTextView @JvmOverloads constructor(
-  context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.FastAlphaTextViewStyle
+open class FastAlphaRoundTextView @JvmOverloads constructor(
+  context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.FastAlphaRoundTextViewStyle
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
 
   private val fastAlphaViewHelper = FastAlphaViewHelper(this)
+
+  private val fastDrawableViewHelper =
+    FastDrawableRoundViewHelper()
 
   init {
     val defValue = TypedValue.applyDimension(
       TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics
     ).toInt()
 
+    background = fastDrawableViewHelper.resolveAttribute(context, attrs, defStyleAttr).build()
+
     val typedArray =
-      context.obtainStyledAttributes(attrs, R.styleable.FastAlphaTextView, defStyleAttr, 0)
-
-    FastDrawableViewHelper.resolveAttribute(this, typedArray)
-
+      context.obtainStyledAttributes(attrs, R.styleable.FastAlphaRoundTextView, defStyleAttr, 0)
     setCompoundTextView(
       compoundDrawables[0],
       typedArray,
       defValue,
-      R.styleable.FastAlphaTextView_fast_drawableLeftWidth,
-      R.styleable.FastAlphaTextView_fast_drawableLeftHeight
+      R.styleable.FastAlphaRoundTextView_fast_drawableLeftWidth,
+      R.styleable.FastAlphaRoundTextView_fast_drawableLeftHeight
     )
     setCompoundTextView(
       compoundDrawables[1],
       typedArray,
       defValue,
-      R.styleable.FastAlphaTextView_fast_drawableTopWidth,
-      R.styleable.FastAlphaTextView_fast_drawableTopHeight
+      R.styleable.FastAlphaRoundTextView_fast_drawableTopWidth,
+      R.styleable.FastAlphaRoundTextView_fast_drawableTopHeight
     )
     setCompoundTextView(
       compoundDrawables[2],
       typedArray,
       defValue,
-      R.styleable.FastAlphaTextView_fast_drawableRightWidth,
-      R.styleable.FastAlphaTextView_fast_drawableRightHeight
+      R.styleable.FastAlphaRoundTextView_fast_drawableRightWidth,
+      R.styleable.FastAlphaRoundTextView_fast_drawableRightHeight
     )
     setCompoundTextView(
       compoundDrawables[3],
       typedArray,
       defValue,
-      R.styleable.FastAlphaTextView_fast_drawableBottomWidth,
-      R.styleable.FastAlphaTextView_fast_drawableBottomHeight
+      R.styleable.FastAlphaRoundTextView_fast_drawableBottomWidth,
+      R.styleable.FastAlphaRoundTextView_fast_drawableBottomHeight
     )
 
     setCompoundTint(
       compoundDrawables[0],
       typedArray,
-      R.styleable.FastAlphaTextView_fast_drawableLeftTint
+      R.styleable.FastAlphaRoundTextView_fast_drawableLeftTint
     )
 
     setCompoundTint(
       compoundDrawables[1],
       typedArray,
-      R.styleable.FastAlphaTextView_fast_drawableTopTint
+      R.styleable.FastAlphaRoundTextView_fast_drawableTopTint
     )
 
     setCompoundTint(
       compoundDrawables[2],
       typedArray,
-      R.styleable.FastAlphaTextView_fast_drawableRightTint
+      R.styleable.FastAlphaRoundTextView_fast_drawableRightTint
     )
 
     setCompoundTint(
       compoundDrawables[3],
       typedArray,
-      R.styleable.FastAlphaTextView_fast_drawableBottomTint
+      R.styleable.FastAlphaRoundTextView_fast_drawableBottomTint
     )
 
     setCompoundDrawables(

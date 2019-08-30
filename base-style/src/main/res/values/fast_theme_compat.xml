@@ -38,7 +38,7 @@
   </style>
 
 
-  <style name="FastAppConfigTheme.Compat" parent="FastAppBaseTheme.Compat" >
+  <style name="FastAppConfigTheme.Compat" parent="FastAppBaseTheme.Compat">
     <item name="colorPrimary">?attr/fast_config_color_blue</item>
     <item name="colorPrimaryDark">?attr/fast_config_color_blue</item>
     <item name="colorAccent">?attr/fast_config_color_blue</item>
@@ -60,7 +60,8 @@
     <item name="fast_config_color_separator">@color/fast_config_color_separator</item>
     <item name="fast_config_color_separator_darken">@color/fast_config_color_separator_darken</item>
     <item name="fast_config_color_background">@color/fast_config_color_background</item>
-    <item name="fast_config_color_background_pressed">@color/fast_config_color_background_pressed</item>
+    <item name="fast_config_color_background_pressed">@color/fast_config_color_background_pressed
+    </item>
     <item name="fast_config_color_black">@color/fast_config_color_black</item>
     <item name="fast_config_color_link">@color/fast_config_color_link</item>
     <item name="fast_config_color_pressed">@color/fast_config_color_pressed</item>
@@ -229,7 +230,9 @@
     <item name="fast_bottom_sheet_grid_item_icon_size">56dp</item>
     <item name="fast_bottom_sheet_grid_item_icon_marginTop">12dp</item>
     <item name="fast_bottom_sheet_grid_item_icon_marginBottom">9dp</item>
-    <item name="fast_bottom_sheet_grid_item_text_appearance">@style/FastTextAppearance.GridItem.Small</item>
+    <item name="fast_bottom_sheet_grid_item_text_appearance">
+      @style/FastTextAppearance.GridItem.Small
+    </item>
 
     <item name="fast_bottom_sheet_button_background">@drawable/fast_divider_top_bitmap</item>
     <item name="fast_bottom_sheet_button_height">56dp</item>
@@ -276,6 +279,7 @@
     <item name="FastCommonListItemViewStyle">@style/Fast.CommonListItemView</item>
     <item name="FastGroupListSectionViewStyle">@style/Fast.GroupListSectionView</item>
     <item name="FastTopBarStyle">@style/Fast.TopBar</item>
+    <item name="FastTopBarLayoutStyle">@style/Fast.TopBar</item>
 
     <item name="FastTipPointStyle">@style/Fast.TipPoint</item>
     <item name="FastTipNewStyle">@style/Fast.TipNew</item>
@@ -283,7 +287,7 @@
     <item name="FastLoadingStyle">@style/Fast.Loading</item>
     <item name="FastPullRefreshLayoutStyle">@style/Fast.PullRefreshLayout</item>
     <item name="FastRadiusImageViewStyle">@style/Fast.RadiusImageView</item>
-    <item name="FastQQFaceStyle">@style/Fast.QQFaceView</item>
+    <item name="FastImageButtonStyle">@style/Fast.ImageButtonStyle</item>
   </style>
 
   <style name="FastListViewBase.Compat" parent="@style/Widget.AppCompat.ListView"/>
@@ -296,6 +300,8 @@
     <!-- 取消 Button 字符默认大写的功能（会导致 Spannable 失效），默认值只影响 5.0 以上版本，但使用Compat包后，4.x 版本也会受到影响 -->
     <!-- http://stackoverflow.com/questions/29007746/button-settext-with-spannable-dosent-work-for-android-5-0-lollipop -->
     <item name="android:textAllCaps">false</item>
+    <item name="android:paddingTop">10dp</item>
+    <item name="android:background">@null</item>
   </style>
 
   <style name="FastEditTextBase.Compat" parent="@style/Widget.AppCompat.EditText"/>

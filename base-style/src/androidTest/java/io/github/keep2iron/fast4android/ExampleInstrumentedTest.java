@@ -1,8 +1,9 @@
-package io.github.keep2iron.fast4android.tabsegment;
+package io.github.keep2iron.fast4android;
 
 import android.content.Context;
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -20,6 +21,6 @@ public class ExampleInstrumentedTest {
     // Context of the app under test.
     Context appContext = InstrumentationRegistry.getTargetContext();
 
-    assertEquals("io.github.keep2iron.fast4android.widget.test", appContext.getPackageName());
+    assertEquals("io.github.keep2iron.fast4android.test", appContext.getPackageName());
   }
 }

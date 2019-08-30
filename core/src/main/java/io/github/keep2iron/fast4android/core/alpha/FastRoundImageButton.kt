@@ -3,14 +3,25 @@ package io.github.keep2iron.fast4android.core.alpha
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageButton
+import io.github.keep2iron.fast4android.core.R
+import io.github.keep2iron.peach.DrawableCreator
 import kotlin.LazyThreadSafetyMode.NONE
 
-class FastImageButton @JvmOverloads constructor(
-  context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+open class FastRoundImageButton @JvmOverloads constructor(
+  context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.FastImageButtonStyle
 ) : AppCompatImageButton(context, attrs, defStyleAttr) {
 
-  private val fastAlphaViewHelper by lazy(NONE) {
-    FastAlphaViewHelper(this)
+  private val fastAlphaViewHelper = FastAlphaViewHelper(this)
+
+  private val fastDrawableViewHelper = FastDrawableRoundViewHelper()
+
+  private var drawableCreator: DrawableCreator
+
+  init {
+    drawableCreator = fastDrawableViewHelper.resolveAttribute(context, attrs, defStyleAttr)
+
+    setChangeAlphaWhenPress(true)
+    setChangeAlphaWhenDisable(true)
   }
 
   override fun setPressed(pressed: Boolean) {

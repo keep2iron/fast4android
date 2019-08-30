@@ -277,7 +277,6 @@ So，
     <item name="FastLoadingStyle">@style/Fast.Loading</item>
     <item name="FastPullRefreshLayoutStyle">@style/Fast.PullRefreshLayout</item>
     <item name="FastRadiusImageViewStyle">@style/Fast.RadiusImageView</item>
-    <item name="FastQQFaceStyle">@style/Fast.QQFaceView</item>
   </style>
 
   <style name="Fast.NoActionBar">

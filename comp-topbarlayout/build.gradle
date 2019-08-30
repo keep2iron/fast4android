@@ -29,10 +29,13 @@ android {
 
 dependencies {
   //support
-  implementation deps.support.recyclerview
-  implementation deps.support.app_compat
-  api 'io.github.keep2iron:peach:0.0.1'
-  api project(':base-style')
-
   implementation deps.kotlin.stdlib_jdk7
+
+  implementation project(':core')
+  api project(':base-style')
+  implementation deps.support.annotations
+
+  testImplementation deps.test.junit
+  androidTestImplementation 'androidx.test:runner:1.1.0'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 }

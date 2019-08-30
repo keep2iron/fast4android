@@ -23,20 +23,19 @@
     <item name="android:layout_width">wrap_content</item>
     <item name="android:layout_height">wrap_content</item>
     <!--<item name="android:padding">0dp</item>--><!-- 不用 android:padding，而用各个方向分别指定 padding，方便子类覆盖 -->
-    <item name="android:paddingLeft">0dp</item>
-    <item name="android:paddingRight">0dp</item>
-    <item name="android:paddingTop">0dp</item>
-    <item name="android:paddingBottom">0dp</item>
+    <item name="android:paddingLeft">12dp</item>
+    <item name="android:paddingRight">12dp</item>
+    <item name="android:paddingTop">6dp</item>
+    <item name="android:paddingBottom">6dp</item>
     <item name="android:minWidth">0dp</item>
     <item name="android:minHeight">0dp</item>
     <item name="android:singleLine">true</item>
     <item name="android:gravity">center</item>
     <item name="android:ellipsize">end</item>
-    <item name="fast_isRadiusAdjustBounds">true</item>
-    <item name="fast_backgroundColor">@color/fast_s_transparent</item>
-    <item name="fast_borderWidth">?attr/fast_round_btn_border_width</item>
-    <item name="fast_borderColor">?attr/fast_round_btn_border_color</item>
+    <item name="fast_drawable_stroke_width">?attr/fast_round_btn_border_width</item>
+    <item name="fast_drawable_stroke_color">?attr/fast_round_btn_border_color</item>
     <item name="android:textColor">?attr/fast_round_btn_text_color</item>
+    <item name="fast_drawable_radius_adjust_bounds">true</item>
   </style>
 
   <!--********************* GroupListView *********************-->
@@ -78,24 +77,13 @@
   <style name="Fast.TopBar">
     <item name="fast_topbar_separator_color">?attr/fast_config_color_separator</item>
     <item name="fast_topbar_separator_height">1px</item>
-    <item name="fast_topbar_bg_color">@color/fast_config_color_white</item>
-    <item name="fast_topbar_need_separator">true</item>
+    <item name="android:background">@color/fast_config_color_white</item>
     <item name="fast_topbar_left_back_drawable_id">@drawable/fast_icon_topbar_back</item>
     <item name="fast_topbar_title_gravity">center</item>
-    <item name="android:paddingLeft">4dp</item>
-    <item name="android:paddingRight">4dp</item>
+    <item name="android:paddingLeft">8dp</item>
+    <item name="android:paddingRight">8dp</item>
     <item name="fast_topbar_title_color">?attr/fast_config_color_gray_1</item>
     <item name="fast_topbar_title_text_size">17sp</item>
-    <item name="fast_topbar_title_text_size_with_subtitle">16sp</item>
-    <item name="fast_topbar_title_margin_horizontal_when_no_btn_aside">0dp</item>
-    <item name="fast_topbar_title_container_padding_horizontal">8dp</item>
-    <item name="fast_topbar_subtitle_text_size">11sp</item>
-    <item name="fast_topbar_subtitle_color">@color/fast_config_color_gray_1</item>
-    <item name="fast_topbar_image_btn_width">48dp</item>
-    <item name="fast_topbar_image_btn_height">48dp</item>
-    <item name="fast_topbar_text_btn_padding_horizontal">12dp</item>
-    <item name="fast_topbar_text_btn_color_state_list">@color/fast_topbar_text_color</item>
-    <item name="fast_topbar_text_btn_text_size">16sp</item>
   </style>
 
   <style name="Fast.CollapsingTopBarLayoutExpanded">
@@ -264,11 +252,7 @@
     <item name="fast_is_touch_select_mode_enabled">true</item>
   </style>
 
-  <!-- FastQQFaceView -->
-  <style name="Fast.QQFaceView">
-    <item name="android:textColor">?attr/fast_config_color_black</item>
-    <item name="android:textSize">14sp</item>
-    <item name="fast_special_drawable_padding">5dp</item>
+  <style name="Fast.ImageButtonStyle">
   </style>
 
   <style name="Fast.Animation" parent="@android:style/Animation"/>

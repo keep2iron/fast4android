@@ -17,6 +17,7 @@
       tools:ignore="AllowBackup">
 
     <activity
+        android:theme="@style/AppTheme"
         android:name=".ui.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>

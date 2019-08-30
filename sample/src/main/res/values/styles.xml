@@ -3,9 +3,10 @@
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Fast.Compat.NoActionBar">
     <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimary">@color/fast_config_color_blue</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+    <item name="buttonStyle">@style/FastButton.Compat</item>
   </style>
 
   <declare-styleable name="MaterialMenuView">

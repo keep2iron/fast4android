@@ -3,15 +3,25 @@ package io.github.keep2iron.fast4android.core.alpha
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatButton
-import kotlin.LazyThreadSafetyMode.NONE
+import io.github.keep2iron.fast4android.core.R
+import io.github.keep2iron.peach.DrawableCreator
 
-class FastAlphaButton @JvmOverloads constructor(
-  context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+open class FastAlphaRoundButton @JvmOverloads constructor(
+  context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.FastButtonStyle
 ) : AppCompatButton(context, attrs, defStyleAttr) {
 
+  private val fastAlphaViewHelper = FastAlphaViewHelper(this)
 
-  private val fastAlphaViewHelper by lazy(NONE) {
-    FastAlphaViewHelper(this)
+  private val fastDrawableViewHelper =
+    FastDrawableRoundViewHelper()
+
+  private var drawableCreator: DrawableCreator
+
+  init {
+    drawableCreator = fastDrawableViewHelper.resolveAttribute(context, attrs, defStyleAttr)
+
+    setChangeAlphaWhenPress(true)
+    setChangeAlphaWhenDisable(true)
   }
 
   override fun setPressed(pressed: Boolean) {
@@ -42,4 +52,15 @@ class FastAlphaButton @JvmOverloads constructor(
     fastAlphaViewHelper.setChangeAlphaWhenDisable(changeAlphaWhenDisable)
   }
 
+  override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+    super.onLayout(changed, left, top, right, bottom)
+
+    val minSize = width.coerceAtMost(height)
+    background = if (fastDrawableViewHelper.radiusAdjust) {
+      drawableCreator.cornerRadii(minSize / 2, minSize / 2, minSize / 2, minSize / 2)
+      drawableCreator.build()
+    } else {
+      drawableCreator.build()
+    }
+  }
 }

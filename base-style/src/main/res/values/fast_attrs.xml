@@ -31,8 +31,25 @@
     <enum name="angle_270" value="270"/>
     <enum name="angle_315" value="315"/>
   </attr>
+  <!-- 圆角是否要自适应为 View 高度的一半 -->
+  <attr format="boolean" name="fast_drawable_radius_adjust_bounds"/>
 
-  <declare-styleable name="FastAlphaTextView">
+  <declare-styleable name="FastDrawableRoundViewHelper">
+    <attr name="fast_drawable_radius"/>
+    <attr name="fast_drawable_stroke_color"/>
+    <attr name="fast_drawable_stroke_width"/>
+    <attr name="fast_drawable_left_top_radius"/>
+    <attr name="fast_drawable_left_bottom_radius"/>
+    <attr name="fast_drawable_right_top_radius"/>
+    <attr name="fast_drawable_right_bottom_radius"/>
+    <attr name="fast_drawable_color_start"/>
+    <attr name="fast_drawable_color_center"/>
+    <attr name="fast_drawable_color_end"/>
+    <attr name="fast_drawable_color_angle"/>
+    <attr name="fast_drawable_radius_adjust_bounds"/>
+  </declare-styleable>
+
+  <declare-styleable name="FastAlphaRoundTextView">
     <attr format="dimension" name="fast_drawableLeftWidth"/>
     <attr format="dimension" name="fast_drawableLeftHeight"/>
 
@@ -63,7 +80,7 @@
     <attr name="fast_drawable_color_end"/>
     <attr name="fast_drawable_color_angle"/>
   </declare-styleable>
-  <attr format="reference" name="FastAlphaTextViewStyle"/>
+  <attr format="reference" name="FastAlphaRoundTextViewStyle"/>
 
   <declare-styleable name="FastLayout">
     <attr name="android:maxWidth"/>
@@ -165,31 +182,60 @@
   </declare-styleable>
   <attr format="reference" name="FastLoadingStyle"/>
 
-  <!--************ FastTopBar ***********-->
+  <!--************ FastTopBar & FastTopBarLayout***********-->
+  <!--top title-->
+  <attr format="enum" name="fast_topbar_title_gravity">
+    <enum name="left_center" value="19"/>
+    <enum name="center" value="17"/>
+  </attr>
+  <attr format="string" name="fast_topbar_title"/>
+  <attr format="dimension" name="fast_topbar_title_text_size"/>
+  <attr format="color" name="fast_topbar_title_color"/>
+
+  <!--top divider-->
+  <attr format="color" name="fast_topbar_separator_color"/>
+  <attr format="dimension" name="fast_topbar_separator_height"/>
+
+  <!--top back resource id-->
+  <attr format="reference" name="fast_topbar_left_back_drawable_id"/>
+
   <declare-styleable name="FastTopBar">
-    <attr format="enum" name="fast_topbar_title_gravity">
-      <enum name="left_center" value="19"/>
-      <enum name="center" value="17"/>
-    </attr>
-    <attr format="boolean" name="fast_topbar_need_separator"/>
-    <attr format="color" name="fast_topbar_separator_color"/>
-    <attr format="dimension" name="fast_topbar_separator_height"/>
-    <attr format="color" name="fast_topbar_bg_color"/>
-    <attr format="reference" name="fast_topbar_left_back_drawable_id"/>
-    <attr format="dimension" name="fast_topbar_title_text_size"/>
-    <attr format="dimension" name="fast_topbar_title_text_size_with_subtitle"/>
-    <attr format="dimension" name="fast_topbar_subtitle_text_size"/>
-    <attr format="color" name="fast_topbar_title_color"/>
-    <attr format="color" name="fast_topbar_subtitle_color"/>
-    <attr format="dimension" name="fast_topbar_title_margin_horizontal_when_no_btn_aside"/>
-    <attr format="dimension" name="fast_topbar_title_container_padding_horizontal"/>
-    <attr format="dimension" name="fast_topbar_image_btn_width"/>
-    <attr format="dimension" name="fast_topbar_image_btn_height"/>
-    <attr format="dimension" name="fast_topbar_text_btn_padding_horizontal"/>
-    <attr format="reference" name="fast_topbar_text_btn_color_state_list"/>
-    <attr format="dimension" name="fast_topbar_text_btn_text_size"/>
+    <attr name="fast_topbar_title_gravity"/>
+    <attr name="fast_topbar_title"/>
+    <attr name="fast_topbar_title_text_size"/>
+    <attr name="fast_topbar_title_color"/>
+
+    <!--top divider-->
+    <attr name="fast_topbar_separator_color"/>
+    <attr name="fast_topbar_separator_height"/>
+
+    <!--top back resource id-->
+    <attr name="fast_topbar_left_back_drawable_id"/>
+    <attr name="fast_drawable_color_start"/>
+    <attr name="fast_drawable_color_center"/>
+    <attr name="fast_drawable_color_end"/>
+    <attr name="fast_drawable_color_angle"/>
   </declare-styleable>
   <attr format="reference" name="FastTopBarStyle"/>
+
+  <declare-styleable name="FastTopBarLayout">
+    <attr name="fast_topbar_title_gravity"/>
+    <attr name="fast_topbar_title"/>
+    <attr name="fast_topbar_title_text_size"/>
+    <attr name="fast_topbar_title_color"/>
+
+    <!--top divider-->
+    <attr name="fast_topbar_separator_color"/>
+    <attr name="fast_topbar_separator_height"/>
+
+    <!--top back resource id-->
+    <attr name="fast_topbar_left_back_drawable_id"/>
+    <attr name="fast_drawable_color_start"/>
+    <attr name="fast_drawable_color_center"/>
+    <attr name="fast_drawable_color_end"/>
+    <attr name="fast_drawable_color_angle"/>
+  </declare-styleable>
+  <attr format="reference" name="FastTopBarLayoutStyle"/>
 
   <!--**************** FastPullRefreshLayout ******************-->
   <declare-styleable name="FastPullRefreshLayout">
@@ -244,22 +290,6 @@
 
   <attr format="reference" name="FastRadiusImageViewStyle"/>
 
-  <!--************** FastQQFaceView ****************-->
-  <declare-styleable name="FastQQFaceView">
-    <attr name="android:textColor"/>
-    <attr name="android:textSize"/>
-    <attr name="android:singleLine"/>
-    <attr name="android:maxLines"/>
-    <attr name="android:lineSpacingExtra"/>
-    <attr name="android:ellipsize"/>
-    <attr name="android:maxWidth"/>
-    <attr name="android:text"/>
-    <attr format="dimension" name="fast_special_drawable_padding"/>
-    <attr format="string" name="fast_more_action_text"/>
-    <attr format="color" name="fast_more_action_color"/>
-  </declare-styleable>
-  <attr format="reference" name="FastQQFaceStyle"/>
-
   <!-- FastFloatLayout start -->
   <attr format="dimension" name="fast_childHorizontalSpacing"/>
   <attr format="dimension" name="fast_childVerticalSpacing"/>
@@ -313,71 +343,79 @@
     <attr format="color" name="fast_linkTextColor"/>
   </declare-styleable>
 
-  <!-- RoundWidget start -->
 
-  <!-- 圆角是否要自适应为 View 高度的一半 -->
-  <attr format="boolean" name="fast_isRadiusAdjustBounds"/>
-  <!-- 同时指定四个方向的圆角大小 -->
-  <attr format="dimension" name="fast_radius"/>
-  <!-- 指定左上方圆角的大小 -->
-  <attr format="dimension" name="fast_radiusTopLeft"/>
-  <!-- 指定右上方圆角的大小 -->
-  <attr format="dimension" name="fast_radiusTopRight"/>
-  <!-- 指定左下方圆角的大小 -->
-  <attr format="dimension" name="fast_radiusBottomLeft"/>
-  <!-- 指定右下方圆角的大小 -->
-  <attr format="dimension" name="fast_radiusBottomRight"/>
-
+  <declare-styleable name="FastRoundImageButton">
+    <attr name="fast_drawable_radius"/>
+    <attr name="fast_drawable_stroke_color"/>
+    <attr name="fast_drawable_stroke_width"/>
+    <attr name="fast_drawable_left_top_radius"/>
+    <attr name="fast_drawable_left_bottom_radius"/>
+    <attr name="fast_drawable_right_top_radius"/>
+    <attr name="fast_drawable_right_bottom_radius"/>
+    <attr name="fast_drawable_color_start"/>
+    <attr name="fast_drawable_color_center"/>
+    <attr name="fast_drawable_color_end"/>
+    <attr name="fast_drawable_color_angle"/>
+  </declare-styleable>
   <attr format="reference" name="FastButtonStyle"/>
 
-  <declare-styleable name="FastRoundButton">
-    <attr name="fast_backgroundColor"/>
-    <attr name="fast_borderColor"/>
-    <attr name="fast_borderWidth"/>
-    <attr name="fast_isRadiusAdjustBounds"/>
-    <attr name="fast_radius"/>
-    <attr name="fast_radiusTopLeft"/>
-    <attr name="fast_radiusTopRight"/>
-    <attr name="fast_radiusBottomLeft"/>
-    <attr name="fast_radiusBottomRight"/>
+  <declare-styleable name="FastAlphaRoundButton">
+    <attr name="fast_drawable_radius"/>
+    <attr name="fast_drawable_stroke_color"/>
+    <attr name="fast_drawable_stroke_width"/>
+    <attr name="fast_drawable_left_top_radius"/>
+    <attr name="fast_drawable_left_bottom_radius"/>
+    <attr name="fast_drawable_right_top_radius"/>
+    <attr name="fast_drawable_right_bottom_radius"/>
+    <attr name="fast_drawable_color_start"/>
+    <attr name="fast_drawable_color_center"/>
+    <attr name="fast_drawable_color_end"/>
+    <attr name="fast_drawable_color_angle"/>
+    <attr name="fast_drawable_radius_adjust_bounds"/>
   </declare-styleable>
+  <attr format="reference" name="FastImageButtonStyle"/>
 
   <declare-styleable name="FastRoundFrameLayout">
-    <attr name="fast_backgroundColor"/>
-    <attr name="fast_borderColor"/>
-    <attr name="fast_borderWidth"/>
-    <attr name="fast_isRadiusAdjustBounds"/>
-    <attr name="fast_radius"/>
-    <attr name="fast_radiusTopLeft"/>
-    <attr name="fast_radiusTopRight"/>
-    <attr name="fast_radiusBottomLeft"/>
-    <attr name="fast_radiusBottomRight"/>
+    <attr name="fast_drawable_radius"/>
+    <attr name="fast_drawable_stroke_color"/>
+    <attr name="fast_drawable_stroke_width"/>
+    <attr name="fast_drawable_left_top_radius"/>
+    <attr name="fast_drawable_left_bottom_radius"/>
+    <attr name="fast_drawable_right_top_radius"/>
+    <attr name="fast_drawable_right_bottom_radius"/>
+    <attr name="fast_drawable_color_start"/>
+    <attr name="fast_drawable_color_center"/>
+    <attr name="fast_drawable_color_end"/>
+    <attr name="fast_drawable_color_angle"/>
   </declare-styleable>
 
   <declare-styleable name="FastRoundLinearLayout">
-    <attr name="fast_backgroundColor"/>
-    <attr name="fast_borderColor"/>
-    <attr name="fast_borderWidth"/>
-    <attr name="fast_isRadiusAdjustBounds"/>
-    <attr name="fast_radius"/>
-    <attr name="fast_radiusTopLeft"/>
-    <attr name="fast_radiusTopRight"/>
-    <attr name="fast_radiusBottomLeft"/>
-    <attr name="fast_radiusBottomRight"/>
+    <attr name="fast_drawable_radius"/>
+    <attr name="fast_drawable_stroke_color"/>
+    <attr name="fast_drawable_stroke_width"/>
+    <attr name="fast_drawable_left_top_radius"/>
+    <attr name="fast_drawable_left_bottom_radius"/>
+    <attr name="fast_drawable_right_top_radius"/>
+    <attr name="fast_drawable_right_bottom_radius"/>
+    <attr name="fast_drawable_color_start"/>
+    <attr name="fast_drawable_color_center"/>
+    <attr name="fast_drawable_color_end"/>
+    <attr name="fast_drawable_color_angle"/>
   </declare-styleable>
 
   <declare-styleable name="FastRoundRelativeLayout">
-    <attr name="fast_backgroundColor"/>
-    <attr name="fast_borderColor"/>
-    <attr name="fast_borderWidth"/>
-    <attr name="fast_isRadiusAdjustBounds"/>
-    <attr name="fast_radius"/>
-    <attr name="fast_radiusTopLeft"/>
-    <attr name="fast_radiusTopRight"/>
-    <attr name="fast_radiusBottomLeft"/>
-    <attr name="fast_radiusBottomRight"/>
+    <attr name="fast_drawable_radius"/>
+    <attr name="fast_drawable_stroke_color"/>
+    <attr name="fast_drawable_stroke_width"/>
+    <attr name="fast_drawable_left_top_radius"/>
+    <attr name="fast_drawable_left_bottom_radius"/>
+    <attr name="fast_drawable_right_top_radius"/>
+    <attr name="fast_drawable_right_bottom_radius"/>
+    <attr name="fast_drawable_color_start"/>
+    <attr name="fast_drawable_color_center"/>
+    <attr name="fast_drawable_color_end"/>
+    <attr name="fast_drawable_color_angle"/>
   </declare-styleable>
-
   <!-- RoundWidget end -->
 
   <!-- FastCollapsingTopBarLayout start -->

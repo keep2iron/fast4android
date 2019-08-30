@@ -52,7 +52,7 @@ dependencies {
   implementation project(':arch')
   implementation project(':core')
   implementation project(':comp-tabsegment')
-//  implementation project(':utilities')
+  implementation project(':comp-topbarlayout')
 
   implementation 'me.everything:overscroll-decor-android:1.0.4'
 

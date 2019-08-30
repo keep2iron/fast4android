@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+  <data>
+
+  </data>
+
+  <io.github.keep2iron.fast4android.core.widget.FastWindowInsetLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingLeft="@dimen/fast_content_spacing_horizontal"
+      android:paddingRight="@dimen/fast_content_spacing_horizontal"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.roundbutton.RoundComponentsFragment"
+        >
+
+      <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundTextView
+          android:id="@+id/tvRightAlphaTextView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="?attr/fast_s_list_item_bg_with_border_bottom"
+          android:drawableBottom="@drawable/fast_icon_chevron"
+          android:drawableLeft="@drawable/fast_icon_chevron"
+          android:drawablePadding="15dp"
+          android:drawableRight="@drawable/fast_icon_chevron"
+          android:drawableTop="@drawable/fast_icon_chevron"
+          android:gravity="center"
+          android:text="带边框的TextView"
+          app:fast_drawableBottomHeight="20dp"
+          app:fast_drawableBottomTint="@color/fast_config_color_75_pure_black"
+          app:fast_drawableBottomWidth="15dp"
+          app:fast_drawableLeftHeight="20dp"
+          app:fast_drawableLeftTint="@color/fast_config_color_gray_5"
+          app:fast_drawableLeftWidth="15dp"
+          app:fast_drawableRightHeight="20dp"
+          app:fast_drawableRightTint="?attr/colorPrimary"
+          app:fast_drawableRightWidth="15dp"
+          app:fast_drawableTopHeight="20dp"
+          app:fast_drawableTopTint="@color/fast_config_color_75_pure_black"
+          app:fast_drawableTopWidth="15dp"
+          app:fast_drawable_stroke_color="?attr/colorPrimary"
+          app:fast_drawable_stroke_width="1dp"
+          style="@style/FastTextView.Compat"
+          />
+
+
+      <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundTextView
+          android:id="@+id/tvRadiusTextView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="30dp"
+          android:drawableBottom="@drawable/fast_icon_chevron"
+          android:drawableLeft="@drawable/fast_icon_chevron"
+          android:drawablePadding="15dp"
+          android:drawableRight="@drawable/fast_icon_chevron"
+          android:drawableTop="@drawable/fast_icon_chevron"
+          android:gravity="center"
+          android:text="背景渐变的TextView"
+          android:textColor="@color/fast_config_color_white"
+          app:fast_drawableBottomHeight="20dp"
+          app:fast_drawableBottomTint="@color/fast_config_color_white"
+          app:fast_drawableBottomWidth="15dp"
+          app:fast_drawableLeftHeight="20dp"
+          app:fast_drawableLeftTint="@color/fast_config_color_white"
+          app:fast_drawableLeftWidth="15dp"
+          app:fast_drawableRightHeight="20dp"
+          app:fast_drawableRightTint="?attr/colorPrimary"
+          app:fast_drawableRightWidth="15dp"
+          app:fast_drawableTopHeight="20dp"
+          app:fast_drawableTopTint="@color/fast_config_color_white"
+          app:fast_drawableTopWidth="15dp"
+          app:fast_drawable_color_angle="angle_315"
+          app:fast_drawable_color_center="#321654"
+          app:fast_drawable_color_end="#654321"
+          app:fast_drawable_color_start="#123456"
+          app:fast_drawable_left_top_radius="0dp"
+          app:fast_drawable_radius="20dp"
+          app:fast_drawable_right_top_radius="0dp"
+          app:fast_drawable_stroke_color="#123456"
+          app:fast_drawable_stroke_width="1dp"
+          style="@style/FastTextView.Compat"
+          />
+
+      <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
+          android:id="@+id/btnAlphaButton"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp"
+          android:clickable="true"
+          android:gravity="center"
+          android:text="默认button"
+          />
+
+      <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
+          android:id="@+id/btnNoRadius"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp"
+          android:clickable="true"
+          android:gravity="center"
+          android:text="无圆角button"
+          app:fast_drawable_radius="0dp"
+          />
+
+      <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
+          android:id="@+id/btnNoBorder"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp"
+          android:clickable="true"
+          android:gravity="center"
+          android:text="无边框button"
+          app:fast_drawable_radius="0dp"
+          app:fast_drawable_stroke_width="0dp"
+          />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+          <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginRight="3dp"
+              android:layout_marginTop="20dp"
+              android:layout_weight="1"
+              android:clickable="true"
+              android:gravity="center"
+              android:text="左上"
+              app:fast_drawable_left_top_radius="10dp"
+              />
+
+          <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="3dp"
+              android:layout_marginTop="20dp"
+              android:layout_weight="1"
+              android:clickable="true"
+              android:gravity="center"
+              android:text="右上"
+              app:fast_drawable_right_top_radius="10dp"
+              />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+          <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginRight="3dp"
+              android:layout_marginTop="20dp"
+              android:layout_weight="1"
+              android:clickable="true"
+              android:gravity="center"
+              android:text="左下"
+              app:fast_drawable_left_bottom_radius="10dp"
+              />
+
+          <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="3dp"
+              android:layout_marginTop="20dp"
+              android:layout_weight="1"
+              android:clickable="true"
+              android:gravity="center"
+              android:text="右下"
+              app:fast_drawable_right_bottom_radius="10dp"
+              />
+
+        </LinearLayout>
+
+      </LinearLayout>
+
+    </LinearLayout>
+  </io.github.keep2iron.fast4android.core.widget.FastWindowInsetLayout>
+
+</layout>

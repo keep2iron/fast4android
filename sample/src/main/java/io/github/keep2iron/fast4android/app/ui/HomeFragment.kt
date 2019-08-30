@@ -12,24 +12,28 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import io.github.keep2iron.fast4android.app.R
-import io.github.keep2iron.fast4android.app.ui.roundbutton.RoundButtonFragment
+import io.github.keep2iron.fast4android.app.ui.roundbutton.RoundComponentsFragment
 import io.github.keep2iron.fast4android.arch.AbstractFragment
 import io.github.keep2iron.fast4android.arch.FindViewById
 import io.github.keep2iron.fast4android.core.util.layoutInflate
+import io.github.keep2iron.fast4android.topbar.FastTopBar
 
 class HomeFragment : AbstractFragment<ViewDataBinding>() {
 
   private val recyclerView: RecyclerView by FindViewById(R.id.recyclerView)
 
+  private val titleBar: FastTopBar by FindViewById(R.id.titleBar)
+
   override fun resId(): Int = R.layout.home_fragment
 
   private val items = listOf(
-    Description("RoundButton", R.mipmap.icon_grid_button, RoundButtonFragment::class.java)
+    Description("RoundComponents", R.mipmap.icon_grid_button, RoundComponentsFragment::class.java)
 //    Description("TabSegment", R.mipmap.icon_grid_tab_segment, TabSegmentActivity::class.java)
   )
 
   override fun initVariables(savedInstanceState: Bundle?) {
     recyclerView.adapter = MainAdapter(items, requireFragmentManager())
+
     recyclerView.layoutManager = GridLayoutManager(requireContext().applicationContext, 3)
   }
 
@@ -42,7 +46,7 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
         val viewHolder = this
         itemView.setOnClickListener {
           fragmentManager.beginTransaction()
-            .replace(R.id.container, RoundButtonFragment())
+            .replace(R.id.container, RoundComponentsFragment())
             .commit()
 //                    startActivity(data[viewHolder.layoutPosition].clazz)
         }

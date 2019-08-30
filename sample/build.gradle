@@ -49,7 +49,7 @@ dependencies {
   implementation deps.arch.lifecycle
   implementation deps.arch.extensions
 
-  implementation project(':arch')
+  implementation project(':comp-arch')
   implementation project(':core')
   implementation project(':comp-tabsegment')
   implementation project(':comp-topbarlayout')

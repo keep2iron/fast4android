@@ -1,15 +1,34 @@
 package io.github.keep2iron.fast4android.core.util
 
 import android.app.Activity
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.annotation.LayoutRes
+import androidx.collection.ArrayMap
+import io.github.keep2iron.fast4android.core.ComponentProvider
 import io.github.keep2iron.fast4android.core.Fast4Android
 import java.io.Serializable
+
+/**
+ * 用于扩展 Application 的扩展方法类
+ */
+val COMPONENT_SERVICE = ArrayMap<Class<*>, Any>()
+
+/**
+ * 注册组件服务
+ */
+inline fun <reified T> registerComponent(componentProvider: ComponentProvider<T>) {
+  COMPONENT_SERVICE[T::class.java] =
+    componentProvider.onCreateComponent(Fast4Android.CONTEXT.applicationContext as Application)
+}
+
+/**
+ * 获取组件
+ */
+inline fun <reified T> getComponentService(): T {
+  return COMPONENT_SERVICE[T::class.java] as T
+}
 
 fun dp2px(dp: Int): Int {
   val density = Fast4Android.CONTEXT.resources.displayMetrics.density

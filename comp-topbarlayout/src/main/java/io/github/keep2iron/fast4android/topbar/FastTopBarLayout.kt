@@ -15,7 +15,7 @@ class FastTopBarLayout @JvmOverloads constructor(
 
   init {
     val drawableCreator = fastDrawableViewHelper.resolveAttribute(context, attrs, defStyleAttr)
-    fastTopBar.background = drawableCreator.build()
+    fastTopBar.background = drawableCreator?.build() ?: background
 
     val typedArray =
       context.obtainStyledAttributes(attrs, R.styleable.FastTopBarLayout, defStyleAttr, 0)

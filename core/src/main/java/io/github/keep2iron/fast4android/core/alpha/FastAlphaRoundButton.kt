@@ -15,7 +15,7 @@ open class FastAlphaRoundButton @JvmOverloads constructor(
   private val fastDrawableViewHelper =
     FastDrawableRoundViewHelper()
 
-  private var drawableCreator: DrawableCreator
+  private var drawableCreator: DrawableCreator?
 
   init {
     drawableCreator = fastDrawableViewHelper.resolveAttribute(context, attrs, defStyleAttr)
@@ -57,10 +57,10 @@ open class FastAlphaRoundButton @JvmOverloads constructor(
 
     val minSize = width.coerceAtMost(height)
     background = if (fastDrawableViewHelper.radiusAdjust) {
-      drawableCreator.cornerRadii(minSize / 2, minSize / 2, minSize / 2, minSize / 2)
-      drawableCreator.build()
+      drawableCreator?.cornerRadii(minSize / 2, minSize / 2, minSize / 2, minSize / 2)
+      drawableCreator?.build()
     } else {
-      drawableCreator.build()
+      drawableCreator?.build()
     }
   }
 }

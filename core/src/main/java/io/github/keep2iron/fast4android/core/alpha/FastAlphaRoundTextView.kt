@@ -25,7 +25,7 @@ open class FastAlphaRoundTextView @JvmOverloads constructor(
       TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics
     ).toInt()
 
-    background = fastDrawableViewHelper.resolveAttribute(context, attrs, defStyleAttr).build()
+    background = fastDrawableViewHelper.resolveAttribute(context, attrs, defStyleAttr)?.build()
 
     val typedArray =
       context.obtainStyledAttributes(attrs, R.styleable.FastAlphaRoundTextView, defStyleAttr, 0)

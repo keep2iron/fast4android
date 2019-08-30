@@ -1,5 +1,6 @@
 package io.github.keep2iron.fast4android.app.ui
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -12,22 +13,23 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import io.github.keep2iron.fast4android.app.R
-import io.github.keep2iron.fast4android.app.ui.roundbutton.RoundComponentsFragment
+import io.github.keep2iron.fast4android.app.ui.roundbutton.RoundComponentsActivity
 import io.github.keep2iron.fast4android.arch.AbstractFragment
 import io.github.keep2iron.fast4android.arch.FindViewById
 import io.github.keep2iron.fast4android.core.util.layoutInflate
-import io.github.keep2iron.fast4android.topbar.FastTopBar
+import io.github.keep2iron.fast4android.core.util.startActivity
+import io.github.keep2iron.fast4android.topbar.FastTopBarLayout
 
 class HomeFragment : AbstractFragment<ViewDataBinding>() {
 
   private val recyclerView: RecyclerView by FindViewById(R.id.recyclerView)
 
-  private val titleBar: FastTopBar by FindViewById(R.id.titleBar)
+//  private val titleBar: FastTopBarLayout by FindViewById(R.id.titleBar)
 
   override fun resId(): Int = R.layout.home_fragment
 
   private val items = listOf(
-    Description("RoundComponents", R.mipmap.icon_grid_button, RoundComponentsFragment::class.java)
+    Description("RoundComponents", R.mipmap.icon_grid_button, RoundComponentsActivity::class.java)
 //    Description("TabSegment", R.mipmap.icon_grid_tab_segment, TabSegmentActivity::class.java)
   )
 
@@ -45,10 +47,7 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
       return MyViewHolder(context.layoutInflate(R.layout.home_item_main, parent)).apply {
         val viewHolder = this
         itemView.setOnClickListener {
-          fragmentManager.beginTransaction()
-            .replace(R.id.container, RoundComponentsFragment())
-            .commit()
-//                    startActivity(data[viewHolder.layoutPosition].clazz)
+          startActivity(data[viewHolder.layoutPosition].clazz)
         }
       }
     }
@@ -69,6 +68,6 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
   class Description(
     val title: String,
     val icon: Int,
-    val clazz: Class<out Fragment>
+    val clazz: Class<out Activity>
   )
 }

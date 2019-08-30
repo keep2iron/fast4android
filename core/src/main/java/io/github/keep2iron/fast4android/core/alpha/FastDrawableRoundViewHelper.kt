@@ -4,23 +4,32 @@ import android.content.Context
 import android.graphics.drawable.GradientDrawable.RECTANGLE
 import android.util.AttributeSet
 import io.github.keep2iron.fast4android.core.R
-import io.github.keep2iron.fast4android.core.util.dp2px
 import io.github.keep2iron.peach.DrawableCreator
 
 class FastDrawableRoundViewHelper {
 
   var radiusAdjust = false
 
-  fun resolveAttribute(context: Context, attrs: AttributeSet?, defStyleAttr: Int): DrawableCreator {
+  fun resolveAttribute(
+    context: Context,
+    attrs: AttributeSet?,
+    defStyleAttr: Int
+  ): DrawableCreator? {
 
     val typeValue =
-      context.obtainStyledAttributes(attrs, R.styleable.FastDrawableRoundViewHelper, defStyleAttr, 0)
+      context.obtainStyledAttributes(
+        attrs,
+        R.styleable.FastDrawableRoundViewHelper,
+        defStyleAttr,
+        0
+      )
 
-    val haveRadius = typeValue.hasValue(R.styleable.FastDrawableRoundViewHelper_fast_drawable_radius) ||
-        typeValue.hasValue(R.styleable.FastDrawableRoundViewHelper_fast_drawable_left_top_radius) ||
-        typeValue.hasValue(R.styleable.FastDrawableRoundViewHelper_fast_drawable_left_bottom_radius) ||
-        typeValue.hasValue(R.styleable.FastDrawableRoundViewHelper_fast_drawable_right_top_radius) ||
-        typeValue.hasValue(R.styleable.FastDrawableRoundViewHelper_fast_drawable_right_bottom_radius)
+    val haveRadius =
+      typeValue.hasValue(R.styleable.FastDrawableRoundViewHelper_fast_drawable_radius) ||
+          typeValue.hasValue(R.styleable.FastDrawableRoundViewHelper_fast_drawable_left_top_radius) ||
+          typeValue.hasValue(R.styleable.FastDrawableRoundViewHelper_fast_drawable_left_bottom_radius) ||
+          typeValue.hasValue(R.styleable.FastDrawableRoundViewHelper_fast_drawable_right_top_radius) ||
+          typeValue.hasValue(R.styleable.FastDrawableRoundViewHelper_fast_drawable_right_bottom_radius)
 
     val radius = typeValue.getDimensionPixelSize(
       R.styleable.FastDrawableRoundViewHelper_fast_drawable_radius,
@@ -31,10 +40,12 @@ class FastDrawableRoundViewHelper {
       R.styleable.FastDrawableRoundViewHelper_fast_drawable_stroke_width,
       0
     )
+
     val strokeColor = typeValue.getColor(
       R.styleable.FastDrawableRoundViewHelper_fast_drawable_stroke_color,
       -1
     )
+
     var leftTopRadius = radius
     var leftBottomRadius = radius
     var rightTopRadius = radius
@@ -59,7 +70,7 @@ class FastDrawableRoundViewHelper {
 
     val startColor = typeValue.getColor(
       R.styleable.FastDrawableRoundViewHelper_fast_drawable_color_start,
-      7 - 1
+      -1
     )
     val centerColor = typeValue.getColor(
       R.styleable.FastDrawableRoundViewHelper_fast_drawable_color_center,
@@ -83,8 +94,12 @@ class FastDrawableRoundViewHelper {
       radiusAdjust = false
     }
 
+    if (strokeWidth == 0 && startColor == -1 && endColor == -1) {
+      return null
+    }
+
     val drawableCreator = DrawableCreator().apply {
-      if (startColor != -1 || endColor != -1) {
+      if (startColor != -1 && endColor != -1) {
         gradient()
         linearGradient()
 
@@ -92,8 +107,6 @@ class FastDrawableRoundViewHelper {
         endColor(endColor)
 
         if (centerColor != -1) centerColor(centerColor)
-
-        gradientRadius(dp2px(20).toFloat())
       }
       shape(RECTANGLE)
       cornerRadii(leftTopRadius, rightTopRadius, rightBottomRadius, leftBottomRadius)

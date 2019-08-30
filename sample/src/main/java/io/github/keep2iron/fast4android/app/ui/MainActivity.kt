@@ -12,7 +12,6 @@ class MainActivity : AbstractActivity<ActivityMainBinding>() {
   override fun resId(): Int = R.layout.activity_main
 
   override fun initVariables(savedInstanceState: Bundle?) {
-
     FastStatusBarHelper.translucent(this)
 
     supportFragmentManager.beginTransaction()

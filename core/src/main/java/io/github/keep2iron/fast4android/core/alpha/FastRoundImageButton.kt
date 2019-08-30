@@ -15,7 +15,7 @@ open class FastRoundImageButton @JvmOverloads constructor(
 
   private val fastDrawableViewHelper = FastDrawableRoundViewHelper()
 
-  private var drawableCreator: DrawableCreator
+  private var drawableCreator: DrawableCreator?
 
   init {
     drawableCreator = fastDrawableViewHelper.resolveAttribute(context, attrs, defStyleAttr)

@@ -124,7 +124,7 @@ class FastTopBar @JvmOverloads constructor(
       context.obtainStyledAttributes(attrs, R.styleable.FastTopBar, defStyleAttr, 0)
     if (attrs != null) {
       val drawableCreator = fastDrawableViewHelper.resolveAttribute(context, attrs, defStyleAttr)
-      background = drawableCreator.build()
+      background = drawableCreator?.build() ?: background
 
       resolveTypedArray(typedArray)
     }
@@ -246,7 +246,7 @@ class FastTopBar @JvmOverloads constructor(
     titleContainer.layout(maxSize, 0, width - maxSize, titleContainer.bottom)
   }
 
-  fun addLefBackImageButton(
+  fun addLeftBackImageButton(
     drawable: Drawable? = ContextCompat.getDrawable(context, backDrawableRes),
     @IdRes backId: Int = R.id.fast_topbar_item_left_back,
     @ColorRes tintColorRes: Int = -1
@@ -269,7 +269,7 @@ class FastTopBar @JvmOverloads constructor(
   }
 
   fun addLeftBackImageButton(@DrawableRes backDrawableRes: Int, @IdRes backId: Int): View {
-    return addLefBackImageButton(ContextCompat.getDrawable(context, backDrawableRes), backId)
+    return addLeftBackImageButton(ContextCompat.getDrawable(context, backDrawableRes), backId)
   }
 
   fun addLeftView(view: View, viewId: Int, layoutParams: LayoutParams? = null): View {
@@ -283,9 +283,36 @@ class FastTopBar @JvmOverloads constructor(
           }
         }
     leftLastId = viewId
+    view.id = viewId
     leftViews.add(view)
     addView(view, generateLayoutParams)
     return view
+  }
+
+  fun addRightImageButton(@DrawableRes backDrawableRes: Int, @IdRes backId: Int): View {
+    return addRightBackImageButton(ContextCompat.getDrawable(context, backDrawableRes), backId)
+  }
+
+  fun addRightBackImageButton(
+    drawable: Drawable?,
+    @IdRes backId: Int,
+    @ColorRes tintColorRes: Int = -1
+  ): ImageButton {
+    val imageView = FastRoundImageButton(context)
+    if (tintColorRes != -1) {
+      drawable?.setColorFilter(
+        ContextCompat.getColor(context, tintColorRes),
+        PorterDuff.Mode.SRC_ATOP
+      )
+    } else {
+      drawable?.setColorFilter(
+        titleColor,
+        PorterDuff.Mode.SRC_ATOP
+      )
+    }
+    drawable?.setBounds(0, 0, dp2px(30), dp2px(30))
+    imageView.setImageDrawable(drawable)
+    return addRightView(imageView, backId, null) as ImageButton
   }
 
   fun addRightView(view: View, viewId: Int, layoutParams: LayoutParams? = null): View {
@@ -293,12 +320,15 @@ class FastTopBar @JvmOverloads constructor(
       layoutParams ?: LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
         .apply {
           if (rightLastId == DEFAULT_VIEW_ID) {
-            this.addRule(ALIGN_PARENT_RIGHT or CENTER_VERTICAL)
+            this.addRule(ALIGN_PARENT_RIGHT)
+            this.addRule(CENTER_VERTICAL)
           } else {
-            this.addRule(ALIGN_RIGHT or CENTER_VERTICAL, rightLastId)
+            this.addRule(ALIGN_RIGHT, rightLastId)
+            this.addRule(CENTER_VERTICAL)
           }
         }
     rightLastId = viewId
+    view.id = viewId
     rightViews.add(view)
     addView(view, generateLayoutParams)
     return view

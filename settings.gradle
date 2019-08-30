@@ -1,2 +1,2 @@
-include ':sample', ':arch', ':core', ':comp-popwindowplus', ':comp-tabsegment', ':comp-topbarlayout',
+include ':sample', ':comp-arch', ':core', ':comp-popwindowplus', ':comp-tabsegment', ':comp-topbarlayout',
     ':base-style'

@@ -1,0 +1,6 @@
+<resources>
+  <!--swipe back layout id-->
+  <item name="fast_arch_swipe_layout_in_back" type="id"/>
+  <item name="fast_arch_swipe_offset_helper" type="id"/>
+  <item name="fast_arch_reused_layout" type="id"/>
+</resources>

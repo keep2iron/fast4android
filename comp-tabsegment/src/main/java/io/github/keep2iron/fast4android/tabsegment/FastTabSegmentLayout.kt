@@ -1,12 +1,21 @@
 package io.github.keep2iron.fast4android.tabsegment
 
 import android.content.Context
-import android.graphics.Typeface
+import android.database.DataSetObserver
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.util.TypedValue
+import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.HorizontalScrollView
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import io.github.keep2iron.fast4android.core.util.dp2px
 import io.github.keep2iron.fast4android.core.util.getAttrColor
+import kotlin.LazyThreadSafetyMode.NONE
 
 /**
  * use this can quick set a bottom tab layoutInflate.
@@ -44,12 +53,11 @@ class FastTabSegmentLayout @JvmOverloads constructor(
   attrs: AttributeSet? = null,
   defStyleAttr: Int = R.attr.FastTabSegmentLayoutStyle
 ) : HorizontalScrollView(context, attrs, defStyleAttr) {
-
   companion object {
     // mode 自适应宽度/均分
-    const val MODE_FIXED = 0
+    const val MODE_FIXED = 1
     // mode 可滚动
-    const val MODE_SCROLLABLE = 1
+    const val MODE_SCROLLABLE = 0
 
     // icon 位置
     const val ICON_POSITION_LEFT = 0
@@ -69,9 +77,8 @@ class FastTabSegmentLayout @JvmOverloads constructor(
      * 当tab选中时触发
      *
      * @param index 选中的tab的下标
-     * @param reselected 第一次从不选中到选中时为false,当选中状态时再次选中为true
      */
-    fun onTabSelected(index: Int, reselected: Boolean) {}
+    fun onTabSelected(index: Int) {}
 
     /**
      * 当tab从选中时到不选中时触发
@@ -80,281 +87,293 @@ class FastTabSegmentLayout @JvmOverloads constructor(
      */
     fun onTabUnselected(index: Int) {}
 
-    /**
-     * 当tab双击时触发
-     *
-     * @param index 双击时的下标
-     */
-    fun onTabDoubleTap(index: Int) {}
-
   }
 
   /**
    * selected changed listener
    */
   val selectedListeners = ArrayList<OnTabSelectedListener>()
+
+  var tabIconWidth: Int = dp2px(10)
+  var tabIconHeight: Int = dp2px(10)
+  var tabTextSize: Int = resources.getDimensionPixelSize(R.dimen.fast_tab_segment_text_size)
+  var tabMode: Int = MODE_FIXED
   /**
-   * 默认状态的文字是否加粗
+   * tab的两边间隙 tabMode == MODE_SCROLLABLE 时有效
    */
-  var isNormalTabBold = false
+  var tabSpacing: Int = dp2px(10)
+  var tabPosition: Int = ICON_POSITION_LEFT
+  //  private var tabDrawablePadding: Int = 0
+  var tabItemMargin: Int = 0
+  private val tabContainer by lazy(NONE) {
+    val linearLayout = Container(context)
+    linearLayout
+  }
+
+  private var adapter: TabSegmentAdapter? = null
+
+  var viewPager: ViewPager? = null
   /**
-   * 选中状态的文字是否加粗
+   * 用于ViewPager的offset参数
    */
-  var isSelectedTabBold = true
-  /**
-   * 字体
-   */
-  var typeface: Typeface? = null
+  var positionOffset: Float = 0f
+
+  val indicatorRect = Rect()
   /**
    * 指示器高度
    */
-  var indicatorHeight: Int = DEFAULT_DIMEN_VALUE
+  var indicatorHeight: Int =
+    resources.getDimensionPixelSize(R.dimen.fast_tab_segment_indicator_height)
   /**
    * 指示器颜色
    */
   var indicatorColor: Int = DEFAULT_DIMEN_VALUE
+    set(value) {
+      field = value
+      indicatorPaint.color = value
+    }
+  val indicatorPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+  val indicatorDrawable: Drawable? = null
 
   /**
    * 用于container是ViewPager的时候的position
    */
   private var position: Int = 0
-  /**
-   * 用于ViewPager的offset参数
-   */
-  private var positionOffset: Float = 0f
-
-  //  private lateinit var adapter: BottomTabAdapter
-  private var tabIconWidth: Float =
-    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10f, context.resources.displayMetrics)
-  private var tabIconHeight: Float =
-    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10f, context.resources.displayMetrics)
-  private var tabTextSize: Float =
-    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 15f, context.resources.displayMetrics)
-  private var tabHeight: Float =
-    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50f, context.resources.displayMetrics)
-
-  private var tabDrawablePadding: Int = 0
-  private var tabItemMargin: Int = 0
-  private var tabItemBackgroundRes: Int = -1
-//  private lateinit var onTabStateChangedListeners: ArrayList<OnTabChangeListener>
 
   /**
    * 选中颜色
    */
   var itemSelectTextColor: Int = 0
+    set(value) {
+      field = value
+      adapter?.selectColor = field
+    }
   /**
    * 默认颜色
    */
   var itemTextColor: Int = 0
-
-  var container: View? = null
+    set(value) {
+      field = value
+      adapter?.normalColor = field
+    }
 
   init {
-    val defaultNormal = context.getAttrColor(R.attr.fast_config_color_gray_5)
-    val selectedColor = context.getAttrColor(android.R.attr.textColorPrimary)
-
     val array =
       context.obtainStyledAttributes(attrs, R.styleable.FastTabSegmentLayout, defStyleAttr, 0)
-    array.getDimensionPixelSize(
+    indicatorHeight = array.getDimensionPixelSize(
       R.styleable.FastTabSegmentLayout_fast_tab_indicator_height,
-      resources.getDimensionPixelSize(R.dimen.fast_tab_segment_indicator_height)
+      indicatorHeight
     )
-
-//    tabTextSize =
-//      array.getDimension(R.styleable.CompBottomTabLayout_comp_tabItem_textSize, tabTextSize)
-//    tabIconWidth =
-//      array.getDimension(R.styleable.CompBottomTabLayout_comp_tabItem_drawableWidth, tabIconWidth)
-//    tabIconHeight =
-//      array.getDimension(R.styleable.CompBottomTabLayout_comp_tabItem_drawableHeight, tabIconHeight)
-//    tabDrawablePadding =
-//      array.getDimension(R.styleable.CompBottomTabLayout_comp_tabItem_drawablePadding, 0f).toInt()
-//    tabItemMargin =
-//      array.getDimension(R.styleable.CompBottomTabLayout_comp_tabItem_margin, 0f).toInt()
-//    tabItemBackgroundRes =
-//      array.getResourceId(R.styleable.CompBottomTabLayout_comp_tabItem_background, -1)
-//    tabHeight = array.getDimension(R.styleable.CompBottomTabLayout_comp_tabLayout_height, tabHeight)
-
+    tabTextSize =
+      array.getDimensionPixelSize(R.styleable.FastTabSegmentLayout_android_textSize, tabTextSize)
+    tabMode = array.getInt(R.styleable.FastTabSegmentLayout_fast_tab_mode, tabMode)
+    tabPosition = array.getInt(R.styleable.FastTabSegmentLayout_fast_tab_icon_position, tabPosition)
+    itemTextColor = array.getColor(
+      R.styleable.FastTabSegmentLayout_fast_tab_normal_color,
+      context.getAttrColor(R.attr.fast_config_color_gray_5)
+    )
+    itemSelectTextColor = array.getColor(
+      R.styleable.FastTabSegmentLayout_fast_tab_selected_color,
+      context.getAttrColor(R.attr.colorPrimary)
+    )
     array.recycle()
+
+    indicatorColor = itemSelectTextColor
   }
 
-//  fun setBottomTabAdapter(adapter: BottomTabAdapter, container: View, defaultPosition: Int = 0) {
-//    this.adapter = adapter
-//    adapter.tabs[defaultPosition].fragment?.let { frag ->
-//      adapter.showingFragment = frag
-//    }
-//    adapter.selectPosition = defaultPosition
-//    adapter.containerView = container
-//
-//    onTabStateChangedListeners = adapter.onTabStateChangedListeners
-//
-//    if (container is androidx.viewpager.widget.ViewPager) {
-//      setWithViewPager(container)
-//      if (defaultPosition != 0) {
-//        container.currentItem = defaultPosition
-//      }
-//    }
-//
-//    setViewWithAdapter(adapter, container)
-//
-//    setTabSelect(defaultPosition)
-//  }
-//
-//  /**
-//   * add tab select listener
-//   */
-//  fun addOnTabSelectedListener(listener: OnTabChangeListener) {
-//    adapter.onTabStateChangedListeners.add(listener)
-//  }
-//
-//  /**
-//   * when container view is android.view.FrameLayout it can switch to [position] fragment
-//   */
-//  private fun setTabSelect(position: Int) {
-//    val tab = adapter.tabs[position]
-//
-//    if (!tab.isCustom) {
-//      adapter.setTabSelect(position)
-//    } else {
-//      for (listener in adapter.onTabStateChangedListeners) {
-//        listener.onTabSelect(position)
-//        listener.onTabUnSelect(adapter.selectPosition)
-//      }
-//    }
-//
-//    this.position = position
-//    this.positionOffset = 0f
-//  }
-//
-//  private fun setViewWithAdapter(adapter: BottomTabAdapter, container: View) {
-//    for (i in 0 until adapter.tabs.size) {
-//      val tab = adapter.tabs[i]
-//      tab.tabIconWidth = tabIconWidth
-//      tab.tabIconHeight = tabIconHeight
-//      if (!tab.isCustom) {
-//        tab.customView = adapter.provideDefaultTextView(
-//          context,
-//          tab,
-//          tabIconWidth,
-//          tabIconHeight,
-//          tabTextSize.toInt(),
-//          tabHeight,
-//          tabDrawablePadding,
-//          i == adapter.selectPosition
-//        )
-//        if (tabItemBackgroundRes != -1) {
-//          tab.customView.setBackgroundResource(tabItemBackgroundRes)
-//        }
-//        tab.customView.setOnClickListener {
-//          if (i != adapter.selectPosition) {
-//            if (!tab.isCustom && container !is androidx.viewpager.widget.ViewPager) {
-//              adapter.setTabSelect(i)
-//            } else if (!tab.isCustom && container is androidx.viewpager.widget.ViewPager) {
-//              container.currentItem = i
-//            } else {
-//              for (listener in adapter.onTabStateChangedListeners) {
-//                listener.onTabSelect(i)
-//                listener.onTabUnSelect(adapter.selectPosition)
-//              }
-//            }
-//          }
-//        }
-//      }
-//
-//      val params = LayoutParams(MATCH_PARENT, MATCH_PARENT)
-//      params.weight = 1.0f
-//      params.width = 0
-//      params.leftMargin = tabItemMargin
-//      params.rightMargin = tabItemMargin
-//      tab.customView.layoutParams = params
-//      addView(tab.customView)
-//
-//      adapter.onBindTabHolder(i, tab)
-//    }
-//  }
-//
-//  /**
-//   * Switch to the container at the [position] location
-//   *
-//   * @param position position in the BottomTabAdapter tabs
-//   */
-//  fun setCurrentPosition(position: Int) {
-//    if (container is androidx.viewpager.widget.ViewPager) {
-//      val viewPager = container as androidx.viewpager.widget.ViewPager
-//      viewPager.currentItem = position
-//    } else {
-//      setTabSelect(position)
-//    }
-//  }
-//
-//  /**
-//   * if container is ViewPager
-//   *
-//   * @param viewPager container view
-//   */
-//  private fun setWithViewPager(viewPager: androidx.viewpager.widget.ViewPager) {
-//    if (context !is androidx.fragment.app.FragmentActivity) {
-//      throw IllegalArgumentException(
-//        String.format(
-//          "%s 's context is not FragmentActivity",
-//          javaClass.simpleName
-//        )
-//      )
-//    }
-//    val manager = (context as androidx.fragment.app.FragmentActivity).supportFragmentManager
-//    viewPager.adapter = BottomTabViewPagerAdapter(manager, adapter.tabs)
-//    viewPager.offscreenPageLimit = adapter.getItemCount()
-//    viewPager.addOnPageChangeListener(object :
-//      androidx.viewpager.widget.ViewPager.OnPageChangeListener {
-//      override fun onPageScrollStateChanged(state: Int) {
-//      }
-//
-//      override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-//        this@CompBottomTabLayout.position = position
-//        this@CompBottomTabLayout.positionOffset = positionOffset
-//        invalidate()
-//      }
-//
-//      override fun onPageSelected(position: Int) {
-//        if (adapter.selectPosition != position) {
-//          adapter.tabs[position].select()
-//          adapter.tabs[adapter.selectPosition].unSelect()
-//
-//          for (listener in onTabStateChangedListeners) {
-//            listener.onTabSelect(position)
-//            listener.onTabUnSelect(adapter.selectPosition)
-//          }
-//          adapter.selectPosition = position
-//        }
-//      }
-//    })
-//  }
-//
-//  interface OnTabChangeListener {
-//    /**
-//     * on tab select
-//     *
-//     * @param position select position
-//     */
-//    fun onTabSelect(position: Int)
-//
-//    /**
-//     * on tab not select
-//     *
-//     * @param position not select position
-//     */
-//    fun onTabUnSelect(position: Int)
-//  }
-//
-//  internal class BottomTabViewPagerAdapter(
-//    fm: androidx.fragment.app.FragmentManager,
-//    private val tabs: ArrayList<BottomTabAdapter.TabHolder>
-//  ) : androidx.fragment.app.FragmentPagerAdapter(fm) {
-//
-//    override fun getCount(): Int = tabs.size
-//
-//    override fun getItem(position: Int): androidx.fragment.app.Fragment {
-//      return tabs[position].fragment
-//        ?: throw IllegalArgumentException("BottomTabHolder`s fragment is null,you must set a fragment in tabs[$position]")
-//    }
-//  }
+  fun setAdapter(adapter: TabSegmentAdapter) {
+    this.adapter = adapter
+    adapter.mObservable.registerObserver(SegmentLayoutAdapterDataObserver(this))
+    adapter.normalColor = itemTextColor
+    adapter.selectColor = itemSelectTextColor
+
+    addView(tabContainer, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT))
+
+    for (i in 0 until adapter.getItemSize()) {
+      val tabView = adapter.createTab(this, i, false)
+      tabContainer.addView(tabView, generateDefaultLayoutParams())
+    }
+    tabContainer.requestLayout()
+  }
+
+  fun setupWithViewPager(viewPager: ViewPager, defaultPosition: Int = 0) {
+    this.viewPager = viewPager
+    viewPager.addOnPageChangeListener(tabContainer)
+    viewPager.adapter?.registerDataSetObserver(object : DataSetObserver() {
+      override fun onChanged() {
+        this@FastTabSegmentLayout.adapter?.notifyDataSetChanged()
+      }
+    })
+    this.position = defaultPosition
+  }
+
+  private class SegmentLayoutAdapterDataObserver(val view: FastTabSegmentLayout) :
+    AdapterDataObserver() {
+    override fun onChanged() {
+      view.requestLayout()
+    }
+
+    override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+      onItemRangeChanged(positionStart, itemCount, null)
+    }
+
+    override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) {
+      view.requestLayout()
+    }
+
+    override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+      onItemRangeChanged(positionStart, itemCount)
+    }
+
+    override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+      onItemRangeChanged(positionStart, itemCount)
+    }
+
+    override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
+      onItemRangeChanged(fromPosition, itemCount)
+    }
+  }
+
+  private inner class Container @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+  ) : ViewGroup(context, attrs, defStyleAttr), OnPageChangeListener, OnClickListener {
+
+    override fun onClick(v: View) {
+      val index = indexOfChild(v)
+      selectedListeners.forEach {
+        it.onTabUnselected(position)
+      }
+      selectedListeners.forEach {
+        it.onTabSelected(index)
+      }
+      adapter?.let {
+        it.onBindTab(tabContainer.getChildAt(position), position, false)
+        it.onBindTab(tabContainer.getChildAt(index), index, true)
+      }
+      position = index
+      viewPager?.currentItem = position
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+      val parentWidth = MeasureSpec.getSize(widthMeasureSpec)
+      val parentHeight = MeasureSpec.getSize(heightMeasureSpec)
+      val width: Int
+
+      if (adapter == null) {
+        Log.d(FastTabSegmentLayout::class.java.simpleName, "adapter is null onMeasure is skip")
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        return
+      }
+
+      if (tabMode == MODE_FIXED) {
+        width = parentWidth / adapter!!.getItemSize()
+        measureChildren(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY), heightMeasureSpec)
+        setMeasuredDimension(parentWidth, parentHeight)
+      } else if (tabMode == MODE_SCROLLABLE) {
+        var totalWidth = 0
+        measureChildren(
+          MeasureSpec.makeMeasureSpec(parentWidth, MeasureSpec.AT_MOST),
+          heightMeasureSpec
+        )
+
+        for (i in 0 until childCount) {
+          val childView = getChildAt(i)
+          if (childView.visibility == View.VISIBLE) {
+            totalWidth += getChildAt(i).measuredWidth + tabSpacing
+          }
+        }
+        if (totalWidth > 0) {
+          totalWidth -= tabSpacing
+        }
+
+        setMeasuredDimension(totalWidth, parentHeight)
+      }
+    }
+
+    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
+      if (adapter == null) {
+        Log.d(FastTabSegmentLayout::class.java.simpleName, "adapter is null onLayout is skip")
+        return
+      }
+
+      var lastLeft = l
+      for (i in 0 until adapter!!.getItemSize()) {
+        val childView = getChildAt(i)
+        val left = if (i == 0 || tabMode == MODE_FIXED) {
+          paddingLeft + lastLeft
+        } else {
+          paddingLeft + lastLeft + tabSpacing
+        }
+        val top = paddingTop
+        val right = left + childView.measuredWidth
+        val bottom = childView.measuredHeight
+        childView.layout(left, top, right, bottom)
+        childView.setOnClickListener(this)
+        adapter!!.onBindTab(childView, i, position == i)
+
+        lastLeft = right
+      }
+    }
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+      this@FastTabSegmentLayout.positionOffset = positionOffset
+
+      if (childCount > 0) {
+        val view = getChildAt(position)
+        indicatorRect.left = view.left + (view.width * positionOffset).toInt()
+        indicatorRect.right = indicatorRect.left + view.width
+        if (tabMode == MODE_FIXED) {
+        } else if (tabMode == MODE_SCROLLABLE) {
+          val view = getChildAt(position)
+          indicatorRect.left = view.left + (view.width * positionOffset).toInt()
+          indicatorRect.right = indicatorRect.left + view.width
+        }
+        invalidate()
+      }
+    }
+
+    override fun onPageSelected(position: Int) {
+      val selectedTab = tabContainer.getChildAt(position)
+      adapter?.let {
+        it.onBindTab(
+          tabContainer.getChildAt(this@FastTabSegmentLayout.position),
+          this@FastTabSegmentLayout.position,
+          false
+        )
+        it.onBindTab(selectedTab, position, true)
+      }
+      if (this@FastTabSegmentLayout.scrollX + this@FastTabSegmentLayout.width < selectedTab.right) {
+        this@FastTabSegmentLayout.smoothScrollBy(
+          selectedTab.right - this@FastTabSegmentLayout.width - this@FastTabSegmentLayout.scrollX,
+          0
+        )
+      } else if (this@FastTabSegmentLayout.scrollX > selectedTab.left) {
+        this@FastTabSegmentLayout.smoothScrollBy(
+          selectedTab.left - this@FastTabSegmentLayout.scrollX,
+          0
+        )
+      }
+      Log.d(
+        FastTabSegmentLayout::class.java.simpleName,
+        "scrollX : ${this@FastTabSegmentLayout.scrollX} ${selectedTab.left}"
+      )
+//      selectedTab.left - this@FastTabSegmentLayout.scrollX -
+//      if(this@FastTabSegmentLayout.scrollX < )
+      this@FastTabSegmentLayout.position = position
+      invalidate()
+    }
+
+    override fun onPageScrollStateChanged(state: Int) {
+    }
+
+    override fun dispatchDraw(canvas: Canvas) {
+      super.dispatchDraw(canvas)
+
+      indicatorRect.bottom = height - paddingBottom
+      indicatorRect.top = indicatorRect.bottom - indicatorHeight
+
+      canvas.drawRect(indicatorRect, indicatorPaint)
+    }
+  }
 }

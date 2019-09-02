@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.ui.roundbutton.RoundComponentsActivity
+import io.github.keep2iron.fast4android.app.ui.tabsegment.TabSegmentActivity
 import io.github.keep2iron.fast4android.arch.AbstractFragment
 import io.github.keep2iron.fast4android.arch.FindViewById
 import io.github.keep2iron.fast4android.core.util.layoutInflate
@@ -29,8 +30,8 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
   override fun resId(): Int = R.layout.home_fragment
 
   private val items = listOf(
-    Description("RoundComponents", R.mipmap.icon_grid_button, RoundComponentsActivity::class.java)
-//    Description("TabSegment", R.mipmap.icon_grid_tab_segment, TabSegmentActivity::class.java)
+    Description("RoundComponents", R.mipmap.icon_grid_button, RoundComponentsActivity::class.java),
+    Description("TabSegment", R.mipmap.icon_grid_tab_segment, TabSegmentActivity::class.java)
   )
 
   override fun initVariables(savedInstanceState: Bundle?) {
@@ -60,7 +61,6 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
       holder.itemView.findViewById<ImageView>(R.id.item_icon).setImageResource(item.icon)
       holder.itemView.findViewById<TextView>(R.id.item_name).text = item.title
     }
-
   }
 
   class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)

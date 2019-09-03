@@ -234,7 +234,6 @@ So，
     *                 fast common list item          *
     ***********************************************-->
     <item name="fast_common_list_item_chevron">@drawable/fast_icon_chevron</item>
-    <item name="fast_common_list_item_switch">@drawable/fast_s_icon_switch</item>
 
     <!--**********************************************
     *               fast loading view                *

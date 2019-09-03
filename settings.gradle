@@ -1,2 +1,3 @@
 include ':sample', ':comp-arch', ':core', ':comp-popwindowplus', ':comp-tabsegment', ':comp-topbarlayout',
+    ':comp-grouplistview',
     ':base-style'

@@ -29,4 +29,7 @@ class FastTopBarLayout @JvmOverloads constructor(
     fastTopBar.background = null
   }
 
+  inline fun setup(block: FastTopBar.() -> Unit) {
+    fastTopBar.apply(block)
+  }
 }

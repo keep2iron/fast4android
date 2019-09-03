@@ -2,12 +2,12 @@ package io.github.keep2iron.fast4android.app.ui.tabsegment
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.R.id
+import io.github.keep2iron.fast4android.app.databinding.TabSegmentActivityBinding
 import io.github.keep2iron.fast4android.arch.AbstractActivity
 import io.github.keep2iron.fast4android.arch.FindViewById
 import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
@@ -16,7 +16,7 @@ import io.github.keep2iron.fast4android.tabsegment.FastTabSegmentLayout
 import io.github.keep2iron.fast4android.tabsegment.TextFastTabSegmentAdapter
 
 @ParallaxBack
-class TabSegmentActivity : AbstractActivity<ViewDataBinding>() {
+class TabSegmentActivity : AbstractActivity<TabSegmentActivityBinding>() {
 
   private val tabLayout: FastTabSegmentLayout by FindViewById(id.tabLayout)
 
@@ -26,6 +26,11 @@ class TabSegmentActivity : AbstractActivity<ViewDataBinding>() {
 
   override fun initVariables(savedInstanceState: Bundle?) {
     FastStatusBarHelper.translucent(this)
+    dataBinding.topBarLayout.setup {
+      addLeftBackImageButton().setOnClickListener {
+        finish()
+      }
+    }
     val tabs = listOf(
       "tab1",
       "tab2",

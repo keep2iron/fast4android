@@ -17,9 +17,9 @@
       tools:ignore="AllowBackup">
 
     <activity
-        android:windowSoftInputMode="adjustPan"
+        android:name=".ui.MainActivity"
         android:theme="@style/AppTheme"
-        android:name=".ui.MainActivity">
+        android:windowSoftInputMode="adjustPan">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
@@ -29,6 +29,7 @@
     </activity>
     <activity android:name=".ui.tabsegment.TabSegmentActivity"/>
     <activity android:name=".ui.roundbutton.RoundComponentsActivity"/>
+    <activity android:name=".ui.grouplistview.GroupListViewActivity"/>
   </application>
 
 </manifest>

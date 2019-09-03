@@ -53,6 +53,7 @@ dependencies {
   implementation project(':core')
   implementation project(':comp-tabsegment')
   implementation project(':comp-topbarlayout')
+  implementation project(':comp-grouplistview')
 
   implementation 'me.everything:overscroll-decor-android:1.0.4'
 

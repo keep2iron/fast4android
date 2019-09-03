@@ -319,16 +319,17 @@ class FastTabSegmentLayout @JvmOverloads constructor(
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
       this@FastTabSegmentLayout.positionOffset = positionOffset
 
+      val nextPosition = if (positionOffset > 0 && positionOffset < 1) {
+        (position + positionOffset + 1).toInt()
+      } else {
+        position
+      }
+
       if (childCount > 0) {
         val view = getChildAt(position)
-        indicatorRect.left = view.left + (view.width * positionOffset).toInt()
+        val nextView = getChildAt(nextPosition)
+        indicatorRect.left = view.left + ((nextView.left - view.left) * positionOffset).toInt()
         indicatorRect.right = indicatorRect.left + view.width
-        if (tabMode == MODE_FIXED) {
-        } else if (tabMode == MODE_SCROLLABLE) {
-          val view = getChildAt(position)
-          indicatorRect.left = view.left + (view.width * positionOffset).toInt()
-          indicatorRect.right = indicatorRect.left + view.width
-        }
         invalidate()
       }
     }
@@ -354,14 +355,7 @@ class FastTabSegmentLayout @JvmOverloads constructor(
           0
         )
       }
-      Log.d(
-        FastTabSegmentLayout::class.java.simpleName,
-        "scrollX : ${this@FastTabSegmentLayout.scrollX} ${selectedTab.left}"
-      )
-//      selectedTab.left - this@FastTabSegmentLayout.scrollX -
-//      if(this@FastTabSegmentLayout.scrollX < )
       this@FastTabSegmentLayout.position = position
-      invalidate()
     }
 
     override fun onPageScrollStateChanged(state: Int) {

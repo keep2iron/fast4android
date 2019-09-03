@@ -156,17 +156,17 @@
   <attr format="reference" name="FastGroupListViewStyle"/>
   <attr format="reference" name="FastCommonListItemViewStyle"/>
   <attr format="reference" name="fast_common_list_item_chevron"/>
-  <attr format="reference" name="fast_common_list_item_switch"/>
   <declare-styleable name="FastCommonListItemView">
-    <attr name="fast_orientation"/>
+    <!--<attr name="fast_orientation"/>-->
     <attr format="enum" name="fast_accessory_type">
       <enum name="none" value="0"/>
       <enum name="chevron" value="1"/>
       <enum name="switcher" value="2"/>
       <enum name="custom" value="3"/>
     </attr>
+    <attr format="string" name="fast_title"/>
     <attr format="color" name="fast_commonList_titleColor"/>
-    <attr format="color" name="fast_commonList_detailColor"/>
+    <!--<attr format="color" name="fast_commonList_detailColor"/>-->
   </declare-styleable>
   <attr format="reference" name="FastGroupListSectionViewStyle"/>
 

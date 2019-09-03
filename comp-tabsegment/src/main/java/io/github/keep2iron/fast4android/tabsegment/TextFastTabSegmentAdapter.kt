@@ -1,5 +1,6 @@
 package io.github.keep2iron.fast4android.tabsegment
 
+import android.graphics.Color
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView

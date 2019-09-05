@@ -1,11 +1,24 @@
 package io.github.keep2iron.grouplistview
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import androidx.annotation.IntDef
+import androidx.appcompat.widget.AppCompatImageView
+import io.github.keep2iron.fast4android.core.util.dp2px
 import io.github.keep2iron.fast4android.core.util.getAttrColor
+import io.github.keep2iron.fast4android.core.util.setPaddingLeft
 import kotlin.annotation.AnnotationRetention.SOURCE
 
 class FastCommonListItemView @JvmOverloads constructor(
@@ -38,11 +51,76 @@ class FastCommonListItemView @JvmOverloads constructor(
   annotation class AccessoryType
 
   @AccessoryType var accessoryType = ACCESSORY_TYPE_NONE
+    set(value) {
+      if (field == value) return
+      field = value
+      when (value) {
+        ACCESSORY_TYPE_NONE -> {
+          Log.d(FastCommonListItemView::class.java.simpleName, "ACCESSORY_TYPE_NONE")
+          groupListItemAccessoryView.removeAllViews()
+          groupListItemAccessoryView.visibility = View.GONE
+        }
+        ACCESSORY_TYPE_CHEVRON -> {
+          Log.d(FastCommonListItemView::class.java.simpleName, "ACCESSORY_TYPE_CHEVRON")
+          groupListItemAccessoryView.removeAllViews()
+          val imageView = AppCompatImageView(context)
+          imageView.setImageResource(R.drawable.fast_icon_chevron)
+          imageView.layoutParams = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT
+          ).apply {
+            gravity = Gravity.CENTER_VERTICAL
+          }
+          groupListItemAccessoryView.addView(imageView)
+          groupListItemAccessoryView.visibility = View.VISIBLE
+        }
+        ACCESSORY_TYPE_SWITCH -> {
+          Log.d(FastCommonListItemView::class.java.simpleName, "ACCESSORY_TYPE_SWITCH")
+          groupListItemAccessoryView.removeAllViews()
+          val switchView = FastSwitchView(context)
+          switchView.layoutParams = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT
+          ).apply {
+            gravity = Gravity.CENTER_VERTICAL
+          }
+          groupListItemAccessoryView.addView(switchView)
+          groupListItemAccessoryView.visibility = View.VISIBLE
+        }
+        ACCESSORY_TYPE_CUSTOM -> {
+          Log.d(FastCommonListItemView::class.java.simpleName, "ACCESSORY_TYPE_CUSTOM")
+          groupListItemAccessoryView.visibility = View.VISIBLE
+        }
+      }
+    }
 
   var title: String = ""
+    set(value) {
+      field = value
+      groupListItemTextView.text = field
+    }
+
   @ColorInt var titleColor: Int = context.getAttrColor(R.color.fast_config_color_gray_3)
 
+  private var groupListItemImageView: AppCompatImageView
+
+  private var groupListItemAccessoryView: FrameLayout
+
+  private var groupListItemTextContainer: LinearLayout
+
+  private var groupListItemTextView: TextView
+
+  private var groupListItemTipsDot: ImageView
+
   init {
+    LayoutInflater.from(context).inflate(R.layout.fast_widget_common_list_item_view, this, true)
+
+    groupListItemImageView = findViewById(R.id.groupListItemImageView)
+    groupListItemAccessoryView = findViewById(R.id.groupListItemAccessoryView)
+    groupListItemTextContainer = findViewById(R.id.groupListItemTextContainer)
+    groupListItemTextView = findViewById(R.id.groupListItemTextView)
+    groupListItemTipsDot = findViewById(R.id.groupListItemTipsDot)
+
     val typedArray =
       context.obtainStyledAttributes(attrs, R.styleable.FastCommonListItemView, defStyleAttr, 0)
     accessoryType =
@@ -51,6 +129,41 @@ class FastCommonListItemView @JvmOverloads constructor(
     titleColor =
       typedArray.getColor(R.styleable.FastCommonListItemView_fast_commonList_titleColor, titleColor)
     typedArray.recycle()
+
+    setTitleDrawablePadding(dp2px(8))
+  }
+
+  fun setLeftGroupListImageDrawable(drawable: Drawable?) {
+    groupListItemImageView.setImageDrawable(drawable)
+    if (drawable != null) {
+      groupListItemImageView.visibility = View.VISIBLE
+    } else {
+      groupListItemImageView.visibility = View.GONE
+    }
+  }
+
+  fun setLeftGroupListImageResource(@DrawableRes resId: Int) {
+    groupListItemImageView.setImageResource(resId)
+
+    groupListItemImageView.visibility = View.VISIBLE
+  }
+
+  fun setLeftImageSize(width: Int, height: Int) {
+    groupListItemImageView.layoutParams =
+      LayoutParams(groupListItemImageView.layoutParams).apply {
+        this.width = width
+        this.height = height
+        this.addRule(CENTER_VERTICAL)
+      }
+    groupListItemImageView.requestLayout()
+  }
+
+  fun setTitleDrawablePadding(padding: Int) {
+    groupListItemTextView.setPaddingLeft(paddingLeft)
+  }
+
+  fun addAccessoryCustomView(view: View) {
+    groupListItemAccessoryView.addView(view)
   }
 
 }

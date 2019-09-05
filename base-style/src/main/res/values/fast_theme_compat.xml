@@ -243,7 +243,6 @@
     *                 fast common list item          *
     ***********************************************-->
     <item name="fast_common_list_item_chevron">@drawable/fast_icon_chevron</item>
-    <item name="fast_common_list_item_switch">@drawable/fast_s_icon_switch</item>
 
     <!--**********************************************
     *               fast loading view                *
@@ -282,7 +281,6 @@
     <item name="FastTopBarLayoutStyle">@style/Fast.TopBar</item>
 
     <item name="FastTipPointStyle">@style/Fast.TipPoint</item>
-    <item name="FastTipNewStyle">@style/Fast.TipNew</item>
 
     <item name="FastLoadingStyle">@style/Fast.Loading</item>
     <item name="FastPullRefreshLayoutStyle">@style/Fast.PullRefreshLayout</item>

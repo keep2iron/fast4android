@@ -63,7 +63,7 @@
   <attr format="reference" name="FastTabSegmentLayoutStyle"/>
 
   <!--********************* GroupListView *********************-->
-  <style name="Fast.GroupListView">
+  <style name="Fast.GroupListContainer">
     <item name="fast_separatorStyle">none</item>
   </style>
 
@@ -72,7 +72,6 @@
     <item name="android:paddingRight">?attr/fast_content_spacing_horizontal</item>
     <item name="android:background">?attr/fast_s_list_item_bg_with_border_none</item>
     <item name="fast_commonList_titleColor">?attr/fast_config_color_gray_1</item>
-    <item name="fast_commonList_detailColor">?attr/fast_config_color_gray_5</item>
   </style>
 
   <style name="Fast.GroupListSectionView">
@@ -252,13 +251,6 @@
     <item name="android:layout_width">@dimen/fast_tips_point_size</item>
     <item name="android:layout_height">@dimen/fast_tips_point_size</item>
     <item name="android:background">@drawable/fast_tips_point</item>
-  </style>
-
-  <!-- 提示更新new -->
-  <style name="Fast.TipNew">
-    <item name="android:layout_width">37dp</item>
-    <item name="android:layout_height">17dp</item>
-    <item name="android:background">@drawable/fast_icon_tip_new</item>
   </style>
 
   <!-- FastPullRefreshLayout -->

@@ -147,13 +147,13 @@
   <!--<attr name="FastTabSegmentStyle" format="reference"/>-->
 
   <!--************** FastGroupListView **************-->
-  <declare-styleable name="FastGroupListView">
+  <declare-styleable name="FastGroupListContainer">
     <attr format="enum" name="fast_separatorStyle">
       <enum name="normal" value="0"/>
       <enum name="none" value="1"/>
     </attr>
   </declare-styleable>
-  <attr format="reference" name="FastGroupListViewStyle"/>
+  <attr format="reference" name="FastGroupListContainerStyle"/>
   <attr format="reference" name="FastCommonListItemViewStyle"/>
   <attr format="reference" name="fast_common_list_item_chevron"/>
   <declare-styleable name="FastCommonListItemView">
@@ -164,7 +164,7 @@
       <enum name="switcher" value="2"/>
       <enum name="custom" value="3"/>
     </attr>
-    <attr format="string" name="fast_title"/>
+    <attr name="fast_title"/>
     <attr format="color" name="fast_commonList_titleColor"/>
     <!--<attr format="color" name="fast_commonList_detailColor"/>-->
   </declare-styleable>
@@ -173,7 +173,6 @@
 
   <!--************ 更新小红点与 new 的样式配置 ***********-->
   <attr format="reference" name="FastTipPointStyle"/>
-  <attr format="reference" name="FastTipNewStyle"/>
 
   <!--************ FastLoading ***********-->
   <declare-styleable name="FastLoadingView">

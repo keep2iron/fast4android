@@ -265,13 +265,12 @@ So，
     *               fast 提供的控件样式                *
     ***********************************************-->
     <item name="FastButtonStyle">@style/Fast.RoundButton</item>
-    <item name="FastGroupListViewStyle">@style/Fast.GroupListView</item>
+    <item name="FastGroupListContainerStyle">@style/Fast.GroupListContainer</item>
     <item name="FastCommonListItemViewStyle">@style/Fast.CommonListItemView</item>
     <item name="FastGroupListSectionViewStyle">@style/Fast.GroupListSectionView</item>
     <item name="FastTopBarStyle">@style/Fast.TopBar</item>
 
     <item name="FastTipPointStyle">@style/Fast.TipPoint</item>
-    <item name="FastTipNewStyle">@style/Fast.TipNew</item>
 
     <item name="FastLoadingStyle">@style/Fast.Loading</item>
     <item name="FastPullRefreshLayoutStyle">@style/Fast.PullRefreshLayout</item>
@@ -304,10 +303,10 @@ So，
   <style name="FastTextAppearanceBase" parent="android:TextAppearance.Holo"/>
 
   <!--<style name="Animation" parent="Animation">-->
-  <!--<item name="android:fragmentOpenEnterAnimation">@animator/fragment_open_enter</item>-->
-  <!--<item name="android:fragmentOpenExitAnimation">@animator/fragment_open_exit</item>-->
-  <!--<item name="android:fragmentCloseEnterAnimation">@animator/fragment_close_enter</item>-->
-  <!--<item name="android:fragmentCloseExitAnimation">@animator/fragment_close_enter</item>-->
+    <!--<item name="android:fragmentOpenEnterAnimation">@animator/fragment_open_enter</item>-->
+    <!--<item name="android:fragmentOpenExitAnimation">@animator/fragment_open_exit</item>-->
+    <!--<item name="android:fragmentCloseEnterAnimation">@animator/fragment_close_enter</item>-->
+    <!--<item name="android:fragmentCloseExitAnimation">@animator/fragment_close_enter</item>-->
   <!--</style>-->
 
 

@@ -21,18 +21,9 @@
         app:fast_topbar_title_color="@color/fast_config_color_white"
         />
 
-    <io.github.keep2iron.grouplistview.FastGroupListView
+    <io.github.keep2iron.grouplistview.FastGroupListContainer
+        android:id="@+id/groupListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-
-    <io.github.keep2iron.grouplistview.FastCommonListItemView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-
-    <io.github.keep2iron.grouplistview.FastSwitchView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         />
 

@@ -172,7 +172,7 @@ open class FastSwitchView @JvmOverloads constructor(
     if (widthMode == MeasureSpec.EXACTLY) {
       resultWidth = widthSize
     } else {
-      resultWidth = ((56 * resources.displayMetrics.density + 0.5f).toInt()
+      resultWidth = ((48 * resources.displayMetrics.density + 0.5f).toInt()
           + paddingLeft + paddingRight)
       if (widthMode == MeasureSpec.AT_MOST) {
         resultWidth = resultWidth.coerceAtMost(widthSize)

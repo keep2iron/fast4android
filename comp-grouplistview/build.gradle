@@ -30,4 +30,8 @@ dependencies {
 
   implementation project(':core')
   api project(':base-style')
+
+  testImplementation deps.test.junit
+  androidTestImplementation 'androidx.test:runner:1.1.0'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 }

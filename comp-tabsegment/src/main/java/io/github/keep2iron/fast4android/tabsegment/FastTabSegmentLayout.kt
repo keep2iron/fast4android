@@ -52,7 +52,7 @@ class FastTabSegmentLayout @JvmOverloads constructor(
   context: Context,
   attrs: AttributeSet? = null,
   defStyleAttr: Int = R.attr.FastTabSegmentLayoutStyle
-) : HorizontalScrollView(context, attrs, defStyleAttr) {
+) : HorizontalScrollView(context, attrs, defStyleAttr), AdapterDataObserver {
   companion object {
     // mode 自适应宽度/均分
     const val MODE_FIXED = 1
@@ -184,14 +184,14 @@ class FastTabSegmentLayout @JvmOverloads constructor(
 
   fun setAdapter(adapter: TabSegmentAdapter) {
     this.adapter = adapter
-    adapter.mObservable.registerObserver(SegmentLayoutAdapterDataObserver(this))
+    adapter.mObservable.registerObserver(this)
     adapter.normalColor = itemTextColor
     adapter.selectColor = itemSelectTextColor
 
     addView(tabContainer, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT))
 
     for (i in 0 until adapter.getItemSize()) {
-      val tabView = adapter.createTab(this, i, false)
+      val tabView = adapter.createTab(tabContainer, i, false)
       tabContainer.addView(tabView, generateDefaultLayoutParams())
     }
     tabContainer.requestLayout()
@@ -208,31 +208,53 @@ class FastTabSegmentLayout @JvmOverloads constructor(
     this.position = defaultPosition
   }
 
-  private class SegmentLayoutAdapterDataObserver(val view: FastTabSegmentLayout) :
-    AdapterDataObserver() {
-    override fun onChanged() {
-      view.requestLayout()
-    }
+  override fun onChanged() {
+    Log.d(FastTabSegmentLayout::class.java.simpleName, "onChanged")
+    val adapterItemSize = adapter?.getItemSize() ?: 0
+    if (adapter != null && adapterItemSize != tabContainer.childCount) {
+      tabContainer.removeAllViews()
+      for (i in 0 until adapter!!.getItemSize()) {
+        val tabView = adapter!!.createTab(tabContainer, i, false)
+        tabContainer.addView(
+          tabView,
+          ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+          )
+        )
+      }
 
-    override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
-      onItemRangeChanged(positionStart, itemCount, null)
+      viewPager?.adapter?.notifyDataSetChanged()
+      if (adapterItemSize != 0 && position >= adapterItemSize) {
+        this.position = adapterItemSize - 1
+        viewPager?.currentItem = adapterItemSize - 1
+      }
     }
+  }
 
-    override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) {
-      view.requestLayout()
-    }
+  override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+    Log.d(FastTabSegmentLayout::class.java.simpleName, "onItemRangeChanged...")
+    onItemRangeChanged(positionStart, itemCount, null)
+  }
 
-    override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-      onItemRangeChanged(positionStart, itemCount)
-    }
+  override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) {
+    Log.d(FastTabSegmentLayout::class.java.simpleName, "onItemRangeChanged...")
+    tabContainer.requestLayout()
+  }
 
-    override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
-      onItemRangeChanged(positionStart, itemCount)
-    }
+  override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+    Log.d(FastTabSegmentLayout::class.java.simpleName, "onItemRangeInserted...")
+    onItemRangeChanged(positionStart, itemCount)
+  }
 
-    override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
-      onItemRangeChanged(fromPosition, itemCount)
-    }
+  override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+    Log.d(FastTabSegmentLayout::class.java.simpleName, "onItemRangeRemoved...")
+    onItemRangeChanged(positionStart, itemCount)
+  }
+
+  override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
+    Log.d(FastTabSegmentLayout::class.java.simpleName, "onItemRangeMoved...")
+    onItemRangeChanged(fromPosition, itemCount)
   }
 
   private inner class Container @JvmOverloads constructor(
@@ -314,6 +336,19 @@ class FastTabSegmentLayout @JvmOverloads constructor(
 
         lastLeft = right
       }
+
+      if (position < childCount) {
+        val view = getChildAt(position)
+        indicatorRect.left = view.left
+        indicatorRect.right = indicatorRect.left + view.width
+      } else if (position > childCount && childCount != 0) {
+        onPageSelected(childCount - 1)
+        //如果当前位置已经被删除了
+        val view = getChildAt(position)
+        indicatorRect.left = view.left
+        indicatorRect.right = indicatorRect.left + view.width
+        invalidate()
+      }
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -325,7 +360,7 @@ class FastTabSegmentLayout @JvmOverloads constructor(
         position
       }
 
-      if (childCount > 0) {
+      if (position < childCount && nextPosition < childCount) {
         val view = getChildAt(position)
         val nextView = getChildAt(nextPosition)
         indicatorRect.left = view.left + ((nextView.left - view.left) * positionOffset).toInt()
@@ -337,11 +372,16 @@ class FastTabSegmentLayout @JvmOverloads constructor(
     override fun onPageSelected(position: Int) {
       val selectedTab = tabContainer.getChildAt(position)
       adapter?.let {
-        it.onBindTab(
-          tabContainer.getChildAt(this@FastTabSegmentLayout.position),
-          this@FastTabSegmentLayout.position,
-          false
-        )
+        //https://stackoverflow.com/questions/10396321/remove-fragment-page-from-viewpager-in-android
+        //当比如由于viewPager的下表为3时，但是这时候只有两个fragment，那么viewPager会自动切换到最后的那个fragment，所以
+        //要判断一下
+        if (this@FastTabSegmentLayout.position < tabContainer.childCount) {
+          it.onBindTab(
+            tabContainer.getChildAt(this@FastTabSegmentLayout.position),
+            this@FastTabSegmentLayout.position,
+            false
+          )
+        }
         it.onBindTab(selectedTab, position, true)
       }
       if (this@FastTabSegmentLayout.scrollX + this@FastTabSegmentLayout.width < selectedTab.right) {

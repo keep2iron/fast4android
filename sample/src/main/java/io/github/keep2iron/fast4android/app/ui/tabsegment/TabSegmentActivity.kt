@@ -2,20 +2,21 @@ package io.github.keep2iron.fast4android.app.ui.tabsegment
 
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.R.id
 import io.github.keep2iron.fast4android.app.databinding.TabSegmentActivityBinding
 import io.github.keep2iron.fast4android.arch.AbstractActivity
 import io.github.keep2iron.fast4android.arch.FindViewById
-import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
 import io.github.keep2iron.fast4android.core.util.FastStatusBarHelper
 import io.github.keep2iron.fast4android.tabsegment.FastTabSegmentLayout
 import io.github.keep2iron.fast4android.tabsegment.TextFastTabSegmentAdapter
 
-@ParallaxBack
+//@ParallaxBack
 class TabSegmentActivity : AbstractActivity<TabSegmentActivityBinding>() {
 
   private val tabLayout: FastTabSegmentLayout by FindViewById(id.tabLayout)
@@ -31,7 +32,8 @@ class TabSegmentActivity : AbstractActivity<TabSegmentActivityBinding>() {
         finish()
       }
     }
-    val tabs = listOf(
+    val tabs = mutableListOf<String>()
+    val list = listOf(
       "tab1",
       "tab2",
       "tab3",
@@ -42,6 +44,7 @@ class TabSegmentActivity : AbstractActivity<TabSegmentActivityBinding>() {
       "tab8",
       "tab9"
     )
+//    tabs.addAll(list)
     viewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
       override fun getItem(position: Int): Fragment {
         return TabSegmentFragment.newInstance(
@@ -49,14 +52,40 @@ class TabSegmentActivity : AbstractActivity<TabSegmentActivityBinding>() {
             Color.BLACK,
             Color.BLUE,
             Color.RED
-          )[(Math.random() * 3).toInt()]
+          )[(position % 3)]
         )
       }
 
       override fun getCount(): Int = tabs.size
+
+      override fun getItemPosition(`object`: Any): Int = PagerAdapter.POSITION_NONE
+
+      override fun getItemId(position: Int): Long {
+        return super.getItemId(position) + 31L
+      }
     }
     tabLayout.tabMode = FastTabSegmentLayout.MODE_SCROLLABLE
-    tabLayout.setAdapter(TextFastTabSegmentAdapter(tabs))
+    val tabSegmentAdapter = TextFastTabSegmentAdapter(tabs)
     tabLayout.setupWithViewPager(viewPager)
+    tabLayout.setAdapter(tabSegmentAdapter)
+
+    Handler().postDelayed({
+      tabs.addAll(list)
+      tabSegmentAdapter.notifyDataSetChanged()
+    }, 1000)
+
+    Handler().postDelayed({
+      tabs.removeAt(tabs.size - 1)
+      tabs.removeAt(tabs.size - 1)
+      tabs.removeAt(tabs.size - 1)
+      tabs.removeAt(tabs.size - 1)
+      tabs.removeAt(tabs.size - 1)
+      tabs.removeAt(tabs.size - 1)
+
+      tabs.add("测试1")
+      tabs.add("测试2")
+//      tabs.clear()
+      tabSegmentAdapter.notifyDataSetChanged()
+    }, 3000)
   }
 }

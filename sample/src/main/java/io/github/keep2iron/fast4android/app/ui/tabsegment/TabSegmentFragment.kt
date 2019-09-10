@@ -10,7 +10,7 @@ class TabSegmentFragment : AbstractFragment<ViewDataBinding>() {
   override fun resId(): Int = R.layout.tab_segment_item_fargment
 
   override fun initVariables(savedInstanceState: Bundle?) {
-//    contentView.setBackgroundColor(arguments!!.getInt("color"))
+    contentView.setBackgroundColor(arguments!!.getInt("color"))
   }
 
   companion object {

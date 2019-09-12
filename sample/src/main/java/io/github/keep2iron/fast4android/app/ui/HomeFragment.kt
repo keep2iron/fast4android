@@ -17,6 +17,7 @@ import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.ui.grouplistview.GroupListViewActivity
 import io.github.keep2iron.fast4android.app.ui.roundbutton.RoundComponentsActivity
 import io.github.keep2iron.fast4android.app.ui.tabsegment.TabSegmentActivity
+import io.github.keep2iron.fast4android.app.ui.tabsegment.TabSegmentListActivity
 import io.github.keep2iron.fast4android.arch.AbstractFragment
 import io.github.keep2iron.fast4android.arch.FindViewById
 import io.github.keep2iron.fast4android.core.util.startActivity
@@ -31,7 +32,7 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
 
   private val items = listOf(
     Description("RoundComponents", R.mipmap.icon_grid_button, RoundComponentsActivity::class.java),
-    Description("TabSegment", R.mipmap.icon_grid_tab_segment, TabSegmentActivity::class.java),
+    Description("TabSegment", R.mipmap.icon_grid_tab_segment, TabSegmentListActivity::class.java),
     Description("GroupListView", R.mipmap.icon_grid_group_list_view, GroupListViewActivity::class.java)
   )
 

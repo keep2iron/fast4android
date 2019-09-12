@@ -1,8 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-
   apply from: './versions/version.gradle'
+
+  ext {
+    version_base_style = '0.0.1'
+    version_fast4android_compat = '0.0.1'
+    version_fast4android_arch = '0.0.1'
+    version_fast4android_tabsegment = '0.0.1'
+
+    version_group = 'io.github.keep2iron'
+  }
 
   dependencies {
     classpath deps.android_gradle_plugin

@@ -12,30 +12,29 @@
       >
 
     <io.github.keep2iron.fast4android.topbar.FastTopBarLayout
-        android:id="@+id/topBarLayout"
+        android:id="@+id/topbarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/fast_config_color_blue"
         android:fitsSystemWindows="true"
-        app:fast_topbar_title="TabSegment Component"
+        app:fast_topbar_title="TabSegment Mode"
         app:fast_topbar_title_color="@color/fast_config_color_white"
         />
 
-    <io.github.keep2iron.fast4android.tabsegment.FastTabSegmentLayout
-        android:id="@+id/tabLayout"
+    <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
+        android:id="@+id/btnFixed"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:fast_tab_indicator_height="0dp"
-        app:fast_tab_mode="scrollable"
+        android:layout_height="wrap_content"
+        android:text="fixed"
         />
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+    <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
+        android:id="@+id/btnScrollable"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="scrollable"
         />
-
 
   </LinearLayout>
 </layout>

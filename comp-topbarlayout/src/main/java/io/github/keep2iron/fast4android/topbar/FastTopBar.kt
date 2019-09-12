@@ -19,11 +19,11 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
+import io.github.keep2iron.base.util.getAttrColor
+import io.github.keep2iron.base.util.getAttrDimen
 import io.github.keep2iron.fast4android.core.alpha.FastDrawableRoundViewHelper
 import io.github.keep2iron.fast4android.core.alpha.FastRoundImageButton
 import io.github.keep2iron.fast4android.core.util.dp2px
-import io.github.keep2iron.fast4android.core.util.getAttrColor
-import io.github.keep2iron.fast4android.core.util.getAttrDimen
 import io.github.keep2iron.fast4android.core.util.sp
 import kotlin.LazyThreadSafetyMode.NONE
 

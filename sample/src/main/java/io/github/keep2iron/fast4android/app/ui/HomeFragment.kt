@@ -12,15 +12,14 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import io.github.keep2iron.base.util.layoutInflate
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.ui.grouplistview.GroupListViewActivity
 import io.github.keep2iron.fast4android.app.ui.roundbutton.RoundComponentsActivity
 import io.github.keep2iron.fast4android.app.ui.tabsegment.TabSegmentActivity
 import io.github.keep2iron.fast4android.arch.AbstractFragment
 import io.github.keep2iron.fast4android.arch.FindViewById
-import io.github.keep2iron.fast4android.core.util.layoutInflate
 import io.github.keep2iron.fast4android.core.util.startActivity
-import io.github.keep2iron.fast4android.topbar.FastTopBarLayout
 
 class HomeFragment : AbstractFragment<ViewDataBinding>() {
 

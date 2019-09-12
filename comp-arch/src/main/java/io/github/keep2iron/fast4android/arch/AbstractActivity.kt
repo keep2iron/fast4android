@@ -5,7 +5,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import io.github.keep2iron.fast4android.core.util.FastStatusBarHelper
+import io.github.keep2iron.base.util.FastStatusBarHelper
 import io.github.keep2iron.fast4android.arch.rx.LifecycleEvent
 import io.github.keep2iron.fast4android.arch.rx.RxLifecycleDispatcher
 import io.reactivex.subjects.BehaviorSubject

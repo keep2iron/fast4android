@@ -18,7 +18,7 @@ import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AccelerateInterpolator
-import io.github.keep2iron.fast4android.core.util.getAttrColor
+import io.github.keep2iron.base.util.getAttrColor
 
 open class FastSwitchView @JvmOverloads constructor(
   context: Context,

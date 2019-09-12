@@ -31,7 +31,7 @@ dependencies {
   //support
   implementation deps.kotlin.stdlib_jdk7
 
-  implementation project(':core')
+  implementation project(':comp-fast4android')
   api project(':base-style')
   implementation deps.support.annotations
 

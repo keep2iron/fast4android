@@ -50,7 +50,7 @@ dependencies {
   implementation deps.arch.extensions
 
   implementation project(':comp-arch')
-  implementation project(':core')
+  implementation project(':comp-fast4android')
   implementation project(':comp-tabsegment')
   implementation project(':comp-topbarlayout')
   implementation project(':comp-grouplistview')

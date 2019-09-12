@@ -13,8 +13,8 @@ import android.view.ViewGroup
 import android.widget.HorizontalScrollView
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
-import io.github.keep2iron.fast4android.core.util.dp2px
-import io.github.keep2iron.fast4android.core.util.getAttrColor
+import io.github.keep2iron.base.util.FastDisplayHelper.dp2px
+import io.github.keep2iron.base.util.getAttrColor
 import kotlin.LazyThreadSafetyMode.NONE
 
 /**
@@ -94,14 +94,14 @@ class FastTabSegmentLayout @JvmOverloads constructor(
    */
   val selectedListeners = ArrayList<OnTabSelectedListener>()
 
-  var tabIconWidth: Int = dp2px(10)
-  var tabIconHeight: Int = dp2px(10)
+  var tabIconWidth: Int = dp2px(context,10)
+  var tabIconHeight: Int = dp2px(context,10)
   var tabTextSize: Int = resources.getDimensionPixelSize(R.dimen.fast_tab_segment_text_size)
   var tabMode: Int = MODE_FIXED
   /**
    * tab的两边间隙 tabMode == MODE_SCROLLABLE 时有效
    */
-  var tabSpacing: Int = dp2px(10)
+  var tabSpacing: Int = dp2px(context,10)
   var tabPosition: Int = ICON_POSITION_LEFT
   //  private var tabDrawablePadding: Int = 0
   var tabItemMargin: Int = 0

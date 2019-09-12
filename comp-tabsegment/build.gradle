@@ -31,7 +31,6 @@ dependencies {
   //support
   implementation deps.kotlin.stdlib_jdk7
 
-  implementation project(':core')
   api project(':base-style')
 
   testImplementation deps.test.junit

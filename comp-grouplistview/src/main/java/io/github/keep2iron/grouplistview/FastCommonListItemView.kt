@@ -16,9 +16,9 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntDef
 import androidx.appcompat.widget.AppCompatImageView
-import io.github.keep2iron.fast4android.core.util.dp2px
-import io.github.keep2iron.fast4android.core.util.getAttrColor
-import io.github.keep2iron.fast4android.core.util.setPaddingLeft
+import io.github.keep2iron.base.util.FastDisplayHelper.dp2px
+import io.github.keep2iron.base.util.getAttrColor
+import io.github.keep2iron.base.util.setPaddingLeft
 import kotlin.annotation.AnnotationRetention.SOURCE
 
 class FastCommonListItemView @JvmOverloads constructor(
@@ -130,7 +130,7 @@ class FastCommonListItemView @JvmOverloads constructor(
       typedArray.getColor(R.styleable.FastCommonListItemView_fast_commonList_titleColor, titleColor)
     typedArray.recycle()
 
-    setTitleDrawablePadding(dp2px(8))
+    setTitleDrawablePadding(dp2px(context,8))
   }
 
   fun setLeftGroupListImageDrawable(drawable: Drawable?) {

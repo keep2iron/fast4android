@@ -36,7 +36,7 @@ dependencies {
   api deps.arch.lifecycle
   api deps.arch.extensions
 
-  compileOnly project(':core')
+  compileOnly project(':comp-fast4android')
 
   api deps.rxjava2
   api deps.rx_android

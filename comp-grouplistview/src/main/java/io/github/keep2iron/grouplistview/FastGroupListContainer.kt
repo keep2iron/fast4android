@@ -6,18 +6,16 @@ import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.InsetDrawable
 import android.util.AttributeSet
 import androidx.appcompat.widget.LinearLayoutCompat
-import io.github.keep2iron.fast4android.core.util.dp2px
-import io.github.keep2iron.fast4android.core.util.getAttrColor
-import io.github.keep2iron.fast4android.core.util.getAttrDimen
+import io.github.keep2iron.base.util.FastDisplayHelper.dp2px
+import io.github.keep2iron.base.util.getAttrColor
+import io.github.keep2iron.base.util.getAttrDimen
 import io.github.keep2iron.grouplistview.FastCommonListItemView.AccessoryType
 
 class FastGroupListContainer @JvmOverloads constructor(
   context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LinearLayoutCompat(context, attrs, defStyleAttr) {
-
   companion object {
     const val SEPARATOR_STYLE_NONE = 1
-
     const val SEPARATOR_STYLE_NORMAL = 0
   }
 
@@ -28,12 +26,10 @@ class FastGroupListContainer @JvmOverloads constructor(
         dividerDrawable = null
       }
     }
-
   private var insetRect = Rect()
 
   init {
     orientation = VERTICAL
-
     val typedArray =
       context.obtainStyledAttributes(attrs, R.styleable.FastGroupListContainer, defStyleAttr, 0)
     separatorStyle =
@@ -84,7 +80,7 @@ class FastGroupListContainer @JvmOverloads constructor(
 
     showDividers = SHOW_DIVIDER_MIDDLE
     val drawable = GradientDrawable().apply {
-      setSize(LayoutParams.MATCH_PARENT, dp2px(1))
+      setSize(LayoutParams.MATCH_PARENT, dp2px(context, 1))
       setColor(context.getAttrColor(R.attr.fast_config_color_separator))
     }
 
@@ -101,5 +97,4 @@ class FastGroupListContainer @JvmOverloads constructor(
         drawable
       }
   }
-
 }

@@ -7,7 +7,7 @@ import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.databinding.RoundComponentsActivityBinding
 import io.github.keep2iron.fast4android.arch.AbstractActivity
 import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
-import io.github.keep2iron.fast4android.core.util.FastStatusBarHelper
+import io.github.keep2iron.base.util.FastStatusBarHelper
 
 @ParallaxBack
 class RoundComponentsActivity : AbstractActivity<RoundComponentsActivityBinding>(),

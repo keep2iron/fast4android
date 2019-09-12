@@ -28,7 +28,7 @@ dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation deps.kotlin.stdlib_jdk7
 
-  implementation project(':core')
+//  implementation project(':core')
   api project(':base-style')
 
   testImplementation deps.test.junit

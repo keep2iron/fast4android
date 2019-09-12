@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import io.github.keep2iron.fast4android.app.R
@@ -12,11 +12,12 @@ import io.github.keep2iron.fast4android.app.R.id
 import io.github.keep2iron.fast4android.app.databinding.TabSegmentActivityBinding
 import io.github.keep2iron.fast4android.arch.AbstractActivity
 import io.github.keep2iron.fast4android.arch.FindViewById
-import io.github.keep2iron.fast4android.core.util.FastStatusBarHelper
+import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
+import io.github.keep2iron.base.util.FastStatusBarHelper
 import io.github.keep2iron.fast4android.tabsegment.FastTabSegmentLayout
 import io.github.keep2iron.fast4android.tabsegment.TextFastTabSegmentAdapter
 
-//@ParallaxBack
+@ParallaxBack
 class TabSegmentActivity : AbstractActivity<TabSegmentActivityBinding>() {
 
   private val tabLayout: FastTabSegmentLayout by FindViewById(id.tabLayout)
@@ -45,7 +46,7 @@ class TabSegmentActivity : AbstractActivity<TabSegmentActivityBinding>() {
       "tab9"
     )
 //    tabs.addAll(list)
-    viewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
+    viewPager.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
       override fun getItem(position: Int): Fragment {
         return TabSegmentFragment.newInstance(
           arrayOf(
@@ -59,10 +60,6 @@ class TabSegmentActivity : AbstractActivity<TabSegmentActivityBinding>() {
       override fun getCount(): Int = tabs.size
 
       override fun getItemPosition(`object`: Any): Int = PagerAdapter.POSITION_NONE
-
-      override fun getItemId(position: Int): Long {
-        return super.getItemId(position) + 31L
-      }
     }
     tabLayout.tabMode = FastTabSegmentLayout.MODE_SCROLLABLE
     val tabSegmentAdapter = TextFastTabSegmentAdapter(tabs)

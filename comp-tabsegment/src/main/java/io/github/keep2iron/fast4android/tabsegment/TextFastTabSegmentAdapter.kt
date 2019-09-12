@@ -1,12 +1,11 @@
 package io.github.keep2iron.fast4android.tabsegment
 
-import android.graphics.Color
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
-import io.github.keep2iron.fast4android.core.util.dp2px
-import io.github.keep2iron.fast4android.core.util.setPaddingLeft
-import io.github.keep2iron.fast4android.core.util.setPaddingRight
+import io.github.keep2iron.base.util.FastDisplayHelper.dp2px
+import io.github.keep2iron.base.util.setPaddingLeft
+import io.github.keep2iron.base.util.setPaddingRight
 
 open class TextFastTabSegmentAdapter(private val data: List<String>) : TabSegmentAdapter() {
   override fun onBindTab(view: View, index: Int, selected: Boolean) {
@@ -20,7 +19,6 @@ open class TextFastTabSegmentAdapter(private val data: List<String>) : TabSegmen
   }
 
   override fun getItemSize(): Int = data.size
-
   override fun createTab(parentView: View, index: Int, selected: Boolean): View {
     return TextView(parentView.context).apply {
       gravity = Gravity.CENTER
@@ -31,12 +29,11 @@ open class TextFastTabSegmentAdapter(private val data: List<String>) : TabSegmen
           selectColor
         }
       )
-      setPaddingLeft(dp2px(16))
-      setPaddingRight(dp2px(16))
+      setPaddingLeft(dp2px(context, 16))
+      setPaddingRight(dp2px(context, 16))
       text = data[index]
     }
   }
-
 //  override fun normalColor(context: Context, index: Int): Int =
 //    ContextCompat.getColor(context, R.color.fast_config_color_gray_1)
 //

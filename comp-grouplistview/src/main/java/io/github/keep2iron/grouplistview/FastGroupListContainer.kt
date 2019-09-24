@@ -9,7 +9,7 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import io.github.keep2iron.base.util.FastDisplayHelper.dp2px
 import io.github.keep2iron.base.util.getAttrColor
 import io.github.keep2iron.base.util.getAttrDimen
-import io.github.keep2iron.grouplistview.FastCommonListItemView.AccessoryType
+import io.github.keep2iron.grouplistview.FastGroupListItemView.AccessoryType
 
 class FastGroupListContainer @JvmOverloads constructor(
   context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -38,9 +38,9 @@ class FastGroupListContainer @JvmOverloads constructor(
   }
 
   inline fun addItem(
-    @AccessoryType accessoryType: Int = FastCommonListItemView.ACCESSORY_TYPE_NONE, block: FastCommonListItemView.() -> Unit
+    @AccessoryType accessoryType: Int = FastGroupListItemView.ACCESSORY_TYPE_NONE, block: FastGroupListItemView.() -> Unit
   ) {
-    val item = FastCommonListItemView(context)
+    val item = FastGroupListItemView(context)
     item.accessoryType = accessoryType
     item.apply(block)
     val attrHeight = context.getAttrDimen(R.attr.fast_list_item_height)
@@ -49,16 +49,16 @@ class FastGroupListContainer @JvmOverloads constructor(
     addView(item)
   }
 
-  inline fun addChevronItem(block: FastCommonListItemView.() -> Unit) {
-    addItem(FastCommonListItemView.ACCESSORY_TYPE_CHEVRON, block)
+  inline fun addChevronItem(block: FastGroupListItemView.() -> Unit) {
+    addItem(FastGroupListItemView.ACCESSORY_TYPE_CHEVRON, block)
   }
 
-  inline fun addSwitchItem(block: FastCommonListItemView.() -> Unit) {
-    addItem(FastCommonListItemView.ACCESSORY_TYPE_SWITCH, block)
+  inline fun addSwitchItem(block: FastGroupListItemView.() -> Unit) {
+    addItem(FastGroupListItemView.ACCESSORY_TYPE_SWITCH, block)
   }
 
-  inline fun addCustomItem(block: FastCommonListItemView.() -> Unit) {
-    addItem(FastCommonListItemView.ACCESSORY_TYPE_CUSTOM, block)
+  inline fun addCustomItem(block: FastGroupListItemView.() -> Unit) {
+    addItem(FastGroupListItemView.ACCESSORY_TYPE_CUSTOM, block)
   }
 
   /**‘

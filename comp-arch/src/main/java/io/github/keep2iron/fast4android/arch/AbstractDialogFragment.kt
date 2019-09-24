@@ -25,31 +25,19 @@ import io.reactivex.subjects.BehaviorSubject
  * @since 2018/01/29 16:02
  */
 abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), RxLifecycleOwner {
-
   protected lateinit var contentView: View
-
   protected lateinit var dataBinding: DB
-
   protected lateinit var contextHolder: Context
-
   private var hasWindowLayout = false
-
   private val lifecycleDispatcher = RxLifecycleDispatcher(this)
-
   override val publishSubject: BehaviorSubject<LifecycleEvent> = lifecycleDispatcher.publishSubject
-
   override fun onAttach(context: Context) {
     super.onAttach(context)
     contextHolder = context
   }
 
-  /**
-   * 映射布局方法
-   *
-   * @return 被映射的布局id
-   */
-  @get:LayoutRes
-  protected abstract val resId: Int
+  @LayoutRes
+  abstract fun resId(): Int
 
   /**
    * 窗体动画
@@ -70,10 +58,9 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), 
 
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
     val context = activity ?: contextHolder
-
     val dialog = InnerDialog(context, R.style.dialog, this)
-    dialog.setCanceledOnTouchOutside(true)
-
+    dialog.setCanceledOnTouchOutside(isCancelable)
+    dialog.setCancelable(isCancelable)
     // 设置宽度为屏宽、靠近屏幕底部。
     val window = dialog.window
     window?.let {
@@ -136,18 +123,17 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), 
   }
 
   abstract fun gravity(): Int
-
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    val genDataBinding = DataBindingUtil.inflate<DB>(inflater, resId, null, false)
+    val genDataBinding = DataBindingUtil.inflate<DB>(inflater, resId(), null, false)
     contentView = if (genDataBinding != null) {
       dataBinding = genDataBinding
       dataBinding.root
     } else {
-      inflater.inflate(resId, null, false)
+      inflater.inflate(resId(), null, false)
     }
     contentView.fitsSystemWindows = false
     contentView.isClickable = true
@@ -163,19 +149,13 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), 
     return contentView.findViewById(id)
   }
 
-  override fun onStart() {
-    super.onStart()
-  }
-
   override fun onResume() {
     super.onResume()
 
     if (!hasWindowLayout) {
       val dialog = dialog
       val pair = setWidthAndHeight()
-      if (pair.size != 2) {
-        throw IllegalArgumentException("setWidthAndHeight() must return 2 integer value => [width,height]")
-      }
+      require(pair.size == 2) { "setWidthAndHeight() must return 2 integer value => [width,height]" }
       dialog.window?.setLayout(pair[0], pair[1])
       hasWindowLayout = true
     }
@@ -189,7 +169,6 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), 
     themeResId: Int,
     private val dialog: AbstractDialogFragment<out ViewDataBinding>
   ) : Dialog(context, themeResId) {
-
     override fun onTouchEvent(event: MotionEvent): Boolean {
       if (!dialog.isCancelable) {
         return false
@@ -211,8 +190,8 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), 
       val decorView = window!!.decorView
 
       return (x < -slop || y < -slop
-          || x > decorView.width + slop
-          || y > decorView.height + slop)
+        || x > decorView.width + slop
+        || y > decorView.height + slop)
     }
   }
 
@@ -224,7 +203,6 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), 
 
     mDismissed.setBoolean(this, false)
     mShownByMe.setBoolean(this, true)
-
     val ft = manager.beginTransaction()
     ft.add(this, tag)
     ft.commitAllowingStateLoss()

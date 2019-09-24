@@ -156,7 +156,7 @@
   <attr format="reference" name="FastGroupListContainerStyle"/>
   <attr format="reference" name="FastCommonListItemViewStyle"/>
   <attr format="reference" name="fast_common_list_item_chevron"/>
-  <declare-styleable name="FastCommonListItemView">
+  <declare-styleable name="FastGroupListItemView">
     <!--<attr name="fast_orientation"/>-->
     <attr format="enum" name="fast_accessory_type">
       <enum name="none" value="0"/>

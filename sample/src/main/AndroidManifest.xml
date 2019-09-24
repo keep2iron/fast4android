@@ -32,6 +32,7 @@
     <activity android:name=".ui.grouplistview.GroupListViewActivity"/>
     <activity android:name=".ui.tabsegment.TabSegmentFixedActivity"/>
     <activity android:name=".ui.tabsegment.TabSegmentListActivity"/>
+    <activity android:name=".ui.dialog.DialogComponentsActivity"/>
   </application>
 
 </manifest>

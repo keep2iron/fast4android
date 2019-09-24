@@ -184,6 +184,10 @@ class FastTabSegmentLayout @JvmOverloads constructor(
       tabContainer.addView(tabView, generateDefaultLayoutParams())
     }
     tabContainer.requestLayout()
+
+    if (viewPager != null && viewPager?.currentItem  != position) {
+      viewPager?.currentItem = position
+    }
   }
 
   fun setupWithViewPager(viewPager: ViewPager, defaultPosition: Int = 0) {
@@ -195,6 +199,14 @@ class FastTabSegmentLayout @JvmOverloads constructor(
       }
     })
     this.position = defaultPosition
+    //如果adapter设置过了
+    if (adapter != null) {
+      viewPager.currentItem = position
+    }
+  }
+
+  fun childTabAt(index: Int): View {
+    return tabContainer.getChildAt(index)
   }
 
   override fun onChanged() {
@@ -290,7 +302,7 @@ class FastTabSegmentLayout @JvmOverloads constructor(
         }
 
         when (widthMode) {
-          MeasureSpec.EXACTLY-> {
+          MeasureSpec.EXACTLY -> {
             measureChildren(
               MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
               heightMeasureSpec
@@ -351,9 +363,10 @@ class FastTabSegmentLayout @JvmOverloads constructor(
         val right = left + childView.measuredWidth
         val bottom = childView.measuredHeight
         childView.layout(left, top, right, bottom)
-        childView.setOnClickListener(this)
-        adapter!!.onBindTab(childView, i, position == i)
-
+        if (changed) {
+          childView.setOnClickListener(this)
+          adapter!!.onBindTab(childView, i, position == i)
+        }
         lastLeft = right
       }
 

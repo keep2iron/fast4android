@@ -33,6 +33,7 @@
     <activity android:name=".ui.tabsegment.TabSegmentFixedActivity"/>
     <activity android:name=".ui.tabsegment.TabSegmentListActivity"/>
     <activity android:name=".ui.dialog.DialogComponentsActivity"/>
+      <activity android:name=".ui.detail.DetailActivity" />
   </application>
 
 </manifest>

@@ -118,10 +118,6 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), 
    */
   open fun getBackgroundDimAmount() = 0.35f
 
-  open fun setWidthAndHeight(): Array<Int> {
-    return arrayOf(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
-  }
-
   abstract fun gravity(): Int
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -154,9 +150,7 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), 
 
     if (!hasWindowLayout) {
       val dialog = dialog
-      val pair = setWidthAndHeight()
-      require(pair.size == 2) { "setWidthAndHeight() must return 2 integer value => [width,height]" }
-      dialog.window?.setLayout(pair[0], pair[1])
+      dialog.window?.setLayout(width(), height())
       hasWindowLayout = true
     }
   }

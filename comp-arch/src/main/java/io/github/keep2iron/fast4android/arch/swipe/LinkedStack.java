@@ -26,20 +26,21 @@ public class LinkedStack<K, V> {
 
     public K before(K k) {
         int index = mLinkedList.indexOf(k);
-      if (index < 1) {
-        return null;
-      }
+        if (index < 1) {
+            return null;
+        }
         return mLinkedList.get(index - 1);
     }
 
-    public V get(K k){
+    public V get(K k) {
         return mTraceInfoHashMap.get(k);
     }
-    public K getKey(int index){
+
+    public K getKey(int index) {
         return mLinkedList.get(index);
     }
 
-    public int size(){
+    public int size() {
         return mLinkedList.size();
     }
 }

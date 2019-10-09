@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  Tencent is pleased to support the open source community by making QMUI_Android available.
 
  Copyright (C) 2017-2018 THL A29 Limited, a Tencent company. All rights reserved.
@@ -18,8 +17,8 @@
 <!-- 单选类型的对话框的单选Drawable -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/fast_icon_checkbox_checked" android:state_selected="true"/>
-    <item android:drawable="@drawable/fast_icon_checkbox_checked" android:state_checked="true"/>
-    <item android:drawable="@drawable/fast_icon_checkbox_normal"/>
+    <item android:drawable="@drawable/fast_icon_checkbox_checked" android:state_selected="true" />
+    <item android:drawable="@drawable/fast_icon_checkbox_checked" android:state_checked="true" />
+    <item android:drawable="@drawable/fast_icon_checkbox_normal" />
 
 </selector>

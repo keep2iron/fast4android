@@ -3,6 +3,7 @@ package io.github.keep2iron.fast4android.app.ui.tabsegment
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ImageView.ScaleType.CENTER_INSIDE
 import androidx.core.content.ContextCompat
@@ -23,65 +24,65 @@ import io.github.keep2iron.fast4android.tabsegment.TabSegmentAdapter
 
 @ParallaxBack
 class TabSegmentFixedActivity : AbstractActivity<TabSegmentActivityBinding>() {
-  private val tabLayout: FastTabSegmentLayout by FindViewById(id.tabLayout)
-  private val viewPager: ViewPager by FindViewById(id.viewPager)
-  override fun resId(): Int = R.layout.tab_segment_activity
-  override fun initVariables(savedInstanceState: Bundle?) {
-    FastStatusBarHelper.translucent(this)
-    dataBinding.topBarLayout.setup {
-      addLeftBackImageButton().setOnClickListener {
-        finish()
-      }
-    }
-    val icons = arrayOf(
-      R.mipmap.icon_tabbar_component,
-      R.mipmap.icon_tabbar_util,
-      R.mipmap.icon_tabbar_lab
-    )
-    viewPager.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
-      override fun getItem(position: Int): Fragment {
-        return TabSegmentFragment.newInstance(
-          arrayOf(
-            Color.BLACK,
-            Color.BLUE,
-            Color.RED
-          )[(position % 3)]
-        )
-      }
-
-      override fun getCount(): Int = icons.size
-      override fun getItemPosition(`object`: Any): Int = PagerAdapter.POSITION_NONE
-    }
-    tabLayout.tabMode = FastTabSegmentLayout.MODE_FIXED
-    val tabSegmentAdapter = object : TabSegmentAdapter() {
-      val selectedIcons = arrayOf(
-        R.mipmap.icon_tabbar_component_selected,
-        R.mipmap.icon_tabbar_util_selected,
-        R.mipmap.icon_tabbar_lab_selected
-      )
-
-      override fun createTab(parentView: View, index: Int, selected: Boolean): View {
-        return ImageView(parentView.context)
-      }
-
-      override fun onBindTab(view: View, index: Int, selected: Boolean) {
-        (view as ImageView).apply {
-          scaleType = CENTER_INSIDE
-          setImageDrawable(ContextCompat.getDrawable(
-            context, if (selected) {
-              selectedIcons[index]
-            } else {
-              icons[index]
+    private val tabLayout: FastTabSegmentLayout by FindViewById(id.tabLayout)
+    private val viewPager: ViewPager by FindViewById(id.viewPager)
+    override fun resId(): Int = R.layout.tab_segment_activity
+    override fun initVariables(savedInstanceState: Bundle?) {
+        FastStatusBarHelper.translucent(this)
+        dataBinding.topBarLayout.setup {
+            addLeftBackImageButton().setOnClickListener {
+                finish()
             }
-          ).also {
-            it?.setBounds(0, 0, dp2px(20), dp2px(20))
-          })
         }
-      }
+        val icons = arrayOf(
+                R.mipmap.icon_tabbar_component,
+                R.mipmap.icon_tabbar_util,
+                R.mipmap.icon_tabbar_lab
+        )
+        viewPager.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
+            override fun getItem(position: Int): Fragment {
+                return TabSegmentFragment.newInstance(
+                        arrayOf(
+                                Color.BLACK,
+                                Color.BLUE,
+                                Color.RED
+                        )[(position % 3)]
+                )
+            }
 
-      override fun getItemSize(): Int = icons.size
+            override fun getCount(): Int = icons.size
+            override fun getItemPosition(`object`: Any): Int = PagerAdapter.POSITION_NONE
+        }
+        tabLayout.tabMode = FastTabSegmentLayout.MODE_FIXED
+        val tabSegmentAdapter = object : TabSegmentAdapter() {
+            val selectedIcons = arrayOf(
+                    R.mipmap.icon_tabbar_component_selected,
+                    R.mipmap.icon_tabbar_util_selected,
+                    R.mipmap.icon_tabbar_lab_selected
+            )
+
+            override fun createTab(parentView: ViewGroup, index: Int, selected: Boolean): View {
+                return ImageView(parentView.context)
+            }
+
+            override fun onBindTab(view: View, index: Int, selected: Boolean) {
+                (view as ImageView).apply {
+                    scaleType = CENTER_INSIDE
+                    setImageDrawable(ContextCompat.getDrawable(
+                            context, if (selected) {
+                        selectedIcons[index]
+                    } else {
+                        icons[index]
+                    }
+                    ).also {
+                        it?.setBounds(0, 0, dp2px(20), dp2px(20))
+                    })
+                }
+            }
+
+            override fun getItemSize(): Int = icons.size
+        }
+        tabLayout.setupWithViewPager(viewPager)
+        tabLayout.setAdapter(tabSegmentAdapter)
     }
-    tabLayout.setupWithViewPager(viewPager)
-    tabLayout.setAdapter(tabSegmentAdapter)
-  }
 }

@@ -20,125 +20,125 @@ import io.reactivex.subjects.BehaviorSubject
  * @since 2018/05/19 11:08
  */
 abstract class AbstractFragment<DB : ViewDataBinding> : Fragment(),
-  RxLifecycleOwner {
+        RxLifecycleOwner {
 
-  private var isInit: Boolean = false
+    private var isInit: Boolean = false
 
-  private var isOnAttach: Boolean = false
+    private var isOnAttach: Boolean = false
 
-  private var waitingForUser: Boolean = false
+    private var waitingForUser: Boolean = false
 
-  private val lifecycleDispatcher = RxLifecycleDispatcher(this)
+    private val lifecycleDispatcher = RxLifecycleDispatcher(this)
 
-  override val publishSubject: BehaviorSubject<LifecycleEvent> = lifecycleDispatcher.publishSubject
+    override val publishSubject: BehaviorSubject<LifecycleEvent> = lifecycleDispatcher.publishSubject
 
-  lateinit var dataBinding: DB
+    lateinit var dataBinding: DB
 
-  lateinit var contentView: View
+    lateinit var contentView: View
 
-  override fun onAttach(context: Context?) {
-    super.onAttach(context)
-    isOnAttach = true
-  }
-
-  @LayoutRes
-  abstract fun resId(): Int
-
-  abstract fun initVariables(savedInstanceState: Bundle?)
-
-  override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
-  ): View? {
-    val view = inflater.inflate(resId(), container, false)
-    try {
-      val createBinding = DataBindingUtil.bind<DB>(view)
-      if (createBinding != null) {
-        dataBinding = createBinding
-      }
-    } catch (e: IllegalArgumentException) {
-    }
-    contentView = view
-
-    contentView.isClickable = true
-
-    return contentView
-  }
-
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    initVariables(savedInstanceState)
-    if (userVisibleHint && !isInit) {
-      isInit = true
-      lazyLoad(contentView)
-    }
-  }
-
-  /**
-   * 延迟加载
-   * 子类必须重写此方法
-   *
-   * @param container
-   */
-  open fun lazyLoad(container: View?) {
-  }
-
-  override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-    super.setUserVisibleHint(isVisibleToUser)
-
-    if (isVisibleToUser) {
-      if (isOnAttach && !isInit) {
-        lazyLoad(view)
-        isInit = true
-      }
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        isOnAttach = true
     }
 
-    if (isVisibleToUser) {
-      if (parentFragment != null && !parentFragment!!.userVisibleHint) {
-        waitingForUser = true
-        return
-      }
-    }
+    @LayoutRes
+    abstract fun resId(): Int
 
-    if (isOnAttach && host != null) {
-      val fragments: List<Fragment>? = childFragmentManager.fragments
-      fragments?.forEach {
-        if (it is AbstractFragment<*>) {
-          if (userVisibleHint) {
-            if (it.userVisibleHint || it.waitingForUser) {
-              it.userVisibleHint = true
-              it.waitingForUser = false
+    abstract fun initVariables(savedInstanceState: Bundle?)
+
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(resId(), container, false)
+        try {
+            val createBinding = DataBindingUtil.bind<DB>(view)
+            if (createBinding != null) {
+                dataBinding = createBinding
             }
-          } else {
-            if (it.userVisibleHint) {
-              it.userVisibleHint = false
-              it.waitingForUser = true
+        } catch (e: IllegalArgumentException) {
+        }
+        contentView = view
+
+        contentView.isClickable = true
+
+        return contentView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initVariables(savedInstanceState)
+        if (userVisibleHint && !isInit) {
+            isInit = true
+            lazyLoad(contentView)
+        }
+    }
+
+    /**
+     * 延迟加载
+     * 子类必须重写此方法
+     *
+     * @param container
+     */
+    open fun lazyLoad(container: View?) {
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+
+        if (isVisibleToUser) {
+            if (isOnAttach && !isInit) {
+                lazyLoad(view)
+                isInit = true
             }
-          }
         }
-      }
-    }
-  }
 
-  override fun onDetach() {
-    isOnAttach = false
-    super.onDetach()
-  }
-
-  fun <T : View> findViewById(viewId: Int): T {
-    return contentView.findViewById(viewId) as T
-  }
-
-  override fun onHiddenChanged(hidden: Boolean) {
-    super.onHiddenChanged(hidden)
-
-    if (isAdded) {
-      val fragments: List<Fragment>? = childFragmentManager.fragments
-      fragments?.forEach {
-        if (!it.isHidden && it.userVisibleHint) {
-          it.onHiddenChanged(hidden)
+        if (isVisibleToUser) {
+            if (parentFragment != null && !parentFragment!!.userVisibleHint) {
+                waitingForUser = true
+                return
+            }
         }
-      }
+
+        if (isOnAttach && host != null) {
+            val fragments: List<Fragment>? = childFragmentManager.fragments
+            fragments?.forEach {
+                if (it is AbstractFragment<*>) {
+                    if (userVisibleHint) {
+                        if (it.userVisibleHint || it.waitingForUser) {
+                            it.userVisibleHint = true
+                            it.waitingForUser = false
+                        }
+                    } else {
+                        if (it.userVisibleHint) {
+                            it.userVisibleHint = false
+                            it.waitingForUser = true
+                        }
+                    }
+                }
+            }
+        }
     }
-  }
+
+    override fun onDetach() {
+        isOnAttach = false
+        super.onDetach()
+    }
+
+    fun <T : View> findViewById(viewId: Int): T {
+        return contentView.findViewById(viewId) as T
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+
+        if (isAdded) {
+            val fragments: List<Fragment>? = childFragmentManager.fragments
+            fragments?.forEach {
+                if (!it.isHidden && it.userVisibleHint) {
+                    it.onHiddenChanged(hidden)
+                }
+            }
+        }
+    }
 }

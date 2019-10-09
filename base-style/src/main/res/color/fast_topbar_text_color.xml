@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  Tencent is pleased to support the open source community by making QMUI_Android available.
 
  Copyright (C) 2017-2018 THL A29 Limited, a Tencent company. All rights reserved.
@@ -18,8 +17,8 @@
 <!-- Topbar的文字按钮颜色 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_enabled="false" android:color="#801B88EE"/>
-    <item android:state_pressed="true" android:color="#801B88EE"/>
-    <item android:color="@color/fast_config_color_blue"/>
+    <item android:state_enabled="false" android:color="#801B88EE" />
+    <item android:state_pressed="true" android:color="#801B88EE" />
+    <item android:color="@color/fast_config_color_blue" />
 
 </selector>

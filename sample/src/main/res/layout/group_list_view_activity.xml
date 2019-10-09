@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
-  <data>
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  </data>
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="vertical"
-      >
+    <data>
 
-    <io.github.keep2iron.fast4android.topbar.FastTopBarLayout
-        android:id="@+id/topBarLayout"
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/fast_config_color_blue"
-        android:fitsSystemWindows="true"
-        app:fast_topbar_title="Group List View Component"
-        app:fast_topbar_title_color="@color/fast_config_color_white"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <io.github.keep2iron.grouplistview.FastGroupListContainer
-        android:id="@+id/groupListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        <io.github.keep2iron.fast4android.topbar.FastTopBarLayout
+            android:id="@+id/topBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/fast_config_color_blue"
+            android:fitsSystemWindows="true"
+            app:fast_topbar_title="Group List View Component"
+            app:fast_topbar_title_color="@color/fast_config_color_white" />
 
-  </LinearLayout>
+        <io.github.keep2iron.grouplistview.FastGroupListContainer
+            android:id="@+id/groupListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 </layout>

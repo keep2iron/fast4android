@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  Tencent is pleased to support the open source community by making QMUI_Android available.
 
  Copyright (C) 2017-2018 THL A29 Limited, a Tencent company. All rights reserved.
@@ -24,17 +23,17 @@
     android:paddingLeft="8dp"
     android:paddingRight="8dp">
 
-  <ImageView
-      android:id="@+id/item_icon"
-      android:contentDescription="Item Icon"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+    <ImageView
+        android:id="@+id/item_icon"
+        android:contentDescription="Item Icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-  <TextView
-      android:id="@+id/item_name"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:gravity="center_horizontal|top"
-      android:lines="2"
-      android:textSize="11sp"/>
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|top"
+        android:lines="2"
+        android:textSize="11sp" />
 </LinearLayout>

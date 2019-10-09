@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <declare-styleable name="FastSwitchView">
-    <attr format="boolean" name="hasShadow"/>
-    <attr format="color" name="primaryColor"/>
-    <attr format="color" name="primaryColorDark"/>
-    <attr format="color" name="offColor"/>
-    <attr format="color" name="offColorDark"/>
-    <attr format="color" name="shadowColor"/>
-    <attr format="float" name="ratioAspect"/>
-    <attr format="boolean" name="isOpened"/>
-  </declare-styleable>
+    <declare-styleable name="FastSwitchView">
+        <attr format="boolean" name="hasShadow" />
+        <attr format="color" name="primaryColor" />
+        <attr format="color" name="primaryColorDark" />
+        <attr format="color" name="offColor" />
+        <attr format="color" name="offColorDark" />
+        <attr format="color" name="shadowColor" />
+        <attr format="float" name="ratioAspect" />
+        <attr format="boolean" name="isOpened" />
+    </declare-styleable>
 </resources>

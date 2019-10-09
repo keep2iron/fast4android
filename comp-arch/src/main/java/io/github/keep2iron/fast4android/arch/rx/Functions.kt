@@ -22,23 +22,23 @@ import java.util.concurrent.CancellationException
 
 internal class Functions private constructor() {
 
-  init {
-    throw AssertionError("No instances!")
-  }
-
-  companion object {
-
-    val RESUME_FUNCTION: Function<Throwable, Boolean> = Function { throwable ->
-      if (throwable is OutsideLifecycleException) {
-        return@Function true
-      }
-      Exceptions.propagate(throwable)
-      false
+    init {
+        throw AssertionError("No instances!")
     }
 
-    val SHOULD_COMPLETE: Predicate<Boolean> = Predicate { shouldComplete -> shouldComplete }
+    companion object {
 
-    val CANCEL_COMPLETABLE: Function<Any, Completable> =
-      Function { Completable.error(CancellationException()) }
-  }
+        val RESUME_FUNCTION: Function<Throwable, Boolean> = Function { throwable ->
+            if (throwable is OutsideLifecycleException) {
+                return@Function true
+            }
+            Exceptions.propagate(throwable)
+            false
+        }
+
+        val SHOULD_COMPLETE: Predicate<Boolean> = Predicate { shouldComplete -> shouldComplete }
+
+        val CANCEL_COMPLETABLE: Function<Any, Completable> =
+                Function { Completable.error(CancellationException()) }
+    }
 }

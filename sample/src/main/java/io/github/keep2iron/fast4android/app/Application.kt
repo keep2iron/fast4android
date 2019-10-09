@@ -12,12 +12,12 @@ import io.github.keep2iron.fast4android.core.Fast4Android
  * @since 2018/03/07 11:37
  */
 class Application : MultiDexApplication() {
-  override fun onCreate() {
-    super.onCreate()
+    override fun onCreate() {
+        super.onCreate()
 
-    Fast4Android.init(this) {
-      logger(DefaultLogger())
-      applicationInitTask(ParallaxBackApplicationTask())
+        Fast4Android.init(this) {
+            logger(DefaultLogger())
+            applicationInitTask(ParallaxBackApplicationTask())
+        }
     }
-  }
 }

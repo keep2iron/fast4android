@@ -10,15 +10,15 @@ import io.github.keep2iron.fast4android.core.util.startActivity
 
 @ParallaxBack
 class TabSegmentListActivity : AbstractActivity<TabSegmentListActivityBinding>() {
-  override fun resId(): Int = R.layout.tab_segment_list_activity
-  override fun initVariables(savedInstanceState: Bundle?) {
-    FastStatusBarHelper.translucent(this)
+    override fun resId(): Int = R.layout.tab_segment_list_activity
+    override fun initVariables(savedInstanceState: Bundle?) {
+        FastStatusBarHelper.translucent(this)
 
-    dataBinding.btnFixed.setOnClickListener {
-     startActivity(TabSegmentFixedActivity::class.java)
+        dataBinding.btnFixed.setOnClickListener {
+            startActivity(TabSegmentFixedActivity::class.java)
+        }
+        dataBinding.btnScrollable.setOnClickListener {
+            startActivity(TabSegmentActivity::class.java)
+        }
     }
-    dataBinding.btnScrollable.setOnClickListener {
-      startActivity(TabSegmentActivity::class.java)
-    }
-  }
 }

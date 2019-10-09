@@ -6,100 +6,100 @@ group = rootProject.ext.version_group
 version = rootProject.ext.version_fast4android_arch
 
 uploadArchives {
-  repositories {
-    mavenDeployer {
-      // 唯一标识
-      pom.groupId = rootProject.ext.version_group
-      // 项目名称
-      pom.artifactId = "fast4android-arch"
-      repository(url: uri(project.MAVEN_LOCAL_REPO))
-      // 版本号
-      pom.version = rootProject.ext.version_fast4android_arch
+    repositories {
+        mavenDeployer {
+            // 唯一标识
+            pom.groupId = rootProject.ext.version_group
+            // 项目名称
+            pom.artifactId = "fast4android-arch"
+            repository(url: uri(project.MAVEN_LOCAL_REPO))
+            // 版本号
+            pom.version = rootProject.ext.version_fast4android_arch
+        }
     }
-  }
 }
 
 android {
-  compileSdkVersion versions.build.target_sdk
-  buildToolsVersion versions.build.build_tools
+    compileSdkVersion versions.build.target_sdk
+    buildToolsVersion versions.build.build_tools
 
-  defaultConfig {
-    minSdkVersion 15
-    targetSdkVersion versions.build.target_sdk
-    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-  }
-
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
-
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion versions.build.target_sdk
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-  }
 
-  dataBinding {
-    enabled = true
-  }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
-  //support
-  implementation deps.support.app_compat
-  implementation deps.support.fragment
-  implementation deps.support.annotations
-  api deps.arch.lifecycle
-  api deps.arch.extensions
+    //support
+    implementation deps.support.app_compat
+    implementation deps.support.fragment
+    implementation deps.support.annotations
+    api deps.arch.lifecycle
+    api deps.arch.extensions
 
-  implementation project(':comp-fast4android')
+    implementation project(':comp-fast4android')
 
-  api deps.rxjava2
-  api deps.rx_android
-  implementation deps.kotlin.stdlib_jdk7
+    api deps.rxjava2
+    api deps.rx_android
+    implementation deps.kotlin.stdlib_jdk7
 
-  testImplementation deps.test.junit
-  androidTestImplementation deps.test.runner
-  androidTestImplementation deps.test.rules
-  androidTestImplementation(deps.test.espresso_core) {
-    exclude group: 'com.android.support'
-    exclude module: 'appcompat-v7'
-    exclude module: 'support-v4'
-  }
-  androidTestImplementation(deps.test.espresso_contrib) {
-    exclude group: 'com.android.support'
-    exclude module: 'appcompat-v7'
-    exclude module: 'support-v4'
-  }
+    testImplementation deps.test.junit
+    androidTestImplementation deps.test.runner
+    androidTestImplementation deps.test.rules
+    androidTestImplementation(deps.test.espresso_core) {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    androidTestImplementation(deps.test.espresso_contrib) {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
 }
 
 // 指定编码
 tasks.withType(JavaCompile) {
-  options.encoding = "UTF-8"
+    options.encoding = "UTF-8"
 }
 
 // 打包源码
 task sourcesJar(type: Jar) {
-  from android.sourceSets.main.java.srcDirs
-  classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
 }
 
 task javadoc(type: Javadoc) {
-  failOnError false
-  source = android.sourceSets.main.java.sourceFiles
-  classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-  classpath += configurations.compile
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.compile
 }
 
 // 制作文档(Javadoc)
 task javadocJar(type: Jar, dependsOn: javadoc) {
-  classifier = 'javadoc'
-  from javadoc.destinationDir
+    classifier = 'javadoc'
+    from javadoc.destinationDir
 }
 
 artifacts {
-  archives sourcesJar
-  archives javadocJar
+    archives sourcesJar
+    archives javadocJar
 }

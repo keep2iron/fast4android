@@ -2,6 +2,7 @@ package io.github.keep2iron.fast4android.arch.swipe.transform;
 
 import android.graphics.Canvas;
 import android.view.View;
+
 import io.github.keep2iron.fast4android.arch.swipe.ParallaxBackLayout;
 
 /**

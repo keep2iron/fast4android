@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  Tencent is pleased to support the open source community by making QMUI_Android available.
 
  Copyright (C) 2017-2018 THL A29 Limited, a Tencent company. All rights reserved.
@@ -16,16 +15,13 @@
 -->
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-       android:shape="rectangle"
-    >
+    android:shape="rectangle">
     <corners android:radius="12dp" />
     <size
         android:width="@dimen/fast_switch_size"
-        android:height="@dimen/fast_switch_size"
-        />
+        android:height="@dimen/fast_switch_size" />
     <solid android:color="?attr/fast_config_color_gray_3" />
     <stroke
         android:width="4dp"
-        android:color="#00000000"
-        />
+        android:color="#00000000" />
 </shape>

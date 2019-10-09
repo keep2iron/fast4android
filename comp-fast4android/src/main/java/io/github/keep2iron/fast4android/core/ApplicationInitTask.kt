@@ -12,6 +12,6 @@ import android.app.Application
  */
 interface ApplicationInitTask {
 
-  fun onApplicationCreate(application: Application)
+    fun onApplicationCreate(application: Application)
 
 }

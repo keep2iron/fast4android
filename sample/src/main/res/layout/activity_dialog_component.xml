@@ -3,41 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
-  <io.github.keep2iron.fast4android.topbar.FastTopBarLayout
-      android:id="@+id/topBarLayout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="@color/fast_config_color_blue"
-      android:fitsSystemWindows="true"
-      app:fast_topbar_title="Dialog Fragment Component"
-      app:fast_topbar_title_color="@color/fast_config_color_white"
-      />
-
-  <io.github.keep2iron.grouplistview.FastGroupListContainer
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      >
-
-    <io.github.keep2iron.grouplistview.FastGroupListItemView
-        android:id="@+id/groupListCancelable"
+    <io.github.keep2iron.fast4android.topbar.FastTopBarLayout
+        android:id="@+id/topBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:fast_accessory_type="switcher"
-        app:fast_title="是否能够取消"
-        />
+        android:layout_height="wrap_content"
+        android:background="@color/fast_config_color_blue"
+        android:fitsSystemWindows="true"
+        app:fast_topbar_title="Dialog Fragment Component"
+        app:fast_topbar_title_color="@color/fast_config_color_white" />
 
-  </io.github.keep2iron.grouplistview.FastGroupListContainer>
+    <io.github.keep2iron.grouplistview.FastGroupListContainer
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-  <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
-      android:id="@+id/btnStartDialog"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:layout_marginTop="16dp"
-      android:text="Start Dialog"
-      />
+        <io.github.keep2iron.grouplistview.FastGroupListItemView
+            android:id="@+id/groupListCancelable"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:fast_accessory_type="switcher"
+            app:fast_title="是否能够取消" />
+
+    </io.github.keep2iron.grouplistview.FastGroupListContainer>
+
+    <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
+        android:id="@+id/btnStartDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="Start Dialog" />
 
 </LinearLayout>

@@ -8,35 +8,35 @@ import io.reactivex.subjects.BehaviorSubject
 
 class RxLifecycleDispatcher(owner: LifecycleOwner) : LifecycleObserver {
 
-  init {
-    owner.lifecycle.addObserver(this)
-  }
+    init {
+        owner.lifecycle.addObserver(this)
+    }
 
-  val publishSubject: BehaviorSubject<LifecycleEvent> = BehaviorSubject.create()
+    val publishSubject: BehaviorSubject<LifecycleEvent> = BehaviorSubject.create()
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-  fun onCreate() {
-    publishSubject.onNext(LifecycleEvent.CREATE)
-  }
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun onCreate() {
+        publishSubject.onNext(LifecycleEvent.CREATE)
+    }
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_START)
-  fun onStart() {
-    publishSubject.onNext(LifecycleEvent.START)
-  }
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    fun onStart() {
+        publishSubject.onNext(LifecycleEvent.START)
+    }
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-  fun onResume() {
-    publishSubject.onNext(LifecycleEvent.RESUME)
-  }
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun onResume() {
+        publishSubject.onNext(LifecycleEvent.RESUME)
+    }
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-  fun onStop() {
-    publishSubject.onNext(LifecycleEvent.STOP)
-  }
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    fun onStop() {
+        publishSubject.onNext(LifecycleEvent.STOP)
+    }
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-  fun onDestroy() {
-    publishSubject.onNext(LifecycleEvent.DESTROY)
-  }
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun onDestroy() {
+        publishSubject.onNext(LifecycleEvent.DESTROY)
+    }
 
 }

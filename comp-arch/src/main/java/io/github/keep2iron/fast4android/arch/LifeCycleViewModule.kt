@@ -13,9 +13,9 @@ import io.reactivex.subjects.BehaviorSubject
  * @since 2017/11/30 17:55
  */
 open class LifeCycleViewModule(application: Application, private val owner: LifecycleOwner) :
-  AndroidViewModel(application), RxLifecycleOwner {
+        AndroidViewModel(application), RxLifecycleOwner {
 
-  private val lifecycleDispatcher = RxLifecycleDispatcher(owner)
+    private val lifecycleDispatcher = RxLifecycleDispatcher(owner)
 
-  override val publishSubject: BehaviorSubject<LifecycleEvent> = lifecycleDispatcher.publishSubject
+    override val publishSubject: BehaviorSubject<LifecycleEvent> = lifecycleDispatcher.publishSubject
 }

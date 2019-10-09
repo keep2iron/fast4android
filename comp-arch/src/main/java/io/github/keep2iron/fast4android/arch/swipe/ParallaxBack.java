@@ -1,6 +1,7 @@
 package io.github.keep2iron.fast4android.arch.swipe;
 
 import androidx.customview.widget.ViewDragHelper;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

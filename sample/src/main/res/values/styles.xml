@@ -1,32 +1,32 @@
 <resources>
 
-  <!-- Base application theme. -->
-  <style name="AppTheme" parent="Fast.Compat.NoActionBar">
-    <!-- Customize your theme here. -->
-    <item name="colorPrimary">@color/fast_config_color_blue</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
-    <item name="buttonStyle">@style/FastButton.Compat</item>
-  </style>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Fast.Compat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/fast_config_color_blue</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="buttonStyle">@style/FastButton.Compat</item>
+    </style>
 
-  <declare-styleable name="MaterialMenuView">
-    <attr format="color" name="mm_color"/>
-    <attr format="boolean" name="mm_visible"/>
-    <attr format="integer" name="mm_scale"/>
-    <attr format="integer" name="mm_transformDuration"/>
-    <attr format="integer" name="mm_strokeWidth"/>
-    <attr format="boolean" name="mm_rtlEnabled"/>
-    <attr format="enum" name="mm_iconState">
-      <enum name="burger" value="0"/>
-      <enum name="arrow" value="1"/>
-      <enum name="x" value="2"/>
-      <enum name="check" value="3"/>
-    </attr>
-  </declare-styleable>
+    <declare-styleable name="MaterialMenuView">
+        <attr format="color" name="mm_color" />
+        <attr format="boolean" name="mm_visible" />
+        <attr format="integer" name="mm_scale" />
+        <attr format="integer" name="mm_transformDuration" />
+        <attr format="integer" name="mm_strokeWidth" />
+        <attr format="boolean" name="mm_rtlEnabled" />
+        <attr format="enum" name="mm_iconState">
+            <enum name="burger" value="0" />
+            <enum name="arrow" value="1" />
+            <enum name="x" value="2" />
+            <enum name="check" value="3" />
+        </attr>
+    </declare-styleable>
 
-  <declare-styleable name="GradientBackgroundView">
-    <attr format="color" name="gbv_default_color"/>
-    <attr format="integer" name="gbv_duration"/>
-  </declare-styleable>
+    <declare-styleable name="GradientBackgroundView">
+        <attr format="color" name="gbv_default_color" />
+        <attr format="integer" name="gbv_duration" />
+    </declare-styleable>
 
 </resources>

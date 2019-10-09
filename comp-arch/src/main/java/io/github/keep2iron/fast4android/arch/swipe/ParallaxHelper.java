@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+
 import io.github.keep2iron.fast4android.arch.R;
 
 /**
@@ -22,9 +23,9 @@ public class ParallaxHelper implements Application.ActivityLifecycleCallbacks {
      * @return the instance
      */
     public static ParallaxHelper getInstance() {
-      if (sParallaxHelper == null) {
-        sParallaxHelper = new ParallaxHelper();
-      }
+        if (sParallaxHelper == null) {
+            sParallaxHelper = new ParallaxHelper();
+        }
         return sParallaxHelper;
     }
 
@@ -43,7 +44,7 @@ public class ParallaxHelper implements Application.ActivityLifecycleCallbacks {
             ParallaxBackLayout layout = enableParallaxBack(activity);
             layout.setEdgeFlag(parallaxBack.edge().getValue());
             layout.setEdgeMode(parallaxBack.edgeMode().getValue());
-            layout.setLayoutType(parallaxBack.layout().getValue(),null);
+            layout.setLayoutType(parallaxBack.layout().getValue(), null);
         }
     }
 
@@ -52,9 +53,9 @@ public class ParallaxHelper implements Application.ActivityLifecycleCallbacks {
         ParallaxBack parallaxBack;
         while (Activity.class.isAssignableFrom(mc)) {
             parallaxBack = (ParallaxBack) mc.getAnnotation(ParallaxBack.class);
-          if (parallaxBack != null) {
-            return parallaxBack;
-          }
+            if (parallaxBack != null) {
+                return parallaxBack;
+            }
             mc = mc.getSuperclass();
         }
         return null;
@@ -96,9 +97,9 @@ public class ParallaxHelper implements Application.ActivityLifecycleCallbacks {
      */
     public static void disableParallaxBack(Activity activity) {
         ParallaxBackLayout layout = getParallaxBackLayout(activity);
-      if (layout != null) {
-        layout.setEnableGesture(false);
-      }
+        if (layout != null) {
+            layout.setEnableGesture(false);
+        }
     }
 
     /**
@@ -131,13 +132,13 @@ public class ParallaxHelper implements Application.ActivityLifecycleCallbacks {
      */
     public static ParallaxBackLayout getParallaxBackLayout(Activity activity, boolean create) {
         View view = ((ViewGroup) activity.getWindow().getDecorView()).getChildAt(0);
-      if (view instanceof ParallaxBackLayout) {
-        return (ParallaxBackLayout) view;
-      }
+        if (view instanceof ParallaxBackLayout) {
+            return (ParallaxBackLayout) view;
+        }
         view = activity.findViewById(R.id.fast_arch_swipe_layout_in_back);
-      if (view instanceof ParallaxBackLayout) {
-        return (ParallaxBackLayout) view;
-      }
+        if (view instanceof ParallaxBackLayout) {
+            return (ParallaxBackLayout) view;
+        }
         if (create) {
             ParallaxBackLayout backLayout = new ParallaxBackLayout(activity);
             backLayout.setId(R.id.fast_arch_swipe_layout_in_back);

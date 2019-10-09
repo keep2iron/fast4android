@@ -4,14 +4,12 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:parentTag="android.widget.FrameLayout"
-    >
+    tools:parentTag="android.widget.FrameLayout">
 
-  <View
-      android:id="@+id/background"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="#7f000000"
-      />
+    <View
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#7f000000" />
 
 </merge>

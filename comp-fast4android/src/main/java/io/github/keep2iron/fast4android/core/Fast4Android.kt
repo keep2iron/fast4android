@@ -8,22 +8,22 @@ import io.github.keep2iron.fast4android.core.FastLogger.FastLogDelegate
 @SuppressLint("StaticFieldLeak")
 object Fast4Android {
 
-  lateinit var CONTEXT: Context
+    lateinit var CONTEXT: Context
 
-  fun logger(logger: FastLogDelegate) {
-    FastLogger.setDelegate(logger)
-  }
+    fun logger(logger: FastLogDelegate) {
+        FastLogger.setDelegate(logger)
+    }
 
-  fun init(applicationContext: Context) {
-    CONTEXT = applicationContext.applicationContext
-  }
+    fun init(applicationContext: Context) {
+        CONTEXT = applicationContext.applicationContext
+    }
 
-  inline fun init(applicationContext: Context, block: Fast4Android.() -> Unit) {
-    CONTEXT = applicationContext.applicationContext
-    apply(block)
-  }
+    inline fun init(applicationContext: Context, block: Fast4Android.() -> Unit) {
+        CONTEXT = applicationContext.applicationContext
+        apply(block)
+    }
 
-  fun applicationInitTask(applicationInitTask: ApplicationInitTask) {
-    applicationInitTask.onApplicationCreate(CONTEXT as Application)
-  }
+    fun applicationInitTask(applicationInitTask: ApplicationInitTask) {
+        applicationInitTask.onApplicationCreate(CONTEXT as Application)
+    }
 }

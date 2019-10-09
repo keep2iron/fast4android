@@ -17,12 +17,15 @@ import android.widget.FrameLayout;
 import androidx.annotation.IntDef;
 import androidx.core.view.ViewCompat;
 import androidx.customview.widget.ViewDragHelper;
+
 import io.github.keep2iron.fast4android.arch.swipe.transform.CoverTransform;
 import io.github.keep2iron.fast4android.arch.swipe.transform.ITransform;
 import io.github.keep2iron.fast4android.arch.swipe.transform.ParallaxTransform;
 import io.github.keep2iron.fast4android.arch.swipe.transform.SlideTransform;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+
 import static androidx.customview.widget.ViewDragHelper.EDGE_BOTTOM;
 import static androidx.customview.widget.ViewDragHelper.EDGE_RIGHT;
 import static androidx.customview.widget.ViewDragHelper.EDGE_TOP;
@@ -38,7 +41,7 @@ public class ParallaxBackLayout extends FrameLayout {
     public @interface LayoutType {
     }
 
-    @IntDef({ EDGE_LEFT, EDGE_RIGHT, EDGE_TOP, EDGE_BOTTOM})
+    @IntDef({EDGE_LEFT, EDGE_RIGHT, EDGE_TOP, EDGE_BOTTOM})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Edge {
     }
@@ -264,25 +267,25 @@ public class ParallaxBackLayout extends FrameLayout {
     private void drawShadow(Canvas canvas, View child) {
         if (mContentLeft == 0 && mContentTop == 0)
             return;
-        if(mShadowLeft == null)
+        if (mShadowLeft == null)
             return;
         if (mEdgeFlag == EDGE_LEFT) {
             mShadowLeft.setBounds(child.getLeft() - mShadowLeft.getIntrinsicWidth(), child.getTop(),
                     child.getLeft(), child.getBottom());
-            mShadowLeft.setAlpha((getWidth()-child.getLeft())*255/getWidth());
+            mShadowLeft.setAlpha((getWidth() - child.getLeft()) * 255 / getWidth());
         } else if (mEdgeFlag == EDGE_RIGHT) {
             mShadowLeft.setBounds(child.getRight(), child.getTop(),
                     child.getRight() + mShadowLeft.getIntrinsicWidth(), child.getBottom());
-            mShadowLeft.setAlpha(child.getRight()*255/getWidth());
+            mShadowLeft.setAlpha(child.getRight() * 255 / getWidth());
         } else if (mEdgeFlag == EDGE_BOTTOM) {
             mShadowLeft.setBounds(child.getLeft(), child.getBottom(),
                     child.getRight(), child.getBottom() + mShadowLeft.getIntrinsicHeight());
 
-            mShadowLeft.setAlpha(child.getBottom()*255/getHeight());
+            mShadowLeft.setAlpha(child.getBottom() * 255 / getHeight());
         } else if (mEdgeFlag == EDGE_TOP) {
             mShadowLeft.setBounds(child.getLeft(), child.getTop() - mShadowLeft.getIntrinsicHeight() + getSystemTop(),
                     child.getRight(), child.getTop() + getSystemTop());
-            mShadowLeft.setAlpha((getHeight()-child.getTop())*255/getHeight());
+            mShadowLeft.setAlpha((getHeight() - child.getTop()) * 255 / getHeight());
         }
         mShadowLeft.draw(canvas);
     }
@@ -321,6 +324,7 @@ public class ParallaxBackLayout extends FrameLayout {
         }
         mScrollThreshold = threshold;
     }
+
     /**
      * Set scroll threshold, we will close the activity, when scrollPercent over
      * this value

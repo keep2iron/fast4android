@@ -6,80 +6,80 @@ group = rootProject.ext.version_group
 version = rootProject.ext.version_fast4android_tabsegment
 
 uploadArchives {
-  repositories {
-    mavenDeployer {
-      // 唯一标识
-      pom.groupId = rootProject.ext.version_group
-      // 项目名称
-      pom.artifactId = "fast4android-tabsegment"
-      repository(url: uri(project.MAVEN_LOCAL_REPO))
-      // 版本号
-      pom.version = rootProject.ext.version_fast4android_tabsegment
+    repositories {
+        mavenDeployer {
+            // 唯一标识
+            pom.groupId = rootProject.ext.version_group
+            // 项目名称
+            pom.artifactId = "fast4android-tabsegment"
+            repository(url: uri(project.MAVEN_LOCAL_REPO))
+            // 版本号
+            pom.version = rootProject.ext.version_fast4android_tabsegment
+        }
     }
-  }
 }
 
 android {
-  resourcePrefix "fast"
+    resourcePrefix "fast"
 
-  compileSdkVersion versions.build.target_sdk
-  buildToolsVersion versions.build.build_tools
+    compileSdkVersion versions.build.target_sdk
+    buildToolsVersion versions.build.build_tools
 
-  defaultConfig {
-    minSdkVersion 15
-    targetSdkVersion versions.build.target_sdk
-    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-  }
-
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
-
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion versions.build.target_sdk
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-  }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 dependencies {
-  //support
-  implementation deps.kotlin.stdlib_jdk7
+    //support
+    implementation deps.kotlin.stdlib_jdk7
 
-  api project(':base-style')
+    api project(':base-style')
 
-  testImplementation deps.test.junit
-  androidTestImplementation 'androidx.test:runner:1.1.0'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    testImplementation deps.test.junit
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 }
 
 // 指定编码
 tasks.withType(JavaCompile) {
-  options.encoding = "UTF-8"
+    options.encoding = "UTF-8"
 }
 
 // 打包源码
 task sourcesJar(type: Jar) {
-  from android.sourceSets.main.java.srcDirs
-  classifier = 'sources'
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
 }
 
 task javadoc(type: Javadoc) {
-  failOnError false
-  source = android.sourceSets.main.java.sourceFiles
-  classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-  classpath += configurations.compile
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.compile
 }
 
 // 制作文档(Javadoc)
 task javadocJar(type: Jar, dependsOn: javadoc) {
-  classifier = 'javadoc'
-  from javadoc.destinationDir
+    classifier = 'javadoc'
+    from javadoc.destinationDir
 }
 
 artifacts {
-  archives sourcesJar
-  archives javadocJar
+    archives sourcesJar
+    archives javadocJar
 }

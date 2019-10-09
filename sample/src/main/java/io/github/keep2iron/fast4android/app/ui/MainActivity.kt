@@ -7,12 +7,12 @@ import io.github.keep2iron.fast4android.app.databinding.ActivityMainBinding
 import io.github.keep2iron.fast4android.arch.AbstractActivity
 
 class MainActivity : AbstractActivity<ActivityMainBinding>() {
-  override fun resId(): Int = R.layout.activity_main
-  override fun initVariables(savedInstanceState: Bundle?) {
-    FastStatusBarHelper.translucent(this)
+    override fun resId(): Int = R.layout.activity_main
+    override fun initVariables(savedInstanceState: Bundle?) {
+        FastStatusBarHelper.translucent(this)
 
-    supportFragmentManager.beginTransaction()
-      .replace(R.id.container, HomeFragment())
-      .commit()
-  }
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.container, HomeFragment())
+                .commit()
+    }
 }

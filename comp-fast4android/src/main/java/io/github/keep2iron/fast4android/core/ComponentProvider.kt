@@ -7,6 +7,6 @@ import android.app.Application
  */
 interface ComponentProvider<T> {
 
-  fun onCreateComponent(application: Application): T
+    fun onCreateComponent(application: Application): T
 
 }

@@ -33,6 +33,7 @@
 package io.github.keep2iron.base.util;
 
 import android.view.View;
+
 import androidx.core.view.ViewCompat;
 
 /**
@@ -104,9 +105,9 @@ public class FastViewOffsetHelper {
     }
 
     public boolean setOffset(int leftOffset, int topOffset) {
-        if(!mHorizontalOffsetEnabled && !mVerticalOffsetEnabled){
+        if (!mHorizontalOffsetEnabled && !mVerticalOffsetEnabled) {
             return false;
-        }else if(mHorizontalOffsetEnabled && mVerticalOffsetEnabled){
+        } else if (mHorizontalOffsetEnabled && mVerticalOffsetEnabled) {
             if (mOffsetLeft != leftOffset || mOffsetTop != topOffset) {
                 mOffsetLeft = leftOffset;
                 mOffsetTop = topOffset;
@@ -114,9 +115,9 @@ public class FastViewOffsetHelper {
                 return true;
             }
             return false;
-        }else if(mHorizontalOffsetEnabled){
+        } else if (mHorizontalOffsetEnabled) {
             return setLeftAndRightOffset(leftOffset);
-        }else{
+        } else {
             return setTopAndBottomOffset(topOffset);
         }
     }

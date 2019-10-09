@@ -1,52 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <!--**********************************************
-*                  Dialog                    *
-**********************************************-->
-  <dimen name="fast_dialog_radius">2dp</dimen>
-
-  <!--**********************************************
-  *                  Button                        *
+    <!--**********************************************
+  *                  Dialog                    *
   **********************************************-->
-  <dimen name="fast_btn_text_size">16sp</dimen>
-  <dimen name="fast_btn_border_width">1dp</dimen>
+    <dimen name="fast_dialog_radius">2dp</dimen>
 
-  <!--**********************************************
-  *                  Switch                        *
-  **********************************************-->
-  <dimen name="fast_switch_size">20dp</dimen>
+    <!--**********************************************
+    *                  Button                        *
+    **********************************************-->
+    <dimen name="fast_btn_text_size">16sp</dimen>
+    <dimen name="fast_btn_border_width">1dp</dimen>
 
-  <!--**********************************************
-  *           List - List Item                 *
-  **********************************************-->
+    <!--**********************************************
+    *                  Switch                        *
+    **********************************************-->
+    <dimen name="fast_switch_size">20dp</dimen>
 
-  <dimen name="fast_list_item_inset_left">16dp</dimen>
-  <dimen name="fast_list_divider_height">1px</dimen>
-  <dimen name="fast_list_divider_height_negative">-1px</dimen>
-  <dimen name="fast_group_list_section_header_footer_text_size">13sp</dimen>
+    <!--**********************************************
+    *           List - List Item                 *
+    **********************************************-->
 
-  <!--**********************************************
-  *                TabSegment                  *
-  **********************************************-->
-  <dimen name="fast_tab_segment_indicator_height">2dp</dimen>
-  <dimen name="fast_tab_segment_text_size">16sp</dimen>
-  <dimen name="fast_tab_sign_count_view_minSize_with_text">16dp</dimen>
-  <dimen name="fast_tab_sign_count_view_minSize">8dp</dimen>
+    <dimen name="fast_list_item_inset_left">16dp</dimen>
+    <dimen name="fast_list_divider_height">1px</dimen>
+    <dimen name="fast_list_divider_height_negative">-1px</dimen>
+    <dimen name="fast_group_list_section_header_footer_text_size">13sp</dimen>
 
-
-  <!--**********************************************
-  *                   GroupList                    *
-  **********************************************-->
-  <dimen name="fast_list_item_height">56dp</dimen>
-  <dimen name="fast_list_item_height_higher">103dp</dimen>
-  <dimen name="fast_group_list_section_header_footer_padding_vertical">8dp</dimen>
-  <dimen name="fast_group_list_section_header_footer_textSize">13sp</dimen>
+    <!--**********************************************
+    *                TabSegment                  *
+    **********************************************-->
+    <dimen name="fast_tab_segment_indicator_height">2dp</dimen>
+    <dimen name="fast_tab_segment_text_size">16sp</dimen>
+    <dimen name="fast_tab_sign_count_view_minSize_with_text">16dp</dimen>
+    <dimen name="fast_tab_sign_count_view_minSize">8dp</dimen>
 
 
-  <!-- 全局统一的界面左右间距，例如列表分隔线inset -->
-  <dimen name="fast_content_spacing_horizontal">16dp</dimen> <!-- margin 和 padding 等使用的内容通用水平间距 -->
-  <!-- 提示标点 -->
-  <dimen name="fast_tips_point_size">8dp</dimen>
+    <!--**********************************************
+    *                   GroupList                    *
+    **********************************************-->
+    <dimen name="fast_list_item_height">56dp</dimen>
+    <dimen name="fast_list_item_height_higher">103dp</dimen>
+    <dimen name="fast_group_list_section_header_footer_padding_vertical">8dp</dimen>
+    <dimen name="fast_group_list_section_header_footer_textSize">13sp</dimen>
+
+
+    <!-- 全局统一的界面左右间距，例如列表分隔线inset -->
+    <dimen name="fast_content_spacing_horizontal">16dp
+    </dimen> <!-- margin 和 padding 等使用的内容通用水平间距 -->
+    <!-- 提示标点 -->
+    <dimen name="fast_tips_point_size">8dp</dimen>
 
 </resources>

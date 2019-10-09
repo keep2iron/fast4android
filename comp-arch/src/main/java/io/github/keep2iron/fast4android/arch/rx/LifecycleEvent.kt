@@ -13,10 +13,10 @@ package io.github.keep2iron.fast4android.arch.rx
  * 声明周期的事件声明
  */
 enum class LifecycleEvent {
-  CREATE,
-  START,
-  RESUME,
-  PAUSE,
-  STOP,
-  DESTROY
+    CREATE,
+    START,
+    RESUME,
+    PAUSE,
+    STOP,
+    DESTROY
 }

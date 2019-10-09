@@ -23,37 +23,37 @@ package io.github.keep2iron.fast4android.core
  */
 object FastLogger {
 
-  private var sDelegate: FastLogDelegate? = null
+    private var sDelegate: FastLogDelegate? = null
 
-  interface FastLogDelegate {
-    fun e(tag: String, msg: String, vararg obj: Any)
-    fun w(tag: String, msg: String, vararg obj: Any)
-    fun i(tag: String, msg: String, vararg obj: Any)
-    fun d(tag: String, msg: String, vararg obj: Any)
-    fun printErrStackTrace(tag: String, tr: Throwable, format: String, vararg obj: Any)
-  }
+    interface FastLogDelegate {
+        fun e(tag: String, msg: String, vararg obj: Any)
+        fun w(tag: String, msg: String, vararg obj: Any)
+        fun i(tag: String, msg: String, vararg obj: Any)
+        fun d(tag: String, msg: String, vararg obj: Any)
+        fun printErrStackTrace(tag: String, tr: Throwable, format: String, vararg obj: Any)
+    }
 
-  fun setDelegate(delegate: FastLogDelegate) {
-    sDelegate = delegate
-  }
+    fun setDelegate(delegate: FastLogDelegate) {
+        sDelegate = delegate
+    }
 
-  fun e(tag: String, msg: String, vararg obj: Any) {
-    sDelegate?.e(tag, msg, *obj)
-  }
+    fun e(tag: String, msg: String, vararg obj: Any) {
+        sDelegate?.e(tag, msg, *obj)
+    }
 
-  fun w(tag: String, msg: String, vararg obj: Any) {
-    sDelegate?.w(tag, msg, *obj)
-  }
+    fun w(tag: String, msg: String, vararg obj: Any) {
+        sDelegate?.w(tag, msg, *obj)
+    }
 
-  fun i(tag: String, msg: String, vararg obj: Any) {
-    sDelegate?.i(tag, msg, *obj)
-  }
+    fun i(tag: String, msg: String, vararg obj: Any) {
+        sDelegate?.i(tag, msg, *obj)
+    }
 
-  fun d(tag: String, msg: String, vararg obj: Any) {
-    sDelegate?.d(tag, msg, *obj)
-  }
+    fun d(tag: String, msg: String, vararg obj: Any) {
+        sDelegate?.d(tag, msg, *obj)
+    }
 
-  fun printErrStackTrace(tag: String, tr: Throwable, format: String, vararg obj: Any) {
-    sDelegate?.printErrStackTrace(tag, tr, format, *obj)
-  }
+    fun printErrStackTrace(tag: String, tr: Throwable, format: String, vararg obj: Any) {
+        sDelegate?.printErrStackTrace(tag, tr, format, *obj)
+    }
 }

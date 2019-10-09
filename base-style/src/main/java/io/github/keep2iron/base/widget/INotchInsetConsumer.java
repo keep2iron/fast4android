@@ -18,7 +18,6 @@ package io.github.keep2iron.base.widget;
 
 public interface INotchInsetConsumer {
     /**
-     *
      * @return if true stop dispatch to child view
      */
     boolean notifyInsetMaybeChanged();

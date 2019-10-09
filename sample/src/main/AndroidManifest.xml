@@ -3,37 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="io.github.keep2iron.fast4android.app">
 
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-  <uses-permission android:name="android.permission.INTERNET"/>
-  <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-  <application
-      android:name=".Application"
-      android:icon="@mipmap/ic_launcher"
-      android:label="@string/app_name"
-      android:roundIcon="@mipmap/ic_launcher"
-      android:supportsRtl="true"
-      android:theme="@style/AppTheme"
-      tools:ignore="AllowBackup">
-
-    <activity
-        android:name=".ui.MainActivity"
+    <application
+        android:name=".Application"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:windowSoftInputMode="adjustPan">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
+        tools:ignore="AllowBackup">
 
-        <category android:name="android.intent.category.LAUNCHER"/>
-        <action android:name="android.intent.action.VIEW"/>
-      </intent-filter>
-    </activity>
-    <activity android:name=".ui.tabsegment.TabSegmentActivity"/>
-    <activity android:name=".ui.roundbutton.RoundComponentsActivity"/>
-    <activity android:name=".ui.grouplistview.GroupListViewActivity"/>
-    <activity android:name=".ui.tabsegment.TabSegmentFixedActivity"/>
-    <activity android:name=".ui.tabsegment.TabSegmentListActivity"/>
-    <activity android:name=".ui.dialog.DialogComponentsActivity"/>
-      <activity android:name=".ui.detail.DetailActivity" />
-  </application>
+        <activity
+            android:name=".ui.MainActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.tabsegment.TabSegmentActivity" />
+        <activity android:name=".ui.roundbutton.RoundComponentsActivity" />
+        <activity android:name=".ui.grouplistview.GroupListViewActivity" />
+        <activity android:name=".ui.tabsegment.TabSegmentFixedActivity" />
+        <activity android:name=".ui.tabsegment.TabSegmentListActivity" />
+        <activity android:name=".ui.dialog.DialogComponentsActivity" />
+        <activity android:name=".ui.detail.DetailActivity" />
+    </application>
 
 </manifest>

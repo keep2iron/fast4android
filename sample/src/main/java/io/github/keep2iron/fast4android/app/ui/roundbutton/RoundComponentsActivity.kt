@@ -11,21 +11,21 @@ import io.github.keep2iron.base.util.FastStatusBarHelper
 
 @ParallaxBack
 class RoundComponentsActivity : AbstractActivity<RoundComponentsActivityBinding>(),
-  OnClickListener {
+        OnClickListener {
 
-  override fun resId(): Int = R.layout.round_components_activity
+    override fun resId(): Int = R.layout.round_components_activity
 
-  override fun initVariables(savedInstanceState: Bundle?) {
-    FastStatusBarHelper.translucent(this)
+    override fun initVariables(savedInstanceState: Bundle?) {
+        FastStatusBarHelper.translucent(this)
 
-    dataBinding.titleBar.fastTopBar.addLeftBackImageButton().setOnClickListener(this)
-  }
-
-  override fun onClick(v: View) {
-    when (v.id) {
-      R.id.fast_topbar_item_left_back -> {
-        finish()
-      }
+        dataBinding.titleBar.fastTopBar.addLeftBackImageButton().setOnClickListener(this)
     }
-  }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.fast_topbar_item_left_back -> {
+                finish()
+            }
+        }
+    }
 }

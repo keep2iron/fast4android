@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  Tencent is pleased to support the open source community by making Fast_Android available.
 
  Copyright (C) 2017-2018 THL A29 Limited, a Tencent company. All rights reserved.
@@ -18,293 +17,296 @@
 <resources>
 
 
-  <!--********************* Button *********************-->
-  <style name="Fast.RoundButton" parent="@style/FastButton">
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:layout_height">wrap_content</item>
-    <!--<item name="android:padding">0dp</item>--><!-- 不用 android:padding，而用各个方向分别指定 padding，方便子类覆盖 -->
-    <item name="android:paddingLeft">12dp</item>
-    <item name="android:paddingRight">12dp</item>
-    <item name="android:paddingTop">6dp</item>
-    <item name="android:paddingBottom">6dp</item>
-    <item name="android:minWidth">0dp</item>
-    <item name="android:minHeight">0dp</item>
-    <item name="android:singleLine">true</item>
-    <item name="android:gravity">center</item>
-    <item name="android:ellipsize">end</item>
-    <item name="fast_drawable_stroke_width">?attr/fast_round_btn_border_width</item>
-    <item name="fast_drawable_stroke_color">?attr/fast_round_btn_border_color</item>
-    <item name="android:textColor">?attr/fast_round_btn_text_color</item>
-    <item name="fast_drawable_radius_adjust_bounds">true</item>
-  </style>
+    <!--********************* Button *********************-->
+    <style name="Fast.RoundButton" parent="@style/FastButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--<item name="android:padding">0dp</item>--><!-- 不用 android:padding，而用各个方向分别指定 padding，方便子类覆盖 -->
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:ellipsize">end</item>
+        <item name="fast_drawable_stroke_width">?attr/fast_round_btn_border_width</item>
+        <item name="fast_drawable_stroke_color">?attr/fast_round_btn_border_color</item>
+        <item name="android:textColor">?attr/fast_round_btn_text_color</item>
+        <item name="fast_drawable_radius_adjust_bounds">true</item>
+    </style>
 
-  <!--**************** TabSegment ******************-->
-  <declare-styleable name="FastTabSegmentLayout">
-    <!-- when fast_tab_indicator_height equals 0,it should be hide -->
-    <attr format="dimension" name="fast_tab_indicator_height"/>
-    <!--<attr format="dimension" name="fast_tab_indicator_component_padding"/>-->
-    <attr name="android:textSize"/>
-    <!--<attr format="boolean" name="fast_tab_indicator_top"/>-->
-    <attr format="enum" name="fast_tab_mode">
-      <enum name="scrollable" value="0"/>
-      <enum name="fixed" value="1"/>
-    </attr>
-    <attr format="dimension" name="fast_tab_space"/>
-    <attr format="enum" name="fast_tab_icon_position">
-      <enum name="left" value="0"/>
-      <enum name="top" value="1"/>
-      <enum name="right" value="2"/>
-      <enum name="bottom" value="3"/>
-    </attr>
-    <attr format="string" name="fast_tab_typeface_provider"/>
-    <attr format="color" name="fast_tab_normal_color"/>
-    <attr format="color" name="fast_tab_selected_color"/>
-  </declare-styleable>
-  <attr format="reference" name="FastTabSegmentLayoutStyle"/>
+    <!--**************** TabSegment ******************-->
+    <declare-styleable name="FastTabSegmentLayout">
+        <!-- when fast_tab_indicator_height equals 0,it should be hide -->
+        <attr format="dimension" name="fast_tab_indicator_height" />
+        <!--<attr format="dimension" name="fast_tab_indicator_component_padding"/>-->
+        <attr name="android:textSize" />
+        <!--<attr format="boolean" name="fast_tab_indicator_top"/>-->
+        <attr format="enum" name="fast_tab_mode">
+            <enum name="scrollable" value="0" />
+            <enum name="fixed" value="1" />
+        </attr>
+        <attr format="dimension" name="fast_tab_space" />
+        <attr format="enum" name="fast_tab_icon_position">
+            <enum name="left" value="0" />
+            <enum name="top" value="1" />
+            <enum name="right" value="2" />
+            <enum name="bottom" value="3" />
+        </attr>
+        <attr format="string" name="fast_tab_typeface_provider" />
+        <attr format="color" name="fast_tab_normal_color" />
+        <attr format="color" name="fast_tab_selected_color" />
+    </declare-styleable>
+    <attr format="reference" name="FastTabSegmentLayoutStyle" />
 
-  <!--********************* GroupListView *********************-->
-  <style name="Fast.GroupListContainer">
-    <item name="fast_separatorStyle">none</item>
-  </style>
+    <!--********************* GroupListView *********************-->
+    <style name="Fast.GroupListContainer">
+        <item name="fast_separatorStyle">none</item>
+    </style>
 
-  <style name="Fast.CommonListItemView">
-    <item name="android:paddingLeft">?attr/fast_content_spacing_horizontal</item>
-    <item name="android:paddingRight">?attr/fast_content_spacing_horizontal</item>
-    <item name="android:background">?attr/fast_s_list_item_bg_with_border_none</item>
-    <item name="fast_commonList_titleColor">?attr/fast_config_color_gray_1</item>
-  </style>
+    <style name="Fast.CommonListItemView">
+        <item name="android:paddingLeft">?attr/fast_content_spacing_horizontal</item>
+        <item name="android:paddingRight">?attr/fast_content_spacing_horizontal</item>
+        <item name="android:background">?attr/fast_s_list_item_bg_with_border_none</item>
+        <item name="fast_commonList_titleColor">?attr/fast_config_color_gray_1</item>
+    </style>
 
-  <style name="Fast.GroupListSectionView">
-    <item name="android:paddingLeft">?attr/fast_content_spacing_horizontal</item>
-    <item name="android:paddingRight">?attr/fast_content_spacing_horizontal</item>
-    <item name="android:paddingTop">
-      @dimen/fast_group_list_section_header_footer_padding_vertical
-    </item>
-    <item name="android:paddingBottom">
-      @dimen/fast_group_list_section_header_footer_padding_vertical
-    </item>
-  </style>
+    <style name="Fast.GroupListSectionView">
+        <item name="android:paddingLeft">?attr/fast_content_spacing_horizontal</item>
+        <item name="android:paddingRight">?attr/fast_content_spacing_horizontal</item>
+        <item name="android:paddingTop">
+            @dimen/fast_group_list_section_header_footer_padding_vertical
+        </item>
+        <item name="android:paddingBottom">
+            @dimen/fast_group_list_section_header_footer_padding_vertical
+        </item>
+    </style>
 
-  <!--********************* Loading *********************-->
-  <style name="Fast.Loading">
-    <item name="fast_loading_view_size">?attr/fast_loading_size</item>
-    <item name="android:color">?attr/fast_loading_color</item>
-  </style>
+    <!--********************* Loading *********************-->
+    <style name="Fast.Loading">
+        <item name="fast_loading_view_size">?attr/fast_loading_size</item>
+        <item name="android:color">?attr/fast_loading_color</item>
+    </style>
 
-  <style name="Fast.Loading.White">
-    <item name="fast_loading_view_size">?attr/fast_loading_size</item>
-    <item name="android:color">@color/fast_config_color_white</item>
-  </style>
+    <style name="Fast.Loading.White">
+        <item name="fast_loading_view_size">?attr/fast_loading_size</item>
+        <item name="android:color">@color/fast_config_color_white</item>
+    </style>
 
-  <!--********************* TopBar *********************-->
-  <style name="Fast.TopBar">
-    <item name="fast_topbar_separator_color">?attr/fast_config_color_separator</item>
-    <item name="fast_topbar_separator_height">1px</item>
-    <item name="android:background">@color/fast_config_color_white</item>
-    <item name="fast_topbar_left_back_drawable_id">@drawable/fast_icon_topbar_back</item>
-    <item name="fast_topbar_title_gravity">center</item>
-    <item name="android:paddingLeft">8dp</item>
-    <item name="android:paddingRight">8dp</item>
-    <item name="fast_topbar_title_color">?attr/fast_config_color_gray_1</item>
-    <item name="fast_topbar_title_text_size">17sp</item>
-  </style>
+    <!--********************* TopBar *********************-->
+    <style name="Fast.TopBar">
+        <item name="fast_topbar_separator_color">?attr/fast_config_color_separator</item>
+        <item name="fast_topbar_separator_height">1px</item>
+        <item name="android:background">@color/fast_config_color_white</item>
+        <item name="fast_topbar_left_back_drawable_id">@drawable/fast_icon_topbar_back</item>
+        <item name="fast_topbar_title_gravity">center</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="fast_topbar_title_color">?attr/fast_config_color_gray_1</item>
+        <item name="fast_topbar_title_text_size">17sp</item>
+    </style>
 
 
-  <style name="Fast.CollapsingTopBarLayoutExpanded">
-    <item name="android:textColor">@color/fast_config_color_white</item>
-    <item name="android:textSize">24sp</item>
-  </style>
+    <style name="Fast.CollapsingTopBarLayoutExpanded">
+        <item name="android:textColor">@color/fast_config_color_white</item>
+        <item name="android:textSize">24sp</item>
+    </style>
 
-  <style name="Fast.CollapsingTopBarLayoutCollapsed">
-    <item name="android:textColor">@color/fast_config_color_white</item>
-    <item name="android:textSize">17sp</item>
-  </style>
+    <style name="Fast.CollapsingTopBarLayoutCollapsed">
+        <item name="android:textColor">@color/fast_config_color_white</item>
+        <item name="android:textSize">17sp</item>
+    </style>
 
-  <!--********************* Dialog *********************-->
-  <style name="Fast.Dialog" parent="android:Theme.Dialog">
-    <item name="android:backgroundDimAmount">?attr/fast_dialog_background_dim_amount</item>
-    <item name="android:windowBackground">@color/fast_config_color_transparent</item>
-    <item name="android:windowNoTitle">true</item><!-- 不用window title，使用自己的layout来做title -->
-    <!-- <item name="android:windowTitleStyle">@style/dialog_title</item> --><!-- 不用设置windowStyleStyle，因为windowNoTitle=true -->
-    <item name="android:windowIsFloating">true</item><!-- 在中间弹框、背后有遮罩的效果 -->
-  </style>
+    <!--********************* Dialog *********************-->
+    <style name="Fast.Dialog" parent="android:Theme.Dialog">
+        <item name="android:backgroundDimAmount">?attr/fast_dialog_background_dim_amount</item>
+        <item name="android:windowBackground">@color/fast_config_color_transparent</item>
+        <item name="android:windowNoTitle">true</item><!-- 不用window title，使用自己的layout来做title -->
+        <!-- <item name="android:windowTitleStyle">@style/dialog_title</item> --><!-- 不用设置windowStyleStyle，因为windowNoTitle=true -->
+        <item name="android:windowIsFloating">true</item><!-- 在中间弹框、背后有遮罩的效果 -->
+    </style>
 
-  <style name="Fast.Dialog.FullWidth" parent="Fast.Dialog">
-    <item name="fast_dialog_wrapper_style">@style/Fast.Dialog.Wrapper.FullScreen</item>
-  </style>
+    <style name="Fast.Dialog.FullWidth" parent="Fast.Dialog">
+        <item name="fast_dialog_wrapper_style">@style/Fast.Dialog.Wrapper.FullScreen</item>
+    </style>
 
-  <style name="Fast.Dialog.FullWidth.NoAnimation" parent="Fast.Dialog.FullWidth">
-    <item name="android:windowAnimationStyle">@null</item>
-  </style>
+    <style name="Fast.Dialog.FullWidth.NoAnimation" parent="Fast.Dialog.FullWidth">
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
 
-  <style name="Fast.TipDialog" parent="android:Theme.Dialog">
-    <item name="android:windowFrame">@null</item>
-    <item name="android:windowNoTitle">true</item>
-    <item name="android:windowBackground">@android:color/transparent</item>
-    <item name="android:backgroundDimEnabled">false</item>
-    <item name="android:windowIsFloating">true</item>
-    <item name="android:windowContentOverlay">@null</item>
-  </style>
+    <style name="Fast.TipDialog" parent="android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
 
-  <style name="Fast.BottomSheet" parent="android:Theme.Dialog">
-    <item name="android:backgroundDimAmount">?attr/fast_dialog_background_dim_amount</item>
-    <item name="android:windowNoTitle">true</item>
-    <item name="android:windowBackground">@android:color/transparent</item>
-    <item name="android:windowAnimationStyle">@null
-    </item><!-- 为了避免在有 NavigationBar 的手机上 Dialog 从 NavigationBar 底部上来。去掉 Dialog 的动画，使用 View 的动画。-->
-    <item name="android:layout_width">match_parent</item>
-  </style>
+    <style name="Fast.BottomSheet" parent="android:Theme.Dialog">
+        <item name="android:backgroundDimAmount">?attr/fast_dialog_background_dim_amount</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null
+        </item><!-- 为了避免在有 NavigationBar 的手机上 Dialog 从 NavigationBar 底部上来。去掉 Dialog 的动画，使用 View 的动画。-->
+        <item name="android:layout_width">match_parent</item>
+    </style>
 
-  <style name="Fast.Dialog.Wrapper">
-    <item name="android:paddingLeft">40dp</item>
-    <item name="android:paddingRight">40dp</item>
-  </style>
+    <style name="Fast.Dialog.Wrapper">
+        <item name="android:paddingLeft">40dp</item>
+        <item name="android:paddingRight">40dp</item>
+    </style>
 
-  <style name="Fast.Dialog.Wrapper.FullScreen">
-    <item name="android:paddingLeft">0dp</item>
-    <item name="android:paddingRight">0dp</item>
-  </style>
+    <style name="Fast.Dialog.Wrapper.FullScreen">
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+    </style>
 
-  <style name="Fast.Dialog.Title">
-    <item name="android:textColor">?attr/fast_config_color_black</item>
-    <item name="android:textSize">17sp</item>
-    <item name="android:gravity">left</item>
-    <item name="android:paddingTop">24dp</item>
-    <item name="android:paddingLeft">?attr/fast_dialog_padding_horizontal</item>
-    <item name="android:paddingRight">?attr/fast_dialog_padding_horizontal</item>
-    <item name="android:paddingBottom">0dp</item>
-    <item name="android:ellipsize">end</item>
-    <item name="android:lineSpacingExtra">2dp</item>
-    <item name="fast_paddingBottomWhenNotContent">27dp</item>
-  </style>
+    <style name="Fast.Dialog.Title">
+        <item name="android:textColor">?attr/fast_config_color_black</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:paddingLeft">?attr/fast_dialog_padding_horizontal</item>
+        <item name="android:paddingRight">?attr/fast_dialog_padding_horizontal</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+        <item name="fast_paddingBottomWhenNotContent">27dp</item>
+    </style>
 
-  <style name="Fast.Dialog.ActionContainer">
-    <item name="android:paddingLeft">12dp</item>
-    <item name="android:paddingRight">12dp</item>
-    <item name="android:paddingTop">0dp</item>
-    <item name="android:paddingBottom">12dp</item>
-    <item name="fast_dialog_action_container_justify_content">end</item>
-    <item name="fast_dialog_action_height">36dp</item>
-    <item name="fast_dialog_action_space">8dp</item>
-  </style>
+    <style name="Fast.Dialog.ActionContainer">
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="fast_dialog_action_container_justify_content">end</item>
+        <item name="fast_dialog_action_height">36dp</item>
+        <item name="fast_dialog_action_space">8dp</item>
+    </style>
 
-  <style name="Fast.Dialog.Action">
-    <item name="android:textColor">@color/fast_config_color_blue</item>
-    <item name="android:textSize">14sp</item>
-    <item name="android:gravity">right|center_vertical</item>
-    <item name="android:minWidth">64dp</item>
-    <item name="android:background">@null</item>
-    <item name="fast_dialog_action_button_padding_horizontal">12dp</item>
-    <item name="fast_dialog_action_icon_space">6dp</item>
-    <item name="fast_dialog_positive_action_text_color">@color/fast_config_color_blue</item>
-    <item name="fast_dialog_negative_action_text_color">@color/fast_config_color_red</item>
-  </style>
+    <style name="Fast.Dialog.Action">
+        <item name="android:textColor">@color/fast_config_color_blue</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">right|center_vertical</item>
+        <item name="android:minWidth">64dp</item>
+        <item name="android:background">@null</item>
+        <item name="fast_dialog_action_button_padding_horizontal">12dp</item>
+        <item name="fast_dialog_action_icon_space">6dp</item>
+        <item name="fast_dialog_positive_action_text_color">@color/fast_config_color_blue</item>
+        <item name="fast_dialog_negative_action_text_color">@color/fast_config_color_red</item>
+    </style>
 
-  <style name="Fast.Dialog.MessageContent">
-    <item name="android:textColor">?attr/fast_config_color_gray_4</item>
-    <item name="android:textSize">16sp</item>
-    <item name="android:gravity">left</item>
-    <item name="android:paddingTop">14dp</item>
-    <item name="android:paddingLeft">?attr/fast_dialog_padding_horizontal</item>
-    <item name="android:paddingRight">?attr/fast_dialog_padding_horizontal</item>
-    <item name="android:paddingBottom">28dp</item>
-    <item name="android:ellipsize">end</item>
-    <item name="android:lineSpacingExtra">3dp</item>
-    <item name="android:drawablePadding">8dp</item>
-    <item name="fast_paddingTopWhenNotTitle">27dp</item>
-  </style>
+    <style name="Fast.Dialog.MessageContent">
+        <item name="android:textColor">?attr/fast_config_color_gray_4</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingLeft">?attr/fast_dialog_padding_horizontal</item>
+        <item name="android:paddingRight">?attr/fast_dialog_padding_horizontal</item>
+        <item name="android:paddingBottom">28dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lineSpacingExtra">3dp</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="fast_paddingTopWhenNotTitle">27dp</item>
+    </style>
 
-  <style name="Fast.Dialog.EditContent" parent="Fast.Dialog.MessageContent">
-    <item name="android:textColor">?attr/fast_config_color_black</item>
-    <item name="android:textColorHint">?attr/fast_config_color_gray_3</item>
-    <item name="android:gravity">left|center_vertical</item>
-    <item name="android:paddingTop">20dp</item>
-    <item name="android:paddingBottom">31dp</item>
-  </style>
+    <style name="Fast.Dialog.EditContent" parent="Fast.Dialog.MessageContent">
+        <item name="android:textColor">?attr/fast_config_color_black</item>
+        <item name="android:textColorHint">?attr/fast_config_color_gray_3</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">31dp</item>
+    </style>
 
-  <style name="Fast.Dialog.MenuContainer">
-    <item name="android:paddingTop">8dp</item>
-    <item name="android:paddingBottom">8dp</item>
-    <item name="fast_dialog_menu_container_single_padding_vertical">0dp</item>
-    <item name="fast_dialog_menu_container_padding_top_when_title_exist">14dp</item>
-    <item name="fast_dialog_menu_container_padding_bottom_when_action_exist">27dp</item>
-    <item name="fast_dialog_menu_item_height">48dp</item>
-  </style>
+    <style name="Fast.Dialog.MenuContainer">
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="fast_dialog_menu_container_single_padding_vertical">0dp</item>
+        <item name="fast_dialog_menu_container_padding_top_when_title_exist">14dp</item>
+        <item name="fast_dialog_menu_container_padding_bottom_when_action_exist">27dp</item>
+        <item name="fast_dialog_menu_item_height">48dp</item>
+    </style>
 
-  <style name="Fast.Dialog_MenuItem">
-    <item name="android:background">?attr/fast_s_list_item_bg_with_border_none</item>
-    <item name="android:paddingTop">0dp</item>
-    <item name="android:paddingLeft">?attr/fast_dialog_padding_horizontal</item>
-    <item name="android:paddingRight">?attr/fast_dialog_padding_horizontal</item>
-    <item name="android:paddingBottom">0dp</item>
-    <item name="android:textSize">15sp</item>
-    <item name="android:textColor">?attr/fast_config_color_black</item>
-    <item name="android:gravity">left|center_vertical</item>
-    <item name="fast_dialog_menu_item_mark_drawable">@drawable/fast_s_dialog_check_mark</item>
-    <item name="fast_dialog_menu_item_check_drawable">@drawable/fast_s_checkbox</item>
-    <item name="fast_dialog_menu_item_check_mark_margin_hor">6dp</item>
-  </style>
+    <style name="Fast.Dialog_MenuItem">
+        <item name="android:background">?attr/fast_s_list_item_bg_with_border_none</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingLeft">?attr/fast_dialog_padding_horizontal</item>
+        <item name="android:paddingRight">?attr/fast_dialog_padding_horizontal</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">?attr/fast_config_color_black</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="fast_dialog_menu_item_mark_drawable">@drawable/fast_s_dialog_check_mark</item>
+        <item name="fast_dialog_menu_item_check_drawable">@drawable/fast_s_checkbox</item>
+        <item name="fast_dialog_menu_item_check_mark_margin_hor">6dp</item>
+    </style>
 
-  <!--********************* Tip *********************-->
-  <!-- 提示更新小圆点 -->
-  <style name="Fast.TipPoint">
-    <item name="android:layout_width">@dimen/fast_tips_point_size</item>
-    <item name="android:layout_height">@dimen/fast_tips_point_size</item>
-    <item name="android:background">@drawable/fast_tips_point</item>
-  </style>
+    <!--********************* Tip *********************-->
+    <!-- 提示更新小圆点 -->
+    <style name="Fast.TipPoint">
+        <item name="android:layout_width">@dimen/fast_tips_point_size</item>
+        <item name="android:layout_height">@dimen/fast_tips_point_size</item>
+        <item name="android:background">@drawable/fast_tips_point</item>
+    </style>
 
-  <!-- FastPullRefreshLayout -->
-  <style name="Fast.PullRefreshLayout">
-    <item name="fast_target_init_offset">0dp</item>
-    <item name="fast_target_refresh_offset">72dp</item>
-    <item name="fast_auto_calculate_refresh_init_offset">true</item>
-    <item name="fast_auto_calculate_refresh_end_offset">true</item>
-  </style>
+    <!-- FastPullRefreshLayout -->
+    <style name="Fast.PullRefreshLayout">
+        <item name="fast_target_init_offset">0dp</item>
+        <item name="fast_target_refresh_offset">72dp</item>
+        <item name="fast_auto_calculate_refresh_init_offset">true</item>
+        <item name="fast_auto_calculate_refresh_end_offset">true</item>
+    </style>
 
-  <!-- FastRadiusImageView -->
-  <style name="Fast.RadiusImageView">
-    <item name="fast_border_width">1px</item>
-    <item name="fast_border_color">?attr/fast_config_color_gray_4</item>
-    <item name="fast_is_touch_select_mode_enabled">true</item>
-  </style>
+    <!-- FastRadiusImageView -->
+    <style name="Fast.RadiusImageView">
+        <item name="fast_border_width">1px</item>
+        <item name="fast_border_color">?attr/fast_config_color_gray_4</item>
+        <item name="fast_is_touch_select_mode_enabled">true</item>
+    </style>
 
-  <style name="Fast.ImageButtonStyle">
-  </style>
+    <style name="Fast.ImageButtonStyle"></style>
 
-  <style name="Fast.Animation" parent="@android:style/Animation"/>
+    <style name="Fast.Animation" parent="@android:style/Animation" />
 
-  <style name="Fast.Animation.PopUpMenu"/>
+    <style name="Fast.Animation.PopUpMenu" />
 
-  <style name="Fast.Animation.PopUpMenu.Center">
-    <item name="android:windowEnterAnimation">@anim/fast_grow_from_bottom</item>
-    <item name="android:windowExitAnimation">@anim/fast_shrink_from_top</item>
-  </style>
+    <style name="Fast.Animation.PopUpMenu.Center">
+        <item name="android:windowEnterAnimation">@anim/fast_grow_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/fast_shrink_from_top</item>
+    </style>
 
-  <style name="Fast.Animation.PopUpMenu.Left">
-    <item name="android:windowEnterAnimation">@anim/fast_grow_from_bottomleft_to_topright</item>
-    <item name="android:windowExitAnimation">@anim/fast_shrink_from_topright_to_bottomleft</item>
-  </style>
+    <style name="Fast.Animation.PopUpMenu.Left">
+        <item name="android:windowEnterAnimation">@anim/fast_grow_from_bottomleft_to_topright</item>
+        <item name="android:windowExitAnimation">@anim/fast_shrink_from_topright_to_bottomleft
+        </item>
+    </style>
 
-  <style name="Fast.Animation.PopUpMenu.Right">
-    <item name="android:windowEnterAnimation">@anim/fast_grow_from_bottomright_to_topleft</item>
-    <item name="android:windowExitAnimation">@anim/fast_shrink_from_topleft_to_bottomright</item>
-  </style>
+    <style name="Fast.Animation.PopUpMenu.Right">
+        <item name="android:windowEnterAnimation">@anim/fast_grow_from_bottomright_to_topleft</item>
+        <item name="android:windowExitAnimation">@anim/fast_shrink_from_topleft_to_bottomright
+        </item>
+    </style>
 
-  <style name="Fast.Animation.PopDownMenu"/>
+    <style name="Fast.Animation.PopDownMenu" />
 
-  <style name="Fast.Animation.PopDownMenu.Center">
-    <item name="android:windowEnterAnimation">@anim/fast_grow_from_top</item>
-    <item name="android:windowExitAnimation">@anim/fast_shrink_from_bottom</item>
-  </style>
+    <style name="Fast.Animation.PopDownMenu.Center">
+        <item name="android:windowEnterAnimation">@anim/fast_grow_from_top</item>
+        <item name="android:windowExitAnimation">@anim/fast_shrink_from_bottom</item>
+    </style>
 
-  <style name="Fast.Animation.PopDownMenu.Left">
-    <item name="android:windowEnterAnimation">@anim/fast_grow_from_topleft_to_bottomright</item>
-    <item name="android:windowExitAnimation">@anim/fast_shrink_from_bottomright_to_topleft</item>
-  </style>
+    <style name="Fast.Animation.PopDownMenu.Left">
+        <item name="android:windowEnterAnimation">@anim/fast_grow_from_topleft_to_bottomright</item>
+        <item name="android:windowExitAnimation">@anim/fast_shrink_from_bottomright_to_topleft
+        </item>
+    </style>
 
-  <style name="Fast.Animation.PopDownMenu.Right">
-    <item name="android:windowEnterAnimation">@anim/fast_grow_from_topright_to_bottomleft</item>
-    <item name="android:windowExitAnimation">@anim/fast_shrink_from_bottomleft_to_topright</item>
-  </style>
+    <style name="Fast.Animation.PopDownMenu.Right">
+        <item name="android:windowEnterAnimation">@anim/fast_grow_from_topright_to_bottomleft</item>
+        <item name="android:windowExitAnimation">@anim/fast_shrink_from_bottomleft_to_topright
+        </item>
+    </style>
 
 </resources>

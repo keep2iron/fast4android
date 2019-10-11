@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import io.github.keep2iron.base.util.layoutInflate
 import io.github.keep2iron.fast4android.app.R
+import io.github.keep2iron.fast4android.app.ui.databinding.DataBindingActivity
 import io.github.keep2iron.fast4android.app.ui.dialog.DialogComponentsActivity
 import io.github.keep2iron.fast4android.app.ui.grouplistview.GroupListViewActivity
 import io.github.keep2iron.fast4android.app.ui.roundbutton.RoundComponentsActivity
@@ -34,7 +35,8 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
                     R.mipmap.icon_grid_group_list_view,
                     GroupListViewActivity::class.java
             ),
-            Description("Dialog", R.mipmap.icon_grid_dialog, DialogComponentsActivity::class.java)
+            Description("Dialog", R.mipmap.icon_grid_dialog, DialogComponentsActivity::class.java),
+            Description("DataBinding Bast Practice", R.mipmap.icon_grid_group_list_view, DataBindingActivity::class.java)
     )
 
     override fun initVariables(savedInstanceState: Bundle?) {

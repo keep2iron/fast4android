@@ -29,6 +29,11 @@ buildscript {
 }
 
 allprojects {
+    repositories {
+        maven {
+            url "$rootDir/../maven-local"
+        }
+    }
     addRepos(repositories)
 }
 

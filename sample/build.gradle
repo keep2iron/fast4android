@@ -56,6 +56,9 @@ dependencies {
     implementation project(':comp-topbarlayout')
     implementation project(':comp-grouplistview')
 
+    implementation('io.github.keep2iron:pomelo-core:0.0.2-alpha') { changing = true }
+    implementation('io.github.keep2iron:pomelo-extra:0.0.2-alpha') { changing = true }
+
     implementation 'me.everything:overscroll-decor-android:1.0.4'
 
     testImplementation deps.test.junit

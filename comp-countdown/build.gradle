@@ -1,19 +1,20 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+if (MAVEN_LOCAL) {
+    apply plugin: 'maven'
+} else {
+    apply plugin: 'com.novoda.bintray-release'
+}
 
+android {
+    compileSdkVersion versions.build.target_sdk
+    buildToolsVersion versions.build.build_tools
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion versions.build.target_sdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles 'consumer-rules.pro'
     }
 
     buildTypes {
@@ -27,10 +28,78 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    implementation deps.support.app_compat
+    implementation deps.kotlin.stdlib_jdk7
+
+    testImplementation deps.test.junit
+    androidTestImplementation deps.test.runner
+    androidTestImplementation deps.test.rules
+    androidTestImplementation(deps.test.espresso_core) {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+    androidTestImplementation(deps.test.espresso_contrib) {
+        exclude group: 'com.android.support'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+}
+
+if (MAVEN_LOCAL) {
+    group = rootProject.ext.version_group
+    version = rootProject.ext.version_fast4android_countdown
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                // 唯一标识
+                pom.groupId = rootProject.ext.version_group
+                // 项目名称
+                pom.artifactId = "fast4android-countdown"
+                repository(url: uri(project.MAVEN_LOCAL_REPO))
+                // 版本号
+                pom.version = rootProject.ext.version_fast4android_countdown
+            }
+        }
+    }
+
+    // 指定编码
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+
+    // 打包源码
+    task sourcesJar(type: Jar) {
+        from android.sourceSets.main.java.srcDirs
+        classifier = 'sources'
+    }
+
+    task javadoc(type: Javadoc) {
+        failOnError false
+        source = android.sourceSets.main.java.sourceFiles
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        classpath += configurations.compile
+    }
+
+    // 制作文档(Javadoc)
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    artifacts {
+        archives sourcesJar
+        archives javadocJar
+    }
+} else {
+    publish {
+        userOrg = 'keep2iron'
+        groupId = rootProject.ext.version_group
+        artifactId = 'fast4android-countdown'
+        publishVersion = rootProject.ext.version_fast4android_countdown
+        desc = 'fast4android'
+        website = 'https://keep2iron.github.io'
+    }
 }

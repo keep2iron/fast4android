@@ -55,7 +55,7 @@ object FastDeviceHelper {
      * 判断是否是flyme系统
      */
     val isFlyme: Boolean
-        get() = !TextUtils.isEmpty(sFlymeVersionName) && sFlymeVersionName!!.contains(
+        get() = !TextUtils.isEmpty(sFlymeVersionName) && sFlymeVersionName.contains(
                 FLYME
         )
     /**
@@ -82,7 +82,7 @@ object FastDeviceHelper {
                 val matcher = pattern.matcher(sFlymeVersionName)
                 if (matcher.find()) {
                     val versionString = matcher.group()
-                    if (versionString != null && versionString != "") {
+                    if (versionString != "") {
                         val version =
                                 versionString.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                         if (version.size == 3) {
@@ -159,10 +159,10 @@ object FastDeviceHelper {
 //        QMUILangHelper.close(fileInputStream)
             }
         }
-        var clzSystemProperties: Class<*>? = null
+        val clzSystemProperties: Class<*>?
         try {
             clzSystemProperties = Class.forName("android.os.SystemProperties")
-            val getMethod = clzSystemProperties!!.getDeclaredMethod("get", String::class.java)
+            val getMethod = clzSystemProperties.getDeclaredMethod("get", String::class.java)
             // miui
             sMiuiVersionName =
                     getLowerCaseName(

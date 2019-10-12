@@ -543,7 +543,7 @@ object ViewExt {
         }
         var view: View? = parentView.findViewById(inflatedViewId)
         if (null == view) {
-            val vs = parentView.findViewById<View>(viewStubId) as ViewStub ?: return null
+            val vs = parentView.findViewById<View>(viewStubId) as ViewStub
             view = vs.inflate()
             if (null != view) {
                 view = view.findViewById(inflatedViewId)

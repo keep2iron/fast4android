@@ -33,7 +33,6 @@
 package io.github.keep2iron.base.util;
 
 import android.view.View;
-
 import androidx.core.view.ViewCompat;
 
 /**

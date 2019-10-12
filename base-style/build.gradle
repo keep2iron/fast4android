@@ -1,22 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'maven'
-
-group = rootProject.ext.version_group
-version = rootProject.ext.version_base_style
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            // 唯一标识
-            pom.groupId = rootProject.ext.version_group
-            // 项目名称
-            pom.artifactId = "fast4android-base-style"
-            repository(url: uri(project.MAVEN_LOCAL_REPO))
-            // 版本号
-            pom.version = rootProject.ext.version_base_style
-        }
-    }
+if (MAVEN_LOCAL) {
+    apply plugin: 'maven'
+} else {
+    apply plugin: 'com.novoda.bintray-release'
 }
 
 android {
@@ -53,31 +40,59 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
 
-// 指定编码
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
+if (MAVEN_LOCAL) {
+    group = rootProject.ext.version_group
+    version = rootProject.ext.version_base_style
 
-// 打包源码
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                // 唯一标识
+                pom.groupId = rootProject.ext.version_group
+                // 项目名称
+                pom.artifactId = "fast4android-base-style"
+                repository(url: uri(project.MAVEN_LOCAL_REPO))
+                // 版本号
+                pom.version = rootProject.ext.version_base_style
+            }
+        }
+    }
 
-task javadoc(type: Javadoc) {
-    failOnError false
-    source = android.sourceSets.main.java.sourceFiles
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    classpath += configurations.compile
-}
+    // 指定编码
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
 
-// 制作文档(Javadoc)
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
+    // 打包源码
+    task sourcesJar(type: Jar) {
+        from android.sourceSets.main.java.srcDirs
+        classifier = 'sources'
+    }
 
-artifacts {
-    archives sourcesJar
-    archives javadocJar
+    task javadoc(type: Javadoc) {
+        failOnError false
+        source = android.sourceSets.main.java.sourceFiles
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        classpath += configurations.compile
+    }
+
+    // 制作文档(Javadoc)
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    artifacts {
+        archives sourcesJar
+        archives javadocJar
+    }
+} else {
+    publish {
+        userOrg = 'keep2iron'
+        groupId = rootProject.ext.version_group
+        artifactId = 'fast4android-base-style'
+        publishVersion = rootProject.ext.version_base_style
+        desc = 'fast4android'
+        website = 'https://keep2iron.github.io'
+    }
 }

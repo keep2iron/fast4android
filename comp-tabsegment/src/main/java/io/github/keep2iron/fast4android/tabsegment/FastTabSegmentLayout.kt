@@ -17,37 +17,6 @@ import io.github.keep2iron.base.util.FastDisplayHelper.dp2px
 import io.github.keep2iron.base.util.getAttrColor
 import kotlin.LazyThreadSafetyMode.NONE
 
-/**
- * use this can quick set a bottom tab layoutInflate.
- * for exp:
- * 1.create a list with BottomTabAdapter.
- *
- * ``val list = ArrayList<BottomTabAdapter.TabHolder>()``
- * ``val adapter = BottomTabAdapter(context, list)``
- *
- *  list.add(BottomTabAdapter.TabHolder(
- *           colorRes = R.color.gray,
- *           selectColorRes = R.color.colorPrimary,
- *           title = "123",
- *           iconResId = R.drawable.ic_classification_unselect,
- *           selIconResId = R.drawable.ic_classification_select,
- *           fragment = YourFragment()))
- *
- * 2.new a BottomTabAdapter.TabHolder add tab with list
- *
- * if you have 4 tab item,you could use this method 4 times
- *
- * 3.set adapter with @see io.github.keep2iron.android.widget.CompBottomTabLayout
- *
- * val bottomTabLayout = findViewById<CompBottomTabLayout>(R.id.bottomTabLayout)
- * bottomTabLayout.setBottomTabAdapter(adapter = adapter,container = yourContainerView,defaultPosition = 0)
- *
- * if container is ViewPager it auto can scroll with ViewPager well.
- * if container is FrameLayout it only click tab to switch tab.
- *
- * @see android.widget.LinearLayout
- * @author keep2iron
- */
 class FastTabSegmentLayout @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
@@ -177,7 +146,11 @@ class FastTabSegmentLayout @JvmOverloads constructor(
         adapter.normalColor = itemTextColor
         adapter.selectColor = itemSelectTextColor
 
-        addView(tabContainer, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT))
+        if (tabMode == MODE_SCROLLABLE) {
+            addView(tabContainer, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT))
+        } else {
+            addView(tabContainer, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
+        }
 
         for (i in 0 until adapter.getItemSize()) {
             val tabView = adapter.createTab(tabContainer, i, false)
@@ -188,6 +161,8 @@ class FastTabSegmentLayout @JvmOverloads constructor(
         if (viewPager != null && viewPager?.currentItem != position) {
             viewPager?.currentItem = position
         }
+
+        adapter.onAttachTabSegmentLayout(this)
     }
 
     fun setupWithViewPager(viewPager: ViewPager, defaultPosition: Int = 0) {
@@ -201,7 +176,7 @@ class FastTabSegmentLayout @JvmOverloads constructor(
         this.position = defaultPosition
         //如果adapter设置过了
         if (adapter != null) {
-            viewPager.currentItem = position
+            viewPager.setCurrentItem(position, false)
         }
     }
 
@@ -312,7 +287,7 @@ class FastTabSegmentLayout @JvmOverloads constructor(
                     MeasureSpec.UNSPECIFIED,
                     MeasureSpec.AT_MOST -> {
                         measureChildren(
-                                MeasureSpec.makeMeasureSpec(width, MeasureSpec.AT_MOST),
+                                MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
                                 heightMeasureSpec
                         )
                         var totalWidth = 0

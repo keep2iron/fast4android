@@ -46,4 +46,8 @@ abstract class TabSegmentAdapter {
         mObservable.notifyItemRangeRemoved(position, itemCount)
     }
 
+    open fun onAttachTabSegmentLayout(tabSegmentLayout:FastTabSegmentLayout){
+
+    }
+
 }

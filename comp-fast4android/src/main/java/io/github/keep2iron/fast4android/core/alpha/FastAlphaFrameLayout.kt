@@ -90,7 +90,7 @@ open class FastAlphaFrameLayout @JvmOverloads constructor(
         fastLayoutHelper.setRadius(radius)
     }
 
-    override fun setRadius(radius: Int, vararg hideRadiusCorner: Int) {
+    override fun setRadius(radius: Int, @IFastLayout.HideRadiusCorner vararg hideRadiusCorner: Int) {
         fastLayoutHelper.setRadius(radius, *hideRadiusCorner)
     }
 

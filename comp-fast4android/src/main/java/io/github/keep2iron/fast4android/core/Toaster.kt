@@ -9,11 +9,11 @@ import androidx.annotation.IdRes
 
 object Toaster {
 
-    var preToast: Toast? = null
+    private var preToast: Toast? = null
 
-    inline fun s(
+    fun s(
             message: String,
-            block: ToastBuilder.() -> Unit
+            block: (ToastBuilder.() -> Unit)? = null
     ) {
         var looper = Looper.myLooper()
         if (looper == null) {
@@ -22,7 +22,10 @@ object Toaster {
         }
 
         preToast?.cancel()
-        val toast = ToastBuilder().apply(block).build(message, Toast.LENGTH_SHORT)
+        val newToastBuilder = if (block != null)
+            ToastBuilder().apply(block)
+        else ToastBuilder()
+        val toast = newToastBuilder.build(message, Toast.LENGTH_SHORT)
         preToast = toast
         toast.show()
 
@@ -32,12 +35,15 @@ object Toaster {
         }
     }
 
-    inline fun l(
+    fun l(
             message: String,
-            block: ToastBuilder.() -> Unit
+            block: (ToastBuilder.() -> Unit)? = null
     ) {
         preToast?.cancel()
-        val toast = ToastBuilder().apply(block).build(message, Toast.LENGTH_LONG)
+        val newToastBuilder = if (block != null)
+            ToastBuilder().apply(block)
+        else ToastBuilder()
+        val toast = newToastBuilder.build(message, Toast.LENGTH_LONG)
         preToast = toast
         toast.show()
     }

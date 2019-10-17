@@ -6,13 +6,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 import io.reactivex.subjects.BehaviorSubject
 
-class RxLifecycleDispatcher(owner: LifecycleOwner) : LifecycleObserver {
+class RxLifecycleDispatcher(owner: LifecycleOwner, val publishSubject: BehaviorSubject<LifecycleEvent> = BehaviorSubject.create()) : LifecycleObserver {
+
 
     init {
         owner.lifecycle.addObserver(this)
     }
-
-    val publishSubject: BehaviorSubject<LifecycleEvent> = BehaviorSubject.create()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {

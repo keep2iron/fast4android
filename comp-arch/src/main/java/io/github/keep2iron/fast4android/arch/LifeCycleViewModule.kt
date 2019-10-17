@@ -5,17 +5,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import io.github.keep2iron.fast4android.arch.rx.LifecycleEvent
 import io.github.keep2iron.fast4android.arch.rx.RxLifecycleDispatcher
+import io.github.keep2iron.fast4android.core.Fast4Android
 import io.reactivex.subjects.BehaviorSubject
 
-/**
- * @author keep2iron [Contract me.](http://keep2iron.github.io)
- * @version 1.0
- * @since 2017/11/30 17:55
- */
-open class LifeCycleViewModule(application: Application, private val owner: LifecycleOwner) :
-        AndroidViewModel(application), RxLifecycleOwner {
+open class LifeCycleViewModel(owner: LifecycleOwner) :
+        AndroidViewModel(Fast4Android.CONTEXT as Application), RxLifecycleOwner {
 
-    private val lifecycleDispatcher = RxLifecycleDispatcher(owner)
+    final override val publishSubject: BehaviorSubject<LifecycleEvent> = BehaviorSubject.create()
 
-    override val publishSubject: BehaviorSubject<LifecycleEvent> = lifecycleDispatcher.publishSubject
+    private val lifecycleDispatcher = RxLifecycleDispatcher(owner, publishSubject)
+
 }

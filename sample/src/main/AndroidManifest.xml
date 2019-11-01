@@ -34,7 +34,7 @@
         <activity android:name=".ui.tabsegment.TabSegmentListActivity" />
         <activity android:name=".ui.dialog.DialogComponentsActivity" />
         <activity android:name=".ui.detail.DetailActivity" />
-        <activity android:name=".ui.databinding.DataBindingActivity" />
+        <activity android:name=".ui.databinding.DataBindingActivity"  />
     </application>
 
 </manifest>

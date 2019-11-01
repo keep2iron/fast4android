@@ -16,16 +16,16 @@ import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.R.id
 import io.github.keep2iron.fast4android.app.databinding.TabSegmentActivityBinding
 import io.github.keep2iron.fast4android.arch.AbstractActivity
-import io.github.keep2iron.fast4android.arch.FindViewById
 import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
+import io.github.keep2iron.fast4android.arch.util.findViewByDelegate
 import io.github.keep2iron.fast4android.core.util.dp2px
 import io.github.keep2iron.fast4android.tabsegment.FastTabSegmentLayout
 import io.github.keep2iron.fast4android.tabsegment.TabSegmentAdapter
 
 @ParallaxBack
 class TabSegmentFixedActivity : AbstractActivity<TabSegmentActivityBinding>() {
-    private val tabLayout: FastTabSegmentLayout by FindViewById(id.tabLayout)
-    private val viewPager: ViewPager by FindViewById(id.viewPager)
+    private val tabLayout: FastTabSegmentLayout by findViewByDelegate(id.tabLayout)
+    private val viewPager: ViewPager by findViewByDelegate(id.viewPager)
     override fun resId(): Int = R.layout.tab_segment_activity
     override fun initVariables(savedInstanceState: Bundle?) {
         FastStatusBarHelper.translucent(this)

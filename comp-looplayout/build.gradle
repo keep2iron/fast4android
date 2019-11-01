@@ -13,7 +13,7 @@ android {
     buildToolsVersion versions.build.build_tools
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 15
         targetSdkVersion versions.build.target_sdk
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,17 +33,19 @@ android {
 
 dependencies {
     //support
-    implementation deps.support.recyclerview
-    implementation deps.support.annotations
-    implementation deps.support.app_compat
-    api project(':base-style')
-
     implementation deps.kotlin.stdlib_jdk7
+
+    api project(':base-style')
+    implementation deps.support.recyclerview
+
+    testImplementation deps.test.junit
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 }
 
 if (MAVEN_LOCAL) {
     group = rootProject.ext.version_group
-    version = rootProject.ext.version_fast4android_compat
+    version = rootProject.ext.version_fast4android_loopviewpager
 
     uploadArchives {
         repositories {
@@ -51,20 +53,20 @@ if (MAVEN_LOCAL) {
                 // 唯一标识
                 pom.groupId = rootProject.ext.version_group
                 // 项目名称
-                pom.artifactId = "fast4android-compat"
+                pom.artifactId = "fast4android-looplayout"
                 repository(url: uri(project.MAVEN_LOCAL_REPO))
                 // 版本号
-                pom.version = rootProject.ext.version_fast4android_compat
+                pom.version = rootProject.ext.version_fast4android_tabsegment
             }
         }
     }
 
-    // 指定编码
+// 指定编码
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
     }
 
-    // 打包源码
+// 打包源码
     task sourcesJar(type: Jar) {
         from android.sourceSets.main.java.srcDirs
         classifier = 'sources'
@@ -77,7 +79,7 @@ if (MAVEN_LOCAL) {
         classpath += configurations.compile
     }
 
-    // 制作文档(Javadoc)
+// 制作文档(Javadoc)
     task javadocJar(type: Jar, dependsOn: javadoc) {
         classifier = 'javadoc'
         from javadoc.destinationDir
@@ -87,12 +89,12 @@ if (MAVEN_LOCAL) {
         archives sourcesJar
         archives javadocJar
     }
-}else {
+} else {
     publish {
         userOrg = 'keep2iron'
         groupId = rootProject.ext.version_group
-        artifactId = 'fast4android-compat'
-        publishVersion = rootProject.ext.version_fast4android_compat
+        artifactId = 'fast4android-looplayout'
+        publishVersion = rootProject.ext.version_fast4android_loopviewpager
         desc = 'fast4android'
         website = 'https://keep2iron.github.io'
     }

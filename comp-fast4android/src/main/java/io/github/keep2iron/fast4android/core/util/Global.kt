@@ -5,10 +5,14 @@ import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
+import android.view.View
+import androidx.annotation.IdRes
 import androidx.collection.ArrayMap
 import io.github.keep2iron.fast4android.core.ComponentProvider
 import io.github.keep2iron.fast4android.core.Fast4Android
 import java.io.Serializable
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
 
 /**
  * 用于扩展 Application 的扩展方法类

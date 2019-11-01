@@ -13,6 +13,7 @@ buildscript {
         version_fast4android_tabsegment = '0.0.1'
         version_fast4android_grouplistview = '0.0.1'
         version_fast4android_popwindowplus = '0.0.1'
+        version_fast4android_loopviewpager = '0.0.1'
         version_fast4android_tabsegment = '0.0.1'
         version_fast4android_topbarlayout = '0.0.1'
 
@@ -30,6 +31,7 @@ buildscript {
             }
             google()
         }
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 

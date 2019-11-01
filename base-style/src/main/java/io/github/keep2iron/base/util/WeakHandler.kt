@@ -2,7 +2,7 @@
  * Create bt Keep2iron on 17-7-1 下午6:38
  */
 
-package io.github.keep2iron.fast4android.core
+package io.github.keep2iron.base.util
 
 import android.os.Handler
 import android.os.Handler.Callback

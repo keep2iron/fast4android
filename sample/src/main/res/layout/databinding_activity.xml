@@ -12,11 +12,18 @@
         android:background="@color/fast_config_color_blue"
         android:fitsSystemWindows="true"
         app:fast_topbar_title="DataBinding Best Practice"
-        app:fast_topbar_title_color="@color/fast_config_color_white" />
+        app:fast_topbar_title_color="@color/fast_config_color_white" >
+
+        <TextView
+            android:fitsSystemWindows="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </io.github.keep2iron.fast4android.topbar.FastTopBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true" />
 
 </LinearLayout>

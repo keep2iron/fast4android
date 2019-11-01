@@ -9,8 +9,8 @@ import io.github.keep2iron.base.util.FastStatusBarHelper
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.arch.AbstractActivity
 import io.github.keep2iron.fast4android.arch.AbstractDialogFragment
-import io.github.keep2iron.fast4android.arch.FindViewById
 import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
+import io.github.keep2iron.fast4android.arch.util.findViewByDelegate
 import io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
 import io.github.keep2iron.fast4android.core.util.dp2px
 import io.github.keep2iron.grouplistview.FastGroupListItemView
@@ -19,8 +19,8 @@ import io.github.keep2iron.peach.DrawableCreator
 
 @ParallaxBack
 class DialogComponentsActivity : AbstractActivity<ViewDataBinding>() {
-    private val groupListCancelable: FastGroupListItemView by FindViewById(R.id.groupListCancelable)
-    private val btnStartDialog: FastAlphaRoundButton by FindViewById(R.id.btnStartDialog)
+    private val groupListCancelable: FastGroupListItemView by findViewByDelegate(R.id.groupListCancelable)
+    private val btnStartDialog: FastAlphaRoundButton by findViewByDelegate(R.id.btnStartDialog)
 
     override fun resId(): Int = R.layout.activity_dialog_component
     private var cancelable: Boolean = false

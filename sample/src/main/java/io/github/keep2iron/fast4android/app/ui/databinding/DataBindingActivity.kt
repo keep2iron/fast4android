@@ -4,18 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.databinding.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.keep2iron.base.util.FastStatusBarHelper
+import io.github.keep2iron.base.util.FastWindowInsetHelper
+import io.github.keep2iron.base.util.setPaddingBottom
+import io.github.keep2iron.base.util.setPaddingTop
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.databinding.DatabindingItemBinding
 import io.github.keep2iron.fast4android.app.databinding.DatabindingNestedItemBinding
 import io.github.keep2iron.fast4android.arch.AbstractActivity
 import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
 import io.github.keep2iron.fast4android.topbar.FastTopBarLayout
-import io.github.keep2iron.pomlo.pager.adapter.AbstractSubListAdapter
-import io.github.keep2iron.pomlo.pager.adapter.RecyclerViewHolder
+import io.github.keep2iron.pomelo.pager.adapter.AbstractSubListAdapter
+import io.github.keep2iron.pomelo.pager.adapter.RecyclerViewHolder
 
 data class Item(val nestedList: ArrayList<NestedItem> = ArrayList()) {
 
@@ -33,9 +37,9 @@ data class Item(val nestedList: ArrayList<NestedItem> = ArrayList()) {
         totalCount = ObservableInt(*array)
         totalCount.set(
                 nestedList.map { it.count.get() }
-                .reduce { acc, i -> acc + i })
+                        .reduce { acc, i -> acc + i })
 
-        totalCount.addOnPropertyChangedCallback(object:Observable.OnPropertyChangedCallback(){
+        totalCount.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 val total = nestedList.map { it.count.get() }.reduce { acc, i -> acc + i }
                 totalCount.set(total)
@@ -114,6 +118,14 @@ class DataBindingActivity : AbstractActivity<ViewDataBinding>() {
 
         findViewById<FastTopBarLayout>(R.id.titleBarLayout).setup {
             addLeftBackImageButton().setOnClickListener { finish() }
+        }
+
+        val recylcerView = findViewById<RecyclerView>(R.id.recyclerView)
+        ViewCompat.setOnApplyWindowInsetsListener(recylcerView) { view, insets ->
+            recylcerView.setPaddingTop(0)
+            recylcerView.setPaddingBottom(insets.systemWindowInsetBottom)
+
+            insets
         }
 
         val data = ObservableArrayList<Item>()

@@ -1,4 +1,4 @@
-package io.github.keep2iron.fast4android.core.widget
+package io.github.keep2iron.base.widget
 
 import android.graphics.Rect
 

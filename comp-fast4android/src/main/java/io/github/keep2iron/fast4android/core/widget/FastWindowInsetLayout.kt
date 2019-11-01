@@ -23,6 +23,7 @@ import android.os.Build
 import android.util.AttributeSet
 import androidx.core.view.ViewCompat
 import io.github.keep2iron.base.util.FastWindowInsetHelper
+import io.github.keep2iron.base.widget.IWindowInsetLayout
 import io.github.keep2iron.fast4android.core.alpha.FastAlphaFrameLayout
 
 /**
@@ -34,6 +35,8 @@ import io.github.keep2iron.fast4android.core.alpha.FastAlphaFrameLayout
  * 对于Keyboard的处理我们需要格外小心，这个组件不能只是处理状态栏，因为android还存在NavBar
  * 当windowInsets.bottom > 100dp的时候，我们认为是弹起了键盘。一旦弹起键盘，那么将由QMUIWindowInsetLayout消耗掉，其子view的windowInsets.bottom传递为0
  *
+ * 由于设置了OnApplyWindowInsetsListener 因此 onApplyWindowInsets并不会回调 因此需要自己处理各种padding的情况
+ *
  * @author cginechen
  * @date 2016-03-25
  */
@@ -43,7 +46,7 @@ open class FastWindowInsetLayout @JvmOverloads constructor(
         defStyleAttr: Int = 0
 ) : FastAlphaFrameLayout(context, attrs, defStyleAttr),
         IWindowInsetLayout {
-    protected var mQMUIWindowInsetHelper: FastWindowInsetHelper =
+    protected var fastWindowInsetHelper: FastWindowInsetHelper =
             FastWindowInsetHelper(this, this)
 
     init {
@@ -58,11 +61,11 @@ open class FastWindowInsetLayout @JvmOverloads constructor(
     }
 
     override fun applySystemWindowInsets19(insets: Rect): Boolean {
-        return mQMUIWindowInsetHelper.defaultApplySystemWindowInsets19(this, insets)
+        return fastWindowInsetHelper.defaultApplySystemWindowInsets19(this, insets)
     }
 
     override fun applySystemWindowInsets21(insets: Any): Boolean {
-        return mQMUIWindowInsetHelper.defaultApplySystemWindowInsets21(this, insets)
+        return fastWindowInsetHelper.defaultApplySystemWindowInsets21(this, insets)
     }
 
     override fun onAttachedToWindow() {

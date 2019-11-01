@@ -28,15 +28,17 @@ import android.view.WindowInsets
 import android.widget.FrameLayout
 import androidx.annotation.NonNull
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import io.github.keep2iron.base.util.FastDisplayHelper.dp2px
 import io.github.keep2iron.base.widget.INotchInsetConsumer
 import io.github.keep2iron.fast4android.base.R
-import io.github.keep2iron.fast4android.core.widget.IWindowInsetLayout
+import io.github.keep2iron.base.widget.IWindowInsetLayout
 import java.lang.ref.WeakReference
 import java.util.ArrayList
+import kotlin.math.max
 
 /**
  * @author cginechen
@@ -46,7 +48,7 @@ class FastWindowInsetHelper(viewGroup: ViewGroup, windowInsetLayout: IWindowInse
     companion object {
         // 100dp
         const val KEYBOARD_HEIGHT_BOUNDARY = 100
-        private val KEYBOARD_CONSUMER = Any()
+        val KEYBOARD_CONSUMER = Any()
         private val sCustomHandlerContainerList = ArrayList<Class<out ViewGroup>>()
         @TargetApi(19)
         fun jumpDispatch(child: View): Boolean {
@@ -102,7 +104,7 @@ class FastWindowInsetHelper(viewGroup: ViewGroup, windowInsetLayout: IWindowInse
         } else {
             // some rom crash with WindowInsets...
             ViewCompat.setOnApplyWindowInsetsListener(viewGroup,
-                    object : androidx.core.view.OnApplyWindowInsetsListener {
+                    object : OnApplyWindowInsetsListener {
                         override fun onApplyWindowInsets(
                                 v: View,
                                 insets: WindowInsetsCompat
@@ -231,11 +233,11 @@ class FastWindowInsetHelper(viewGroup: ViewGroup, windowInsetLayout: IWindowInse
                             viewGroup
                     ) && viewGroup.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
             ) {
-                insetLeft = Math.max(
+                insetLeft = max(
                         insetLeft,
                         FastNotchHelper.getSafeInsetLeft(viewGroup)
                 )
-                insetRight = Math.max(
+                insetRight = max(
                         insetRight,
                         FastNotchHelper.getSafeInsetRight(viewGroup)
                 )

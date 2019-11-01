@@ -19,11 +19,11 @@ import io.github.keep2iron.fast4android.app.ui.grouplistview.GroupListViewActivi
 import io.github.keep2iron.fast4android.app.ui.roundbutton.RoundComponentsActivity
 import io.github.keep2iron.fast4android.app.ui.tabsegment.TabSegmentListActivity
 import io.github.keep2iron.fast4android.arch.AbstractFragment
-import io.github.keep2iron.fast4android.arch.FindViewById
+import io.github.keep2iron.fast4android.arch.util.findViewByDelegate
 import io.github.keep2iron.fast4android.core.util.startActivity
 
 class HomeFragment : AbstractFragment<ViewDataBinding>() {
-    private val recyclerView: RecyclerView by FindViewById(R.id.recyclerView)
+    private val recyclerView: RecyclerView by findViewByDelegate(R.id.recyclerView)
     //  private val titleBar: FastTopBarLayout by FindViewById(R.id.titleBar)
     override fun resId(): Int = R.layout.home_fragment
 

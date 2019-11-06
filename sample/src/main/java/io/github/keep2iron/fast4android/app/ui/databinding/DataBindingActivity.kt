@@ -121,7 +121,7 @@ class DataBindingActivity : AbstractActivity<ViewDataBinding>() {
         }
 
         val recylcerView = findViewById<RecyclerView>(R.id.recyclerView)
-        ViewCompat.setOnApplyWindowInsetsListener(recylcerView) { view, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(recylcerView) { _, insets ->
             recylcerView.setPaddingTop(0)
             recylcerView.setPaddingBottom(insets.systemWindowInsetBottom)
 

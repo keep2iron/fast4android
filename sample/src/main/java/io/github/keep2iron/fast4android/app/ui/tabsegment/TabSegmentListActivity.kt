@@ -15,10 +15,10 @@ class TabSegmentListActivity : AbstractActivity<TabSegmentListActivityBinding>()
         FastStatusBarHelper.translucent(this)
 
         dataBinding.btnFixed.setOnClickListener {
-            startActivity(TabSegmentFixedActivity::class.java)
+            startActivity(TabSegmentFixedActivity::class)
         }
         dataBinding.btnScrollable.setOnClickListener {
-            startActivity(TabSegmentActivity::class.java)
+            startActivity(TabSegmentActivity::class)
         }
     }
 }

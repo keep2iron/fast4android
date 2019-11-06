@@ -32,6 +32,18 @@ import io.github.keep2iron.base.util.FastDisplayHelper.dp2px
 import java.lang.reflect.Field
 import kotlin.annotation.AnnotationRetention.SOURCE
 
+fun Activity.translucent() {
+    FastStatusBarHelper.translucent(this)
+}
+
+fun Activity.setStatusBarLight() {
+    FastStatusBarHelper.setStatusBarLightMode(this)
+}
+
+fun Activity.setStatusBarDark() {
+    FastStatusBarHelper.setStatusBarDarkMode(this)
+}
+
 /**
  * @author cginechen
  * @date 2016-03-27

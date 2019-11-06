@@ -1,6 +1,7 @@
 package io.github.keep2iron.fast4android.app.ui
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +53,8 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
             return MyViewHolder(context.layoutInflate(R.layout.home_item_main, parent)).apply {
                 val viewHolder = this
                 itemView.setOnClickListener {
-                    startActivity(data[viewHolder.layoutPosition].clazz)
+                    val intent = Intent(context,data[viewHolder.layoutPosition].clazz)
+                    context.startActivity(intent)
                 }
             }
         }

@@ -12,6 +12,7 @@ import io.github.keep2iron.fast4android.core.ComponentProvider
 import io.github.keep2iron.fast4android.core.Fast4Android
 import java.io.Serializable
 import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KClass
 import kotlin.reflect.KProperty
 
 /**
@@ -49,12 +50,11 @@ fun sp(sp: Int): Float {
     return sp * scaledDensity
 }
 
-fun startActivity(clazz: Class<out Activity>, vararg args: Pair<String, Any>) {
-    val intent = Intent(Fast4Android.CONTEXT, clazz)
+fun startActivity(clazz: KClass<out Activity>, vararg args: Pair<String, Any>) {
+    val intent = Intent(Fast4Android.CONTEXT, clazz.java.javaClass)
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     for (arg in args) {
-        val value = arg.second
-        when (value) {
+        when (val value = arg.second) {
             is String -> {
                 intent.putExtra(arg.first, value)
             }

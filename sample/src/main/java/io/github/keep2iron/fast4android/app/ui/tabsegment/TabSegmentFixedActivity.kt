@@ -65,7 +65,7 @@ class TabSegmentFixedActivity : AbstractActivity<TabSegmentActivityBinding>() {
                 return ImageView(parentView.context)
             }
 
-            override fun onBindTab(view: View, index: Int, selected: Boolean) {
+            override fun onTabStateChanged(view: View, index: Int, selected: Boolean) {
                 (view as ImageView).apply {
                     scaleType = CENTER_INSIDE
                     setImageDrawable(ContextCompat.getDrawable(

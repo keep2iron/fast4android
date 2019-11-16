@@ -55,9 +55,15 @@ dependencies {
     implementation project(':comp-tabsegment')
     implementation project(':comp-topbarlayout')
     implementation project(':comp-grouplistview')
+    implementation project(':comp-looplayout')
+    implementation project(':comp-popwindowplus')
+    implementation project(':comp-bottomnavlayout')
 
     implementation('io.github.keep2iron:pomelo-core:0.0.2-alpha') { changing = true }
     implementation('io.github.keep2iron:pomelo-extra:0.0.2-alpha') { changing = true }
+
+    implementation 'io.github.keep2iron:pineapple-fresco:0.0.1-fix2'
+    implementation 'com.facebook.fresco:fresco:2.0.0'
 
     implementation 'me.everything:overscroll-decor-android:1.0.4'
 

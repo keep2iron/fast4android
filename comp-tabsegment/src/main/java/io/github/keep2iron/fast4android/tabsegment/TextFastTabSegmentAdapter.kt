@@ -10,7 +10,7 @@ import io.github.keep2iron.base.util.setPaddingRight
 
 open class TextFastTabSegmentAdapter(private val data: List<String>) : TabSegmentAdapter() {
 
-    override fun onBindTab(view: View, index: Int, selected: Boolean) {
+    override fun onTabStateChanged(view: View, index: Int, selected: Boolean) {
         val textView = (view as TextView)
         textView.text = data[index]
         if (selected) {

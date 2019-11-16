@@ -4,6 +4,7 @@ import androidx.multidex.MultiDexApplication
 import io.github.keep2iron.fast4android.arch.swipe.ParallaxBackApplicationTask
 import io.github.keep2iron.fast4android.core.DefaultLogger
 import io.github.keep2iron.fast4android.core.Fast4Android
+import io.github.keep2iron.pineapple.ImageLoaderManager
 
 /**
  *
@@ -18,6 +19,7 @@ class Application : MultiDexApplication() {
         Fast4Android.init(this) {
             logger(DefaultLogger())
             applicationInitTask(ParallaxBackApplicationTask())
+            ImageLoaderManager.init(this@Application)
         }
     }
 }

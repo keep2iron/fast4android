@@ -156,7 +156,8 @@ class FastTabSegmentLayout @JvmOverloads constructor(
             val tabView = adapter.createTab(tabContainer, i, false)
             tabContainer.addView(tabView, generateDefaultLayoutParams())
         }
-        tabContainer.requestLayout()
+//        tabContainer.requestLayout()
+        requestLayout()
 
         if (viewPager != null && viewPager?.currentItem != position) {
             viewPager?.currentItem = position
@@ -245,8 +246,8 @@ class FastTabSegmentLayout @JvmOverloads constructor(
                 it.onTabSelected(index)
             }
             adapter?.let {
-                it.onBindTab(tabContainer.getChildAt(position), position, false)
-                it.onBindTab(tabContainer.getChildAt(index), index, true)
+                it.onTabStateChanged(tabContainer.getChildAt(position), position, false)
+                it.onTabStateChanged(tabContainer.getChildAt(index), index, true)
             }
             position = index
             viewPager?.currentItem = position
@@ -257,7 +258,11 @@ class FastTabSegmentLayout @JvmOverloads constructor(
         }
 
         override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-            val parentWidth = MeasureSpec.getSize(widthMeasureSpec)
+            val parentWidth = if (MeasureSpec.getSize(widthMeasureSpec) == 0) {
+                (parent as FastTabSegmentLayout).measuredWidth
+            } else {
+                MeasureSpec.getSize(widthMeasureSpec)
+            }
             val parentHeight = MeasureSpec.getSize(heightMeasureSpec)
             val width: Int
 
@@ -340,7 +345,7 @@ class FastTabSegmentLayout @JvmOverloads constructor(
                 childView.layout(left, top, right, bottom)
                 if (changed) {
                     childView.setOnClickListener(this)
-                    adapter!!.onBindTab(childView, i, position == i)
+                    adapter!!.onTabStateChanged(childView, i, position == i)
                 }
                 lastLeft = right
             }
@@ -387,13 +392,13 @@ class FastTabSegmentLayout @JvmOverloads constructor(
                 //当比如由于viewPager的下表为3时，但是这时候只有两个fragment，那么viewPager会自动切换到最后的那个fragment，所以
                 //要判断一下
                 if (this@FastTabSegmentLayout.position < tabContainer.childCount) {
-                    it.onBindTab(
+                    it.onTabStateChanged(
                             tabContainer.getChildAt(this@FastTabSegmentLayout.position),
                             this@FastTabSegmentLayout.position,
                             false
                     )
                 }
-                it.onBindTab(selectedTab, position, true)
+                it.onTabStateChanged(selectedTab, position, true)
             }
             if (this@FastTabSegmentLayout.scrollX + this@FastTabSegmentLayout.width < selectedTab.right) {
                 this@FastTabSegmentLayout.smoothScrollBy(

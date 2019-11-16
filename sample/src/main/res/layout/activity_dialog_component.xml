@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:divider="@color/fast_config_color_gray_8"
+    app:dividerPadding="1dp"
+    app:showDividers="middle">
 
     <io.github.keep2iron.fast4android.topbar.FastTopBarLayout
         android:id="@+id/topBarLayout"
@@ -14,25 +17,39 @@
         app:fast_topbar_title="Dialog Fragment Component"
         app:fast_topbar_title_color="@color/fast_config_color_white" />
 
-    <io.github.keep2iron.grouplistview.FastGroupListContainer
+    <!--    <io.github.keep2iron.grouplistview.FastGroupListContainer-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content">-->
+
+    <!--        <io.github.keep2iron.grouplistview.FastGroupListItemView-->
+    <!--            android:id="@+id/groupListCancelable"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="50dp"-->
+    <!--            app:fast_accessory_type="switcher"-->
+    <!--            app:fast_title="是否能够取消" />-->
+
+    <!--    </io.github.keep2iron.grouplistview.FastGroupListContainer>-->
+
+    <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundTextView
+        android:id="@+id/btnStartDialogFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <io.github.keep2iron.grouplistview.FastGroupListItemView
-            android:id="@+id/groupListCancelable"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:fast_accessory_type="switcher"
-            app:fast_title="是否能够取消" />
-
-    </io.github.keep2iron.grouplistview.FastGroupListContainer>
-
-    <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
-        android:id="@+id/btnStartDialog"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="Start Dialog" />
+        android:gravity="left"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="启动  DialogFragment" />
 
-</LinearLayout>
+    <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundTextView
+        android:id="@+id/btnStartMessageDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="消息类型对话框" />
+
+
+</io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundLinearLayout>

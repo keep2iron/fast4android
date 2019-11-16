@@ -136,15 +136,17 @@ object FastStatusBarHelper {
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                 window.statusBarColor = colorOn5x
             }
-            //        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //            // android4.4的默认是从上到下黑到透明，我们的背景是白色，很难看，因此只做魅族和小米的
-            //        } else if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1){
-            //            // 如果app 为白色，需要更改状态栏颜色，因此不能让19一下支持透明状态栏
-            //            Window window = activity.getWindow();
-            //            Integer transparentValue = getSTATUS_BARAPITransparentValue(activity);
-            //            if(transparentValue != null) {
-            //                window.getDecorView().setSystemUiVisibility(transparentValue);
-            //            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // android4.4的默认是从上到下黑到透明，我们的背景是白色，很难看，因此只做魅族和小米的
+            // Translucent status bar
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        } else if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            // 如果app 为白色，需要更改状态栏颜色，因此不能让19一下支持透明状态栏
+            val transparentValue = getStatusBarAPITransparentValue(window.context)
+            if (transparentValue != null) {
+                window.decorView.systemUiVisibility = transparentValue
+            }
         }
     }
 

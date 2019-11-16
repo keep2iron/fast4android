@@ -1,17 +1,19 @@
 package io.github.keep2iron.fast4android.app.ui.tabsegment
 
 import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import io.github.keep2iron.fast4android.app.R
-import io.github.keep2iron.fast4android.app.R.id
 import io.github.keep2iron.fast4android.app.databinding.TabSegmentActivityBinding
 import io.github.keep2iron.fast4android.arch.AbstractActivity
 import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
@@ -23,9 +25,9 @@ import io.github.keep2iron.fast4android.tabsegment.TabSegmentAdapter
 @ParallaxBack
 class TabSegmentActivity : AbstractActivity<TabSegmentActivityBinding>() {
 
-    private val tabLayout: FastTabSegmentLayout by findViewByDelegate(id.tabLayout)
+    private val tabLayout: FastTabSegmentLayout by findViewByDelegate(R.id.tabLayout)
 
-    private val viewPager: ViewPager by findViewByDelegate(id.viewPager)
+    private val viewPager: ViewPager by findViewByDelegate(R.id.viewPager)
 
     override fun resId(): Int = R.layout.tab_segment_activity
 
@@ -92,10 +94,19 @@ class TabSegmentActivity : AbstractActivity<TabSegmentActivityBinding>() {
     class CustomTabSegmentAdapter(private val tabs: List<String>) : TabSegmentAdapter() {
 
         override fun createTab(parentView: ViewGroup, index: Int, selected: Boolean): View {
-            return LayoutInflater.from(parentView.context).inflate(R.layout.item_segment_tab, parentView,false)
+            return LayoutInflater.from(parentView.context).inflate(R.layout.item_segment_tab, parentView, false)
         }
 
-        override fun onBindTab(view: View, index: Int, selected: Boolean) {
+        override fun onTabStateChanged(view: View, index: Int, selected: Boolean) {
+            val tvTitle = view.findViewById<TextView>(R.id.tvTitle)
+            if (selected) {
+                tvTitle.setTextColor(Color.RED)
+                tvTitle.setTypeface(tvTitle.typeface, Typeface.BOLD)
+            } else {
+                tvTitle.setTextColor(Color.GRAY)
+                tvTitle.setTypeface(tvTitle.typeface, Typeface.NORMAL)
+            }
+//            tvTitle.paintFlags = tvTitle.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         }
 
         override fun getItemSize(): Int = tabs.size

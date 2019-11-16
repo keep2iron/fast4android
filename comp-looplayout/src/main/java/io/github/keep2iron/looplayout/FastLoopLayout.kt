@@ -288,6 +288,7 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
                 flNoDataContainer.visibility = if (recycleAdapter.itemCount == 0) View.VISIBLE else View.GONE
             }
         })
+        createIndicator()
         viewPager.adapter = adapter
         viewPager.post {
             viewPager.setCurrentItem(currentPosition, false)

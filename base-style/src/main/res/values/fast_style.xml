@@ -20,9 +20,9 @@
     <!--**********************************************
     *                  Dialog                        *
     **********************************************-->
-    <style name="fast_dialog_wrap">
+    <style name="fast_dialog_content">
         <item name="android:background">?attr/fast_dialog_bg</item>
-        <!--<item name="fast_radius">?attr/fast_dialog_radius</item>-->
+<!--        <item name="fast_raduis">?attr/fast_dialog_radius</item>-->
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">?attr/fast_dialog_margin_vertical</item>

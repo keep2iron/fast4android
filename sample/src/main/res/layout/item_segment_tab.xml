@@ -13,6 +13,7 @@
         android:layout_gravity="right|top" />
 
     <TextView
+        android:id="@+id/tvTitle"
         android:text="测试"
         android:gravity="center"
         android:layout_width="match_parent"

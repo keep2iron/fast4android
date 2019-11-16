@@ -1,10 +1,13 @@
 package io.github.keep2iron.fast4android.core.alpha
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.TypedValue
 import androidx.appcompat.widget.AppCompatButton
 import io.github.keep2iron.fast4android.R
 import io.github.keep2iron.peach.DrawableCreator
+
 
 open class FastAlphaRoundButton @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.FastButtonStyle
@@ -17,8 +20,15 @@ open class FastAlphaRoundButton @JvmOverloads constructor(
 
     private var drawableCreator: DrawableCreator?
 
+    //通过xml是否设置过android:background
+    private var backgroundDraw: Drawable?
+
     init {
         drawableCreator = fastDrawableViewHelper.resolveAttribute(context, attrs, defStyleAttr)
+
+        val typedArray = context.obtainStyledAttributes(attrs, IntArray(1) { android.R.attr.background })
+        backgroundDraw = typedArray.getDrawable(0)
+        typedArray.recycle()
 
         setChangeAlphaWhenPress(true)
         setChangeAlphaWhenDisable(true)
@@ -56,11 +66,22 @@ open class FastAlphaRoundButton @JvmOverloads constructor(
         super.onLayout(changed, left, top, right, bottom)
 
         val minSize = width.coerceAtMost(height)
-        background = if (fastDrawableViewHelper.radiusAdjust) {
-            drawableCreator?.cornerRadii(minSize / 2, minSize / 2, minSize / 2, minSize / 2)
-            drawableCreator?.build()
-        } else {
-            drawableCreator?.build()
+        if (backgroundDraw != null) {
+            backgroundDraw = if (fastDrawableViewHelper.radiusAdjust) {
+                drawableCreator?.cornerRadii(minSize / 2, minSize / 2, minSize / 2, minSize / 2)
+                drawableCreator?.build()
+            } else {
+                drawableCreator?.build()
+            }
         }
+
+        background = backgroundDraw
+
     }
+
+    var radiusAdjust: Boolean = true
+        set(value) {
+            field = value
+            fastDrawableViewHelper.radiusAdjust = value
+        }
 }

@@ -51,7 +51,7 @@ fun sp(sp: Int): Float {
 }
 
 fun startActivity(clazz: KClass<out Activity>, vararg args: Pair<String, Any>) {
-    val intent = Intent(Fast4Android.CONTEXT, clazz.java.javaClass)
+    val intent = Intent(Fast4Android.CONTEXT, clazz.java)
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     for (arg in args) {
         when (val value = arg.second) {

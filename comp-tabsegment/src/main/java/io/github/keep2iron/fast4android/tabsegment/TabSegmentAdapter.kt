@@ -12,7 +12,7 @@ abstract class TabSegmentAdapter {
 
     abstract fun createTab(parentView: ViewGroup, index: Int, selected: Boolean): View
 
-    abstract fun onBindTab(view: View, index: Int, selected: Boolean)
+    abstract fun onTabStateChanged(view: View, index: Int, selected: Boolean)
 
     abstract fun getItemSize(): Int
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
- Tencent is pleased to support the open source community by making FAST_Android available.
+ Tencent is pleased to support the open source community by making Fast_Android available.
 
  Copyright (C) 2017-2018 THL A29 Limited, a Tencent company. All rights reserved.
 
@@ -15,9 +15,9 @@
 -->
 
 <resources>
-    <attr name="fast_paddingTopWhenNotTitle" format="dimension" />
-    <attr name="fast_paddingBottomWhenNotContent" format="dimension" />
-    <attr name="fast_dialog_menu_item_check_mark_margin_hor" format="dimension" />
+    <attr name="Fast_paddingTopWhenNotTitle" format="dimension" />
+    <attr name="Fast_paddingBottomWhenNotContent" format="dimension" />
+    <attr name="Fast_dialog_menu_item_check_mark_margin_hor" format="dimension" />
 
     <declare-styleable name="FastTextCommonStyleDef">
         <attr name="android:textColor" />
@@ -37,15 +37,15 @@
         <attr name="android:textStyle" />
     </declare-styleable>
 
-    <declare-styleable name="FASTDialogTitleTvCustomDef">
+    <declare-styleable name="FastDialogTitleTvCustomDef">
         <attr name="fast_paddingBottomWhenNotContent" />
     </declare-styleable>
 
-    <declare-styleable name="FASTDialogMessageTvCustomDef">
+    <declare-styleable name="FastDialogMessageTvCustomDef">
         <attr name="fast_paddingTopWhenNotTitle" />
     </declare-styleable>
 
-    <declare-styleable name="FASTDialogActionContainerCustomDef">
+    <declare-styleable name="FastDialogActionContainerCustomDef">
         <attr name="fast_dialog_action_container_justify_content" format="enum">
             <enum name="start" value="0" />
             <enum name="end" value="1" />
@@ -57,7 +57,7 @@
         <attr name="fast_dialog_action_space" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="FASTDialogActionStyleDef">
+    <declare-styleable name="FastDialogActionStyleDef">
         <attr name="android:textColor" />
         <attr name="android:textSize" />
         <attr name="android:background" />
@@ -70,7 +70,7 @@
         <attr name="fast_dialog_negative_action_text_color" format="color|reference" />
     </declare-styleable>
 
-    <declare-styleable name="FASTDialogMenuContainerStyleDef">
+    <declare-styleable name="FastDialogMenuContainerStyleDef">
         <attr name="android:paddingTop" />
         <attr name="android:paddingBottom" />
         <attr name="fast_dialog_menu_container_single_padding_vertical" format="dimension" />
@@ -79,18 +79,18 @@
         <attr name="fast_dialog_menu_item_height" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="FASTDialogMenuTextStyleDef">
+    <declare-styleable name="FastDialogMenuTextStyleDef">
         <attr name="android:textColor" />
         <attr name="android:textSize" />
         <attr name="android:gravity" />
     </declare-styleable>
 
-    <declare-styleable name="FASTDialogMenuMarkDef">
+    <declare-styleable name="FastDialogMenuMarkDef">
         <attr name="fast_dialog_menu_item_mark_drawable" format="reference" />
         <attr name="fast_dialog_menu_item_check_mark_margin_hor" />
     </declare-styleable>
 
-    <declare-styleable name="FASTDialogMenuCheckDef">
+    <declare-styleable name="FastDialogMenuCheckDef">
         <attr name="fast_dialog_menu_item_check_drawable" format="reference" />
         <attr name="fast_dialog_menu_item_check_mark_margin_hor" />
     </declare-styleable>

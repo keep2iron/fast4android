@@ -53,7 +53,7 @@ class FastLayoutParams(
 
         var radius: Int = 0,
         //leftTop rightTop rightBottom leftBottom
-        var hideRadiusCornerArray: BooleanArray = BooleanArray(4) { true },
+        var hideRadiusCornerArray: BooleanArray = BooleanArray(4) { false },
 
         var radiusArray: FloatArray = FloatArray(8),
         val borderRect: RectF = RectF(),

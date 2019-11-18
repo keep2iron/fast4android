@@ -17,6 +17,7 @@ import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.ui.databinding.DataBindingActivity
 import io.github.keep2iron.fast4android.app.ui.dialog.DialogComponentsActivity
 import io.github.keep2iron.fast4android.app.ui.grouplistview.GroupListViewActivity
+import io.github.keep2iron.fast4android.app.ui.layout.FastLayoutComponentActivity
 import io.github.keep2iron.fast4android.app.ui.looplayout.LoopLayoutActivity
 import io.github.keep2iron.fast4android.app.ui.roundbutton.RoundComponentsActivity
 import io.github.keep2iron.fast4android.app.ui.tabsegment.TabSegmentListActivity
@@ -41,7 +42,8 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
             Description("Dialog", R.mipmap.icon_grid_dialog, DialogComponentsActivity::class.java),
             Description("DataBinding Bast Practice", R.mipmap.icon_grid_group_list_view, DataBindingActivity::class.java),
             Description("LoopLayout", R.mipmap.icon_grid_pager_layout_manager, LoopLayoutActivity::class.java),
-            Description("TipDialog", R.mipmap.icon_grid_tip_dialog, TipDialogComponentActivity::class.java)
+            Description("TipDialog", R.mipmap.icon_grid_tip_dialog, TipDialogComponentActivity::class.java),
+            Description("Shadow Border Layout", R.mipmap.icon_grid_layout, FastLayoutComponentActivity::class.java)
     )
 
     override fun initVariables(savedInstanceState: Bundle?) {

@@ -38,6 +38,7 @@
         <activity android:name=".ui.looplayout.LoopLayoutActivity" />
         <activity android:name=".ui.bottomnav.BottomNavLayoutActivity" />
         <activity android:name=".ui.tip.TipDialogComponentActivity" />
+        <activity android:name=".ui.layout.FastLayoutComponentActivity" />
     </application>
 
 </manifest>

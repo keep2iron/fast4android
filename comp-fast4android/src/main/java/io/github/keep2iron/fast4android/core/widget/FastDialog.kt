@@ -77,7 +77,7 @@ class FastDialogAction(block: FastDialogAction.() -> Unit) {
     }
 
     fun generateActionView(dialog: Dialog, index: Int): FastAlphaRoundButton {
-        actionView = FastAlphaRoundButton(dialog.context)
+        actionView = FastAlphaRoundButton(dialog.context, null, R.attr.fast_dialog_action_style)
         val context = dialog.context
 
         val nonNullView = actionView

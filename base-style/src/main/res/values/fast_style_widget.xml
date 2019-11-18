@@ -40,26 +40,26 @@
     <!--**************** TabSegment ******************-->
     <declare-styleable name="FastTabSegmentLayout">
         <!-- when fast_tab_indicator_height equals 0,it should be hide -->
-        <attr format="dimension" name="fast_tab_indicator_height" />
+        <attr name="fast_tab_indicator_height" format="dimension" />
         <!--<attr format="dimension" name="fast_tab_indicator_component_padding"/>-->
         <attr name="android:textSize" />
         <!--<attr format="boolean" name="fast_tab_indicator_top"/>-->
-        <attr format="enum" name="fast_tab_mode">
+        <attr name="fast_tab_mode" format="enum">
             <enum name="scrollable" value="0" />
             <enum name="fixed" value="1" />
         </attr>
-        <attr format="dimension" name="fast_tab_space" />
-        <attr format="enum" name="fast_tab_icon_position">
+        <attr name="fast_tab_space" format="dimension" />
+        <attr name="fast_tab_icon_position" format="enum">
             <enum name="left" value="0" />
             <enum name="top" value="1" />
             <enum name="right" value="2" />
             <enum name="bottom" value="3" />
         </attr>
-        <attr format="string" name="fast_tab_typeface_provider" />
-        <attr format="color" name="fast_tab_normal_color" />
-        <attr format="color" name="fast_tab_selected_color" />
+        <attr name="fast_tab_typeface_provider" format="string" />
+        <attr name="fast_tab_normal_color" format="color" />
+        <attr name="fast_tab_selected_color" format="color" />
     </declare-styleable>
-    <attr format="reference" name="FastTabSegmentLayoutStyle" />
+    <attr name="FastTabSegmentLayoutStyle" format="reference" />
 
     <!--********************* GroupListView *********************-->
     <style name="Fast.GroupListContainer">
@@ -195,6 +195,7 @@
         <item name="android:background">@null</item>
         <item name="fast_dialog_action_button_padding_horizontal">12dp</item>
         <item name="fast_dialog_action_icon_space">6dp</item>
+        <item name="fast_drawable_stroke_width">0dp</item>
         <item name="fast_dialog_positive_action_text_color">@color/fast_config_color_blue</item>
         <item name="fast_dialog_negative_action_text_color">@color/fast_config_color_red</item>
     </style>

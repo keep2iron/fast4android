@@ -20,15 +20,15 @@ open class FastAlphaRoundButton @JvmOverloads constructor(
 
     private var drawableCreator: DrawableCreator?
 
-    //通过xml是否设置过android:background
-    private var backgroundDraw: Drawable?
+//    //通过xml是否设置过android:background
+//    private var backgroundDraw: Drawable?
 
     init {
         drawableCreator = fastDrawableViewHelper.resolveAttribute(context, attrs, defStyleAttr)
 
-        val typedArray = context.obtainStyledAttributes(attrs, IntArray(1) { android.R.attr.background })
-        backgroundDraw = typedArray.getDrawable(0)
-        typedArray.recycle()
+//        val typedArray = context.obtainStyledAttributes(attrs, IntArray(1) { android.R.attr.background })
+//        backgroundDraw = typedArray.getResourceId(0, 0)
+//        typedArray.recycle()
 
         setChangeAlphaWhenPress(true)
         setChangeAlphaWhenDisable(true)
@@ -66,16 +66,16 @@ open class FastAlphaRoundButton @JvmOverloads constructor(
         super.onLayout(changed, left, top, right, bottom)
 
         val minSize = width.coerceAtMost(height)
-        if (backgroundDraw != null) {
-            backgroundDraw = if (fastDrawableViewHelper.radiusAdjust) {
-                drawableCreator?.cornerRadii(minSize / 2, minSize / 2, minSize / 2, minSize / 2)
-                drawableCreator?.build()
-            } else {
-                drawableCreator?.build()
-            }
-        }
+//        if (backgroundDraw != null) {
+//            backgroundDraw =
+//        }
 
-        background = backgroundDraw
+        background = if (fastDrawableViewHelper.radiusAdjust) {
+            drawableCreator?.cornerRadii(minSize / 2, minSize / 2, minSize / 2, minSize / 2)
+            drawableCreator?.build()
+        } else {
+            drawableCreator?.build()
+        }
 
     }
 

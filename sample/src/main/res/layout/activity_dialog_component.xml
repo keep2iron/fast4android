@@ -49,7 +49,26 @@
         android:paddingLeft="16dp"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
-        android:text="消息类型对话框" />
+        android:text="消息类型对话框(蓝色按钮)" />
 
+    <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundTextView
+        android:id="@+id/btnStartMessageDialog2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="消息类型对话框(红色按钮)" />
+
+    <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundTextView
+        android:id="@+id/btnStartLoadingDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="loading" />
 
 </io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundLinearLayout>

@@ -20,6 +20,7 @@ import io.github.keep2iron.fast4android.app.ui.grouplistview.GroupListViewActivi
 import io.github.keep2iron.fast4android.app.ui.looplayout.LoopLayoutActivity
 import io.github.keep2iron.fast4android.app.ui.roundbutton.RoundComponentsActivity
 import io.github.keep2iron.fast4android.app.ui.tabsegment.TabSegmentListActivity
+import io.github.keep2iron.fast4android.app.ui.tip.TipDialogComponentActivity
 import io.github.keep2iron.fast4android.arch.AbstractFragment
 import io.github.keep2iron.fast4android.arch.util.findViewByDelegate
 import io.github.keep2iron.fast4android.core.util.startActivity
@@ -39,7 +40,8 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
             ),
             Description("Dialog", R.mipmap.icon_grid_dialog, DialogComponentsActivity::class.java),
             Description("DataBinding Bast Practice", R.mipmap.icon_grid_group_list_view, DataBindingActivity::class.java),
-            Description("LoopLayout",R.mipmap.icon_grid_pager_layout_manager, LoopLayoutActivity::class.java)
+            Description("LoopLayout", R.mipmap.icon_grid_pager_layout_manager, LoopLayoutActivity::class.java),
+            Description("TipDialog", R.mipmap.icon_grid_tip_dialog, TipDialogComponentActivity::class.java)
     )
 
     override fun initVariables(savedInstanceState: Bundle?) {
@@ -55,7 +57,7 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
             return MyViewHolder(context.layoutInflate(R.layout.home_item_main, parent)).apply {
                 val viewHolder = this
                 itemView.setOnClickListener {
-                    val intent = Intent(context,data[viewHolder.layoutPosition].clazz)
+                    val intent = Intent(context, data[viewHolder.layoutPosition].clazz)
                     context.startActivity(intent)
                 }
             }

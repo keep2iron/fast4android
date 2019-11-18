@@ -22,7 +22,7 @@ import io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
 import io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundLinearLayout
 import io.github.keep2iron.peach.DrawableCreator
 
-typealias FastDialogClickListner = (dialog: Dialog, index: Int, actionProp: Int) -> Unit
+typealias FastDialogClickListener = (dialog: Dialog, index: Int, actionProp: Int) -> Unit
 
 class FastDialogContentView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -68,7 +68,7 @@ class FastDialogAction(block: FastDialogAction.() -> Unit) {
 
     var actionView: FastAlphaRoundButton? = null
 
-    internal var onClickListener: FastDialogClickListner? = null
+    internal var onClickListener: FastDialogClickListener? = null
 
     var enabled = true
 
@@ -179,7 +179,7 @@ abstract class AbstractDialogBuilder(val context: Context) {
         const val VERTICAL = 1
     }
 
-    var onClickListener: FastDialogClickListner? = null
+    var onClickListener: FastDialogClickListener? = null
 
     var title: CharSequence = ""
 
@@ -241,7 +241,9 @@ abstract class AbstractDialogBuilder(val context: Context) {
         }
 
         val clickListener = View.OnClickListener {
-            dialog.dismiss()
+            if (cancelable) {
+                dialog.dismiss()
+            }
         }
         contentView.findViewById<View>(R.id.anchor_top).setOnClickListener(clickListener)
         contentView.findViewById<View>(R.id.anchor_bottom).setOnClickListener(clickListener)
@@ -404,3 +406,35 @@ class MessageDialogBuilder(
     }
 
 }
+
+//class LoadingDialogBuilder(
+//        context: Context,
+//        block: LoadingDialogBuilder.() -> Unit
+//) : AbstractDialogBuilder(context) {
+//
+//    var loadingLayoutId: Int = -1
+//
+//    init {
+//        block()
+//    }
+//
+//    override fun onCreateMessage(dialog: Dialog, dialogView: ViewGroup, context: Context) {
+//        val loadingView = if (loadingLayoutId == -1) {
+//            FastLoadingView(dialog.context, dp2px(dialog.context, 30), Color.WHITE)
+//        } else {
+//            LayoutInflater.from(dialog.context).inflate(loadingLayoutId, dialogView)
+//        }
+//
+//        dialogView.background = null
+////        loadingView.background = DrawableCreator()
+////                .cornerRadius(dp2px(dialog.context, backgroundRadius))
+////                .solidColor(ContextCompat.getColor(dialog.context, R.color.fast_config_color_50_white))
+////                .build()
+//
+//        dialogView.addView(loadingView, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+//                LinearLayout.LayoutParams.WRAP_CONTENT).apply {
+//            gravity = Gravity.CENTER
+//        })
+//    }
+//
+//}

@@ -37,6 +37,7 @@
         <activity android:name=".ui.databinding.DataBindingActivity"  />
         <activity android:name=".ui.looplayout.LoopLayoutActivity" />
         <activity android:name=".ui.bottomnav.BottomNavLayoutActivity" />
+        <activity android:name=".ui.tip.TipDialogComponentActivity" />
     </application>
 
 </manifest>

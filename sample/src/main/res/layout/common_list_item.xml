@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tvListItem"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/fast_content_spacing_horizontal"
+    tools:text="tools" />

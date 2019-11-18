@@ -22,8 +22,11 @@ class DialogComponentsActivity : AbstractActivity<ViewDataBinding>() {
     //    private val groupListCancelable: FastGroupListItemView by findViewByDelegate(R.id.groupListCancelable)
     private val btnStartDialogFragment: FastAlphaRoundTextView by findViewByDelegate(R.id.btnStartDialogFragment)
     private val btnStartMessageDialog: FastAlphaRoundTextView by findViewByDelegate(R.id.btnStartMessageDialog)
+    private val btnStartMessageDialog2: FastAlphaRoundTextView by findViewByDelegate(R.id.btnStartMessageDialog2)
+    private val btnStartLoadingDialog: FastAlphaRoundTextView by findViewByDelegate(R.id.btnStartLoadingDialog)
 
     override fun resId(): Int = R.layout.activity_dialog_component
+
     private var cancelable: Boolean = false
 
     override fun initVariables(savedInstanceState: Bundle?) {
@@ -50,11 +53,26 @@ class DialogComponentsActivity : AbstractActivity<ViewDataBinding>() {
                 backgroundRadius = dp2px(10)
                 addAction {
                     content = "取消"
-                    actionProp = FastDialogAction.ACTION_PROP_NEGATIVE
+                    actionProp = FastDialogAction.ACTION_PROP_NEUTRAL
                 }
                 addAction {
                     content = "确认"
                     actionProp = FastDialogAction.ACTION_PROP_POSITIVE
+                }
+            }.build().show()
+        }
+        btnStartMessageDialog2.setOnClickListener {
+            MessageDialogBuilder(this) {
+                title = "标题"
+                message = "确定要发送吗？"
+                backgroundRadius = dp2px(10)
+                addAction {
+                    content = "取消"
+                    actionProp = FastDialogAction.ACTION_PROP_NEUTRAL
+                }
+                addAction {
+                    content = "删除"
+                    actionProp = FastDialogAction.ACTION_PROP_NEGATIVE
                 }
             }.build().show()
         }

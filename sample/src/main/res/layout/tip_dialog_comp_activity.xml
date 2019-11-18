@@ -6,18 +6,16 @@
     android:orientation="vertical">
 
     <io.github.keep2iron.fast4android.topbar.FastTopBarLayout
-        android:id="@+id/titleBar"
+        android:id="@+id/topBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/fast_config_color_blue"
-        app:fast_topbar_title_color="@color/fast_config_color_white"
-        android:fitsSystemWindows="true"
-        app:fast_topbar_title="Fast4Android Components"
-/>
+        app:fast_topbar_title_color="@color/fast_config_color_white" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
+
 </LinearLayout>

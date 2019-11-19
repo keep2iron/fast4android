@@ -1,12 +1,12 @@
 package io.github.keep2iron.fast4android.app.ui.grouplistview
 
 import android.os.Bundle
+import io.github.keep2iron.base.util.FastDisplayHelper.dp2px
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.databinding.GroupListViewActivityBinding
 import io.github.keep2iron.fast4android.arch.AbstractActivity
 import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
 import io.github.keep2iron.base.util.FastStatusBarHelper
-import io.github.keep2iron.fast4android.core.util.dp2px
 import io.github.keep2iron.fast4android.core.widget.FastLoadingView
 
 @ParallaxBack
@@ -24,18 +24,18 @@ class GroupListViewActivity : AbstractActivity<GroupListViewActivityBinding>() {
         }
 
         dataBinding.groupListView.apply {
-            setInset(left = dp2px(10), right = dp2px(10))
+            setInset(left = dp2px(context, 10), right = dp2px(context, 10))
             addChevronItem {
                 title = "测试一个title1"
                 setLeftGroupListImageResource(R.mipmap.example_image1)
                 setOnClickListener {
 
                 }
-                setLeftImageSize(dp2px(30), dp2px(30))
+                setLeftImageSize(dp2px(context, 30), dp2px(context, 30))
             }
             addItem {
                 title = "测试一个title2"
-                setLeftImageSize(dp2px(30), dp2px(30))
+                setLeftImageSize(dp2px(context, 30), dp2px(context, 30))
                 setLeftGroupListImageResource(R.mipmap.ic_launcher)
                 setOnClickListener {
 
@@ -43,7 +43,7 @@ class GroupListViewActivity : AbstractActivity<GroupListViewActivityBinding>() {
             }
             addSwitchItem {
                 title = "测试一个title3"
-                setLeftImageSize(dp2px(30), dp2px(30))
+                setLeftImageSize(dp2px(context, 30), dp2px(context, 30))
                 setLeftGroupListImageResource(R.mipmap.ic_launcher)
                 setOnClickListener {
 
@@ -51,7 +51,7 @@ class GroupListViewActivity : AbstractActivity<GroupListViewActivityBinding>() {
             }
             addCustomItem {
                 title = "测试一个title3"
-                setLeftImageSize(dp2px(30), dp2px(30))
+                setLeftImageSize(dp2px(context, 30), dp2px(context, 30))
                 setLeftGroupListImageResource(R.mipmap.ic_launcher)
                 addAccessoryCustomView(FastLoadingView(context))
                 setOnClickListener {

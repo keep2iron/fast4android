@@ -424,7 +424,7 @@ fun View.findViewFromViewStub(
 ): View? {
     var view: View? = findViewById(inflatedViewId)
     if (null == view) {
-        val vs = findViewById<View>(viewStubId) as ViewStub ?: return null
+        val vs = findViewById<View>(viewStubId) as ViewStub
         if (vs.layoutResource < 1 && inflateLayoutResId > 0) {
             vs.layoutResource = inflateLayoutResId
         }

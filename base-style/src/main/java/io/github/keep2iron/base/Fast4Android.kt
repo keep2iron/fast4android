@@ -1,8 +1,10 @@
-package io.github.keep2iron.fast4android.core
+package io.github.keep2iron.base
 
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import io.github.keep2iron.fast4android.core.ApplicationInitTask
+import io.github.keep2iron.fast4android.core.FastLogger
 import io.github.keep2iron.fast4android.core.FastLogger.FastLogDelegate
 
 @SuppressLint("StaticFieldLeak")

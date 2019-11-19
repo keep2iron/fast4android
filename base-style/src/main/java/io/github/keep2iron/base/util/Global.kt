@@ -1,19 +1,15 @@
-package io.github.keep2iron.fast4android.core.util
+package io.github.keep2iron.base.util
 
 import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
-import android.view.View
-import androidx.annotation.IdRes
 import androidx.collection.ArrayMap
-import io.github.keep2iron.fast4android.core.ComponentProvider
-import io.github.keep2iron.fast4android.core.Fast4Android
+import io.github.keep2iron.base.ComponentProvider
+import io.github.keep2iron.base.Fast4Android
 import java.io.Serializable
-import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KClass
-import kotlin.reflect.KProperty
 
 /**
  * 用于扩展 Application 的扩展方法类
@@ -35,20 +31,20 @@ inline fun <reified T> getComponentService(): T {
     return COMPONENT_SERVICE[T::class.java] as T
 }
 
-fun dp2px(dp: Int): Int {
-    val density = Fast4Android.CONTEXT.resources.displayMetrics.density
-    return (dp * density).toInt()
-}
-
-fun px2dp(px: Int): Int {
-    val density = Fast4Android.CONTEXT.resources.displayMetrics.density
-    return (px / density).toInt()
-}
-
-fun sp(sp: Int): Float {
-    val scaledDensity = Fast4Android.CONTEXT.resources.displayMetrics.scaledDensity
-    return sp * scaledDensity
-}
+//fun dp2px(dp: Int): Int {
+//    val density = Fast4Android.CONTEXT.resources.displayMetrics.density
+//    return (dp * density).toInt()
+//}
+//
+//fun px2dp(px: Int): Int {
+//    val density = Fast4Android.CONTEXT.resources.displayMetrics.density
+//    return (px / density).toInt()
+//}
+//
+//fun sp(sp: Int): Float {
+//    val scaledDensity = Fast4Android.CONTEXT.resources.displayMetrics.scaledDensity
+//    return sp * scaledDensity
+//}
 
 fun startActivity(clazz: KClass<out Activity>, vararg args: Pair<String, Any>) {
     val intent = Intent(Fast4Android.CONTEXT, clazz.java)

@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
 import io.github.keep2iron.fast4android.arch.rx.LifecycleEvent
 import io.github.keep2iron.fast4android.arch.rx.RxLifecycleDispatcher
-import io.github.keep2iron.fast4android.core.Fast4Android
+import io.github.keep2iron.base.Fast4Android
 import io.reactivex.subjects.BehaviorSubject
 
 open class LifeCycleViewModel(owner: LifecycleOwner) :

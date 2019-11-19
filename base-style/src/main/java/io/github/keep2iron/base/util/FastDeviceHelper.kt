@@ -145,7 +145,7 @@ object FastDeviceHelper {
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             // android 8.0，读取 /system/uild.prop 会报 permission denied
-            var fileInputStream: FileInputStream? = null
+            val fileInputStream: FileInputStream?
             try {
                 fileInputStream = FileInputStream(File(Environment.getRootDirectory(), "build.prop"))
                 properties.load(fileInputStream)

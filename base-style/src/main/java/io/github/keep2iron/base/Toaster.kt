@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.IdRes
+import io.github.keep2iron.base.Fast4Android
 
 object Toaster {
 

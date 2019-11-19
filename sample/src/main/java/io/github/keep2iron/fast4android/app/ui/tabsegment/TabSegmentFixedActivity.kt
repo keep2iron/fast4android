@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
+import io.github.keep2iron.base.util.FastDisplayHelper.dp2px
 import io.github.keep2iron.base.util.FastStatusBarHelper
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.R.id
@@ -18,7 +19,6 @@ import io.github.keep2iron.fast4android.app.databinding.TabSegmentActivityBindin
 import io.github.keep2iron.fast4android.arch.AbstractActivity
 import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
 import io.github.keep2iron.fast4android.arch.util.findViewByDelegate
-import io.github.keep2iron.fast4android.core.util.dp2px
 import io.github.keep2iron.fast4android.tabsegment.FastTabSegmentLayout
 import io.github.keep2iron.fast4android.tabsegment.TabSegmentAdapter
 
@@ -75,7 +75,7 @@ class TabSegmentFixedActivity : AbstractActivity<TabSegmentActivityBinding>() {
                         icons[index]
                     }
                     ).also {
-                        it?.setBounds(0, 0, dp2px(20), dp2px(20))
+                        it?.setBounds(0, 0, dp2px(this@TabSegmentFixedActivity, 20), dp2px(this@TabSegmentFixedActivity, 20))
                     })
                 }
             }

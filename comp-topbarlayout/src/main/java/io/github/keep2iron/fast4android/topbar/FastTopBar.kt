@@ -19,12 +19,13 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
+import io.github.keep2iron.base.util.FastDisplayHelper
+import io.github.keep2iron.base.util.FastDisplayHelper.dp2px
+import io.github.keep2iron.base.util.FastDisplayHelper.sp2px
 import io.github.keep2iron.base.util.getAttrColor
 import io.github.keep2iron.base.util.getAttrDimen
 import io.github.keep2iron.fast4android.core.alpha.FastDrawableRoundViewHelper
 import io.github.keep2iron.fast4android.core.alpha.FastRoundImageButton
-import io.github.keep2iron.fast4android.core.util.dp2px
-import io.github.keep2iron.fast4android.core.util.sp
 import kotlin.LazyThreadSafetyMode.NONE
 
 class FastTopBar @JvmOverloads constructor(
@@ -71,7 +72,7 @@ class FastTopBar @JvmOverloads constructor(
             titleView.gravity = field
         }
 
-    var titleTextSizeInPixel: Int = sp(16).toInt()
+    var titleTextSizeInPixel: Int = sp2px(context, 16)
         set(value) {
             field = value
 
@@ -101,7 +102,7 @@ class FastTopBar @JvmOverloads constructor(
 
     private var separatorColor: Int = context.getAttrColor(R.attr.fast_config_color_separator)
 
-    private var separatorHeight: Int = dp2px(1)
+    private var separatorHeight: Int = dp2px(context, 1)
 
     private var backDrawableRes: Int = R.drawable.fast_icon_topbar_back
 
@@ -263,7 +264,7 @@ class FastTopBar @JvmOverloads constructor(
                     PorterDuff.Mode.SRC_ATOP
             )
         }
-        drawable?.setBounds(0, 0, dp2px(30), dp2px(30))
+        drawable?.setBounds(0, 0, dp2px(context, 30), dp2px(context, 30))
         imageView.setImageDrawable(drawable)
         return addLeftView(imageView, backId, null) as ImageButton
     }
@@ -310,7 +311,7 @@ class FastTopBar @JvmOverloads constructor(
                     PorterDuff.Mode.SRC_ATOP
             )
         }
-        drawable?.setBounds(0, 0, dp2px(30), dp2px(30))
+        drawable?.setBounds(0, 0, dp2px(context, 30), dp2px(context, 30))
         imageView.setImageDrawable(drawable)
         return addRightView(imageView, backId, null) as ImageButton
     }

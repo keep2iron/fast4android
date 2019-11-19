@@ -5,6 +5,7 @@ import android.view.Gravity
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
+import io.github.keep2iron.base.util.FastDisplayHelper.dp2px
 import io.github.keep2iron.base.util.translucent
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.arch.AbstractActivity
@@ -12,7 +13,6 @@ import io.github.keep2iron.fast4android.arch.AbstractDialogFragment
 import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
 import io.github.keep2iron.fast4android.arch.util.findViewByDelegate
 import io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundTextView
-import io.github.keep2iron.fast4android.core.util.dp2px
 import io.github.keep2iron.fast4android.core.widget.FastDialogAction
 import io.github.keep2iron.fast4android.core.widget.MessageDialogBuilder
 import io.github.keep2iron.peach.DrawableCreator
@@ -50,7 +50,7 @@ class DialogComponentsActivity : AbstractActivity<ViewDataBinding>() {
             MessageDialogBuilder(this) {
                 title = "标题"
                 message = "确定要发送吗？"
-                backgroundRadius = dp2px(10)
+                backgroundRadius = dp2px(this@DialogComponentsActivity, 10)
                 addAction {
                     content = "取消"
                     actionProp = FastDialogAction.ACTION_PROP_NEUTRAL
@@ -65,7 +65,7 @@ class DialogComponentsActivity : AbstractActivity<ViewDataBinding>() {
             MessageDialogBuilder(this) {
                 title = "标题"
                 message = "确定要发送吗？"
-                backgroundRadius = dp2px(10)
+                backgroundRadius = dp2px(this@DialogComponentsActivity, 10)
                 addAction {
                     content = "取消"
                     actionProp = FastDialogAction.ACTION_PROP_NEUTRAL
@@ -92,7 +92,7 @@ class DialogComponentsActivity : AbstractActivity<ViewDataBinding>() {
         }
 
         override fun width(): Int {
-            return dp2px(300)
+            return dp2px(requireContext(), 300)
         }
 
         override fun gravity(): Int = Gravity.CENTER

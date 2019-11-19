@@ -28,9 +28,8 @@ import android.view.animation.LinearInterpolator;
 
 import androidx.annotation.NonNull;
 
+import io.github.keep2iron.base.util.FastDisplayHelper;
 import io.github.keep2iron.fast4android.R;
-
-import static io.github.keep2iron.fast4android.core.util.GlobalKt.dp2px;
 
 /**
  * 用于显示 Loading 的 {@link View}，支持颜色和大小的设置。
@@ -61,7 +60,7 @@ public class FastLoadingView extends View {
         TypedArray array =
                 getContext().obtainStyledAttributes(attrs, R.styleable.FastLoadingView, defStyleAttr, 0);
         mSize =
-                array.getDimensionPixelSize(R.styleable.FastLoadingView_fast_loading_view_size, dp2px(32));
+                array.getDimensionPixelSize(R.styleable.FastLoadingView_fast_loading_view_size, FastDisplayHelper.INSTANCE.dp2px(context, 32));
         mPaintColor = array.getInt(R.styleable.FastLoadingView_android_color, Color.WHITE);
         array.recycle();
         initPaint();

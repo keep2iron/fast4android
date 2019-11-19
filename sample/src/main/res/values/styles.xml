@@ -5,8 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/fast_config_color_blue</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="buttonStyle">@style/FastButton.Compat</item>
+        <item name="colorAccent">@color/fast_config_color_blue</item>
     </style>
 
     <declare-styleable name="MaterialMenuView">

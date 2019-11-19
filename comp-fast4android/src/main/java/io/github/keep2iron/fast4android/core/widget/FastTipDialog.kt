@@ -9,8 +9,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import io.github.keep2iron.base.util.FastDisplayHelper.dp2px
 import io.github.keep2iron.fast4android.R
-import io.github.keep2iron.fast4android.core.util.dp2px
 
 enum class Tip {
     NOTHING,
@@ -46,7 +46,7 @@ class FastTipDialogBuilder(val context: Context,
 
             }
             Tip.LOADING -> {
-                val loadingView = FastLoadingView(dialog.context, dp2px(32), Color.WHITE)
+                val loadingView = FastLoadingView(dialog.context, dp2px(context, 32), Color.WHITE)
                 val loadingViewLP = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
                 loadingView.layoutParams = loadingViewLP
                 contentWrap.addView(loadingView)
@@ -79,7 +79,7 @@ class FastTipDialogBuilder(val context: Context,
             val tipView = TextView(dialog.context)
             val tipViewLP = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             if (iconType != Tip.NOTHING) {
-                tipViewLP.topMargin = dp2px(12)
+                tipViewLP.topMargin = dp2px(context, 12)
             }
             tipView.layoutParams = tipViewLP
             tipView.ellipsize = TextUtils.TruncateAt.END

@@ -1,4 +1,4 @@
-package io.github.keep2iron.fast4android.core
+package io.github.keep2iron.base
 
 import android.app.Application
 

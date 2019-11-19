@@ -124,21 +124,21 @@ class FastWindowInsetHelper(viewGroup: ViewGroup, windowInsetLayout: IWindowInse
     @TargetApi(28)
     private fun setOnApplyWindowInsetsListener28(viewGroup: ViewGroup) {
         // WindowInsetsCompat does not exist DisplayCutout stuff...
-        viewGroup.setOnApplyWindowInsetsListener(View.OnApplyWindowInsetsListener { view, windowInsets ->
-            var windowInsets = windowInsets
+        viewGroup.setOnApplyWindowInsetsListener(View.OnApplyWindowInsetsListener { _, windowInsets ->
+            var windowInsetsParams = windowInsets
             val insetLayout = mWindowInsetLayoutWR.get()
             if (insetLayout != null && insetLayout.applySystemWindowInsets21(
-                            windowInsets
+                            windowInsetsParams
                     )
             ) {
-                windowInsets = windowInsets.consumeSystemWindowInsets()
-                val displayCutout = windowInsets.displayCutout
+                windowInsetsParams = windowInsetsParams.consumeSystemWindowInsets()
+                val displayCutout = windowInsetsParams.displayCutout
                 if (displayCutout != null) {
-                    windowInsets = windowInsets.consumeDisplayCutout()
+                    windowInsetsParams = windowInsetsParams.consumeDisplayCutout()
                 }
-                return@OnApplyWindowInsetsListener windowInsets
+                return@OnApplyWindowInsetsListener windowInsetsParams
             }
-            windowInsets
+            windowInsetsParams
         })
     }
 

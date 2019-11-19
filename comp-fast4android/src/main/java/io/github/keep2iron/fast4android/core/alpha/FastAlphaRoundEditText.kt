@@ -12,9 +12,9 @@ import android.view.MotionEvent
 import androidx.annotation.StyleableRes
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
+import io.github.keep2iron.base.util.FastDisplayHelper.dp2px
 import io.github.keep2iron.base.util.setPaddingRight
 import io.github.keep2iron.fast4android.R
-import io.github.keep2iron.fast4android.core.util.dp2px
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -32,7 +32,7 @@ open class FastAlphaRoundEditText @JvmOverloads constructor(
     private val drawableRightRect = RectF()
 
     //点击偏差
-    private val DRAWABLE_BIAS = dp2px(5)
+    private val DRAWABLE_BIAS = dp2px(context, 5)
 
     val textWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {
@@ -60,7 +60,7 @@ open class FastAlphaRoundEditText @JvmOverloads constructor(
                     ContextCompat.getDrawable(context, R.drawable.fast_ic_delete),
                     compoundDrawables[3]
             )
-            setPaddingRight(dp2px(6))
+            setPaddingRight(dp2px(context, 6))
         }
 
         val typedArray =
@@ -136,7 +136,7 @@ open class FastAlphaRoundEditText @JvmOverloads constructor(
             }
             MotionEvent.ACTION_UP -> {
                 val dis = sqrt((event.x - touchPoint.x).toDouble().pow(2) + (event.y - touchPoint.y).pow(2))
-                if (compoundDrawables[2] != null && dis < dp2px(40) && drawableRightRect.contains(touchPoint.x, touchPoint.y)) {
+                if (compoundDrawables[2] != null && dis < dp2px(context, 40) && drawableRightRect.contains(touchPoint.x, touchPoint.y)) {
                     text?.clear()
                 }
             }

@@ -24,7 +24,6 @@ import io.github.keep2iron.fast4android.app.ui.tabsegment.TabSegmentListActivity
 import io.github.keep2iron.fast4android.app.ui.tip.TipDialogComponentActivity
 import io.github.keep2iron.fast4android.arch.AbstractFragment
 import io.github.keep2iron.fast4android.arch.util.findViewByDelegate
-import io.github.keep2iron.fast4android.core.util.startActivity
 
 class HomeFragment : AbstractFragment<ViewDataBinding>() {
     private val recyclerView: RecyclerView by findViewByDelegate(R.id.recyclerView)

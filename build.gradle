@@ -6,6 +6,7 @@ buildscript {
     ext {
         version_base_style = '0.0.1'
         version_fast4android_arch = '0.0.1'
+        version_fast4android_bottomnavlayout = "0.0.1"
         version_fast4android_countdown = '0.0.1'
         version_fast4android_compat = '0.0.1'
         version_fast4android_tabsegment = '0.0.1'

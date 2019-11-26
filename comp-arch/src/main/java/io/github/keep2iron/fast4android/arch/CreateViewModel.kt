@@ -11,7 +11,7 @@ class CreateViewModel(val lifecycleOwner: LifecycleOwner) {
         return ViewModelProviders.of(thisRef, LifecycleViewModelFactory(lifecycleOwner)).get(T::class.java)
     }
 
-    operator fun  setValue(thisRef: AppCompatActivity, property: KProperty<*>, model: LifeCycleViewModel) {
+    operator fun setValue(thisRef: AppCompatActivity, property: KProperty<*>, model: LifeCycleViewModel) {
         throw IllegalArgumentException("did't be allow to call setValue")
     }
 
@@ -23,4 +23,8 @@ class CreateViewModel(val lifecycleOwner: LifecycleOwner) {
         throw IllegalArgumentException("did't be allow to call setValue")
     }
 
+}
+
+fun findViewModel(lifecycleOwner: LifecycleOwner): CreateViewModel {
+    return CreateViewModel(lifecycleOwner)
 }

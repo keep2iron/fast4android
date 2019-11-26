@@ -11,14 +11,14 @@ interface RxLifecycleOwner {
 
     val publishSubject: BehaviorSubject<LifecycleEvent>
 
-    fun <T> observableIoAsyncAndBindLifecycle(): FlowableTransformer<T, T> {
+    fun <T> flowableIoAsyncAndBindLifecycle(): FlowableTransformer<T, T> {
         return FlowableTransformer { upstream ->
             upstream.ioAsyncScheduler()
                     .compose(bindFlowableLifeCycle())
         }
     }
 
-    fun <T> flowableIoAsyncAndBindLifecycle(): ObservableTransformer<T, T> {
+    fun <T> observableIoAsyncAndBindLifecycle (): ObservableTransformer<T, T> {
         return ObservableTransformer { upstream ->
             upstream.ioAsyncScheduler()
                     .compose(bindObservableLifeCycle())

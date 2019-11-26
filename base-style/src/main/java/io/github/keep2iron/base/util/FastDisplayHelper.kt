@@ -38,6 +38,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.ViewConfiguration
 import android.view.WindowManager
+import io.github.keep2iron.base.Fast4Android
 import java.util.Locale
 
 /**
@@ -83,7 +84,7 @@ object FastDisplayHelper {
      *
      * @return
      */
-    fun getDisplayMetrics(context: Context): DisplayMetrics {
+    fun getDisplayMetrics(context: Context = Fast4Android.CONTEXT): DisplayMetrics {
         return context.resources.displayMetrics
     }
 
@@ -107,11 +108,11 @@ object FastDisplayHelper {
         return (pxValue / DENSITY + 0.5f).toInt()
     }
 
-    fun getDensity(context: Context): Float {
+    fun getDensity(context: Context = Fast4Android.CONTEXT): Float {
         return context.resources.displayMetrics.density
     }
 
-    fun getFontDensity(context: Context): Float {
+    fun getFontDensity(context: Context = Fast4Android.CONTEXT): Float {
         return context.resources.displayMetrics.scaledDensity
     }
 
@@ -120,7 +121,7 @@ object FastDisplayHelper {
      *
      * @return
      */
-    fun getScreenWidth(context: Context): Int {
+    fun getScreenWidth(context: Context = Fast4Android.CONTEXT): Int {
         return getDisplayMetrics(context).widthPixels
     }
 
@@ -129,7 +130,7 @@ object FastDisplayHelper {
      *
      * @return
      */
-    fun getScreenHeight(context: Context): Int {
+    fun getScreenHeight(context: Context = Fast4Android.CONTEXT): Int {
         var screenHeight = getDisplayMetrics(
                 context
         ).heightPixels
@@ -151,7 +152,7 @@ object FastDisplayHelper {
      * @return
      */
 
-    fun getRealScreenSize(context: Context): IntArray {
+    fun getRealScreenSize(context: Context = Fast4Android.CONTEXT): IntArray {
         // 切换屏幕导致宽高变化时不能用 cache，先去掉 cache
         return doGetRealScreenSize(context)
         //        if (FastDeviceHelper.isEssentialPhone() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -183,7 +184,7 @@ object FastDisplayHelper {
         //        }
     }
 
-    private fun doGetRealScreenSize(context: Context): IntArray {
+    private fun doGetRealScreenSize(context: Context = Fast4Android.CONTEXT): IntArray {
         val size = IntArray(2)
         var widthPixels: Int
         var heightPixels: Int
@@ -241,7 +242,7 @@ object FastDisplayHelper {
         )
     }
 
-    fun getUsefulScreenWidth(context: Context, hasNotch: Boolean): Int {
+    fun getUsefulScreenWidth(context: Context = Fast4Android.CONTEXT, hasNotch: Boolean): Int {
         var result = getRealScreenSize(
                 context
         )[0]
@@ -297,7 +298,7 @@ object FastDisplayHelper {
         )
     }
 
-    private fun getUsefulScreenHeight(context: Context, hasNotch: Boolean): Int {
+    private fun getUsefulScreenHeight(context: Context = Fast4Android.CONTEXT, hasNotch: Boolean): Int {
         var result = getRealScreenSize(
                 context
         )[1]
@@ -328,10 +329,7 @@ object FastDisplayHelper {
         val hasMenuKey = ViewConfiguration.get(context).hasPermanentMenuKey()
         val hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK)
 
-        return if (!hasMenuKey && !hasBackKey) {
-            // 做任何你需要做的,这个设备有一个导航栏
-            true
-        } else false
+        return !hasMenuKey && !hasBackKey
     }
 
     /**
@@ -340,8 +338,12 @@ object FastDisplayHelper {
      * @param dp
      * @return
      */
-    fun dp2px(context: Context, dp: Int): Int {
+    fun dp2px(context: Context = Fast4Android.CONTEXT, dp: Int): Int {
         return (getDensity(context) * dp + 0.5).toInt()
+    }
+
+    fun dp2px(dp: Int): Int {
+        return (getDensity(Fast4Android.CONTEXT) * dp + 0.5).toInt()
     }
 
     /**
@@ -350,8 +352,12 @@ object FastDisplayHelper {
      * @param sp
      * @return
      */
-    fun sp2px(context: Context, sp: Int): Int {
+    fun sp2px(context: Context = Fast4Android.CONTEXT, sp: Int): Int {
         return (getFontDensity(context) * sp + 0.5).toInt()
+    }
+
+    fun sp2px(sp: Int): Int {
+        return (getFontDensity(Fast4Android.CONTEXT) * sp + 0.5).toInt()
     }
 
     /**
@@ -360,7 +366,8 @@ object FastDisplayHelper {
      * @param px
      * @return
      */
-    fun px2dp(context: Context, px: Int): Int {
+    @JvmOverloads
+    fun px2dp(context: Context = Fast4Android.CONTEXT, px: Int): Int {
         return (px / getDensity(context) + 0.5).toInt()
     }
 
@@ -370,7 +377,7 @@ object FastDisplayHelper {
      * @param px
      * @return
      */
-    fun px2sp(context: Context, px: Int): Int {
+    fun px2sp(context: Context = Fast4Android.CONTEXT, px: Int): Int {
         return (px / getFontDensity(context) + 0.5).toInt()
     }
 
@@ -380,7 +387,7 @@ object FastDisplayHelper {
      * @param context
      * @return
      */
-    fun hasStatusBar(context: Context): Boolean {
+    fun hasStatusBar(context: Context = Fast4Android.CONTEXT): Boolean {
         if (context is Activity) {
             val attrs = context.window.attributes
             return attrs.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN != WindowManager.LayoutParams.FLAG_FULLSCREEN
@@ -394,7 +401,7 @@ object FastDisplayHelper {
      * @param context
      * @return
      */
-    fun getActionBarHeight(context: Context): Int {
+    fun getActionBarHeight(context: Context = Fast4Android.CONTEXT): Int {
         var actionBarHeight = 0
         val tv = TypedValue()
         if (context.theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
@@ -412,7 +419,7 @@ object FastDisplayHelper {
      * @param context
      * @return
      */
-    fun getStatusBarHeight(context: Context): Int {
+    fun getStatusBarHeight(context: Context = Fast4Android.CONTEXT): Int {
         if (FastDeviceHelper.isXiaomi) {
             val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
             return if (resourceId > 0) {

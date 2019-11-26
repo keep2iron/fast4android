@@ -15,6 +15,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.legacy.widget.Space
 import io.github.keep2iron.base.util.FastDisplayHelper.dp2px
+import io.github.keep2iron.base.util.WeakHandler
 import io.github.keep2iron.base.util.assignTextViewWithAttr
 import io.github.keep2iron.base.util.getAttrDimen
 import io.github.keep2iron.fast4android.R
@@ -154,6 +155,7 @@ class FastDialogAction(block: FastDialogAction.() -> Unit) {
 
 class FastDialog constructor(context: Context, themeResId: Int) : Dialog(context, themeResId) {
 
+    val weakHandler = WeakHandler()
 
     init {
         setCancelable(true)
@@ -168,6 +170,15 @@ class FastDialog constructor(context: Context, themeResId: Int) : Dialog(context
             wmlp.gravity = Gravity.CENTER
             it.attributes = wmlp
         }
+    }
+
+    fun showDelayDismiss(delayMillis: Long) {
+        show()
+        weakHandler.postDelayed(Runnable {
+            if (isShowing) {
+                dismiss()
+            }
+        }, delayMillis)
     }
 
 }

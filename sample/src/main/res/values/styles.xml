@@ -1,21 +1,25 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Fast.Compat.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/fast_config_color_blue</item>
+        <item name="colorPrimary">@color/fast_config_color_black</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/fast_config_color_blue</item>
+        <item name="colorAccent">@color/fast_config_color_black</item>
+
+<!--        <item name="fast_round_btn_border_color">@color/fast_config_color_black</item>-->
+<!--        <item name="fast_round_btn_text_color">@color/fast_config_color_black</item>-->
+        <item name="android:textColorPrimary">@color/fast_config_color_black</item>
     </style>
 
     <declare-styleable name="MaterialMenuView">
-        <attr format="color" name="mm_color" />
-        <attr format="boolean" name="mm_visible" />
-        <attr format="integer" name="mm_scale" />
-        <attr format="integer" name="mm_transformDuration" />
-        <attr format="integer" name="mm_strokeWidth" />
-        <attr format="boolean" name="mm_rtlEnabled" />
-        <attr format="enum" name="mm_iconState">
+        <attr name="mm_color" format="color" />
+        <attr name="mm_visible" format="boolean" />
+        <attr name="mm_scale" format="integer" />
+        <attr name="mm_transformDuration" format="integer" />
+        <attr name="mm_strokeWidth" format="integer" />
+        <attr name="mm_rtlEnabled" format="boolean" />
+        <attr name="mm_iconState" format="enum">
             <enum name="burger" value="0" />
             <enum name="arrow" value="1" />
             <enum name="x" value="2" />
@@ -24,8 +28,8 @@
     </declare-styleable>
 
     <declare-styleable name="GradientBackgroundView">
-        <attr format="color" name="gbv_default_color" />
-        <attr format="integer" name="gbv_duration" />
+        <attr name="gbv_default_color" format="color" />
+        <attr name="gbv_duration" format="integer" />
     </declare-styleable>
 
 </resources>

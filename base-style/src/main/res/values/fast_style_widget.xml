@@ -31,9 +31,9 @@
         <item name="android:singleLine">true</item>
         <item name="android:gravity">center</item>
         <item name="android:ellipsize">end</item>
-        <item name="fast_drawable_stroke_width">?attr/fast_round_btn_border_width</item>
-        <item name="fast_drawable_stroke_color">?attr/fast_round_btn_border_color</item>
-        <item name="android:textColor">?attr/fast_round_btn_text_color</item>
+        <item name="fast_drawable_stroke_color">?android:attr/textColorPrimary</item>
+        <item name="fast_drawable_stroke_width">1.5dp</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
         <item name="fast_drawable_radius_adjust_bounds">true</item>
     </style>
 
@@ -99,7 +99,7 @@
     <style name="Fast.TopBar">
         <item name="fast_topbar_separator_color">?attr/fast_config_color_separator</item>
         <item name="fast_topbar_separator_height">1px</item>
-        <item name="android:background">@color/fast_config_color_white</item>
+        <item name="android:background">?attr/colorPrimary</item>
         <item name="fast_topbar_left_back_drawable_id">@drawable/fast_icon_topbar_back</item>
         <item name="fast_topbar_title_gravity">center</item>
         <item name="android:paddingLeft">8dp</item>
@@ -267,8 +267,6 @@
         <item name="fast_border_color">?attr/fast_config_color_gray_4</item>
         <item name="fast_is_touch_select_mode_enabled">true</item>
     </style>
-
-    <style name="Fast.ImageButtonStyle"></style>
 
     <style name="Fast.Animation" parent="@android:style/Animation" />
 

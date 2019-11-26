@@ -12,23 +12,9 @@
         android:id="@+id/topBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/fast_config_color_blue"
         android:fitsSystemWindows="true"
         app:fast_topbar_title="Dialog Fragment Component"
         app:fast_topbar_title_color="@color/fast_config_color_white" />
-
-    <!--    <io.github.keep2iron.grouplistview.FastGroupListContainer-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content">-->
-
-    <!--        <io.github.keep2iron.grouplistview.FastGroupListItemView-->
-    <!--            android:id="@+id/groupListCancelable"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="50dp"-->
-    <!--            app:fast_accessory_type="switcher"-->
-    <!--            app:fast_title="是否能够取消" />-->
-
-    <!--    </io.github.keep2iron.grouplistview.FastGroupListContainer>-->
 
     <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundTextView
         android:id="@+id/btnStartDialogFragment"

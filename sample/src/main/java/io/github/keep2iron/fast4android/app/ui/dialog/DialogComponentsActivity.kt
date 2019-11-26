@@ -23,7 +23,6 @@ class DialogComponentsActivity : AbstractActivity<ViewDataBinding>() {
     private val btnStartDialogFragment: FastAlphaRoundTextView by findViewByDelegate(R.id.btnStartDialogFragment)
     private val btnStartMessageDialog: FastAlphaRoundTextView by findViewByDelegate(R.id.btnStartMessageDialog)
     private val btnStartMessageDialog2: FastAlphaRoundTextView by findViewByDelegate(R.id.btnStartMessageDialog2)
-    private val btnStartLoadingDialog: FastAlphaRoundTextView by findViewByDelegate(R.id.btnStartLoadingDialog)
 
     override fun resId(): Int = R.layout.activity_dialog_component
 

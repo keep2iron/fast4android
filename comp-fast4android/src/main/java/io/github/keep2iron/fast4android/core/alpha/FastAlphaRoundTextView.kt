@@ -12,7 +12,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import io.github.keep2iron.fast4android.R
 
 open class FastAlphaRoundTextView @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = R.attr.FastAlphaRoundTextViewStyle
+        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
 
     private val fastAlphaViewHelper = FastAlphaViewHelper(this)

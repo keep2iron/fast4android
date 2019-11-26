@@ -16,16 +16,17 @@
             android:id="@+id/titleBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/fast_config_color_blue"
             android:fitsSystemWindows="true"
             app:fast_topbar_title="Round Components"
             app:fast_topbar_title_color="@color/fast_config_color_white" />
 
         <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundTextView
             android:id="@+id/tvRightAlphaTextView"
-            style="@style/FastTextView.Compat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fast_content_spacing_horizontal"
+            android:layout_marginTop="@dimen/fast_content_spacing_horizontal"
+            android:layout_marginRight="@dimen/fast_content_spacing_horizontal"
             android:background="?attr/fast_s_list_item_bg_with_border_bottom"
             android:drawableLeft="@drawable/fast_icon_chevron"
             android:drawableTop="@drawable/fast_icon_chevron"
@@ -52,10 +53,11 @@
 
         <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundTextView
             android:id="@+id/tvRadiusTextView"
-            style="@style/FastTextView.Compat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fast_content_spacing_horizontal"
             android:layout_marginTop="30dp"
+            android:layout_marginRight="@dimen/fast_content_spacing_horizontal"
             android:drawableLeft="@drawable/fast_icon_chevron"
             android:drawableTop="@drawable/fast_icon_chevron"
             android:drawableRight="@drawable/fast_icon_chevron"
@@ -90,7 +92,9 @@
             android:id="@+id/btnAlphaButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fast_content_spacing_horizontal"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="@dimen/fast_content_spacing_horizontal"
             android:clickable="true"
             android:gravity="center"
             android:text="默认button" />
@@ -99,7 +103,9 @@
             android:id="@+id/btnNoRadius"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fast_content_spacing_horizontal"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="@dimen/fast_content_spacing_horizontal"
             android:clickable="true"
             android:gravity="center"
             android:text="无圆角button"
@@ -109,16 +115,20 @@
             android:id="@+id/btnNoBorder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fast_content_spacing_horizontal"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="@dimen/fast_content_spacing_horizontal"
+            android:background="@null"
             android:clickable="true"
             android:gravity="center"
             android:text="无边框button"
-            app:fast_drawable_radius="0dp"
             app:fast_drawable_stroke_width="0dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fast_content_spacing_horizontal"
+            android:layout_marginRight="@dimen/fast_content_spacing_horizontal"
             android:orientation="vertical">
 
             <LinearLayout

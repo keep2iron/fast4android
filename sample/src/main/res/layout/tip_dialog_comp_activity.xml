@@ -9,7 +9,7 @@
         android:id="@+id/topBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/fast_config_color_blue"
+
         app:fast_topbar_title_color="@color/fast_config_color_white" />
 
     <androidx.recyclerview.widget.RecyclerView

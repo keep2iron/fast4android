@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<io.github.keep2iron.fast4android.core.widget.FastWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <io.github.keep2iron.fast4android.topbar.FastTopBarLayout
-        android:id="@+id/titleBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/fast_config_color_blue"
-        android:fitsSystemWindows="true"
-        app:fast_topbar_title="DataBinding Best Practice"
-        app:fast_topbar_title_color="@color/fast_config_color_white" >
-
-        <TextView
-            android:fitsSystemWindows="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </io.github.keep2iron.fast4android.topbar.FastTopBarLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true" />
+        android:orientation="vertical">
 
-</LinearLayout>
+        <io.github.keep2iron.fast4android.topbar.FastTopBarLayout
+            android:id="@+id/titleBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:fitsSystemWindows="true"
+            app:fast_topbar_title="DataBinding Best Practice"
+            app:fast_topbar_title_color="@color/fast_config_color_white">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </io.github.keep2iron.fast4android.topbar.FastTopBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+</io.github.keep2iron.fast4android.core.widget.FastWindowInsetLayout>

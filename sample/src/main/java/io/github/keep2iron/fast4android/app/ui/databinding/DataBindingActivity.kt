@@ -121,13 +121,6 @@ class DataBindingActivity : AbstractActivity<ViewDataBinding>() {
         }
 
         val recylcerView = findViewById<RecyclerView>(R.id.recyclerView)
-        ViewCompat.setOnApplyWindowInsetsListener(recylcerView) { _, insets ->
-            recylcerView.setPaddingTop(0)
-            recylcerView.setPaddingBottom(insets.systemWindowInsetBottom)
-
-            insets
-        }
-
         val data = ObservableArrayList<Item>()
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
@@ -159,5 +152,11 @@ class DataBindingActivity : AbstractActivity<ViewDataBinding>() {
         data.add(Item())
         data.add(Item())
         data.add(Item())
+
+        ViewCompat.setOnApplyWindowInsetsListener(recylcerView) { _, insets ->
+            recylcerView.setPaddingBottom(insets.systemWindowInsetBottom)
+
+            insets
+        }
     }
 }

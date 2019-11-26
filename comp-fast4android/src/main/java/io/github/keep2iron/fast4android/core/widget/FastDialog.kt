@@ -84,7 +84,6 @@ class FastDialogAction(block: FastDialogAction.() -> Unit) {
         val nonNullView = actionView
         checkNotNull(nonNullView)
         nonNullView.minHeight = 0
-        nonNullView.radiusAdjust = false
         nonNullView.text = content
         nonNullView.minimumHeight = 0
         nonNullView.setChangeAlphaWhenDisable(true)

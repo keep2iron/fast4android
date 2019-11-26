@@ -8,8 +8,6 @@ import io.github.keep2iron.peach.DrawableCreator
 
 class FastDrawableRoundViewHelper {
 
-    var radiusAdjust = false
-
     fun resolveAttribute(
             context: Context,
             attrs: AttributeSet?,
@@ -85,7 +83,7 @@ class FastDrawableRoundViewHelper {
                 -1
         )
 
-        radiusAdjust = typeValue.getBoolean(
+        var radiusAdjust = typeValue.getBoolean(
                 R.styleable.FastDrawableRoundViewHelper_fast_drawable_radius_adjust_bounds,
                 false
         )
@@ -109,8 +107,15 @@ class FastDrawableRoundViewHelper {
                 if (centerColor != -1) centerColor(centerColor)
             }
             shape(RECTANGLE)
-            cornerRadii(leftTopRadius, rightTopRadius, rightBottomRadius, leftBottomRadius)
             strokeWidth(strokeWidth)
+
+            if (radiusAdjust) {
+                rounded()
+            } else {
+                cornerRadii(leftTopRadius, rightTopRadius, rightBottomRadius, leftBottomRadius)
+
+            }
+
             if (strokeColor != -1) {
                 strokeColor(strokeColor)
             }

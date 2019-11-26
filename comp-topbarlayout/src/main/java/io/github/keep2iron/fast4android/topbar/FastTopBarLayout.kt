@@ -46,9 +46,9 @@ class FastTopBarLayout @JvmOverloads constructor(
             fastTopBar.background = null
 
             fastTopBar.setPadding(pL, pT, pR, pB)
-            setPadding(0,0,0,0)
+            setPadding(0, 0, 0, 0)
         } else {
-            setPadding(0,0,0,0)
+            setPadding(0, 0, 0, 0)
             //将TopBar的背景移植到TopBarLayout上
             background = fastTopBar.background
             //取消TopBar的背景颜色
@@ -57,14 +57,13 @@ class FastTopBarLayout @JvmOverloads constructor(
 
         //主要为了适配当键盘弹起 或者当布局占用底部导航栏时的 多出来的insets.bottom
         ViewCompat.setOnApplyWindowInsetsListener(this) { _, insets ->
-            setPaddingTop(insets.systemWindowInsetTop)
             if (insets.systemWindowInsetBottom > FastWindowInsetHelper.KEYBOARD_HEIGHT_BOUNDARY) {
-                setPaddingBottom(0)
+                this.setPadding(insets.systemWindowInsetLeft, insets.systemWindowInsetTop, insets.systemWindowInsetRight, 0)
             } else {
-                setPaddingBottom(insets.systemWindowInsetBottom)
+                this.setPadding(insets.systemWindowInsetLeft, insets.systemWindowInsetTop, insets.systemWindowInsetRight, insets.systemWindowInsetBottom)
             }
 
-            insets
+            insets.consumeSystemWindowInsets()
         }
     }
 

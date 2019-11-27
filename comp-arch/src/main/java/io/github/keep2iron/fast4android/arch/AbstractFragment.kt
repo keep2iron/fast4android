@@ -36,7 +36,7 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment(),
 
     lateinit var contentView: View
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         isOnAttach = true
     }

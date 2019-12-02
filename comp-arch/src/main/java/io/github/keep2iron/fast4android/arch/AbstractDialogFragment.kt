@@ -149,8 +149,7 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), 
         super.onResume()
 
         if (!hasWindowLayout) {
-            val dialog = dialog
-            dialog.window?.setLayout(width(), height())
+            dialog?.window?.setLayout(width(), height())
             hasWindowLayout = true
         }
     }

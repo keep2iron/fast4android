@@ -13,7 +13,6 @@
             android:id="@+id/titleBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:fitsSystemWindows="true"
             app:fast_topbar_title="DataBinding Best Practice"
             app:fast_topbar_title_color="@color/fast_config_color_white">

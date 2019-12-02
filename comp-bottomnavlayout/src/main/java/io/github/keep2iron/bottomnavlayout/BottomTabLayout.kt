@@ -200,23 +200,12 @@ class BottomTabLayout : LinearLayout {
         fun onTabUnSelect(position: Int)
     }
 
-    inner class BottomTabViewPagerAdapter(fm: FragmentManager?, private val tabs: List<BottomTabAdapter.Tab>) : FragmentPagerAdapter(fm) {
+    class BottomTabViewPagerAdapter(fm: FragmentManager, private val tabs: List<BottomTabAdapter.Tab>) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         override fun getCount(): Int = tabs.size
 
         override fun getItem(position: Int): Fragment {
-            return tabs[position].fragment ?: Fragment()
+            return tabs[position].fragment
+                    ?: throw IllegalArgumentException("tabs[$position] fragment is null!")
         }
     }
-
-//    override fun onDraw(canvas: Canvas) {
-//        val paint = Paint()
-//        paint.color = Color.WHITE
-//
-//        val itemWith = width * 1f / adapter.tabs.size
-//        val startX = itemWith * position + itemWith * positionOffset
-//        val endX = startX + itemWith
-//
-//        canvas.drawRect(startX, (height - 10).toFloat(), endX, height.toFloat(), paint)
-//
-//    }
 }

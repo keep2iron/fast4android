@@ -98,7 +98,7 @@ class DataBindingAdapter(data: ObservableList<Item>) : AbstractSubListAdapter<It
             nestedItemBinding.subtract.setTag(R.id.nestedRootLayout, index)
 
             nestedItemBinding.listener = this
-            nestedItemBinding.executePendingBindings()
+//            nestedItemBinding.executePendingBindings()
 
             itemBinding.nestedLayout.addView(nestedItemBinding.root)
         }

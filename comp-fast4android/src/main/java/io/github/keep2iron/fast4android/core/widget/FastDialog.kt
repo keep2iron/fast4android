@@ -12,8 +12,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Space
 import android.widget.TextView
-import androidx.legacy.widget.Space
 import io.github.keep2iron.base.util.FastDisplayHelper.dp2px
 import io.github.keep2iron.base.util.WeakHandler
 import io.github.keep2iron.base.util.assignTextViewWithAttr

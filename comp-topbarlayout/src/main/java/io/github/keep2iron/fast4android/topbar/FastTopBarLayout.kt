@@ -28,7 +28,7 @@ class FastTopBarLayout @JvmOverloads constructor(
                 context.obtainStyledAttributes(attrs, R.styleable.FastTopBarLayout, defStyleAttr, 0)
         fastTopBar.resolveTypedArray(typedArray)
         typedArray.recycle()
-        addView(fastTopBar)
+        addView(fastTopBar, generateDefaultLayoutParams())
 
         /**
          * 修复4.4
@@ -57,13 +57,13 @@ class FastTopBarLayout @JvmOverloads constructor(
 
         //主要为了适配当键盘弹起 或者当布局占用底部导航栏时的 多出来的insets.bottom
         ViewCompat.setOnApplyWindowInsetsListener(this) { _, insets ->
-            if (insets.systemWindowInsetBottom > FastWindowInsetHelper.KEYBOARD_HEIGHT_BOUNDARY) {
-                this.setPadding(insets.systemWindowInsetLeft, insets.systemWindowInsetTop, insets.systemWindowInsetRight, 0)
-            } else {
-                this.setPadding(insets.systemWindowInsetLeft, insets.systemWindowInsetTop, insets.systemWindowInsetRight, insets.systemWindowInsetBottom)
-            }
+            //            if (insets.systemWindowInsetBottom > FastWindowInsetHelper.KEYBOARD_HEIGHT_BOUNDARY) {
+            this.setPadding(insets.systemWindowInsetLeft, insets.systemWindowInsetTop, insets.systemWindowInsetRight, 0)
+//            } else {
+//                this.setPadding(insets.systemWindowInsetLeft, insets.systemWindowInsetTop, insets.systemWindowInsetRight, insets.systemWindowInsetBottom)
+//            }
 
-            insets.consumeSystemWindowInsets()
+            insets
         }
     }
 

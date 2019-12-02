@@ -15,7 +15,6 @@
             android:id="@+id/topBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:fitsSystemWindows="true"
             app:fast_topbar_title="TabSegment Component"
             app:fast_topbar_title_color="@color/fast_config_color_white" />

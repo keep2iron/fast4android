@@ -32,8 +32,7 @@ android {
 }
 
 dependencies {
-    //support
-    implementation deps.support.recyclerview
+    implementation deps.support.constraint_layout
     implementation deps.support.annotations
     implementation deps.support.app_compat
     api project(':base-style')

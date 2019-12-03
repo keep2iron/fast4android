@@ -24,8 +24,7 @@ open class FastSwitchView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet?,
         defStyleAttr: Int = 0
-) :
-        View(context, attrs, defStyleAttr) {
+) : View(context, attrs, defStyleAttr) {
 
     private val interpolator = AccelerateInterpolator(2f)
     private val paint = Paint()

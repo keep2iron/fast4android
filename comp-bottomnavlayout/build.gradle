@@ -49,7 +49,7 @@ if (MAVEN_LOCAL) {
         repositories {
             mavenDeployer {
                 // 唯一标识
-                pom.groupId = rootProject.ext.version_fast4android_bottomnavlayout
+                pom.groupId = rootProject.ext.version_group
                 // 项目名称
                 pom.artifactId = "fast4android-bottomnavlayout"
                 repository(url: uri(project.MAVEN_LOCAL_REPO))

@@ -23,6 +23,13 @@ class FastAlphaConstantLayout @JvmOverloads constructor(
                     this
             )
 
+    private val fastDrawableViewHelper =
+            FastDrawableRoundViewHelper()
+
+    init {
+        background = fastDrawableViewHelper.resolveAttribute(context, attrs, defStyleAttr)?.build()
+    }
+
     override fun setPressed(pressed: Boolean) {
         super.setPressed(pressed)
         fastAlphaViewHelper.onPressedChanged(this, pressed)

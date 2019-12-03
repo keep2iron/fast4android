@@ -52,6 +52,7 @@
     <attr name="fast_drawableRightTint" format="color" />
     <attr name="fast_drawableBottomTint" format="color" />
 
+    <!-- 带圆角的View的公共部分 -->
     <declare-styleable name="FastDrawableRoundViewHelper">
         <attr name="fast_drawable_radius" />
         <attr name="fast_drawable_stroke_color" />
@@ -176,6 +177,21 @@
         <attr name="fast_outlineInsetRight" format="dimension" />
         <attr name="fast_outlineInsetBottom" format="dimension" />
         <attr name="fast_outlineExcludePadding" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="FastAlphaConstantLayout">
+        <attr name="fast_drawable_radius" />
+        <attr name="fast_drawable_stroke_color" />
+        <attr name="fast_drawable_stroke_width" />
+        <attr name="fast_drawable_left_top_radius" />
+        <attr name="fast_drawable_left_bottom_radius" />
+        <attr name="fast_drawable_right_top_radius" />
+        <attr name="fast_drawable_right_bottom_radius" />
+        <attr name="fast_drawable_color_start" />
+        <attr name="fast_drawable_color_center" />
+        <attr name="fast_drawable_color_end" />
+        <attr name="fast_drawable_color_angle" />
+        <attr name="fast_drawable_radius_adjust_bounds" />
     </declare-styleable>
 
     <!--&lt;!&ndash;**************** FastTabSegment ******************&ndash;&gt;-->

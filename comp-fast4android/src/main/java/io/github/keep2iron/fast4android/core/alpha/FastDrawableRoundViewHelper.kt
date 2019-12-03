@@ -1,6 +1,7 @@
 package io.github.keep2iron.fast4android.core.alpha
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.GradientDrawable.RECTANGLE
 import android.util.AttributeSet
 import io.github.keep2iron.fast4android.R
@@ -41,7 +42,7 @@ class FastDrawableRoundViewHelper {
 
         val strokeColor = typeValue.getColor(
                 R.styleable.FastDrawableRoundViewHelper_fast_drawable_stroke_color,
-                -1
+                Color.TRANSPARENT
         )
 
         var leftTopRadius = radius
@@ -107,16 +108,15 @@ class FastDrawableRoundViewHelper {
                 if (centerColor != -1) centerColor(centerColor)
             }
             shape(RECTANGLE)
-            strokeWidth(strokeWidth)
 
             if (radiusAdjust) {
                 rounded()
             } else {
                 cornerRadii(leftTopRadius, rightTopRadius, rightBottomRadius, leftBottomRadius)
-
             }
 
-            if (strokeColor != -1) {
+            if(strokeWidth > 0) {
+                strokeWidth(strokeWidth)
                 strokeColor(strokeColor)
             }
 

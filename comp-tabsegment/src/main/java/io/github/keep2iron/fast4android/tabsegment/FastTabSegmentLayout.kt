@@ -418,14 +418,13 @@ class FastTabSegmentLayout @JvmOverloads constructor(
         }
 
         override fun dispatchDraw(canvas: Canvas) {
-            super.dispatchDraw(canvas)
-
             if (indicatorHeight > 0) {
                 indicatorRect.bottom = height - paddingBottom
-                indicatorRect.top = indicatorRect.bottom - indicatorHeight
+                indicatorRect.top = indicatorRect.bottom - indicatorHeight - 100
             }
 
             canvas.drawRect(indicatorRect, indicatorPaint)
+            super.dispatchDraw(canvas)
         }
     }
 }

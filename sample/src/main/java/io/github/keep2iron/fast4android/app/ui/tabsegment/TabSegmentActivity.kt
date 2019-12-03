@@ -86,6 +86,18 @@ class TabSegmentActivity : AbstractActivity<TabSegmentActivityBinding>() {
 
             tabs.add("测试1")
             tabs.add("测试2")
+            tabs.add("测试2")
+            tabs.add("测试2")
+            tabs.add("测试2")
+            tabs.add("测试2")
+            tabs.add("测试2")
+            tabs.add("测试2")
+            tabs.add("测试2asdasda")
+            tabs.add("测试2sdasdad")
+            tabs.add("测试asdsadasd2")
+            tabs.add("测试2asdasd")
+            tabs.add("测试2")
+            tabs.add("测试2")
 //      tabs.clear()
             tabSegmentAdapter.notifyDataSetChanged()
         }, 3000)
@@ -94,7 +106,9 @@ class TabSegmentActivity : AbstractActivity<TabSegmentActivityBinding>() {
     class CustomTabSegmentAdapter(private val tabs: List<String>) : TabSegmentAdapter() {
 
         override fun createTab(parentView: ViewGroup, index: Int, selected: Boolean): View {
-            return LayoutInflater.from(parentView.context).inflate(R.layout.item_segment_tab, parentView, false)
+            val view = LayoutInflater.from(parentView.context).inflate(R.layout.item_segment_tab, parentView, false)
+            view.findViewById<TextView>(R.id.tvTitle).text = tabs[index]
+            return view
         }
 
         override fun onTabStateChanged(view: View, index: Int, selected: Boolean) {

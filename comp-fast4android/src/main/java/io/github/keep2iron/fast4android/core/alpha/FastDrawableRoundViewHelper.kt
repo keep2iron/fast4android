@@ -69,15 +69,15 @@ class FastDrawableRoundViewHelper {
 
         val startColor = typeValue.getColor(
                 R.styleable.FastDrawableRoundViewHelper_fast_drawable_color_start,
-                -1
+                Color.TRANSPARENT
         )
         val centerColor = typeValue.getColor(
                 R.styleable.FastDrawableRoundViewHelper_fast_drawable_color_center,
-                -1
+                Color.TRANSPARENT
         )
         val endColor = typeValue.getColor(
                 R.styleable.FastDrawableRoundViewHelper_fast_drawable_color_end,
-                -1
+                Color.TRANSPARENT
         )
         val colorAngle = typeValue.getInt(
                 R.styleable.FastDrawableRoundViewHelper_fast_drawable_color_angle,
@@ -93,20 +93,40 @@ class FastDrawableRoundViewHelper {
             radiusAdjust = false
         }
 
-        if (strokeWidth == 0 && startColor == -1 && endColor == -1) {
+
+        val hasColorStart = typeValue.hasValue(R.styleable.FastDrawableRoundViewHelper_fast_drawable_color_start)
+        val hasColorCenter = typeValue.hasValue(R.styleable.FastDrawableRoundViewHelper_fast_drawable_color_center)
+        val hasColorEnd = typeValue.hasValue(R.styleable.FastDrawableRoundViewHelper_fast_drawable_color_end)
+
+
+        if (strokeWidth == 0 && !hasColorStart && !hasColorCenter && !hasColorEnd) {
+            //如果没有颜色 没有 border大小
+            return null
+        } else if (strokeColor == Color.TRANSPARENT && !hasColorStart && !hasColorCenter && !hasColorEnd) {
+            //如果没有颜色 border颜色为透明
             return null
         }
 
         val drawableCreator = DrawableCreator().apply {
-            if (startColor != -1 && endColor != -1) {
-                gradient()
-                linearGradient()
+            gradient()
+            linearGradient()
 
+            if (hasColorStart) {
                 startColor(startColor)
-                endColor(endColor)
-
-                if (centerColor != -1) centerColor(centerColor)
             }
+            if (hasColorCenter) {
+                centerColor(centerColor)
+            }
+            if (hasColorEnd) {
+                endColor(endColor)
+            }
+
+            //如果没有设置颜色则为透明
+            if (!hasColorStart && !hasColorCenter && !hasColorEnd) {
+                startColor(Color.TRANSPARENT)
+                endColor(Color.TRANSPARENT)
+            }
+
             shape(RECTANGLE)
 
             if (radiusAdjust) {
@@ -115,7 +135,7 @@ class FastDrawableRoundViewHelper {
                 cornerRadii(leftTopRadius, rightTopRadius, rightBottomRadius, leftBottomRadius)
             }
 
-            if(strokeWidth > 0) {
+            if (strokeWidth > 0) {
                 strokeWidth(strokeWidth)
                 strokeColor(strokeColor)
             }

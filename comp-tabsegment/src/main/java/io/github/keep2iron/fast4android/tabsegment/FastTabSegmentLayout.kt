@@ -22,6 +22,7 @@ class FastTabSegmentLayout @JvmOverloads constructor(
         attrs: AttributeSet? = null,
         defStyleAttr: Int = R.attr.FastTabSegmentLayoutStyle
 ) : HorizontalScrollView(context, attrs, defStyleAttr), AdapterDataObserver {
+
     companion object {
         // mode 自适应宽度/均分
         const val MODE_FIXED = 1

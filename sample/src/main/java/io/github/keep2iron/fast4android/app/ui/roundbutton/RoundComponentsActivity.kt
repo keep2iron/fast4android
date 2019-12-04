@@ -18,7 +18,7 @@ class RoundComponentsActivity : AbstractActivity<RoundComponentsActivityBinding>
     override fun initVariables(savedInstanceState: Bundle?) {
         FastStatusBarHelper.translucent(this)
 
-        dataBinding.titleBar.fastTopBar.addLeftBackImageButton().setOnClickListener(this)
+//        dataBinding.titleBar.fastTopBar.addLeftBackImageButton().setOnClickListener(this)
     }
 
     override fun onClick(v: View) {

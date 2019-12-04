@@ -1,8 +1,6 @@
 package io.github.keep2iron.fast4android.app.ui.tabsegment
 
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Typeface
+import android.graphics.*
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -121,6 +119,16 @@ class TabSegmentActivity : AbstractActivity<TabSegmentActivityBinding>() {
                 tvTitle.setTypeface(tvTitle.typeface, Typeface.NORMAL)
             }
 //            tvTitle.paintFlags = tvTitle.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        }
+
+        val rect = RectF()
+
+        override fun onDrawChildBackground(canvas: Canvas, container: ViewGroup, position: Int, nextPosition: Int, positionOffset: Float, itemRect: Rect, indicatorPaint: Paint) {
+            rect.set(itemRect.left + 5f,
+                    10f,
+                    itemRect.right - 5f,
+                    container.height - 10f)
+            canvas.drawRoundRect(rect, 10f, 10f, indicatorPaint)
         }
 
         override fun getItemSize(): Int = tabs.size

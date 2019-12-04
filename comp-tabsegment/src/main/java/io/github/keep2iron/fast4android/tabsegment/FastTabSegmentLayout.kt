@@ -98,7 +98,7 @@ class FastTabSegmentLayout @JvmOverloads constructor(
     /**
      * 用于container是ViewPager的时候的position
      */
-    private var position: Int = 0
+    private var curPosition: Int = 0
     /**
      * 选中颜色
      */
@@ -159,8 +159,8 @@ class FastTabSegmentLayout @JvmOverloads constructor(
 //        tabContainer.requestLayout()
         requestLayout()
 
-        if (viewPager != null && viewPager?.currentItem != position) {
-            viewPager?.currentItem = position
+        if (viewPager != null && viewPager?.currentItem != curPosition) {
+            viewPager?.currentItem = curPosition
         }
 
         adapter.onAttachTabSegmentLayout(this)
@@ -174,10 +174,10 @@ class FastTabSegmentLayout @JvmOverloads constructor(
                 this@FastTabSegmentLayout.adapter?.notifyDataSetChanged()
             }
         })
-        this.position = defaultPosition
+        this.curPosition = defaultPosition
         //如果adapter设置过了
         if (adapter != null) {
-            viewPager.setCurrentItem(position, false)
+            viewPager.setCurrentItem(curPosition, false)
         }
     }
 
@@ -202,11 +202,12 @@ class FastTabSegmentLayout @JvmOverloads constructor(
             }
 
             viewPager?.adapter?.notifyDataSetChanged()
-            if (adapterItemSize != 0 && position >= adapterItemSize) {
-                this.position = adapterItemSize - 1
+            if (adapterItemSize != 0 && curPosition >= adapterItemSize) {
+                this.curPosition = adapterItemSize - 1
                 viewPager?.currentItem = adapterItemSize - 1
             }
         }
+        tabContainer.onLayoutInvalidate()
     }
 
     override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
@@ -217,6 +218,7 @@ class FastTabSegmentLayout @JvmOverloads constructor(
     override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) {
         Log.d(FastTabSegmentLayout::class.java.simpleName, "onItemRangeChanged...")
         tabContainer.requestLayout()
+        tabContainer.onLayoutInvalidate()
     }
 
     override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
@@ -237,20 +239,42 @@ class FastTabSegmentLayout @JvmOverloads constructor(
     private inner class Container @JvmOverloads constructor(
             context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
     ) : ViewGroup(context, attrs, defStyleAttr), OnPageChangeListener, OnClickListener {
+
+        private var pageOffsetPosition = 0
+
         override fun onClick(v: View) {
             val index = indexOfChild(v)
             selectedListeners.forEach {
-                it.onTabUnselected(position)
+                it.onTabUnselected(curPosition)
             }
             selectedListeners.forEach {
                 it.onTabSelected(index)
             }
             adapter?.let {
-                it.onTabStateChanged(tabContainer.getChildAt(position), position, false)
+                it.onTabStateChanged(tabContainer.getChildAt(curPosition), curPosition, false)
                 it.onTabStateChanged(tabContainer.getChildAt(index), index, true)
             }
-            position = index
-            viewPager?.currentItem = position
+            curPosition = index
+            viewPager?.currentItem = curPosition
+        }
+
+        fun onLayoutInvalidate() {
+            if (curPosition < childCount) {
+                if (indicatorHeight > 0) {
+                    val view = getChildAt(curPosition)
+                    indicatorRect.left = view.left
+                    indicatorRect.right = indicatorRect.left + view.width
+                }
+            } else if (curPosition > childCount && childCount != 0) {
+                onPageSelected(childCount - 1)
+                if (indicatorHeight > 0) {
+                    //如果当前位置已经被删除了
+                    val view = getChildAt(curPosition)
+                    indicatorRect.left = view.left
+                    indicatorRect.right = indicatorRect.left + view.width
+                }
+            }
+            postInvalidate()
         }
 
         private fun requireAdapter(): TabSegmentAdapter {
@@ -324,6 +348,7 @@ class FastTabSegmentLayout @JvmOverloads constructor(
 
                 setMeasuredDimension(totalWidth, parentHeight)
             }
+
         }
 
         override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
@@ -345,42 +370,28 @@ class FastTabSegmentLayout @JvmOverloads constructor(
                 childView.layout(left, top, right, bottom)
                 if (changed) {
                     childView.setOnClickListener(this)
-                    adapter!!.onTabStateChanged(childView, i, position == i)
+                    adapter!!.onTabStateChanged(childView, i, curPosition == i)
                 }
                 lastLeft = right
             }
 
-            if (position < childCount) {
-                if (indicatorHeight > 0) {
-                    val view = getChildAt(position)
-                    indicatorRect.left = view.left
-                    indicatorRect.right = indicatorRect.left + view.width
-                }
-            } else if (position > childCount && childCount != 0) {
-                onPageSelected(childCount - 1)
-                if (indicatorHeight > 0) {
-                    //如果当前位置已经被删除了
-                    val view = getChildAt(position)
-                    indicatorRect.left = view.left
-                    indicatorRect.right = indicatorRect.left + view.width
-                    invalidate()
-                }
+            if (indicatorRect.isEmpty && childCount > 0) {
+                val view = getChildAt(curPosition)
+                indicatorRect.left = view.left
+                indicatorRect.right = indicatorRect.left + view.measuredWidth
             }
         }
 
         override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             this@FastTabSegmentLayout.positionOffset = positionOffset
-            val nextPosition = if (positionOffset > 0 && positionOffset < 1) {
-                (position + positionOffset + 1).toInt()
-            } else {
-                position
-            }
+            val nextPosition = position + 1
 
             if (position < childCount && nextPosition < childCount && indicatorHeight > 0) {
                 val view = getChildAt(position)
                 val nextView = getChildAt(nextPosition)
-                indicatorRect.left = view.left + ((nextView.left - view.left) * positionOffset).toInt()
-                indicatorRect.right = indicatorRect.left + view.width
+                indicatorRect.left = (view.left + (nextView.left - view.left) * positionOffset).toInt()
+                indicatorRect.right = (indicatorRect.left + view.width + (nextView.width - view.width) * positionOffset).toInt()
+                this.pageOffsetPosition = position
                 invalidate()
             }
         }
@@ -391,10 +402,10 @@ class FastTabSegmentLayout @JvmOverloads constructor(
                 //https://stackoverflow.com/questions/10396321/remove-fragment-page-from-viewpager-in-android
                 //当比如由于viewPager的下表为3时，但是这时候只有两个fragment，那么viewPager会自动切换到最后的那个fragment，所以
                 //要判断一下
-                if (this@FastTabSegmentLayout.position < tabContainer.childCount) {
+                if (this@FastTabSegmentLayout.curPosition < tabContainer.childCount) {
                     it.onTabStateChanged(
-                            tabContainer.getChildAt(this@FastTabSegmentLayout.position),
-                            this@FastTabSegmentLayout.position,
+                            tabContainer.getChildAt(this@FastTabSegmentLayout.curPosition),
+                            this@FastTabSegmentLayout.curPosition,
                             false
                     )
                 }
@@ -411,7 +422,7 @@ class FastTabSegmentLayout @JvmOverloads constructor(
                         0
                 )
             }
-            this@FastTabSegmentLayout.position = position
+            this@FastTabSegmentLayout.curPosition = position
         }
 
         override fun onPageScrollStateChanged(state: Int) {
@@ -420,10 +431,9 @@ class FastTabSegmentLayout @JvmOverloads constructor(
         override fun dispatchDraw(canvas: Canvas) {
             if (indicatorHeight > 0) {
                 indicatorRect.bottom = height - paddingBottom
-                indicatorRect.top = indicatorRect.bottom - indicatorHeight - 100
+                indicatorRect.top = indicatorRect.bottom - indicatorHeight
             }
-
-            canvas.drawRect(indicatorRect, indicatorPaint)
+            adapter?.onDrawChildBackground(canvas, this, pageOffsetPosition, pageOffsetPosition + 1, positionOffset, indicatorRect, indicatorPaint)
             super.dispatchDraw(canvas)
         }
     }

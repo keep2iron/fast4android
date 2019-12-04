@@ -1,5 +1,8 @@
 package io.github.keep2iron.fast4android.tabsegment
 
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Rect
 import android.view.View
 import android.view.ViewGroup
 import kotlin.properties.Delegates
@@ -46,8 +49,22 @@ abstract class TabSegmentAdapter {
         mObservable.notifyItemRangeRemoved(position, itemCount)
     }
 
-    open fun onAttachTabSegmentLayout(tabSegmentLayout:FastTabSegmentLayout){
+    open fun onAttachTabSegmentLayout(tabSegmentLayout: FastTabSegmentLayout) {
 
+    }
+
+    /**
+     * 用于绘制背景的回调方法
+     */
+    open fun onDrawChildBackground(
+            canvas: Canvas,
+            container: ViewGroup,
+            position: Int,
+            nextPosition: Int,
+            positionOffset: Float,
+            indicatorRect: Rect,
+            indicatorPaint: Paint) {
+        canvas.drawRect(indicatorRect, indicatorPaint)
     }
 
 }

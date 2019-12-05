@@ -21,3 +21,8 @@ fun <T> Single<T>.ioAsyncScheduler(): Single<T> {
     return observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
 }
+
+fun Completable.ioAsyncScheduler(): Completable {
+    return observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+}

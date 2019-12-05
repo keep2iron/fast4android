@@ -20,9 +20,12 @@
                 android:id="@+id/titleBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:fitsSystemWindows="true"
                 app:fast_topbar_title="Round Components"
-                app:fast_topbar_title_color="@color/fast_config_color_white" />
+                app:fast_topbar_title_color="@color/fast_config_color_white">
+
+            </io.github.keep2iron.fast4android.topbar.FastTopBarLayout>
 
             <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundTextView
                 android:id="@+id/tvRightAlphaTextView"

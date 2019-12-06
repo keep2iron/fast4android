@@ -46,8 +46,8 @@ inline fun <reified T> getComponentService(): T {
 //    return sp * scaledDensity
 //}
 
-fun startActivity(clazz: KClass<out Activity>, vararg args: Pair<String, Any>) {
-    val intent = Intent(Fast4Android.CONTEXT, clazz.java)
+inline fun <reified T : Activity> push(vararg args: Pair<String, Any>) {
+    val intent = Intent(Fast4Android.CONTEXT, T::class.java)
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     for (arg in args) {
         when (val value = arg.second) {

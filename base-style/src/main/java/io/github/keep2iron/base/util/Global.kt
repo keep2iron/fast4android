@@ -3,13 +3,15 @@ package io.github.keep2iron.base.util
 import android.app.Activity
 import android.app.Application
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.collection.ArrayMap
 import io.github.keep2iron.base.ComponentProvider
 import io.github.keep2iron.base.Fast4Android
 import java.io.Serializable
-import kotlin.reflect.KClass
+import kotlin.math.max
+import kotlin.math.min
 
 /**
  * 用于扩展 Application 的扩展方法类
@@ -31,20 +33,6 @@ inline fun <reified T> getComponentService(): T {
     return COMPONENT_SERVICE[T::class.java] as T
 }
 
-//fun dp2px(dp: Int): Int {
-//    val density = Fast4Android.CONTEXT.resources.displayMetrics.density
-//    return (dp * density).toInt()
-//}
-//
-//fun px2dp(px: Int): Int {
-//    val density = Fast4Android.CONTEXT.resources.displayMetrics.density
-//    return (px / density).toInt()
-//}
-//
-//fun sp(sp: Int): Float {
-//    val scaledDensity = Fast4Android.CONTEXT.resources.displayMetrics.scaledDensity
-//    return sp * scaledDensity
-//}
 
 inline fun <reified T : Activity> push(vararg args: Pair<String, Any>) {
     val intent = Intent(Fast4Android.CONTEXT, T::class.java)
@@ -111,4 +99,33 @@ inline fun <reified T : Activity> push(vararg args: Pair<String, Any>) {
         }
     }
     Fast4Android.CONTEXT.startActivity(intent)
+}
+
+/**
+ * 计算当前颜色值与目标颜色值的中间值
+ *
+ * @param toColor 目标颜色值
+ * @param fractionParams [0,1] 过渡的百分比
+ */
+fun Int.computeColor(toColor: Int, fractionParams: Float): Int {
+    val fromColor = this
+    val fraction = max(min(fractionParams, 1f), 0f)
+
+    val minColorA = Color.alpha(fromColor)
+    val maxColorA = Color.alpha(toColor)
+    val resultA = ((maxColorA - minColorA) * fraction).toInt() + minColorA
+
+    val minColorR = Color.red(fromColor)
+    val maxColorR = Color.red(toColor)
+    val resultR = ((maxColorR - minColorR) * fraction).toInt() + minColorR
+
+    val minColorG = Color.green(fromColor)
+    val maxColorG = Color.green(toColor)
+    val resultG = ((maxColorG - minColorG) * fraction).toInt() + minColorG
+
+    val minColorB = Color.blue(fromColor)
+    val maxColorB = Color.blue(toColor)
+    val resultB = ((maxColorB - minColorB) * fraction).toInt() + minColorB
+
+    return Color.argb(resultA, resultR, resultG, resultB)
 }

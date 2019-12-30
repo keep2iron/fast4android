@@ -28,6 +28,8 @@ class FastAlphaConstantLayout @JvmOverloads constructor(
 
     init {
         background = fastDrawableViewHelper.resolveAttribute(context, attrs, defStyleAttr)?.build()
+        setChangeAlphaWhenPress(false)
+        setChangeAlphaWhenDisable(false)
     }
 
     override fun setPressed(pressed: Boolean) {

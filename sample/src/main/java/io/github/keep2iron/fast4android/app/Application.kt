@@ -1,9 +1,9 @@
 package io.github.keep2iron.fast4android.app
 
 import androidx.multidex.MultiDexApplication
+import io.github.keep2iron.base.DefaultLogger
 import io.github.keep2iron.fast4android.arch.swipe.ParallaxBackApplicationTask
 import io.github.keep2iron.base.Fast4Android
-import io.github.keep2iron.fast4android.core.DefaultLogger
 import io.github.keep2iron.pineapple.ImageLoaderManager
 
 /**

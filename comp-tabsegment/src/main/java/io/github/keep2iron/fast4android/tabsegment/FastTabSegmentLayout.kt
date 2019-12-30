@@ -58,7 +58,7 @@ class FastTabSegmentLayout @JvmOverloads constructor(
     /**
      * selected changed listener
      */
-    val selectedListeners = ArrayList<OnTabSelectedListener>()
+    private val selectedListeners = ArrayList<OnTabSelectedListener>()
     // var tabIconWidth: Int = dp2px(context, 10)
     // var tabIconHeight: Int = dp2px(context, 10)
     var tabTextSize: Int = resources.getDimensionPixelSize(R.dimen.fast_tab_segment_text_size)
@@ -437,5 +437,9 @@ class FastTabSegmentLayout @JvmOverloads constructor(
             adapter?.onDrawChildBackground(canvas, this, pageOffsetPosition, pageOffsetPosition + 1, positionOffset, indicatorRect, indicatorPaint)
             super.dispatchDraw(canvas)
         }
+    }
+
+    fun addOnTabChangedListener(listener: OnTabSelectedListener) {
+        selectedListeners.add(listener)
     }
 }

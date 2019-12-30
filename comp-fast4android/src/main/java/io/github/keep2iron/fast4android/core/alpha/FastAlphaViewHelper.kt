@@ -59,13 +59,11 @@ class FastAlphaViewHelper {
      */
     fun onPressedChanged(current: View, pressed: Boolean) {
         val target = mTarget!!.get() ?: return
-        if (current.isEnabled) {
+        if (current.isEnabled && mChangeAlphaWhenPress) {
             target.alpha =
                     if (mChangeAlphaWhenPress && pressed && current.isClickable) mPressedAlpha else mNormalAlpha
-        } else {
-            if (mChangeAlphaWhenDisable) {
-                target.alpha = mDisabledAlpha
-            }
+        } else if (!current.isEnabled && mChangeAlphaWhenDisable) {
+            target.alpha = mDisabledAlpha
         }
     }
 

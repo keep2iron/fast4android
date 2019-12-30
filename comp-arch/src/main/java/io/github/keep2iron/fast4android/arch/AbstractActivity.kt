@@ -10,16 +10,11 @@ import io.github.keep2iron.fast4android.arch.rx.LifecycleEvent
 import io.github.keep2iron.fast4android.arch.rx.RxLifecycleDispatcher
 import io.reactivex.subjects.BehaviorSubject
 
-abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity(), RxLifecycleOwner {
+abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
 
     companion object {
         private const val NO_REQUESTED_ORIENTATION_SET = -100
     }
-
-    private val rxLifecycleDispatcher = RxLifecycleDispatcher(this)
-
-    override val publishSubject: BehaviorSubject<LifecycleEvent> =
-            rxLifecycleDispatcher.publishSubject
 
     private var mConvertToTranslucentCauseOrientationChanged = false
     private var mPendingRequestedOrientation = NO_REQUESTED_ORIENTATION_SET

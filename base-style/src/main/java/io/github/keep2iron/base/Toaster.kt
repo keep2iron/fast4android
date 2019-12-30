@@ -1,4 +1,4 @@
-package io.github.keep2iron.fast4android.core
+package io.github.keep2iron.base
 
 import android.annotation.SuppressLint
 import android.os.Looper
@@ -6,33 +6,31 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.IdRes
-import io.github.keep2iron.base.Fast4Android
+import io.github.keep2iron.base.util.WeakHandler
 
 object Toaster {
 
     private var preToast: Toast? = null
+    private val weakHandler = WeakHandler()
 
     fun s(
             message: String,
             block: (ToastBuilder.() -> Unit)? = null
     ) {
-        var looper = Looper.myLooper()
-        if (looper == null) {
-            Looper.prepare()
-            looper = Looper.myLooper()
+        val runnable = Runnable {
+            preToast?.cancel()
+            val newToastBuilder = if (block != null)
+                ToastBuilder().apply(block)
+            else ToastBuilder()
+            val toast = newToastBuilder.build(message, Toast.LENGTH_SHORT)
+            preToast = toast
+            toast.show()
         }
 
-        preToast?.cancel()
-        val newToastBuilder = if (block != null)
-            ToastBuilder().apply(block)
-        else ToastBuilder()
-        val toast = newToastBuilder.build(message, Toast.LENGTH_SHORT)
-        preToast = toast
-        toast.show()
-
-        if (looper != null) {
-            Looper.loop()
-            looper.quit()
+        if (Looper.myLooper() != Looper.getMainLooper()) {
+            runnable.run()
+        } else {
+            weakHandler.post(runnable)
         }
     }
 
@@ -40,13 +38,21 @@ object Toaster {
             message: String,
             block: (ToastBuilder.() -> Unit)? = null
     ) {
-        preToast?.cancel()
-        val newToastBuilder = if (block != null)
-            ToastBuilder().apply(block)
-        else ToastBuilder()
-        val toast = newToastBuilder.build(message, Toast.LENGTH_LONG)
-        preToast = toast
-        toast.show()
+        val runnable = Runnable {
+            preToast?.cancel()
+            val newToastBuilder = if (block != null)
+                ToastBuilder().apply(block)
+            else ToastBuilder()
+            val toast = newToastBuilder.build(message, Toast.LENGTH_LONG)
+            preToast = toast
+            toast.show()
+        }
+
+        if (Looper.myLooper() != Looper.getMainLooper()) {
+            runnable.run()
+        } else {
+            weakHandler.post(runnable)
+        }
     }
 
     class ToastBuilder constructor(

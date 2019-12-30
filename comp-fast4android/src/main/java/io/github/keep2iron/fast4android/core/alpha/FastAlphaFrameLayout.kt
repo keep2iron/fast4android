@@ -10,8 +10,7 @@ import kotlin.LazyThreadSafetyMode.NONE
 
 open class FastAlphaFrameLayout @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr),
-        IFastLayout {
+) : FrameLayout(context, attrs, defStyleAttr), IFastLayout {
 
     private val fastAlphaViewHelper by lazy(NONE) {
         FastAlphaViewHelper(this)
@@ -24,6 +23,14 @@ open class FastAlphaFrameLayout @JvmOverloads constructor(
                     defStyleAttr,
                     this
             )
+
+    private val fastDrawableViewHelper = FastDrawableRoundViewHelper()
+
+    init {
+        background = fastDrawableViewHelper.resolveAttribute(context, attrs, defStyleAttr)?.build()
+        setChangeAlphaWhenPress(false)
+        setChangeAlphaWhenDisable(false)
+    }
 
     override fun setPressed(pressed: Boolean) {
         super.setPressed(pressed)

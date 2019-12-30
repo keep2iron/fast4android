@@ -17,23 +17,17 @@ import androidx.fragment.app.FragmentManager
 import io.github.keep2iron.fast4android.arch.rx.LifecycleEvent
 import io.github.keep2iron.fast4android.arch.rx.RxLifecycleDispatcher
 import io.reactivex.subjects.BehaviorSubject
+import java.lang.ref.WeakReference
 
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)
  * @version 1.0
  * @since 2018/01/29 16:02
  */
-abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), RxLifecycleOwner {
-    protected lateinit var contentView: View
+abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment() {
     protected lateinit var dataBinding: DB
-    protected lateinit var contextHolder: Context
+
     private var hasWindowLayout = false
-    private val lifecycleDispatcher = RxLifecycleDispatcher(this)
-    override val publishSubject: BehaviorSubject<LifecycleEvent> = lifecycleDispatcher.publishSubject
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        contextHolder = context
-    }
 
     @LayoutRes
     abstract fun resId(): Int
@@ -56,8 +50,7 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), 
     protected fun beforeInitVariables() {}
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val context = activity ?: contextHolder
-        val dialog = InnerDialog(context, R.style.dialog, this)
+        val dialog = InnerDialog(requireContext(), R.style.dialog, this)
         dialog.setCanceledOnTouchOutside(isCancelable)
         dialog.setCancelable(isCancelable)
         // 设置宽度为屏宽、靠近屏幕底部。
@@ -124,7 +117,7 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), 
             savedInstanceState: Bundle?
     ): View? {
         val genDataBinding = DataBindingUtil.inflate<DB>(inflater, resId(), null, false)
-        contentView = if (genDataBinding != null) {
+        val contentView = if (genDataBinding != null) {
             dataBinding = genDataBinding
             dataBinding.root
         } else {
@@ -137,18 +130,18 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initVariables(contentView)
+        initVariables(view)
     }
 
     fun <V : View> findViewById(@IdRes id: Int): V {
-        return contentView.findViewById(id)
+        return requireView().findViewById(id)
     }
 
     override fun onResume() {
         super.onResume()
 
         if (!hasWindowLayout) {
-            dialog?.window?.setLayout(width(), height())
+            requireDialog().window?.setLayout(width(), height())
             hasWindowLayout = true
         }
     }
@@ -159,15 +152,21 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), 
     class InnerDialog(
             context: Context,
             themeResId: Int,
-            private val dialog: AbstractDialogFragment<out ViewDataBinding>
+            dialog: AbstractDialogFragment<out ViewDataBinding>
     ) : Dialog(context, themeResId) {
+
+        private val dialogRef = WeakReference(dialog)
+
         override fun onTouchEvent(event: MotionEvent): Boolean {
-            if (!dialog.isCancelable) {
+            val dialog = dialogRef.get()
+
+            val isCancelable = dialog?.isCancelable == true
+            if (!isCancelable) {
                 return false
             }
 
             if (isShowing && event.action == MotionEvent.ACTION_DOWN && isTouchOutside(event)) {
-                dialog.onTouchOutside()
+                dialog?.onTouchOutside()
                 dismiss()
                 return true
             }
@@ -185,18 +184,5 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment(), 
                     || x > decorView.width + slop
                     || y > decorView.height + slop)
         }
-    }
-
-    fun showAllowingStateLoss(manager: FragmentManager, tag: String) {
-        val mDismissed = this::class.java.getDeclaredField("mDismissed")
-        mDismissed.isAccessible = true
-        val mShownByMe = this::class.java.getDeclaredField("mShownByMe")
-        mShownByMe.isAccessible = true
-
-        mDismissed.setBoolean(this, false)
-        mShownByMe.setBoolean(this, true)
-        val ft = manager.beginTransaction()
-        ft.add(this, tag)
-        ft.commitAllowingStateLoss()
     }
 }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import android.view.animation.TranslateAnimation
@@ -21,22 +22,30 @@ import android.widget.FrameLayout
  * 下拉菜单显示控件，解决了PopWindow表现力不足的问题，动画效果为后面的阴影渐变，上面的container再进行下拉动画的显示，点击背景的阴影层，收起container
  */
 class FastPopWindowPlus(context: Context) : FrameLayout(context) {
-    private var mContentView: View? = null
+
+    private lateinit var contentView: View
     var isShowing: Boolean = false
     var isAnim: Boolean = false
-    val background: View
-    private var onDismissListener: Runnable? = null
-//  private var mOnClickBackgroundListener: Runnable? = null
+    val backgroundView: View
+    var translateView: View? = null
+
+    private var cancelable = true
+
+    private var onDismissListener: (() -> Unit)? = null
 
     init {
         LayoutInflater.from(context).inflate(R.layout.comp_widget_slide_drop, this, true)
-        background = findViewById(R.id.background)
+        backgroundView = findViewById(R.id.background)
     }
 
     fun setContentView(view: View) {
-        mContentView = view
+        contentView = view
 
-        addView(mContentView, mContentView!!.layoutParams)
+        if (contentView.layoutParams == null) {
+            contentView.layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+        }
+
+        addView(contentView, contentView.layoutParams)
     }
 
     private fun getYAtScreen(view: View, top: Int): Int {
@@ -54,11 +63,31 @@ class FastPopWindowPlus(context: Context) : FrameLayout(context) {
 
         val rootView = view.rootView as ViewGroup
 
-        val y = getYAtScreen(view, 0) + view.height
-        val params = FrameLayout.LayoutParams(MATCH_PARENT, rootView.height - y)
+        val viewTop = getYAtScreen(view, 0)
+        val y = viewTop + view.height
+
+        if (this.translateView != null) {
+            rootView.removeView(this.translateView)
+        }
+        val translateView = View(context)
+        translateView.layoutParams = LayoutParams(MATCH_PARENT, viewTop)
+        rootView.addView(translateView)
+        this.translateView = translateView
+
+        val params = LayoutParams(MATCH_PARENT, rootView.height - y)
         params.setMargins(0, y, 0, 0)
         layoutParams = params
         rootView.addView(this@FastPopWindowPlus)
+
+        if (cancelable) {
+            val listener = OnClickListener {
+                if (!isAnim) {
+                    dismiss()
+                }
+            }
+            backgroundView.setOnClickListener(listener)
+            translateView.setOnClickListener(listener)
+        }
 
         startAnim(null)
     }
@@ -76,8 +105,12 @@ class FastPopWindowPlus(context: Context) : FrameLayout(context) {
             override fun onAnimationEnd(animation: Animation?) {
                 val rootView = rootView as ViewGroup
                 rootView.removeView(this@FastPopWindowPlus)
+                if (this@FastPopWindowPlus.translateView != null) {
+                    rootView.removeView(this@FastPopWindowPlus.translateView)
+                }
+
                 isAnim = false
-                onDismissListener?.run()
+                onDismissListener?.invoke()
             }
 
             override fun onAnimationStart(animation: Animation?) {}
@@ -103,7 +136,7 @@ class FastPopWindowPlus(context: Context) : FrameLayout(context) {
             endTrans = -1.0f
         }
 
-        val objectAnimator = ObjectAnimator.ofFloat(background, "alpha", startAlpha, endAlpha)
+        val objectAnimator = ObjectAnimator.ofFloat(backgroundView, "alpha", startAlpha, endAlpha)
                 .setDuration(200)
         objectAnimator.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
@@ -122,22 +155,17 @@ class FastPopWindowPlus(context: Context) : FrameLayout(context) {
                 translateAnimation.fillAfter = true
                 translateAnimation.interpolator = LinearInterpolator()
                 translateAnimation.duration = 200
-                mContentView!!.startAnimation(translateAnimation)
+                contentView!!.startAnimation(translateAnimation)
             }
         })
         objectAnimator.start()
     }
 
-    fun setOnDismissListener(onDismissListener: Runnable) {
+    fun setOnDismissListener(onDismissListener: () -> Unit) {
         this.onDismissListener = onDismissListener
     }
 
-    inline fun setOnClickBackgroundListener(crossinline onClickBackgroundListener: () -> Unit) {
-        background.setOnClickListener {
-            if (!isAnim) {
-                dismiss()
-            }
-            onClickBackgroundListener()
-        }
+    fun setCancelable(cancelable: Boolean) {
+        this.cancelable = cancelable
     }
 }

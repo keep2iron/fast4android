@@ -1,7 +1,7 @@
-package io.github.keep2iron.fast4android.core
+package io.github.keep2iron.base
 
 import android.util.Log
-import io.github.keep2iron.fast4android.core.FastLogger.FastLogDelegate
+import io.github.keep2iron.base.FastLogger.FastLogDelegate
 
 class DefaultLogger : FastLogDelegate {
     override fun e(tag: String, msg: String, vararg obj: Any) {

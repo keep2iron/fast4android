@@ -24,6 +24,14 @@ open class FastAlphaRoundLinearLayout @JvmOverloads constructor(
                     this
             )
 
+    private val fastDrawableViewHelper = FastDrawableRoundViewHelper()
+
+    init {
+        background = fastDrawableViewHelper.resolveAttribute(context, attrs, defStyleAttr)?.build()
+        setChangeAlphaWhenPress(false)
+        setChangeAlphaWhenDisable(false)
+    }
+
     override fun setPressed(pressed: Boolean) {
         super.setPressed(pressed)
         fastAlphaViewHelper.onPressedChanged(this, pressed)

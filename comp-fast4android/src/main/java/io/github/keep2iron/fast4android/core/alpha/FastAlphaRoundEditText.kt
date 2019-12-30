@@ -31,11 +31,28 @@ open class FastAlphaRoundEditText @JvmOverloads constructor(
 
     private val drawableRightRect = RectF()
 
-    //点击偏差
-    private val DRAWABLE_BIAS = dp2px(context, 5)
+    private lateinit var deleteDrawable: Drawable
 
-    val textWatcher = object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {
+    //点击偏差
+    private val drawableBias = dp2px(5)
+
+    private val textWatcher = object : TextWatcher {
+        override fun afterTextChanged(editable: Editable?) {
+            if (editable != null) {
+                val text = editable.toString()
+
+                setCompoundDrawables(
+                        compoundDrawables[0],
+                        compoundDrawables[1],
+                        if (text.isEmpty()) {
+                            null
+                        } else {
+                            deleteDrawable
+                        },
+                        compoundDrawables[3]
+                )
+
+            }
         }
 
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -52,16 +69,17 @@ open class FastAlphaRoundEditText @JvmOverloads constructor(
 
         background = fastDrawableViewHelper.resolveAttribute(context, attrs, defStyleAttr)?.build()
 
+        deleteDrawable = compoundDrawables[2]
+                ?: ContextCompat.getDrawable(context, R.drawable.fast_ic_delete)!!
+
         //setup delete actionView
-        if (compoundDrawables[2] == null) {
-            this.setCompoundDrawables(
-                    compoundDrawables[0],
-                    compoundDrawables[1],
-                    ContextCompat.getDrawable(context, R.drawable.fast_ic_delete),
-                    compoundDrawables[3]
-            )
-            setPaddingRight(dp2px(context, 6))
-        }
+        this.setCompoundDrawables(
+                compoundDrawables[0],
+                compoundDrawables[1],
+                deleteDrawable,
+                compoundDrawables[3]
+        )
+        setPaddingRight(dp2px(context, 6))
 
         val typedArray =
                 context.obtainStyledAttributes(attrs, R.styleable.FastAlphaRoundEditText, defStyleAttr, 0)
@@ -121,23 +139,28 @@ open class FastAlphaRoundEditText @JvmOverloads constructor(
         setCompoundDrawables(
                 compoundDrawables[0],
                 compoundDrawables[1],
-                compoundDrawables[2],
+                if (text?.toString().isNullOrEmpty()) null else compoundDrawables[2],
                 compoundDrawables[3]
         )
+
+        addTextChangedListener(textWatcher)
 
         typedArray.recycle()
     }
 
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                touchPoint.x = event.x
-                touchPoint.y = event.y
-            }
-            MotionEvent.ACTION_UP -> {
-                val dis = sqrt((event.x - touchPoint.x).toDouble().pow(2) + (event.y - touchPoint.y).pow(2))
-                if (compoundDrawables[2] != null && dis < dp2px(context, 40) && drawableRightRect.contains(touchPoint.x, touchPoint.y)) {
-                    text?.clear()
+        if (compoundDrawables[2] != null) {
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    touchPoint.x = event.x
+                    touchPoint.y = event.y
+                }
+                MotionEvent.ACTION_UP -> {
+                    val dis = sqrt((event.x - touchPoint.x).toDouble().pow(2) + (event.y - touchPoint.y).pow(2))
+                    if (compoundDrawables[2] != null && dis < dp2px(context, 40) && drawableRightRect.contains(touchPoint.x, touchPoint.y)) {
+                        text?.clear()
+                    }
                 }
             }
         }
@@ -208,12 +231,14 @@ open class FastAlphaRoundEditText @JvmOverloads constructor(
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
 
-        drawableRightRect.set(
-                (width - paddingRight - compoundDrawables[2].bounds.width()).toFloat() - DRAWABLE_BIAS,
-                height / 2 - compoundDrawables[2].bounds.height() / 2f - DRAWABLE_BIAS,
-                (width - paddingRight).toFloat() + DRAWABLE_BIAS,
-                height / 2 + compoundDrawables[2].bounds.height() / 2f + DRAWABLE_BIAS
-        )
+        if (compoundDrawables[2] != null) {
+            drawableRightRect.set(
+                    (width - paddingRight - compoundDrawables[2].bounds.width()).toFloat() - drawableBias,
+                    height / 2 - compoundDrawables[2].bounds.height() / 2f - drawableBias,
+                    (width - paddingRight).toFloat() + drawableBias,
+                    height / 2 + compoundDrawables[2].bounds.height() / 2f + drawableBias
+            )
+        }
     }
 
 

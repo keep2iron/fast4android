@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    apply from: './versions/version.gradle'
+    apply from: './gradle-version/version.gradle'
 
     ext {
         version_base_style = '0.0.1'

@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="default_badge_size">3dp</dimen>
+    <dimen name="fast_default_badge_size">3dp</dimen>
 </resources>

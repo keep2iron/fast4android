@@ -17,7 +17,7 @@ import androidx.viewpager.widget.ViewPager
  * @version 1.0
  * @since 2018/03/02 09:30
  */
-class BottomTabLayout : LinearLayout {
+class FastBottomTabLayout : LinearLayout {
     /**
      * 用于container是ViewPager的时候的position
      */
@@ -47,14 +47,14 @@ class BottomTabLayout : LinearLayout {
         setWillNotDraw(false)
         orientation = HORIZONTAL
 
-        val array = resources.obtainAttributes(attrs, R.styleable.BottomTabLayout)
-        tabTextSize = array.getDimension(R.styleable.BottomTabLayout_tab_text_size, tabTextSize)
-        tabIconWidth = array.getDimension(R.styleable.BottomTabLayout_tab_icon_width, tabIconWidth)
-        tabIconHeight = array.getDimension(R.styleable.BottomTabLayout_tab_icon_height, tabIconHeight)
-        tabDrawablePadding = array.getDimension(R.styleable.BottomTabLayout_tab_drawable_padding, 0f).toInt()
-        tabItemMargin = array.getDimension(R.styleable.BottomTabLayout_tab_item_margin, 0f).toInt()
-        tabItemBackgroundRes = array.getResourceId(R.styleable.BottomTabLayout_tab_item_background, -1)
-        tabHeight = array.getDimension(R.styleable.BottomTabLayout_tab_height, tabHeight)
+        val array = resources.obtainAttributes(attrs, R.styleable.FastBottomTabLayout)
+        tabTextSize = array.getDimension(R.styleable.FastBottomTabLayout_fast_tab_text_size, tabTextSize)
+        tabIconWidth = array.getDimension(R.styleable.FastBottomTabLayout_fast_tab_icon_width, tabIconWidth)
+        tabIconHeight = array.getDimension(R.styleable.FastBottomTabLayout_fast_tab_icon_height, tabIconHeight)
+        tabDrawablePadding = array.getDimension(R.styleable.FastBottomTabLayout_fast_tab_drawable_padding, 0f).toInt()
+        tabItemMargin = array.getDimension(R.styleable.FastBottomTabLayout_fast_tab_item_margin, 0f).toInt()
+        tabItemBackgroundRes = array.getResourceId(R.styleable.FastBottomTabLayout_fast_tab_item_background, -1)
+        tabHeight = array.getDimension(R.styleable.FastBottomTabLayout_fast_tab_height, tabHeight)
 
         array.recycle()
     }
@@ -166,8 +166,8 @@ class BottomTabLayout : LinearLayout {
             }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                this@BottomTabLayout.position = position
-                this@BottomTabLayout.positionOffset = positionOffset
+                this@FastBottomTabLayout.position = position
+                this@FastBottomTabLayout.positionOffset = positionOffset
                 invalidate()
             }
 

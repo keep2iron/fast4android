@@ -1,18 +1,15 @@
 package io.github.keep2iron.fast4android.app.ui.bottomnav
 
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import io.github.keep2iron.base.util.translucent
 import io.github.keep2iron.bottomnavlayout.BottomTabAdapter
-import io.github.keep2iron.bottomnavlayout.BottomTabLayout
+import io.github.keep2iron.bottomnavlayout.FastBottomTabLayout
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.arch.AbstractActivity
 import io.github.keep2iron.fast4android.arch.AbstractFragment
@@ -36,7 +33,7 @@ class BottomNavFragment : AbstractFragment<ViewDataBinding>() {
 
 class BottomNavLayoutActivity : AbstractActivity<ViewDataBinding>() {
 
-    private val bottomNavLayout by findViewByDelegate<BottomTabLayout>(R.id.bottomNavLayout)
+    private val bottomNavLayout by findViewByDelegate<FastBottomTabLayout>(R.id.bottomNavLayout)
 
     private val container by findViewByDelegate<View>(R.id.container)
 

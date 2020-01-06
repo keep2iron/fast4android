@@ -1,7 +1,6 @@
 package io.github.keep2iron.bottomnavlayout
 
 import android.content.Context
-import android.graphics.Color
 import android.text.TextUtils
 import android.util.TypedValue
 import android.view.Gravity
@@ -24,7 +23,7 @@ import androidx.viewpager.widget.ViewPager
  */
 open class BottomTabAdapter(private val supportFragmentManager: FragmentManager, val tabs: List<Tab>) {
 
-    val onTabStateChangedListeners: ArrayList<BottomTabLayout.OnTabChangeListener> = ArrayList()
+    val onTabStateChangedListeners: ArrayList<FastBottomTabLayout.OnTabChangeListener> = ArrayList()
     var selectPosition: Int = 0
 
     lateinit var showingFragment: Fragment
@@ -143,14 +142,14 @@ open class BottomTabAdapter(private val supportFragmentManager: FragmentManager,
 
         /**
          * 默认值会从BottomTabLayout中设置
-         * @see BottomTabLayout
+         * @see FastBottomTabLayout
          *
          */
         var tabIconWidth: Float = 0f
         var tabIconHeight: Float = 0f
 
         @DimenRes
-        var badgeSizeRes: Int = R.dimen.default_badge_size
+        var badgeSizeRes: Int = R.dimen.fast_default_badge_size
         var isEnable = true
 
         constructor(context: Context, block: Tab.() -> Unit) {

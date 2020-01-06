@@ -11,11 +11,11 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <io.github.keep2iron.bottomnavlayout.BottomTabLayout
+    <io.github.keep2iron.bottomnavlayout.FastBottomTabLayout
         android:id="@+id/bottomNavLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:tab_icon_height="18dp"
-        app:tab_icon_width="18dp" />
+        app:fast_tab_icon_height="18dp"
+        app:fast_tab_icon_width="18dp" />
 
 </LinearLayout>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="BottomTabLayout">
-        <attr name="tab_icon_width" format="dimension" />
-        <attr name="tab_icon_height" format="dimension" />
-        <attr name="tab_text_size" format="dimension" />
-        <attr name="tab_drawable_padding" format="dimension" />
-        <attr name="tab_item_margin" format="dimension" />
-        <attr name="tab_item_background" format="reference" />
-        <attr name="tab_height" format="reference" />
+    <declare-styleable name="FastBottomTabLayout">
+        <attr name="fast_tab_icon_width" format="dimension" />
+        <attr name="fast_tab_icon_height" format="dimension" />
+        <attr name="fast_tab_text_size" format="dimension" />
+        <attr name="fast_tab_drawable_padding" format="dimension" />
+        <attr name="fast_tab_item_margin" format="dimension" />
+        <attr name="fast_tab_item_background" format="reference|color" />
+        <attr name="fast_tab_height" format="reference|dimension" />
     </declare-styleable>
 </resources>

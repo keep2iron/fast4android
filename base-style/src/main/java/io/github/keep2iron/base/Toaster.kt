@@ -27,7 +27,7 @@ object Toaster {
             toast.show()
         }
 
-        if (Looper.myLooper() != Looper.getMainLooper()) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
             runnable.run()
         } else {
             weakHandler.post(runnable)
@@ -48,7 +48,7 @@ object Toaster {
             toast.show()
         }
 
-        if (Looper.myLooper() != Looper.getMainLooper()) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
             runnable.run()
         } else {
             weakHandler.post(runnable)

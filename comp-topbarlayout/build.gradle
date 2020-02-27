@@ -5,6 +5,7 @@ if (MAVEN_LOCAL.toBoolean()) {
 } else {
   apply plugin: 'com.novoda.bintray-release'
 }
+apply from: '../gradle/klint.gradle'
 
 android {
   resourcePrefix "fast"
@@ -21,6 +22,7 @@ android {
   compileOptions {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
+    kotlinOptions.freeCompilerArgs += ['-module-name', "io.github.keep2iron.fast4android.topbarlayout"]
   }
 
   buildTypes {

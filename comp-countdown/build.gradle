@@ -3,8 +3,9 @@ apply plugin: 'kotlin-android'
 if (MAVEN_LOCAL.toBoolean()) {
   apply plugin: 'maven'
 } else {
-//    apply plugin: 'com.novoda.bintray-release'
+  apply plugin: 'com.novoda.bintray-release'
 }
+apply from: '../gradle/klint.gradle'
 
 android {
   compileSdkVersion versions.build.target_sdk
@@ -15,6 +16,12 @@ android {
     targetSdkVersion versions.build.target_sdk
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+    kotlinOptions.freeCompilerArgs += ['-module-name', "io.github.keep2iron.fast4android.countdown"]
   }
 
   buildTypes {
@@ -94,12 +101,12 @@ if (MAVEN_LOCAL.toBoolean()) {
     archives javadocJar
   }
 } else {
-//    publish {
-//        userOrg = 'keep2iron'
-//        groupId = rootProject.ext.version_group
-//        artifactId = 'fast4android-countdown'
-//        publishVersion = rootProject.ext.version_fast4android_countdown
-//        desc = 'fast4android'
-//        website = 'https://keep2iron.github.io'
-//    }
+    publish {
+        userOrg = 'keep2iron'
+        groupId = rootProject.ext.version_group
+        artifactId = 'fast4android-countdown'
+        publishVersion = rootProject.ext.version_fast4android_countdown
+        desc = 'fast4android'
+        website = 'https://keep2iron.github.io'
+    }
 }

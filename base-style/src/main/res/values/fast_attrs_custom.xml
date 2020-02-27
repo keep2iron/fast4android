@@ -38,11 +38,11 @@
   </declare-styleable>
 
   <declare-styleable name="FastDialogTitleTvCustomDef">
-    <attr name="fast_paddingBottomWhenNotContent" />
+    <attr name="fast_paddingBottomWhenNotContent" format="dimension"/>
   </declare-styleable>
 
   <declare-styleable name="FastDialogMessageTvCustomDef">
-    <attr name="fast_paddingTopWhenNotTitle" />
+    <attr name="fast_paddingTopWhenNotTitle" format="dimension"/>
   </declare-styleable>
 
   <declare-styleable name="FastDialogActionContainerCustomDef">
@@ -84,6 +84,8 @@
     <attr name="android:textSize" />
     <attr name="android:gravity" />
   </declare-styleable>
+
+  <attr name="fast_dialog_menu_item_check_mark_margin_hor" format="dimension" />
 
   <declare-styleable name="FastDialogMenuMarkDef">
     <attr name="fast_dialog_menu_item_mark_drawable" format="reference" />

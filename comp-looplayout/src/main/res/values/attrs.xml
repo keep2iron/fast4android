@@ -1,13 +1,13 @@
 <resources>
-    <declare-styleable name="FastLoopLayout">
-        <attr name="fast_indicator_drawable_select" format="reference" />
-        <attr name="fast_indicator_drawable_unSelect" format="reference" />
-        <attr name="fast_indicator_drawable_unSelect_tint" format="color" />
-        <attr name="fast_indicator_drawable_select_tint" format="color" />
-        <attr name="fast_indicator_drawable_width" format="dimension" />
-        <attr name="fast_indicator_drawable_height" format="dimension" />
-        <attr name="fast_indicator_drawable_spacing" format="dimension" />
+  <declare-styleable name="FastLoopLayout">
+    <attr name="fast_indicator_drawable_select" format="reference" />
+    <attr name="fast_indicator_drawable_unSelect" format="reference" />
+    <attr name="fast_indicator_drawable_unSelect_tint" format="color" />
+    <attr name="fast_indicator_drawable_select_tint" format="color" />
+    <attr name="fast_indicator_drawable_width" format="dimension" />
+    <attr name="fast_indicator_drawable_height" format="dimension" />
+    <attr name="fast_indicator_drawable_spacing" format="dimension" />
 
-        <attr name="fast_indicator_id" format="reference" />
-    </declare-styleable>
+    <attr name="fast_indicator_id" format="reference" />
+  </declare-styleable>
 </resources>

@@ -16,30 +16,30 @@
 
 <resources>
 
-    <style name="FastTextAppearance" parent="FastTextAppearanceBase">
-        <item name="android:textColor">?attr/fast_config_color_black</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColorHighlight">?attr/fast_config_color_background_pressed</item>
-    </style>
+  <style name="FastTextAppearance" parent="FastTextAppearanceBase">
+    <item name="android:textColor">?attr/fast_config_color_black</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColorHighlight">?attr/fast_config_color_background_pressed</item>
+  </style>
 
-    <style name="FastTextAppearance.Title" />
+  <style name="FastTextAppearance.Title" />
 
-    <style name="FastTextAppearance.Title.Gray">
-        <item name="android:textColor">?attr/fast_config_color_gray_3</item>
-    </style>
+  <style name="FastTextAppearance.Title.Gray">
+    <item name="android:textColor">?attr/fast_config_color_gray_3</item>
+  </style>
 
-    <style name="FastTextAppearance.Title.Large">
-        <item name="android:textSize">16sp</item>
-    </style>
+  <style name="FastTextAppearance.Title.Large">
+    <item name="android:textSize">16sp</item>
+  </style>
 
-    <style name="FastTextAppearance.ListItem">
-        <item name="android:textColor">@color/fast_s_list_item_text_color</item>
-    </style>
+  <style name="FastTextAppearance.ListItem">
+    <item name="android:textColor">@color/fast_s_list_item_text_color</item>
+  </style>
 
-    <style name="FastTextAppearance.GridItem" />
+  <style name="FastTextAppearance.GridItem" />
 
-    <style name="FastTextAppearance.GridItem.Small">
-        <item name="android:textColor">@color/fast_config_color_gray_3</item>
-        <item name="android:textSize">11sp</item>
-    </style>
+  <style name="FastTextAppearance.GridItem.Small">
+    <item name="android:textColor">@color/fast_config_color_gray_3</item>
+    <item name="android:textSize">11sp</item>
+  </style>
 </resources>

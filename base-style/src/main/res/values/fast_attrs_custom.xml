@@ -15,83 +15,83 @@
 -->
 
 <resources>
-    <attr name="Fast_paddingTopWhenNotTitle" format="dimension" />
-    <attr name="Fast_paddingBottomWhenNotContent" format="dimension" />
-    <attr name="Fast_dialog_menu_item_check_mark_margin_hor" format="dimension" />
+  <attr name="Fast_paddingTopWhenNotTitle" format="dimension" />
+  <attr name="Fast_paddingBottomWhenNotContent" format="dimension" />
+  <attr name="Fast_dialog_menu_item_check_mark_margin_hor" format="dimension" />
 
-    <declare-styleable name="FastTextCommonStyleDef">
-        <attr name="android:textColor" />
-        <attr name="android:textSize" />
-        <attr name="android:background" />
-        <attr name="android:gravity" />
-        <attr name="android:paddingTop" />
-        <attr name="android:paddingLeft" />
-        <attr name="android:paddingRight" />
-        <attr name="android:paddingBottom" />
-        <attr name="android:singleLine" />
-        <attr name="android:ellipsize" />
-        <attr name="android:maxLines" />
-        <attr name="android:lineSpacingExtra" />
-        <attr name="android:drawablePadding" />
-        <attr name="android:textColorHint" />
-        <attr name="android:textStyle" />
-    </declare-styleable>
+  <declare-styleable name="FastTextCommonStyleDef">
+    <attr name="android:textColor" />
+    <attr name="android:textSize" />
+    <attr name="android:background" />
+    <attr name="android:gravity" />
+    <attr name="android:paddingTop" />
+    <attr name="android:paddingLeft" />
+    <attr name="android:paddingRight" />
+    <attr name="android:paddingBottom" />
+    <attr name="android:singleLine" />
+    <attr name="android:ellipsize" />
+    <attr name="android:maxLines" />
+    <attr name="android:lineSpacingExtra" />
+    <attr name="android:drawablePadding" />
+    <attr name="android:textColorHint" />
+    <attr name="android:textStyle" />
+  </declare-styleable>
 
-    <declare-styleable name="FastDialogTitleTvCustomDef">
-        <attr name="fast_paddingBottomWhenNotContent" />
-    </declare-styleable>
+  <declare-styleable name="FastDialogTitleTvCustomDef">
+    <attr name="fast_paddingBottomWhenNotContent" />
+  </declare-styleable>
 
-    <declare-styleable name="FastDialogMessageTvCustomDef">
-        <attr name="fast_paddingTopWhenNotTitle" />
-    </declare-styleable>
+  <declare-styleable name="FastDialogMessageTvCustomDef">
+    <attr name="fast_paddingTopWhenNotTitle" />
+  </declare-styleable>
 
-    <declare-styleable name="FastDialogActionContainerCustomDef">
-        <attr name="fast_dialog_action_container_justify_content" format="enum">
-            <enum name="start" value="0" />
-            <enum name="end" value="1" />
-            <enum name="stretch" value="2" />
-            <enum name="custom" value="3" />
-        </attr>
-        <attr name="fast_dialog_action_container_custom_space_index" format="integer" />
-        <attr name="fast_dialog_action_height" format="dimension" />
-        <attr name="fast_dialog_action_space" format="dimension" />
-    </declare-styleable>
+  <declare-styleable name="FastDialogActionContainerCustomDef">
+    <attr name="fast_dialog_action_container_justify_content" format="enum">
+      <enum name="start" value="0" />
+      <enum name="end" value="1" />
+      <enum name="stretch" value="2" />
+      <enum name="custom" value="3" />
+    </attr>
+    <attr name="fast_dialog_action_container_custom_space_index" format="integer" />
+    <attr name="fast_dialog_action_height" format="dimension" />
+    <attr name="fast_dialog_action_space" format="dimension" />
+  </declare-styleable>
 
-    <declare-styleable name="FastDialogActionStyleDef">
-        <attr name="android:textColor" />
-        <attr name="android:textSize" />
-        <attr name="android:background" />
-        <attr name="android:gravity" />
-        <attr name="android:minWidth" />
-        <attr name="android:textStyle" />
-        <attr name="fast_dialog_action_button_padding_horizontal" format="dimension" />
-        <attr name="fast_dialog_action_icon_space" format="dimension" />
-        <attr name="fast_dialog_positive_action_text_color" format="color|reference" />
-        <attr name="fast_dialog_negative_action_text_color" format="color|reference" />
-    </declare-styleable>
+  <declare-styleable name="FastDialogActionStyleDef">
+    <attr name="android:textColor" />
+    <attr name="android:textSize" />
+    <attr name="android:background" />
+    <attr name="android:gravity" />
+    <attr name="android:minWidth" />
+    <attr name="android:textStyle" />
+    <attr name="fast_dialog_action_button_padding_horizontal" format="dimension" />
+    <attr name="fast_dialog_action_icon_space" format="dimension" />
+    <attr name="fast_dialog_positive_action_text_color" format="color|reference" />
+    <attr name="fast_dialog_negative_action_text_color" format="color|reference" />
+  </declare-styleable>
 
-    <declare-styleable name="FastDialogMenuContainerStyleDef">
-        <attr name="android:paddingTop" />
-        <attr name="android:paddingBottom" />
-        <attr name="fast_dialog_menu_container_single_padding_vertical" format="dimension" />
-        <attr name="fast_dialog_menu_container_padding_top_when_title_exist" format="dimension" />
-        <attr name="fast_dialog_menu_container_padding_bottom_when_action_exist" format="dimension" />
-        <attr name="fast_dialog_menu_item_height" format="dimension" />
-    </declare-styleable>
+  <declare-styleable name="FastDialogMenuContainerStyleDef">
+    <attr name="android:paddingTop" />
+    <attr name="android:paddingBottom" />
+    <attr name="fast_dialog_menu_container_single_padding_vertical" format="dimension" />
+    <attr name="fast_dialog_menu_container_padding_top_when_title_exist" format="dimension" />
+    <attr name="fast_dialog_menu_container_padding_bottom_when_action_exist" format="dimension" />
+    <attr name="fast_dialog_menu_item_height" format="dimension" />
+  </declare-styleable>
 
-    <declare-styleable name="FastDialogMenuTextStyleDef">
-        <attr name="android:textColor" />
-        <attr name="android:textSize" />
-        <attr name="android:gravity" />
-    </declare-styleable>
+  <declare-styleable name="FastDialogMenuTextStyleDef">
+    <attr name="android:textColor" />
+    <attr name="android:textSize" />
+    <attr name="android:gravity" />
+  </declare-styleable>
 
-    <declare-styleable name="FastDialogMenuMarkDef">
-        <attr name="fast_dialog_menu_item_mark_drawable" format="reference" />
-        <attr name="fast_dialog_menu_item_check_mark_margin_hor" />
-    </declare-styleable>
+  <declare-styleable name="FastDialogMenuMarkDef">
+    <attr name="fast_dialog_menu_item_mark_drawable" format="reference" />
+    <attr name="fast_dialog_menu_item_check_mark_margin_hor" />
+  </declare-styleable>
 
-    <declare-styleable name="FastDialogMenuCheckDef">
-        <attr name="fast_dialog_menu_item_check_drawable" format="reference" />
-        <attr name="fast_dialog_menu_item_check_mark_margin_hor" />
-    </declare-styleable>
+  <declare-styleable name="FastDialogMenuCheckDef">
+    <attr name="fast_dialog_menu_item_check_drawable" format="reference" />
+    <attr name="fast_dialog_menu_item_check_mark_margin_hor" />
+  </declare-styleable>
 </resources>

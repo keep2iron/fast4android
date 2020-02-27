@@ -15,18 +15,18 @@
 -->
 
 <resources>
-    <!-- button -->
-    <color name="fast_btn_ghost_blue_border_normal">@color/fast_config_color_blue</color>
-    <color name="fast_btn_ghost_blue_border_pressed">#801B88EE</color>
-    <color name="fast_btn_ghost_blue_border_disabled">#801B88EE</color>
+  <!-- button -->
+  <color name="fast_btn_ghost_blue_border_normal">@color/fast_config_color_blue</color>
+  <color name="fast_btn_ghost_blue_border_pressed">#801B88EE</color>
+  <color name="fast_btn_ghost_blue_border_disabled">#801B88EE</color>
 
-    <color name="fast_btn_ghost_blue_text_normal">@color/fast_config_color_blue</color>
-    <color name="fast_btn_ghost_blue_text_pressed">#801B88EE</color>
-    <color name="fast_btn_ghost_blue_text_disabled">#801B88EE</color>
+  <color name="fast_btn_ghost_blue_text_normal">@color/fast_config_color_blue</color>
+  <color name="fast_btn_ghost_blue_text_pressed">#801B88EE</color>
+  <color name="fast_btn_ghost_blue_text_disabled">#801B88EE</color>
 
-    <color name="fast_btn_filled_blue_bg_normal">#416f96</color>
-    <color name="fast_btn_filled_blue_bg_pressed">#243f55</color>
-    <color name="fast_btn_filled_blue_bg_disabled">#80416f96</color>
+  <color name="fast_btn_filled_blue_bg_normal">#416f96</color>
+  <color name="fast_btn_filled_blue_bg_pressed">#243f55</color>
+  <color name="fast_btn_filled_blue_bg_disabled">#80416f96</color>
 
 
 </resources>

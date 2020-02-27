@@ -17,8 +17,8 @@
 <!-- 单选类型的对话框的单选Drawable -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/fast_icon_checkbox_checked" android:state_selected="true" />
-    <item android:drawable="@drawable/fast_icon_checkbox_checked" android:state_checked="true" />
-    <item android:drawable="@drawable/fast_icon_checkbox_normal" />
+  <item android:drawable="@drawable/fast_icon_checkbox_checked" android:state_selected="true" />
+  <item android:drawable="@drawable/fast_icon_checkbox_checked" android:state_checked="true" />
+  <item android:drawable="@drawable/fast_icon_checkbox_normal" />
 
 </selector>

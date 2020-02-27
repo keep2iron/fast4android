@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--&lt;!&ndash;用于定义下拉刷新layout&ndash;&gt;-->
-    <!--<item name="refreshLayout" type="id" />-->
-    <!--&lt;!&ndash;用于定义下拉刷新列表的recyclerView id&ndash;&gt;-->
-    <!--<item name="rvContent" type="id" />-->
+  <!--&lt;!&ndash;用于定义下拉刷新layout&ndash;&gt;-->
+  <!--<item name="refreshLayout" type="id" />-->
+  <!--&lt;!&ndash;用于定义下拉刷新列表的recyclerView id&ndash;&gt;-->
+  <!--<item name="rvContent" type="id" />-->
 
-    <!--<item name="noDataLayout" type="id" />-->
-    <!--<item name="noNetworkLayout" type="id" />-->
-    <!--<item name="loadErrorLayout" type="id" />-->
-    <!--<item name="loadingLayout" type="id" />-->
+  <!--<item name="noDataLayout" type="id" />-->
+  <!--<item name="noNetworkLayout" type="id" />-->
+  <!--<item name="loadErrorLayout" type="id" />-->
+  <!--<item name="loadingLayout" type="id" />-->
 
-    <!--<item name="bottomLayoutController" type="id"/>-->
+  <!--<item name="bottomLayoutController" type="id"/>-->
 
-    <!--<item name="comp_load_more_loading_view" type="id"/>-->
-    <!--<item name="comp_load_more_load_fail_view" type="id"/>-->
-    <!--<item name="comp_load_more_load_end_view" type="id"/>-->
+  <!--<item name="comp_load_more_loading_view" type="id"/>-->
+  <!--<item name="comp_load_more_load_fail_view" type="id"/>-->
+  <!--<item name="comp_load_more_load_end_view" type="id"/>-->
 
-    <!--<item name="comp_position" type="id"/>-->
+  <!--<item name="comp_position" type="id"/>-->
 
-    <!-- dialog -->
-    <item name="fast_dialog_edit_input" type="id" />
-    <item name="fast_dialog_edit_right_icon" type="id" />
+  <!-- dialog -->
+  <item name="fast_dialog_edit_input" type="id" />
+  <item name="fast_dialog_edit_right_icon" type="id" />
 
-    <item name="fast_tab_segment_item_id" type="id" />
+  <item name="fast_tab_segment_item_id" type="id" />
 
-    <item name="fast_view_can_not_cache_tag" type="id" />
+  <item name="fast_view_can_not_cache_tag" type="id" />
 
-    <item name="fast_topbar_item_left_back" type="id" />
+  <item name="fast_topbar_item_left_back" type="id" />
 
-    <item name="fast_view_offset_helper" type="id" />
+  <item name="fast_view_offset_helper" type="id" />
 
-    <!--键盘空白区域-->
-    <item name="fast_window_inset_keyboard_area_consumer" type="id" />
+  <!--键盘空白区域-->
+  <item name="fast_window_inset_keyboard_area_consumer" type="id" />
 </resources>

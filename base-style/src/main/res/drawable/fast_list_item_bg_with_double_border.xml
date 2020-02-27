@@ -15,9 +15,9 @@
 -->
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/fast_drawable_color_list_separator" />
-    <item
-        android:bottom="@dimen/fast_list_divider_height"
-        android:drawable="@color/fast_config_color_white"
-        android:top="@dimen/fast_list_divider_height" />
+  <item android:drawable="@color/fast_drawable_color_list_separator" />
+  <item
+    android:bottom="@dimen/fast_list_divider_height"
+    android:drawable="@color/fast_config_color_white"
+    android:top="@dimen/fast_list_divider_height" />
 </layer-list>

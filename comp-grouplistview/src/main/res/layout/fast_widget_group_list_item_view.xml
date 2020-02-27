@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  tools:parentTag="android.widget.RelativeLayout">
+
+  <androidx.appcompat.widget.AppCompatImageView
+    android:id="@+id/groupListItemImageView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_centerVertical="true"
+    android:layout_marginRight="?attr/fast_common_list_item_icon_margin_right"
+    android:adjustViewBounds="true"
+    android:contentDescription="@null"
+    android:scaleType="fitCenter"
+    android:visibility="gone" />
+
+  <FrameLayout
+    android:id="@+id/groupListItemAccessoryView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentRight="true"
+    android:layout_centerVertical="true"
+    android:layout_marginLeft="?attr/fast_common_list_item_accessory_margin_left"
+    android:visibility="gone" />
+
+  <LinearLayout
+    android:id="@+id/groupListItemTextContainer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:parentTag="android.widget.RelativeLayout">
+    android:layout_alignWithParentIfMissing="true"
+    android:layout_centerVertical="true"
+    android:layout_toLeftOf="@id/groupListItemAccessoryView"
+    android:layout_toRightOf="@id/groupListItemImageView"
+    android:orientation="horizontal">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/groupListItemImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="?attr/fast_common_list_item_icon_margin_right"
-        android:adjustViewBounds="true"
-        android:contentDescription="@null"
-        android:scaleType="fitCenter"
-        android:visibility="gone" />
+    <TextView
+      android:id="@+id/groupListItemTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:ellipsize="end"
+      android:gravity="left|center_vertical"
+      android:includeFontPadding="false"
+      android:textColor="?attr/fast_config_color_gray_1"
+      android:textSize="?attr/fast_common_list_item_title_h_text_size" />
 
-    <FrameLayout
-        android:id="@+id/groupListItemAccessoryView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="?attr/fast_common_list_item_accessory_margin_left"
-        android:visibility="gone" />
+    <Space
+      android:id="@+id/groupListItemSpace"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginRight="?attr/fast_common_list_item_accessory_margin_left"
+      android:layout_weight="1" />
 
-    <LinearLayout
-        android:id="@+id/groupListItemTextContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/groupListItemAccessoryView"
-        android:layout_toRightOf="@id/groupListItemImageView"
-        android:orientation="horizontal">
+  </LinearLayout>
 
-        <TextView
-            android:id="@+id/groupListItemTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:gravity="left|center_vertical"
-            android:includeFontPadding="false"
-            android:textColor="?attr/fast_config_color_gray_1"
-            android:textSize="?attr/fast_common_list_item_title_h_text_size" />
-
-        <Space
-            android:id="@+id/groupListItemSpace"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="?attr/fast_common_list_item_accessory_margin_left"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <!-- 红点，代码会再修改这个View的位置 -->
-    <ImageView
-        android:id="@+id/groupListItemTipsDot"
-        android:contentDescription="Red dot"
-        android:visibility="gone"
-        style="?attr/FastTipPointStyle" />
+  <!-- 红点，代码会再修改这个View的位置 -->
+  <ImageView
+    android:id="@+id/groupListItemTipsDot"
+    android:contentDescription="Red dot"
+    android:visibility="gone"
+    style="?attr/FastTipPointStyle" />
 
 </merge>

@@ -22,8 +22,8 @@ import android.graphics.Rect
 import android.os.Build
 import android.util.AttributeSet
 import androidx.core.view.ViewCompat
-import io.github.keep2iron.base.util.FastWindowInsetHelper
-import io.github.keep2iron.base.widget.IWindowInsetLayout
+import io.github.keep2iron.fast4android.base.util.FastWindowInsetHelper
+import io.github.keep2iron.fast4android.base.widget.IWindowInsetLayout
 import io.github.keep2iron.fast4android.core.alpha.FastAlphaFrameLayout
 
 /**
@@ -41,41 +41,41 @@ import io.github.keep2iron.fast4android.core.alpha.FastAlphaFrameLayout
  * @date 2016-03-25
  */
 open class FastWindowInsetLayout @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
+  context: Context,
+  attrs: AttributeSet? = null,
+  defStyleAttr: Int = 0
 ) : FastAlphaFrameLayout(context, attrs, defStyleAttr),
-        IWindowInsetLayout {
-    protected var fastWindowInsetHelper: FastWindowInsetHelper =
-            FastWindowInsetHelper(this, this)
+  IWindowInsetLayout {
+  protected var fastWindowInsetHelper: FastWindowInsetHelper =
+    FastWindowInsetHelper(this, this)
 
-    init {
-        setChangeAlphaWhenDisable(false)
-        setChangeAlphaWhenPress(false)
-    }
+  init {
+    setChangeAlphaWhenDisable(false)
+    setChangeAlphaWhenPress(false)
+  }
 
-    override fun fitSystemWindows(insets: Rect): Boolean {
-        return if (Build.VERSION.SDK_INT in 19..20) {
-            applySystemWindowInsets19(insets)
-        } else super.fitSystemWindows(insets)
-    }
+  override fun fitSystemWindows(insets: Rect): Boolean {
+    return if (Build.VERSION.SDK_INT in 19..20) {
+      applySystemWindowInsets19(insets)
+    } else super.fitSystemWindows(insets)
+  }
 
-    override fun applySystemWindowInsets19(insets: Rect): Boolean {
-        return fastWindowInsetHelper.defaultApplySystemWindowInsets19(this, insets)
-    }
+  override fun applySystemWindowInsets19(insets: Rect): Boolean {
+    return fastWindowInsetHelper.defaultApplySystemWindowInsets19(this, insets)
+  }
 
-    override fun applySystemWindowInsets21(insets: Any): Boolean {
-        return fastWindowInsetHelper.defaultApplySystemWindowInsets21(this, insets)
-    }
+  override fun applySystemWindowInsets21(insets: Any): Boolean {
+    return fastWindowInsetHelper.defaultApplySystemWindowInsets21(this, insets)
+  }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        ViewCompat.requestApplyInsets(this)
-    }
+  override fun onAttachedToWindow() {
+    super.onAttachedToWindow()
+    ViewCompat.requestApplyInsets(this)
+  }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        // xiaomi 8 not reapply insets default...
-        ViewCompat.requestApplyInsets(this)
-    }
+  override fun onConfigurationChanged(newConfig: Configuration) {
+    super.onConfigurationChanged(newConfig)
+    // xiaomi 8 not reapply insets default...
+    ViewCompat.requestApplyInsets(this)
+  }
 }

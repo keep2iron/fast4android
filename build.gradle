@@ -1,45 +1,45 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    apply from: './gradle-version/version.gradle'
+  apply from: './gradle-version/version.gradle'
 
-    ext {
-        version_base_style = '0.0.1-alpha01'
-        version_fast4android_arch = '0.0.1-alpha01'
-        version_fast4android_bottomnavlayout = "0.0.1-alpha01"
-        version_fast4android_countdown = '0.0.1-alpha01'
-        version_fast4android_compat = '0.0.1-alpha01'
-        version_fast4android_tabsegment = '0.0.1-alpha01'
-        version_fast4android_grouplistview = '0.0.1-alpha01'
-        version_fast4android_popwindowplus = '0.0.1-alpha01'
-        version_fast4android_loopviewpager = '0.0.1-alpha01'
-        version_fast4android_tabsegment = '0.0.1-alpha01'
-        version_fast4android_topbarlayout = '0.0.1-alpha01'
+  ext {
+    version_base_style = '0.0.1-alpha01'
+    version_fast4android_arch = '0.0.1-alpha01'
+    version_fast4android_bottomnavlayout = "0.0.1-alpha01"
+    version_fast4android_countdown = '0.0.1-alpha01'
+    version_fast4android_compat = '0.0.1-alpha01'
+    version_fast4android_tabsegment = '0.0.1-alpha01'
+    version_fast4android_grouplistview = '0.0.1-alpha01'
+    version_fast4android_popwindowplus = '0.0.1-alpha01'
+    version_fast4android_loopviewpager = '0.0.1-alpha01'
+    version_fast4android_tabsegment = '0.0.1-alpha01'
+    version_fast4android_topbarlayout = '0.0.1-alpha01'
 
-        version_group = 'io.github.keep2iron'
-    }
+    version_group = 'io.github.keep2iron'
+  }
 
-    dependencies {
-        classpath deps.android_gradle_plugin
-        classpath deps.kotlin_gradle_plugin
-        classpath 'com.novoda:bintray-release:0.9.2'
-    }
+  dependencies {
+    classpath deps.android_gradle_plugin
+    classpath deps.kotlin_gradle_plugin
+    classpath 'com.novoda:bintray-release:0.9.2'
+  }
 
-    repositories {
-        jcenter()
-        google()
-    }
+  repositories {
+    jcenter()
+    google()
+  }
 }
 
 allprojects {
-    repositories {
-        maven {
-            url "$rootDir/../maven-local"
-        }
+  repositories {
+    maven {
+      url "$rootDir/../maven-local"
     }
-    addRepos(repositories)
+  }
+  addRepos(repositories)
 }
 
 task clean(type: Delete) {
-    delete rootProject.buildDir
+  delete rootProject.buildDir
 }

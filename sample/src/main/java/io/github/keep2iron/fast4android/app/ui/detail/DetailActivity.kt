@@ -9,8 +9,8 @@ import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
 @ParallaxBack
 class DetailActivity : AbstractActivity<ViewDataBinding>() {
 
-    override fun resId(): Int = R.layout.activity_detail
+  override fun resId(): Int = R.layout.activity_detail
 
-    override fun initVariables(savedInstanceState: Bundle?) {
-    }
+  override fun initVariables(savedInstanceState: Bundle?) {
+  }
 }

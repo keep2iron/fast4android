@@ -17,93 +17,93 @@
 package io.github.keep2iron.fast4android.core.alpha
 
 import android.view.View
-import io.github.keep2iron.base.util.getAttrFloatValue
 import io.github.keep2iron.fast4android.R
+import io.github.keep2iron.fast4android.base.util.getAttrFloatValue
 import java.lang.ref.WeakReference
 
 class FastAlphaViewHelper {
 
-    private var mTarget: WeakReference<View>? = null
+  private var mTarget: WeakReference<View>? = null
 
-    /**
-     * 设置是否要在 press 时改变透明度
-     */
-    private var mChangeAlphaWhenPress = true
+  /**
+   * 设置是否要在 press 时改变透明度
+   */
+  private var mChangeAlphaWhenPress = true
 
-    /**
-     * 设置是否要在 disabled 时改变透明度
-     */
-    private var mChangeAlphaWhenDisable = true
+  /**
+   * 设置是否要在 disabled 时改变透明度
+   */
+  private var mChangeAlphaWhenDisable = true
 
-    private val mNormalAlpha = 1f
-    private var mPressedAlpha = .5f
-    private var mDisabledAlpha = .5f
+  private val mNormalAlpha = 1f
+  private var mPressedAlpha = .5f
+  private var mDisabledAlpha = .5f
 
-    constructor(target: View) {
-        mTarget = WeakReference(target)
-        val context = target.context
-        mPressedAlpha = context.getAttrFloatValue(R.attr.fast_alpha_pressed)
-        mDisabledAlpha = context.getAttrFloatValue(R.attr.fast_alpha_disabled)
+  constructor(target: View) {
+    mTarget = WeakReference(target)
+    val context = target.context
+    mPressedAlpha = context.getAttrFloatValue(R.attr.fast_alpha_pressed)
+    mDisabledAlpha = context.getAttrFloatValue(R.attr.fast_alpha_disabled)
 
+  }
+
+  constructor(target: View, pressedAlpha: Float, disabledAlpha: Float) {
+    mTarget = WeakReference(target)
+    mPressedAlpha = pressedAlpha
+    mDisabledAlpha = disabledAlpha
+  }
+
+  /**
+   * @param current the view to be handled, maybe not equal to target view
+   * @param pressed
+   */
+  fun onPressedChanged(current: View, pressed: Boolean) {
+    val target = mTarget!!.get() ?: return
+    if (current.isEnabled && mChangeAlphaWhenPress) {
+      target.alpha =
+        if (mChangeAlphaWhenPress && pressed && current.isClickable) mPressedAlpha else mNormalAlpha
+    } else if (!current.isEnabled && mChangeAlphaWhenDisable) {
+      target.alpha = mDisabledAlpha
     }
+  }
 
-    constructor(target: View, pressedAlpha: Float, disabledAlpha: Float) {
-        mTarget = WeakReference(target)
-        mPressedAlpha = pressedAlpha
-        mDisabledAlpha = disabledAlpha
+  /**
+   * @param current the view to be handled, maybe not  equal to target view
+   * @param enabled
+   */
+  fun onEnabledChanged(current: View, enabled: Boolean) {
+    val target = mTarget!!.get() ?: return
+    val alphaForIsEnable: Float = if (mChangeAlphaWhenDisable) {
+      if (enabled) mNormalAlpha else mDisabledAlpha
+    } else {
+      mNormalAlpha
     }
+    if (current !== target && target.isEnabled != enabled) {
+      target.isEnabled = enabled
+    }
+    target.alpha = alphaForIsEnable
+  }
 
-    /**
-     * @param current the view to be handled, maybe not equal to target view
-     * @param pressed
-     */
-    fun onPressedChanged(current: View, pressed: Boolean) {
-        val target = mTarget!!.get() ?: return
-        if (current.isEnabled && mChangeAlphaWhenPress) {
-            target.alpha =
-                    if (mChangeAlphaWhenPress && pressed && current.isClickable) mPressedAlpha else mNormalAlpha
-        } else if (!current.isEnabled && mChangeAlphaWhenDisable) {
-            target.alpha = mDisabledAlpha
-        }
-    }
+  /**
+   * 设置是否要在 press 时改变透明度
+   *
+   * @param changeAlphaWhenPress 是否要在 press 时改变透明度
+   */
+  fun setChangeAlphaWhenPress(changeAlphaWhenPress: Boolean) {
+    mChangeAlphaWhenPress = changeAlphaWhenPress
+  }
 
-    /**
-     * @param current the view to be handled, maybe not  equal to target view
-     * @param enabled
-     */
-    fun onEnabledChanged(current: View, enabled: Boolean) {
-        val target = mTarget!!.get() ?: return
-        val alphaForIsEnable: Float = if (mChangeAlphaWhenDisable) {
-            if (enabled) mNormalAlpha else mDisabledAlpha
-        } else {
-            mNormalAlpha
-        }
-        if (current !== target && target.isEnabled != enabled) {
-            target.isEnabled = enabled
-        }
-        target.alpha = alphaForIsEnable
+  /**
+   * 设置是否要在 disabled 时改变透明度
+   *
+   * @param changeAlphaWhenDisable 是否要在 disabled 时改变透明度
+   */
+  fun setChangeAlphaWhenDisable(changeAlphaWhenDisable: Boolean) {
+    mChangeAlphaWhenDisable = changeAlphaWhenDisable
+    val target = mTarget!!.get()
+    if (target != null) {
+      onEnabledChanged(target, target.isEnabled)
     }
-
-    /**
-     * 设置是否要在 press 时改变透明度
-     *
-     * @param changeAlphaWhenPress 是否要在 press 时改变透明度
-     */
-    fun setChangeAlphaWhenPress(changeAlphaWhenPress: Boolean) {
-        mChangeAlphaWhenPress = changeAlphaWhenPress
-    }
-
-    /**
-     * 设置是否要在 disabled 时改变透明度
-     *
-     * @param changeAlphaWhenDisable 是否要在 disabled 时改变透明度
-     */
-    fun setChangeAlphaWhenDisable(changeAlphaWhenDisable: Boolean) {
-        mChangeAlphaWhenDisable = changeAlphaWhenDisable
-        val target = mTarget!!.get()
-        if (target != null) {
-            onEnabledChanged(target, target.isEnabled)
-        }
-    }
+  }
 
 }

@@ -17,29 +17,28 @@
 <!-- 一般dialog创建了高度就不变化了，但我们有时又需要dialog的可视高度改变
     因此我们需要上下anchor来维持整体高度不变 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/dialog_wrapper"
-    style="?attr/fast_dialog_wrapper_style"
+  android:id="@+id/dialog_wrapper"
+  style="?attr/fast_dialog_wrapper_style"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:gravity="center"
+  android:orientation="vertical">
+
+  <View
+    android:id="@+id/anchor_top"
+    android:layout_width="match_parent"
+    android:layout_height="0dp" />
+
+  <io.github.keep2iron.fast4android.core.widget.FastDialogContentView
+    android:id="@+id/dialogContent"
+    style="@style/fast_dialog_content"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:clickable="true"
+    android:orientation="vertical" />
 
-    <View
-        android:id="@+id/anchor_top"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
-
-    <io.github.keep2iron.fast4android.core.widget.FastDialogContentView
-        android:id="@+id/dialogContent"
-        style="@style/fast_dialog_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:orientation="vertical" />
-
-    <View
-        android:id="@+id/anchor_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
+  <View
+    android:id="@+id/anchor_bottom"
+    android:layout_width="match_parent"
+    android:layout_height="0dp" />
 </LinearLayout>

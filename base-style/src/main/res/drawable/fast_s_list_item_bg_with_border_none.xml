@@ -15,6 +15,6 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/fast_drawable_color_list_pressed" android:state_pressed="true" />
-    <item android:drawable="@color/fast_config_color_white" />
+  <item android:drawable="@color/fast_drawable_color_list_pressed" android:state_pressed="true" />
+  <item android:drawable="@color/fast_config_color_white" />
 </selector>

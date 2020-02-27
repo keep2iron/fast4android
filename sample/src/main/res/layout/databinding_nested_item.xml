@@ -1,55 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="item"
-            type="io.github.keep2iron.fast4android.app.ui.databinding.NestedItem" />
+  <data>
 
-        <variable
-            name="listener"
-            type="android.view.View.OnClickListener" />
-    </data>
+    <variable
+      name="item"
+      type="io.github.keep2iron.fast4android.app.ui.databinding.NestedItem" />
 
-    <LinearLayout
-        android:id="@+id/nestedRootLayout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+    <variable
+      name="listener"
+      type="android.view.View.OnClickListener" />
+  </data>
 
-        <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
-            android:onClick="@{listener}"
-            android:id="@+id/add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:layout_gravity="center_vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="+"
-            app:fast_drawable_radius="40dp" />
+  <LinearLayout
+    android:id="@+id/nestedRootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal">
 
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@{String.valueOf(item.count)}"
-            tools:text="1" />
+    <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
+      android:onClick="@{listener}"
+      android:id="@+id/add"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:clickable="true"
+      android:layout_gravity="center_vertical"
+      android:paddingLeft="20dp"
+      android:paddingRight="20dp"
+      android:text="+"
+      app:fast_drawable_radius="40dp" />
 
-        <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
-            android:onClick="@{listener}"
-            android:id="@+id/subtract"
-            android:layout_width="wrap_content"
-            android:clickable="true"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="-"
-            app:fast_drawable_radius="40dp" />
+    <EditText
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:text="@{String.valueOf(item.count)}"
+      tools:text="1" />
 
-    </LinearLayout>
+    <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
+      android:onClick="@{listener}"
+      android:id="@+id/subtract"
+      android:layout_width="wrap_content"
+      android:clickable="true"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:paddingLeft="20dp"
+      android:paddingRight="20dp"
+      android:text="-"
+      app:fast_drawable_radius="40dp" />
+
+  </LinearLayout>
 </layout>

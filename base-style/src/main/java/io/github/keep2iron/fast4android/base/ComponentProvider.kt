@@ -1,4 +1,4 @@
-package io.github.keep2iron.base
+package io.github.keep2iron.fast4android.base
 
 import android.app.Application
 
@@ -7,6 +7,6 @@ import android.app.Application
  */
 interface ComponentProvider<T> {
 
-    fun onCreateComponent(application: Application): T
+  fun onCreateComponent(application: Application): T
 
 }

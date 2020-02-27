@@ -15,9 +15,9 @@
 -->
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-    <size
-        android:width="@dimen/fast_switch_size"
-        android:height="@dimen/fast_switch_size" />
-    <solid android:color="?attr/fast_config_color_link" />
+  android:shape="oval">
+  <size
+    android:width="@dimen/fast_switch_size"
+    android:height="@dimen/fast_switch_size" />
+  <solid android:color="?attr/fast_config_color_link" />
 </shape>

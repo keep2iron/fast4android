@@ -13,5 +13,5 @@ import io.github.keep2iron.fast4android.arch.swipe.ParallaxBackLayout;
  */
 
 public interface ITransform {
-    void transform(Canvas canvas, ParallaxBackLayout parallaxBackLayout, View child);
+  void transform(Canvas canvas, ParallaxBackLayout parallaxBackLayout, View child);
 }

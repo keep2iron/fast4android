@@ -5,8 +5,8 @@ import android.view.View;
 
 import io.github.keep2iron.fast4android.arch.swipe.ParallaxBackLayout;
 
-import static androidx.customview.widget.ViewDragHelper.EDGE_LEFT;
 import static androidx.customview.widget.ViewDragHelper.EDGE_BOTTOM;
+import static androidx.customview.widget.ViewDragHelper.EDGE_LEFT;
 import static androidx.customview.widget.ViewDragHelper.EDGE_RIGHT;
 import static androidx.customview.widget.ViewDragHelper.EDGE_TOP;
 
@@ -18,27 +18,27 @@ import static androidx.customview.widget.ViewDragHelper.EDGE_TOP;
  */
 
 public class SlideTransform implements ITransform {
-    @Override
-    public void transform(Canvas canvas, ParallaxBackLayout parallaxBackLayout, View child) {
-        int mEdgeFlag = parallaxBackLayout.getEdgeFlag();
-        int width = parallaxBackLayout.getWidth();
-        int height = parallaxBackLayout.getHeight();
-        int leftBar = parallaxBackLayout.getSystemLeft();
-        int topBar = parallaxBackLayout.getSystemTop();
-        if (mEdgeFlag == EDGE_LEFT) {
-            int left = (child.getLeft() - child.getWidth()) - leftBar;
-            canvas.translate(left, 0);
-        } else if (mEdgeFlag == EDGE_TOP) {
-            int top = (child.getTop() - child.getHeight()) + topBar;
-            canvas.translate(0, top);
-        } else if (mEdgeFlag == EDGE_RIGHT) {
-            int left = child.getRight() - leftBar;
-            canvas.translate(left, 0);
-            canvas.clipRect(leftBar, 0, width, height);
-        } else if (mEdgeFlag == EDGE_BOTTOM) {
-            int top = child.getBottom() - topBar;
-            canvas.translate(0, top);
-            canvas.clipRect(0, topBar, child.getRight(), height);
-        }
+  @Override
+  public void transform(Canvas canvas, ParallaxBackLayout parallaxBackLayout, View child) {
+    int mEdgeFlag = parallaxBackLayout.getEdgeFlag();
+    int width = parallaxBackLayout.getWidth();
+    int height = parallaxBackLayout.getHeight();
+    int leftBar = parallaxBackLayout.getSystemLeft();
+    int topBar = parallaxBackLayout.getSystemTop();
+    if (mEdgeFlag == EDGE_LEFT) {
+      int left = (child.getLeft() - child.getWidth()) - leftBar;
+      canvas.translate(left, 0);
+    } else if (mEdgeFlag == EDGE_TOP) {
+      int top = (child.getTop() - child.getHeight()) + topBar;
+      canvas.translate(0, top);
+    } else if (mEdgeFlag == EDGE_RIGHT) {
+      int left = child.getRight() - leftBar;
+      canvas.translate(left, 0);
+      canvas.clipRect(leftBar, 0, width, height);
+    } else if (mEdgeFlag == EDGE_BOTTOM) {
+      int top = child.getBottom() - topBar;
+      canvas.translate(0, top);
+      canvas.clipRect(0, topBar, child.getRight(), height);
     }
+  }
 }

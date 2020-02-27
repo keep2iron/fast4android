@@ -15,6 +15,6 @@
 -->
 
 <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
-    android:gravity="fill_horizontal|bottom"
-    android:src="@drawable/fast_divider"
-    android:tint="@color/fast_drawable_color_list_separator" />
+  android:gravity="fill_horizontal|bottom"
+  android:src="@drawable/fast_divider"
+  android:tint="@color/fast_drawable_color_list_separator" />

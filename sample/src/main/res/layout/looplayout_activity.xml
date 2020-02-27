@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
+  <data>
 
-    </data>
+  </data>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-        <io.github.keep2iron.fast4android.topbar.FastTopBarLayout
-            android:id="@+id/topbarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+    <io.github.keep2iron.fast4android.topbar.FastTopBarLayout
+      android:id="@+id/topbarLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
 
-            android:fitsSystemWindows="true"
-            app:fast_topbar_title="LoopLayout Component"
-            app:fast_topbar_title_color="@color/fast_config_color_white" />
+      android:fitsSystemWindows="true"
+      app:fast_topbar_title="LoopLayout Component"
+      app:fast_topbar_title_color="@color/fast_config_color_white" />
 
-        <io.github.keep2iron.looplayout.FastLoopLayout
-            android:id="@+id/looperLayout"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            app:fast_indicator_drawable_select_tint="@color/fast_config_color_white"
-            app:fast_indicator_drawable_unSelect_tint="@color/fast_config_color_10_white"
-            app:fast_indicator_id="@id/looperIndicator">
+    <io.github.keep2iron.looplayout.FastLoopLayout
+      android:id="@+id/looperLayout"
+      android:layout_width="match_parent"
+      android:layout_height="300dp"
+      app:fast_indicator_drawable_select_tint="@color/fast_config_color_white"
+      app:fast_indicator_drawable_unSelect_tint="@color/fast_config_color_10_white"
+      app:fast_indicator_id="@id/looperIndicator">
 
-            <LinearLayout
-                android:id="@+id/looperIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal" />
-        </io.github.keep2iron.looplayout.FastLoopLayout>
+      <LinearLayout
+        android:id="@+id/looperIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal" />
+    </io.github.keep2iron.looplayout.FastLoopLayout>
 
 
-    </LinearLayout>
+  </LinearLayout>
 </layout>

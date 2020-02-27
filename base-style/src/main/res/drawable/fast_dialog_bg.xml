@@ -15,6 +15,6 @@
 -->
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <corners android:radius="@dimen/fast_dialog_radius" />
-    <solid android:color="@color/fast_config_color_white" />
+  <corners android:radius="@dimen/fast_dialog_radius" />
+  <solid android:color="@color/fast_config_color_white" />
 </shape>

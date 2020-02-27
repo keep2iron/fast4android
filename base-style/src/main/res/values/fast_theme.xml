@@ -1,366 +1,366 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- 关于Theme的继承关系：
-  由于 Theme 需要在不同 API Level 下有不同的配置，并且继承自不同的系统 Theme，所以多层继承。
+  <!-- 关于Theme的继承关系：
+由于 Theme 需要在不同 API Level 下有不同的配置，并且继承自不同的系统 Theme，所以多层继承。
 
-  继承关系和每个层的分工如下：
-  AppRootTheme（Theme 的最顶层，各个 API Level 自行决定继承自系统的哪个 Theme）
-  |-values
-  |-values-v21
-  |-values-...
-  |
-  AppBaseTheme（基础 Theme，定义所有公用的 style。）
-  |-values
-  |
-  AppConfigTheme（可配置的 Theme，各个 API Level 自行配置各自的 style 差异。）
-  |-values
-  |-values-v21
-  |-values-...
-  |
-  Fast（Fast提供的theme控制， 供外界使用）
+继承关系和每个层的分工如下：
+AppRootTheme（Theme 的最顶层，各个 API Level 自行决定继承自系统的哪个 Theme）
+|-values
+|-values-v21
+|-values-...
+|
+AppBaseTheme（基础 Theme，定义所有公用的 style。）
+|-values
+|
+AppConfigTheme（可配置的 Theme，各个 API Level 自行配置各自的 style 差异。）
+|-values
+|-values-v21
+|-values-...
+|
+Fast（Fast提供的theme控制， 供外界使用）
 
-  So，
-  如果要对某 API Level 配置继承自某个系统的 Theme，在 values-v* 目录下修改 fast_themes.xml 的 AppRootTheme。
-  如果要对某 API Level 配置定制化的 Theme，在 values-v* 目录下修改 fast_themes.xml 的 AppConfigTheme。
-  如果在项目中要对特定项目配置业务相关的 Theme，在 values 目录下修改 themes.xml 的 AppTheme。
-   -->
-    <style name="FastRootTheme" parent="android:Theme.Holo.Light" />
+So，
+如果要对某 API Level 配置继承自某个系统的 Theme，在 values-v* 目录下修改 fast_themes.xml 的 AppRootTheme。
+如果要对某 API Level 配置定制化的 Theme，在 values-v* 目录下修改 fast_themes.xml 的 AppConfigTheme。
+如果在项目中要对特定项目配置业务相关的 Theme，在 values 目录下修改 themes.xml 的 AppTheme。
+ -->
+  <style name="FastRootTheme" parent="android:Theme.Holo.Light" />
 
-    <style name="FastBaseTheme" parent="FastRootTheme">
-        <item name="android:listDivider">@drawable/fast_divider</item>
-        <item name="android:listViewStyle">@style/FastListView</item>
-        <item name="android:gridViewStyle">@style/FastGridView</item>
-        <item name="android:imageButtonStyle">@style/FastImageButton</item>
-        <item name="android:buttonStyle">@style/FastButton</item>
-        <item name="android:editTextStyle">@style/FastEditText</item>
-        <item name="android:autoCompleteTextViewStyle">@style/FastAutoCompleteTextView</item>
-        <item name="android:dropDownListViewStyle">@style/FastDropDownListView</item>
-        <item name="android:textViewStyle">@style/FastTextView</item>
-    </style>
+  <style name="FastBaseTheme" parent="FastRootTheme">
+    <item name="android:listDivider">@drawable/fast_divider</item>
+    <item name="android:listViewStyle">@style/FastListView</item>
+    <item name="android:gridViewStyle">@style/FastGridView</item>
+    <item name="android:imageButtonStyle">@style/FastImageButton</item>
+    <item name="android:buttonStyle">@style/FastButton</item>
+    <item name="android:editTextStyle">@style/FastEditText</item>
+    <item name="android:autoCompleteTextViewStyle">@style/FastAutoCompleteTextView</item>
+    <item name="android:dropDownListViewStyle">@style/FastDropDownListView</item>
+    <item name="android:textViewStyle">@style/FastTextView</item>
+  </style>
 
-    <style name="FastConfigTheme" parent="FastBaseTheme" />
+  <style name="FastConfigTheme" parent="FastBaseTheme" />
 
-    <style name="Fast" parent="FastConfigTheme">
-        <item name="fast_content_spacing_horizontal">@dimen/fast_content_spacing_horizontal</item>
+  <style name="Fast" parent="FastConfigTheme">
+    <item name="fast_content_spacing_horizontal">@dimen/fast_content_spacing_horizontal</item>
 
-        <!--**********************************************
-        *                fast common color               *
-        **********************************************-->
-        <item name="fast_config_color_blue">@color/fast_config_color_blue</item>
-        <item name="fast_config_color_red">@color/fast_config_color_red</item>
-        <item name="fast_config_color_separator">@color/fast_config_color_separator</item>
-        <item name="fast_config_color_separator_darken">@color/fast_config_color_separator_darken
-        </item>
-        <item name="fast_config_color_background">@color/fast_config_color_background</item>
-        <item name="fast_config_color_background_pressed">
-            @color/fast_config_color_background_pressed
-        </item>
-        <item name="fast_config_color_black">@color/fast_config_color_black</item>
-        <item name="fast_config_color_link">@color/fast_config_color_link</item>
-        <item name="fast_config_color_pressed">@color/fast_config_color_pressed</item>
+    <!--**********************************************
+    *                fast common color               *
+    **********************************************-->
+    <item name="fast_config_color_blue">@color/fast_config_color_blue</item>
+    <item name="fast_config_color_red">@color/fast_config_color_red</item>
+    <item name="fast_config_color_separator">@color/fast_config_color_separator</item>
+    <item name="fast_config_color_separator_darken">@color/fast_config_color_separator_darken
+    </item>
+    <item name="fast_config_color_background">@color/fast_config_color_background</item>
+    <item name="fast_config_color_background_pressed">
+      @color/fast_config_color_background_pressed
+    </item>
+    <item name="fast_config_color_black">@color/fast_config_color_black</item>
+    <item name="fast_config_color_link">@color/fast_config_color_link</item>
+    <item name="fast_config_color_pressed">@color/fast_config_color_pressed</item>
 
-        <item name="fast_config_color_gray_1">@color/fast_config_color_gray_1</item>
-        <item name="fast_config_color_gray_2">@color/fast_config_color_gray_2</item>
-        <item name="fast_config_color_gray_3">@color/fast_config_color_gray_3</item>
-        <item name="fast_config_color_gray_4">@color/fast_config_color_gray_4</item>
-        <item name="fast_config_color_gray_5">@color/fast_config_color_gray_5</item>
-        <item name="fast_config_color_gray_6">@color/fast_config_color_gray_6</item>
-        <item name="fast_config_color_gray_7">@color/fast_config_color_gray_7</item>
-        <item name="fast_config_color_gray_8">@color/fast_config_color_gray_8</item>
-        <item name="fast_config_color_gray_9">@color/fast_config_color_gray_9</item>
+    <item name="fast_config_color_gray_1">@color/fast_config_color_gray_1</item>
+    <item name="fast_config_color_gray_2">@color/fast_config_color_gray_2</item>
+    <item name="fast_config_color_gray_3">@color/fast_config_color_gray_3</item>
+    <item name="fast_config_color_gray_4">@color/fast_config_color_gray_4</item>
+    <item name="fast_config_color_gray_5">@color/fast_config_color_gray_5</item>
+    <item name="fast_config_color_gray_6">@color/fast_config_color_gray_6</item>
+    <item name="fast_config_color_gray_7">@color/fast_config_color_gray_7</item>
+    <item name="fast_config_color_gray_8">@color/fast_config_color_gray_8</item>
+    <item name="fast_config_color_gray_9">@color/fast_config_color_gray_9</item>
 
-        <item name="fast_alpha_pressed">0.5</item>
-        <item name="fast_alpha_disabled">0.5</item>
+    <item name="fast_alpha_pressed">0.5</item>
+    <item name="fast_alpha_disabled">0.5</item>
 
-        <item name="fast_general_shadow_elevation">14dp</item>
-        <item name="fast_general_shadow_alpha">0.25</item>
+    <item name="fast_general_shadow_elevation">14dp</item>
+    <item name="fast_general_shadow_alpha">0.25</item>
 
-        <!--**********************************************
-        *                fast dialog                     *
-        **********************************************-->
-        <item name="fast_dialog_min_width">260dp</item>
-        <item name="fast_dialog_max_width">304dp</item>
-        <item name="fast_dialog_bg">@drawable/fast_dialog_bg</item>
-        <item name="fast_dialog_radius">@dimen/fast_dialog_radius</item>
-        <item name="fast_dialog_margin_vertical">20dp</item>
-        <item name="fast_dialog_padding_horizontal">24dp</item>
-        <item name="fast_dialog_background_dim_amount">0.6</item>
-        <item name="fast_dialog_wrapper_style">@style/Fast.Dialog.Wrapper</item>
-        <item name="fast_dialog_title_style">@style/Fast.Dialog.Title</item>
-        <item name="fast_dialog_action_container_style">@style/Fast.Dialog.ActionContainer</item>
-        <item name="fast_dialog_action_style">@style/Fast.Dialog.Action</item>
-        <item name="fast_dialog_message_content_style">@style/Fast.Dialog.MessageContent</item>
-        <item name="fast_dialog_edit_content_style">@style/Fast.Dialog.EditContent</item>
-        <item name="fast_dialog_menu_container_style">@style/Fast.Dialog.MenuContainer</item>
-        <item name="fast_dialog_menu_item_style">@style/Fast.Dialog_MenuItem</item>
+    <!--**********************************************
+    *                fast dialog                     *
+    **********************************************-->
+    <item name="fast_dialog_min_width">260dp</item>
+    <item name="fast_dialog_max_width">304dp</item>
+    <item name="fast_dialog_bg">@drawable/fast_dialog_bg</item>
+    <item name="fast_dialog_radius">@dimen/fast_dialog_radius</item>
+    <item name="fast_dialog_margin_vertical">20dp</item>
+    <item name="fast_dialog_padding_horizontal">24dp</item>
+    <item name="fast_dialog_background_dim_amount">0.6</item>
+    <item name="fast_dialog_wrapper_style">@style/Fast.Dialog.Wrapper</item>
+    <item name="fast_dialog_title_style">@style/Fast.Dialog.Title</item>
+    <item name="fast_dialog_action_container_style">@style/Fast.Dialog.ActionContainer</item>
+    <item name="fast_dialog_action_style">@style/Fast.Dialog.Action</item>
+    <item name="fast_dialog_message_content_style">@style/Fast.Dialog.MessageContent</item>
+    <item name="fast_dialog_edit_content_style">@style/Fast.Dialog.EditContent</item>
+    <item name="fast_dialog_menu_container_style">@style/Fast.Dialog.MenuContainer</item>
+    <item name="fast_dialog_menu_item_style">@style/Fast.Dialog_MenuItem</item>
 
-        <!-- tip -->
-        <item name="fast_tip_dialog_bg">@drawable/fast_tip_dialog_bg</item>
-        <item name="fast_tip_dialog_min_width">120dp</item>
-        <item name="fast_tip_dialog_min_height">56dp</item>
-        <item name="fast_tip_dialog_margin_horizontal">?attr/fast_content_spacing_horizontal</item>
-        <item name="fast_tip_dialog_padding_vertical">12dp</item>
-        <item name="fast_tip_dialog_padding_horizontal">?attr/fast_content_spacing_horizontal</item>
-
-
-        <!--**********************************************
-        *              fast common list                  *
-        **********************************************-->
-
-        <item name="fast_common_list_item_icon_margin_right">12dp</item>
-        <item name="fast_common_list_item_accessory_margin_left">14dp</item>
-        <item name="fast_common_list_item_title_v_text_size">15sp</item>
-        <item name="fast_common_list_item_title_h_text_size">16sp</item>
-        <item name="fast_common_list_item_h_space_min_width">14dp</item>
-        <item name="fast_common_list_item_detail_v_text_size">13sp</item>
-        <item name="fast_common_list_item_detail_h_text_size">14sp</item>
-        <item name="fast_common_list_item_detail_line_space">5dp</item>
-
-        <!--**********************************************
-        *             fast list item bg                  *
-        **********************************************-->
-        <item name="fast_list_item_height">@dimen/fast_list_item_height</item>
-        <item name="fast_list_item_height_higher">@dimen/fast_list_item_height_higher</item>
-
-        <item name="fast_list_item_bg_with_border_bottom">
-            @drawable/fast_list_item_bg_with_border_bottom
-        </item>
-        <item name="fast_list_item_bg_with_border_bottom_pressed">
-            @drawable/fast_list_item_bg_with_border_bottom_pressed
-        </item>
-        <item name="fast_list_item_bg_with_border_bottom_inset_left">
-            @drawable/fast_list_item_bg_with_border_bottom_inset_left
-        </item>
-        <item name="fast_list_item_bg_with_border_bottom_inset_left_pressed">
-            @drawable/fast_list_item_bg_with_border_bottom_inset_left_pressed
-        </item>
-        <item name="fast_list_item_bg_with_border_top">@drawable/fast_list_item_bg_with_border_top
-        </item>
-        <item name="fast_list_item_bg_with_border_top_pressed">
-            @drawable/fast_list_item_bg_with_border_top_pressed
-        </item>
-        <item name="fast_list_item_bg_with_border_top_inset_left">
-            @drawable/fast_list_item_bg_with_border_top_inset_left
-        </item>
-        <item name="fast_list_item_bg_with_border_top_inset_left_pressed">
-            @drawable/fast_list_item_bg_with_border_top_inset_left_pressed
-        </item>
-        <item name="fast_list_item_bg_with_border_double">
-            @drawable/fast_list_item_bg_with_double_border
-        </item>
-        <item name="fast_list_item_bg_with_border_double_pressed">
-            @drawable/fast_list_item_bg_with_double_border_pressed
-        </item>
-
-        <item name="fast_s_list_item_bg_with_border_bottom">
-            @drawable/fast_s_list_item_bg_with_border_bottom
-        </item>
-        <item name="fast_s_list_item_bg_with_border_bottom_inset">
-            @drawable/fast_s_list_item_bg_with_border_bottom_inset
-        </item>
-        <item name="fast_s_list_item_bg_with_border_bottom_inset_left">
-            @drawable/fast_s_list_item_bg_with_border_bottom_inset_left
-        </item>
-        <item name="fast_s_list_item_bg_with_border_top">
-            @drawable/fast_s_list_item_bg_with_border_top
-        </item>
-        <item name="fast_s_list_item_bg_with_border_top_inset_left">
-            @drawable/fast_s_list_item_bg_with_border_top_inset_left
-        </item>
-        <item name="fast_s_list_item_bg_with_border_double">
-            @drawable/fast_s_list_item_bg_with_border_double
-        </item>
-        <item name="fast_s_list_item_bg_with_border_none">
-            @drawable/fast_s_list_item_bg_with_border_none
-        </item>
-
-        <!--**********************************************
-        *             fast drawable                      *
-        ***********************************************-->
-        <item name="fast_s_checkbox">@drawable/fast_s_checkbox</item>
-        <item name="fast_icon_check_mark">@drawable/fast_icon_checkmark</item>
-
-        <!--**********************************************
-        *                   fast btn                     *
-        ***********************************************-->
-<!--        <item name="fast_round_btn_text_size">@dimen/fast_btn_text_size</item>-->
-<!--        <item name="fast_round_btn_border_width">@dimen/fast_btn_border_width</item>-->
-<!--        <item name="fast_round_btn_bg_color">@color/fast_btn_blue_bg</item>-->
-<!--        <item name="fast_round_btn_border_color">@color/fast_btn_blue_border</item>-->
-<!--        <item name="fast_round_btn_text_color">@color/fast_btn_blue_text</item>-->
+    <!-- tip -->
+    <item name="fast_tip_dialog_bg">@drawable/fast_tip_dialog_bg</item>
+    <item name="fast_tip_dialog_min_width">120dp</item>
+    <item name="fast_tip_dialog_min_height">56dp</item>
+    <item name="fast_tip_dialog_margin_horizontal">?attr/fast_content_spacing_horizontal</item>
+    <item name="fast_tip_dialog_padding_vertical">12dp</item>
+    <item name="fast_tip_dialog_padding_horizontal">?attr/fast_content_spacing_horizontal</item>
 
 
-        <!--**********************************************
-        *                  fast topbar                   *
-        ***********************************************-->
-        <item name="fast_topbar_height">56dp</item>
+    <!--**********************************************
+    *              fast common list                  *
+    **********************************************-->
 
-        <!--**********************************************
-        *                 fast bottom sheet              *
-        ***********************************************-->
-        <item name="fast_bottom_sheet_title_height">56dp</item>
-        <item name="fast_bottom_sheet_title_appearance">@style/FastTextAppearance.Title.Gray</item>
-        <item name="fast_bottom_sheet_title_bg">?attr/fast_list_item_bg_with_border_bottom</item>
+    <item name="fast_common_list_item_icon_margin_right">12dp</item>
+    <item name="fast_common_list_item_accessory_margin_left">14dp</item>
+    <item name="fast_common_list_item_title_v_text_size">15sp</item>
+    <item name="fast_common_list_item_title_h_text_size">16sp</item>
+    <item name="fast_common_list_item_h_space_min_width">14dp</item>
+    <item name="fast_common_list_item_detail_v_text_size">13sp</item>
+    <item name="fast_common_list_item_detail_h_text_size">14sp</item>
+    <item name="fast_common_list_item_detail_line_space">5dp</item>
 
-        <item name="fast_bottom_sheet_list_item_padding_horizontal">
-            ?attr/fast_content_spacing_horizontal
-        </item>
-        <item name="fast_bottom_sheet_list_item_height">56dp</item>
-        <item name="fast_bottom_sheet_list_item_mark_margin_left">12dp</item>
-        <item name="fast_bottom_sheet_list_item_tip_point_margin_left">4dp</item>
-        <item name="fast_bottom_sheet_list_item_text_appearance">@style/FastTextAppearance.ListItem
-        </item>
-        <item name="fast_bottom_sheet_list_item_bg">?attr/fast_s_list_item_bg_with_border_bottom
-        </item>
-        <item name="fast_bottom_sheet_list_item_icon_size">22dp</item>
-        <item name="fast_bottom_sheet_list_item_icon_margin_right">12dp</item>
+    <!--**********************************************
+    *             fast list item bg                  *
+    **********************************************-->
+    <item name="fast_list_item_height">@dimen/fast_list_item_height</item>
+    <item name="fast_list_item_height_higher">@dimen/fast_list_item_height_higher</item>
 
-        <item name="fast_bottom_sheet_grid_padding_vertical">12dp</item>
-        <item name="fast_bottom_sheet_grid_line_padding_horizontal">12dp</item>
-        <item name="fast_bottom_sheet_grid_line_vertical_space">0dp</item>
-        <item name="fast_bottom_sheet_grid_item_mini_width">84dp</item>
-        <item name="fast_bottom_sheet_grid_item_paddingTop">0dp</item>
-        <item name="fast_bottom_sheet_grid_item_paddingBottom">8dp</item>
-        <item name="fast_bottom_sheet_grid_item_icon_size">56dp</item>
-        <item name="fast_bottom_sheet_grid_item_icon_marginTop">12dp</item>
-        <item name="fast_bottom_sheet_grid_item_icon_marginBottom">9dp</item>
-        <item name="fast_bottom_sheet_grid_item_text_appearance">
-            @style/FastTextAppearance.GridItem.Small
-        </item>
+    <item name="fast_list_item_bg_with_border_bottom">
+      @drawable/fast_list_item_bg_with_border_bottom
+    </item>
+    <item name="fast_list_item_bg_with_border_bottom_pressed">
+      @drawable/fast_list_item_bg_with_border_bottom_pressed
+    </item>
+    <item name="fast_list_item_bg_with_border_bottom_inset_left">
+      @drawable/fast_list_item_bg_with_border_bottom_inset_left
+    </item>
+    <item name="fast_list_item_bg_with_border_bottom_inset_left_pressed">
+      @drawable/fast_list_item_bg_with_border_bottom_inset_left_pressed
+    </item>
+    <item name="fast_list_item_bg_with_border_top">@drawable/fast_list_item_bg_with_border_top
+    </item>
+    <item name="fast_list_item_bg_with_border_top_pressed">
+      @drawable/fast_list_item_bg_with_border_top_pressed
+    </item>
+    <item name="fast_list_item_bg_with_border_top_inset_left">
+      @drawable/fast_list_item_bg_with_border_top_inset_left
+    </item>
+    <item name="fast_list_item_bg_with_border_top_inset_left_pressed">
+      @drawable/fast_list_item_bg_with_border_top_inset_left_pressed
+    </item>
+    <item name="fast_list_item_bg_with_border_double">
+      @drawable/fast_list_item_bg_with_double_border
+    </item>
+    <item name="fast_list_item_bg_with_border_double_pressed">
+      @drawable/fast_list_item_bg_with_double_border_pressed
+    </item>
 
-        <item name="fast_bottom_sheet_button_height">56dp</item>
-        <item name="fast_bottom_sheet_button_text_size">15sp</item>
-        <item name="fast_bottom_sheet_button_text_color">@color/fast_config_color_gray_2</item>
-        <item name="fast_bottom_sheet_button_background">@drawable/fast_divider_top_bitmap</item>
+    <item name="fast_s_list_item_bg_with_border_bottom">
+      @drawable/fast_s_list_item_bg_with_border_bottom
+    </item>
+    <item name="fast_s_list_item_bg_with_border_bottom_inset">
+      @drawable/fast_s_list_item_bg_with_border_bottom_inset
+    </item>
+    <item name="fast_s_list_item_bg_with_border_bottom_inset_left">
+      @drawable/fast_s_list_item_bg_with_border_bottom_inset_left
+    </item>
+    <item name="fast_s_list_item_bg_with_border_top">
+      @drawable/fast_s_list_item_bg_with_border_top
+    </item>
+    <item name="fast_s_list_item_bg_with_border_top_inset_left">
+      @drawable/fast_s_list_item_bg_with_border_top_inset_left
+    </item>
+    <item name="fast_s_list_item_bg_with_border_double">
+      @drawable/fast_s_list_item_bg_with_border_double
+    </item>
+    <item name="fast_s_list_item_bg_with_border_none">
+      @drawable/fast_s_list_item_bg_with_border_none
+    </item>
 
-        <!--**********************************************
-        *                 fast common list item          *
-        ***********************************************-->
-        <item name="fast_common_list_item_chevron">@drawable/fast_icon_chevron</item>
+    <!--**********************************************
+    *             fast drawable                      *
+    ***********************************************-->
+    <item name="fast_s_checkbox">@drawable/fast_s_checkbox</item>
+    <item name="fast_icon_check_mark">@drawable/fast_icon_checkmark</item>
 
-        <!--**********************************************
-        *               fast loading view                *
-        ***********************************************-->
-        <item name="fast_loading_size">20dp</item>
-        <item name="fast_loading_color">@color/fast_config_color_gray_5</item>
-
-        <!--**********************************************
-        *                   fast popup                   *
-        ***********************************************-->
-        <item name="fast_popup_bg">@drawable/fast_popup_bg</item>
-        <item name="fast_popup_arrow_down">@drawable/fast_popup_arrow_down</item>
-        <item name="fast_popup_arrow_up">@drawable/fast_popup_arrow_up</item>
-        <item name="fast_popup_arrow_up_margin_top">13dp</item>
-        <item name="fast_popup_arrow_down_margin_bottom">13dp</item>
-
-        <!--**********************************************
-        *                  fast tabSegment               *
-        ***********************************************-->
-        <item name="fast_tab_sign_count_view">@style/fast_tab_sign_count_view</item>
-        <item name="fast_tab_sign_count_view_minSize">@dimen/fast_tab_sign_count_view_minSize</item>
-        <item name="fast_tab_sign_count_view_minSize_with_text">
-            @dimen/fast_tab_sign_count_view_minSize_with_text
-        </item>
-        <item name="fast_tab_sign_count_view_bg">@drawable/fast_sign_count_view_bg</item>
-        <item name="fast_tab_sign_count_view_padding_horizontal">4dp</item>
-
-        <!--**********************************************
-        *               fast 提供的控件样式                *
-        ***********************************************-->
-        <item name="FastButtonStyle">@style/Fast.RoundButton</item>
-        <item name="FastGroupListContainerStyle">@style/Fast.GroupListContainer</item>
-        <item name="FastCommonListItemViewStyle">@style/Fast.CommonListItemView</item>
-        <item name="FastGroupListSectionViewStyle">@style/Fast.GroupListSectionView</item>
-        <item name="FastTopBarStyle">@style/Fast.TopBar</item>
-
-        <item name="FastTipPointStyle">@style/Fast.TipPoint</item>
-
-        <item name="FastLoadingStyle">@style/Fast.Loading</item>
-        <item name="FastPullRefreshLayoutStyle">@style/Fast.PullRefreshLayout</item>
-        <item name="FastRadiusImageViewStyle">@style/Fast.RadiusImageView</item>
-    </style>
-
-    <style name="Fast.NoActionBar">
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
-    </style>
-
-    <style name="FastActionBarBase" parent="android:Widget.Holo.Light.ActionBar" />
-
-    <style name="FastActionBarTitleTextBase" parent="android:TextAppearance.Holo.Widget.ActionBar.Title" />
-
-    <style name="FastListViewBase" parent="android:Widget.Holo.Light.ListView" />
-
-    <style name="FastGridViewBase" parent="android:Widget.Holo.Light.GridView" />
-
-    <style name="FastImageButtonBase" parent="android:Widget.Holo.Light.ImageButton" />
-
-    <style name="FastButtonBase" parent="android:Widget.Holo.Light.Button" />
-
-    <style name="FastEditTextBase" parent="android:Widget.Holo.Light.EditText" />
-
-    <style name="FastAutoCompleteTextViewBase" parent="android:Widget.Holo.Light.AutoCompleteTextView" />
-
-    <style name="FastDropDownListViewBase" parent="android:Widget.Holo.Light.ListView.DropDown" />
-
-    <style name="FastTextAppearanceBase" parent="android:TextAppearance.Holo" />
-
-    <!--<style name="Animation" parent="Animation">-->
-    <!--<item name="android:fragmentOpenEnterAnimation">@animator/fragment_open_enter</item>-->
-    <!--<item name="android:fragmentOpenExitAnimation">@animator/fragment_open_exit</item>-->
-    <!--<item name="android:fragmentCloseEnterAnimation">@animator/fragment_close_enter</item>-->
-    <!--<item name="android:fragmentCloseExitAnimation">@animator/fragment_close_enter</item>-->
-    <!--</style>-->
+    <!--**********************************************
+    *                   fast btn                     *
+    ***********************************************-->
+    <!--        <item name="fast_round_btn_text_size">@dimen/fast_btn_text_size</item>-->
+    <!--        <item name="fast_round_btn_border_width">@dimen/fast_btn_border_width</item>-->
+    <!--        <item name="fast_round_btn_bg_color">@color/fast_btn_blue_bg</item>-->
+    <!--        <item name="fast_round_btn_border_color">@color/fast_btn_blue_border</item>-->
+    <!--        <item name="fast_round_btn_text_color">@color/fast_btn_blue_text</item>-->
 
 
-    <!-- ListView Start -->
-    <style name="FastListView" parent="FastListViewBase">
-        <item name="android:background">@color/fast_config_color_transparent</item>
-        <item name="android:listSelector">@color/fast_config_color_transparent</item>
-        <item name="android:divider">@drawable/fast_divider_bottom_bitmap</item>
-        <item name="android:dividerHeight">@dimen/fast_list_divider_height</item>
-    </style>
-    <!-- ListView End -->
+    <!--**********************************************
+    *                  fast topbar                   *
+    ***********************************************-->
+    <item name="fast_topbar_height">56dp</item>
 
-    <!-- GridView -->
-    <style name="FastGridView" parent="FastGridViewBase">
-        <item name="android:background">@color/fast_config_color_transparent</item>
-        <item name="android:listSelector">@color/fast_config_color_transparent</item>
-    </style>
+    <!--**********************************************
+    *                 fast bottom sheet              *
+    ***********************************************-->
+    <item name="fast_bottom_sheet_title_height">56dp</item>
+    <item name="fast_bottom_sheet_title_appearance">@style/FastTextAppearance.Title.Gray</item>
+    <item name="fast_bottom_sheet_title_bg">?attr/fast_list_item_bg_with_border_bottom</item>
 
-    <style name="FastImageButton" parent="FastImageButtonBase">
-        <item name="android:background">@color/fast_config_color_transparent</item>
-    </style>
+    <item name="fast_bottom_sheet_list_item_padding_horizontal">
+      ?attr/fast_content_spacing_horizontal
+    </item>
+    <item name="fast_bottom_sheet_list_item_height">56dp</item>
+    <item name="fast_bottom_sheet_list_item_mark_margin_left">12dp</item>
+    <item name="fast_bottom_sheet_list_item_tip_point_margin_left">4dp</item>
+    <item name="fast_bottom_sheet_list_item_text_appearance">@style/FastTextAppearance.ListItem
+    </item>
+    <item name="fast_bottom_sheet_list_item_bg">?attr/fast_s_list_item_bg_with_border_bottom
+    </item>
+    <item name="fast_bottom_sheet_list_item_icon_size">22dp</item>
+    <item name="fast_bottom_sheet_list_item_icon_margin_right">12dp</item>
 
-    <style name="FastButton" parent="FastButtonBase" />
+    <item name="fast_bottom_sheet_grid_padding_vertical">12dp</item>
+    <item name="fast_bottom_sheet_grid_line_padding_horizontal">12dp</item>
+    <item name="fast_bottom_sheet_grid_line_vertical_space">0dp</item>
+    <item name="fast_bottom_sheet_grid_item_mini_width">84dp</item>
+    <item name="fast_bottom_sheet_grid_item_paddingTop">0dp</item>
+    <item name="fast_bottom_sheet_grid_item_paddingBottom">8dp</item>
+    <item name="fast_bottom_sheet_grid_item_icon_size">56dp</item>
+    <item name="fast_bottom_sheet_grid_item_icon_marginTop">12dp</item>
+    <item name="fast_bottom_sheet_grid_item_icon_marginBottom">9dp</item>
+    <item name="fast_bottom_sheet_grid_item_text_appearance">
+      @style/FastTextAppearance.GridItem.Small
+    </item>
 
-    <style name="FastEditText" parent="FastEditTextBase">
-        <item name="android:textColor">?attr/fast_config_color_gray_1</item>
-        <item name="android:textColorHint">?attr/fast_config_color_gray_4</item>
-        <!-- 光标颜色与textColor一致，若要自定义，应该用ShapeDrawable，不能简单指定一个color -->
-        <item name="android:textCursorDrawable">@null</item>
-    </style>
+    <item name="fast_bottom_sheet_button_height">56dp</item>
+    <item name="fast_bottom_sheet_button_text_size">15sp</item>
+    <item name="fast_bottom_sheet_button_text_color">@color/fast_config_color_gray_2</item>
+    <item name="fast_bottom_sheet_button_background">@drawable/fast_divider_top_bitmap</item>
 
-    <style name="FastTextView" parent="android:Widget.TextView">
-        <item name="android:textAppearance">@style/FastTextAppearance</item>
-        <!-- textColorHighlight 放在appearance中无效，好像TextView总是默认存在一个textColorHighlight
-             会覆盖掉它，并不知道原因 -->
-        <item name="android:textColorHighlight">?attr/fast_config_color_background_pressed</item>
-    </style>
+    <!--**********************************************
+    *                 fast common list item          *
+    ***********************************************-->
+    <item name="fast_common_list_item_chevron">@drawable/fast_icon_chevron</item>
 
-    <style name="FastAutoCompleteTextView" parent="FastAutoCompleteTextViewBase">
-        <item name="android:textColor">?attr/fast_config_color_gray_1</item>
-        <item name="android:textColorHint">?attr/fast_config_color_gray_4</item>
-        <!-- 光标颜色与textColor一致，若要自定义，应该用ShapeDrawable，不能简单指定一个color -->
-        <item name="android:textCursorDrawable">@null</item>
-    </style>
+    <!--**********************************************
+    *               fast loading view                *
+    ***********************************************-->
+    <item name="fast_loading_size">20dp</item>
+    <item name="fast_loading_color">@color/fast_config_color_gray_5</item>
 
-    <!-- 下拉列表，例如AutoCompleteTextView的补全列表 -->
-    <style name="FastDropDownListView" parent="FastDropDownListViewBase">
-        <item name="android:divider">@drawable/fast_divider_bottom_bitmap</item>
-        <item name="android:dividerHeight">@dimen/fast_list_divider_height</item>
-        <item name="android:background">@color/fast_config_color_white</item>
-    </style>
+    <!--**********************************************
+    *                   fast popup                   *
+    ***********************************************-->
+    <item name="fast_popup_bg">@drawable/fast_popup_bg</item>
+    <item name="fast_popup_arrow_down">@drawable/fast_popup_arrow_down</item>
+    <item name="fast_popup_arrow_up">@drawable/fast_popup_arrow_up</item>
+    <item name="fast_popup_arrow_up_margin_top">13dp</item>
+    <item name="fast_popup_arrow_down_margin_bottom">13dp</item>
+
+    <!--**********************************************
+    *                  fast tabSegment               *
+    ***********************************************-->
+    <item name="fast_tab_sign_count_view">@style/fast_tab_sign_count_view</item>
+    <item name="fast_tab_sign_count_view_minSize">@dimen/fast_tab_sign_count_view_minSize</item>
+    <item name="fast_tab_sign_count_view_minSize_with_text">
+      @dimen/fast_tab_sign_count_view_minSize_with_text
+    </item>
+    <item name="fast_tab_sign_count_view_bg">@drawable/fast_sign_count_view_bg</item>
+    <item name="fast_tab_sign_count_view_padding_horizontal">4dp</item>
+
+    <!--**********************************************
+    *               fast 提供的控件样式                *
+    ***********************************************-->
+    <item name="FastButtonStyle">@style/Fast.RoundButton</item>
+    <item name="FastGroupListContainerStyle">@style/Fast.GroupListContainer</item>
+    <item name="FastCommonListItemViewStyle">@style/Fast.CommonListItemView</item>
+    <item name="FastGroupListSectionViewStyle">@style/Fast.GroupListSectionView</item>
+    <item name="FastTopBarStyle">@style/Fast.TopBar</item>
+
+    <item name="FastTipPointStyle">@style/Fast.TipPoint</item>
+
+    <item name="FastLoadingStyle">@style/Fast.Loading</item>
+    <item name="FastPullRefreshLayoutStyle">@style/Fast.PullRefreshLayout</item>
+    <item name="FastRadiusImageViewStyle">@style/Fast.RadiusImageView</item>
+  </style>
+
+  <style name="Fast.NoActionBar">
+    <item name="android:windowActionBar">false</item>
+    <item name="android:windowNoTitle">true</item>
+  </style>
+
+  <style name="FastActionBarBase" parent="android:Widget.Holo.Light.ActionBar" />
+
+  <style name="FastActionBarTitleTextBase" parent="android:TextAppearance.Holo.Widget.ActionBar.Title" />
+
+  <style name="FastListViewBase" parent="android:Widget.Holo.Light.ListView" />
+
+  <style name="FastGridViewBase" parent="android:Widget.Holo.Light.GridView" />
+
+  <style name="FastImageButtonBase" parent="android:Widget.Holo.Light.ImageButton" />
+
+  <style name="FastButtonBase" parent="android:Widget.Holo.Light.Button" />
+
+  <style name="FastEditTextBase" parent="android:Widget.Holo.Light.EditText" />
+
+  <style name="FastAutoCompleteTextViewBase" parent="android:Widget.Holo.Light.AutoCompleteTextView" />
+
+  <style name="FastDropDownListViewBase" parent="android:Widget.Holo.Light.ListView.DropDown" />
+
+  <style name="FastTextAppearanceBase" parent="android:TextAppearance.Holo" />
+
+  <!--<style name="Animation" parent="Animation">-->
+  <!--<item name="android:fragmentOpenEnterAnimation">@animator/fragment_open_enter</item>-->
+  <!--<item name="android:fragmentOpenExitAnimation">@animator/fragment_open_exit</item>-->
+  <!--<item name="android:fragmentCloseEnterAnimation">@animator/fragment_close_enter</item>-->
+  <!--<item name="android:fragmentCloseExitAnimation">@animator/fragment_close_enter</item>-->
+  <!--</style>-->
+
+
+  <!-- ListView Start -->
+  <style name="FastListView" parent="FastListViewBase">
+    <item name="android:background">@color/fast_config_color_transparent</item>
+    <item name="android:listSelector">@color/fast_config_color_transparent</item>
+    <item name="android:divider">@drawable/fast_divider_bottom_bitmap</item>
+    <item name="android:dividerHeight">@dimen/fast_list_divider_height</item>
+  </style>
+  <!-- ListView End -->
+
+  <!-- GridView -->
+  <style name="FastGridView" parent="FastGridViewBase">
+    <item name="android:background">@color/fast_config_color_transparent</item>
+    <item name="android:listSelector">@color/fast_config_color_transparent</item>
+  </style>
+
+  <style name="FastImageButton" parent="FastImageButtonBase">
+    <item name="android:background">@color/fast_config_color_transparent</item>
+  </style>
+
+  <style name="FastButton" parent="FastButtonBase" />
+
+  <style name="FastEditText" parent="FastEditTextBase">
+    <item name="android:textColor">?attr/fast_config_color_gray_1</item>
+    <item name="android:textColorHint">?attr/fast_config_color_gray_4</item>
+    <!-- 光标颜色与textColor一致，若要自定义，应该用ShapeDrawable，不能简单指定一个color -->
+    <item name="android:textCursorDrawable">@null</item>
+  </style>
+
+  <style name="FastTextView" parent="android:Widget.TextView">
+    <item name="android:textAppearance">@style/FastTextAppearance</item>
+    <!-- textColorHighlight 放在appearance中无效，好像TextView总是默认存在一个textColorHighlight
+         会覆盖掉它，并不知道原因 -->
+    <item name="android:textColorHighlight">?attr/fast_config_color_background_pressed</item>
+  </style>
+
+  <style name="FastAutoCompleteTextView" parent="FastAutoCompleteTextViewBase">
+    <item name="android:textColor">?attr/fast_config_color_gray_1</item>
+    <item name="android:textColorHint">?attr/fast_config_color_gray_4</item>
+    <!-- 光标颜色与textColor一致，若要自定义，应该用ShapeDrawable，不能简单指定一个color -->
+    <item name="android:textCursorDrawable">@null</item>
+  </style>
+
+  <!-- 下拉列表，例如AutoCompleteTextView的补全列表 -->
+  <style name="FastDropDownListView" parent="FastDropDownListViewBase">
+    <item name="android:divider">@drawable/fast_divider_bottom_bitmap</item>
+    <item name="android:dividerHeight">@dimen/fast_list_divider_height</item>
+    <item name="android:background">@color/fast_config_color_white</item>
+  </style>
 
 </resources>

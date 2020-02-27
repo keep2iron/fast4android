@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
@@ -23,149 +24,149 @@ import android.widget.FrameLayout
  */
 class FastPopWindowPlus(context: Context) : FrameLayout(context) {
 
-    private lateinit var contentView: View
-    var isShowing: Boolean = false
-    var isAnim: Boolean = false
-    val backgroundView: View
-    var translateView: View? = null
+  private lateinit var contentView: View
+  var isShowing: Boolean = false
+  var isAnim: Boolean = false
+  val backgroundView: View
+  var translateView: View? = null
 
-    private var cancelable = true
+  private var cancelable = true
 
-    private var onDismissListener: (() -> Unit)? = null
+  private var onDismissListener: (() -> Unit)? = null
 
-    init {
-        LayoutInflater.from(context).inflate(R.layout.comp_widget_slide_drop, this, true)
-        backgroundView = findViewById(R.id.background)
+  init {
+    LayoutInflater.from(context).inflate(R.layout.comp_widget_slide_drop, this, true)
+    backgroundView = findViewById(R.id.background)
+  }
+
+  fun setContentView(view: View) {
+    contentView = view
+
+    if (contentView.layoutParams == null) {
+      contentView.layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
     }
 
-    fun setContentView(view: View) {
-        contentView = view
+    addView(contentView, contentView.layoutParams)
+  }
 
-        if (contentView.layoutParams == null) {
-            contentView.layoutParams = LayoutParams(MATCH_PARENT, WRAP_CONTENT)
+  private fun getYAtScreen(view: View, top: Int): Int {
+    return if (view.parent == null || view.parent === view.rootView) {
+      top
+    } else getYAtScreen(view.parent as View, top + view.top)
+
+  }
+
+  fun showViewAsBelow(view: View) {
+    if (isAnim || isShowing) {
+      return
+    }
+    isShowing = true
+
+    val rootView = view.rootView as ViewGroup
+
+    val viewTop = getYAtScreen(view, 0)
+    val y = viewTop + view.height
+
+    if (this.translateView != null) {
+      rootView.removeView(this.translateView)
+    }
+    val translateView = View(context)
+    translateView.layoutParams = LayoutParams(MATCH_PARENT, viewTop)
+    rootView.addView(translateView)
+    this.translateView = translateView
+
+    val params = LayoutParams(MATCH_PARENT, rootView.height - y)
+    params.setMargins(0, y, 0, 0)
+    layoutParams = params
+    rootView.addView(this@FastPopWindowPlus)
+
+    if (cancelable) {
+      val listener = OnClickListener {
+        if (!isAnim) {
+          dismiss()
+        }
+      }
+      backgroundView.setOnClickListener(listener)
+      translateView.setOnClickListener(listener)
+    }
+
+    startAnim(null)
+  }
+
+  fun dismiss() {
+    if (isAnim || !isShowing) {
+      return
+    }
+
+    isAnim = true
+    isShowing = false
+    startAnim(object : Animation.AnimationListener {
+      override fun onAnimationRepeat(animation: Animation?) {}
+
+      override fun onAnimationEnd(animation: Animation?) {
+        val rootView = rootView as ViewGroup
+        rootView.removeView(this@FastPopWindowPlus)
+        if (this@FastPopWindowPlus.translateView != null) {
+          rootView.removeView(this@FastPopWindowPlus.translateView)
         }
 
-        addView(contentView, contentView.layoutParams)
+        isAnim = false
+        onDismissListener?.invoke()
+      }
+
+      override fun onAnimationStart(animation: Animation?) {}
+    })
+  }
+
+  private fun startAnim(listener: Animation.AnimationListener?) {
+    val startAlpha: Float
+    val endAlpha: Float
+
+    val startTrans: Float
+    val endTrans: Float
+
+    if (isShowing) {
+      startAlpha = 0.0f
+      endAlpha = 1.0f
+      startTrans = -1.0f
+      endTrans = 0.0f
+    } else {
+      startAlpha = 1.0f
+      endAlpha = 0.0f
+      startTrans = 0.0f
+      endTrans = -1.0f
     }
 
-    private fun getYAtScreen(view: View, top: Int): Int {
-        return if (view.parent == null || view.parent === view.rootView) {
-            top
-        } else getYAtScreen(view.parent as View, top + view.top)
+    val objectAnimator = ObjectAnimator.ofFloat(backgroundView, "alpha", startAlpha, endAlpha)
+      .setDuration(200)
+    objectAnimator.addListener(object : AnimatorListenerAdapter() {
+      override fun onAnimationEnd(animation: Animator) {
+        listener?.onAnimationEnd(null)
+      }
 
-    }
+      override fun onAnimationStart(animation: Animator) {
+        listener?.onAnimationStart(null)
 
-    fun showViewAsBelow(view: View) {
-        if (isAnim || isShowing) {
-            return
-        }
-        isShowing = true
+        val translateAnimation = TranslateAnimation(
+          Animation.RELATIVE_TO_SELF, 0f,
+          Animation.RELATIVE_TO_SELF, 0f,
+          Animation.RELATIVE_TO_SELF, startTrans,
+          Animation.RELATIVE_TO_SELF, endTrans
+        )
+        translateAnimation.fillAfter = true
+        translateAnimation.interpolator = LinearInterpolator()
+        translateAnimation.duration = 200
+        contentView!!.startAnimation(translateAnimation)
+      }
+    })
+    objectAnimator.start()
+  }
 
-        val rootView = view.rootView as ViewGroup
+  fun setOnDismissListener(onDismissListener: () -> Unit) {
+    this.onDismissListener = onDismissListener
+  }
 
-        val viewTop = getYAtScreen(view, 0)
-        val y = viewTop + view.height
-
-        if (this.translateView != null) {
-            rootView.removeView(this.translateView)
-        }
-        val translateView = View(context)
-        translateView.layoutParams = LayoutParams(MATCH_PARENT, viewTop)
-        rootView.addView(translateView)
-        this.translateView = translateView
-
-        val params = LayoutParams(MATCH_PARENT, rootView.height - y)
-        params.setMargins(0, y, 0, 0)
-        layoutParams = params
-        rootView.addView(this@FastPopWindowPlus)
-
-        if (cancelable) {
-            val listener = OnClickListener {
-                if (!isAnim) {
-                    dismiss()
-                }
-            }
-            backgroundView.setOnClickListener(listener)
-            translateView.setOnClickListener(listener)
-        }
-
-        startAnim(null)
-    }
-
-    fun dismiss() {
-        if (isAnim || !isShowing) {
-            return
-        }
-
-        isAnim = true
-        isShowing = false
-        startAnim(object : Animation.AnimationListener {
-            override fun onAnimationRepeat(animation: Animation?) {}
-
-            override fun onAnimationEnd(animation: Animation?) {
-                val rootView = rootView as ViewGroup
-                rootView.removeView(this@FastPopWindowPlus)
-                if (this@FastPopWindowPlus.translateView != null) {
-                    rootView.removeView(this@FastPopWindowPlus.translateView)
-                }
-
-                isAnim = false
-                onDismissListener?.invoke()
-            }
-
-            override fun onAnimationStart(animation: Animation?) {}
-        })
-    }
-
-    private fun startAnim(listener: Animation.AnimationListener?) {
-        val startAlpha: Float
-        val endAlpha: Float
-
-        val startTrans: Float
-        val endTrans: Float
-
-        if (isShowing) {
-            startAlpha = 0.0f
-            endAlpha = 1.0f
-            startTrans = -1.0f
-            endTrans = 0.0f
-        } else {
-            startAlpha = 1.0f
-            endAlpha = 0.0f
-            startTrans = 0.0f
-            endTrans = -1.0f
-        }
-
-        val objectAnimator = ObjectAnimator.ofFloat(backgroundView, "alpha", startAlpha, endAlpha)
-                .setDuration(200)
-        objectAnimator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator) {
-                listener?.onAnimationEnd(null)
-            }
-
-            override fun onAnimationStart(animation: Animator) {
-                listener?.onAnimationStart(null)
-
-                val translateAnimation = TranslateAnimation(
-                        Animation.RELATIVE_TO_SELF, 0f,
-                        Animation.RELATIVE_TO_SELF, 0f,
-                        Animation.RELATIVE_TO_SELF, startTrans,
-                        Animation.RELATIVE_TO_SELF, endTrans
-                )
-                translateAnimation.fillAfter = true
-                translateAnimation.interpolator = LinearInterpolator()
-                translateAnimation.duration = 200
-                contentView!!.startAnimation(translateAnimation)
-            }
-        })
-        objectAnimator.start()
-    }
-
-    fun setOnDismissListener(onDismissListener: () -> Unit) {
-        this.onDismissListener = onDismissListener
-    }
-
-    fun setCancelable(cancelable: Boolean) {
-        this.cancelable = cancelable
-    }
+  fun setCancelable(cancelable: Boolean) {
+    this.cancelable = cancelable
+  }
 }

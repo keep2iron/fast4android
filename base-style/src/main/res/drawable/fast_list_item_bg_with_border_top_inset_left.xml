@@ -15,11 +15,11 @@
 -->
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/fast_config_color_white" />
-    <item
-        android:drawable="@color/fast_drawable_color_list_separator"
-        android:left="@dimen/fast_list_item_inset_left" />
-    <item
-        android:drawable="@color/fast_config_color_white"
-        android:top="@dimen/fast_list_divider_height" />
+  <item android:drawable="@color/fast_config_color_white" />
+  <item
+    android:drawable="@color/fast_drawable_color_list_separator"
+    android:left="@dimen/fast_list_item_inset_left" />
+  <item
+    android:drawable="@color/fast_config_color_white"
+    android:top="@dimen/fast_list_divider_height" />
 </layer-list>

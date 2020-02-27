@@ -15,6 +15,6 @@
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true" android:color="@color/fast_config_color_50_blue" />
-    <item android:color="@color/fast_config_color_blue" />
+  <item android:state_pressed="true" android:color="@color/fast_config_color_50_blue" />
+  <item android:color="@color/fast_config_color_blue" />
 </selector>

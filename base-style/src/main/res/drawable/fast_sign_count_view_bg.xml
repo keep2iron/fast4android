@@ -17,8 +17,8 @@
 <!-- 用于显示未读数的红点 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <solid android:color="@color/fast_config_color_red" />
+  <solid android:color="@color/fast_config_color_red" />
 
-    <corners android:radius="@dimen/fast_tab_sign_count_view_minSize_with_text" />
+  <corners android:radius="@dimen/fast_tab_sign_count_view_minSize_with_text" />
 
 </shape>

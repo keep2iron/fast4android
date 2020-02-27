@@ -3,73 +3,73 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion versions.build.target_sdk
-    buildToolsVersion versions.build.build_tools
+  compileSdkVersion versions.build.target_sdk
+  buildToolsVersion versions.build.build_tools
 
-    defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion versions.build.target_sdk
+  defaultConfig {
+    minSdkVersion 16
+    targetSdkVersion versions.build.target_sdk
 
-        applicationId "io.github.keep2iron.fast4android.app"
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
+    applicationId "io.github.keep2iron.fast4android.app"
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    multiDexEnabled true
+  }
+  buildTypes {
+    debug {}
+    release {
+      minifyEnabled true
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
-    buildTypes {
-        debug {}
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    dataBinding {
-        enabled true
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+  }
+  dataBinding {
+    enabled true
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar'])
+  api fileTree(dir: 'libs', include: ['*.jar'])
 
-    //support
-    implementation deps.support.app_compat
-    implementation deps.support.recyclerview
-    implementation deps.support.constraint_layout
-    implementation deps.support.fragment
-    implementation deps.support.annotations
-    implementation 'com.google.android.material:material:1.0.0'
+  //support
+  implementation deps.support.app_compat
+  implementation deps.support.recyclerview
+  implementation deps.support.constraint_layout
+  implementation deps.support.fragment
+  implementation deps.support.annotations
+  implementation 'com.google.android.material:material:1.0.0'
 
-    implementation deps.rxjava2
-    implementation deps.rx_android
-    implementation deps.kotlin.stdlib_jdk7
+  implementation deps.rxjava2
+  implementation deps.rx_android
+  implementation deps.kotlin.stdlib_jdk7
 
-    implementation deps.arch.lifecycle
-    implementation deps.arch.extensions
+  implementation deps.arch.lifecycle
+  implementation deps.arch.extensions
 
-    implementation project(':comp-arch')
-    implementation project(':comp-fast4android')
-    implementation project(':comp-tabsegment')
-    implementation project(':comp-topbarlayout')
-    implementation project(':comp-grouplistview')
-    implementation project(':comp-looplayout')
-    implementation project(':comp-popwindowplus')
-    implementation project(':comp-bottomnavlayout')
+  implementation project(':comp-arch')
+  implementation project(':comp-fast4android')
+  implementation project(':comp-tabsegment')
+  implementation project(':comp-topbarlayout')
+  implementation project(':comp-grouplistview')
+  implementation project(':comp-looplayout')
+  implementation project(':comp-popwindowplus')
+  implementation project(':comp-bottomnavlayout')
 
-    implementation('io.github.keep2iron:pomelo-core:0.0.2-alpha') { changing = true }
-    implementation('io.github.keep2iron:pomelo-extra:0.0.2-alpha') { changing = true }
+  implementation('io.github.keep2iron:pomelo-core:0.0.2-alpha') { changing = true }
+  implementation('io.github.keep2iron:pomelo-extra:0.0.2-alpha') { changing = true }
 
-    implementation 'io.github.keep2iron:pineapple-glide:0.0.1'
-    implementation 'com.github.bumptech.glide:glide:4.10.0'
+  implementation 'io.github.keep2iron:pineapple-glide:0.0.1'
+  implementation 'com.github.bumptech.glide:glide:4.10.0'
 //    implementation 'com.facebook.fresco:fresco:2.0.0'
 
-    implementation 'me.everything:overscroll-decor-android:1.0.4'
+  implementation 'me.everything:overscroll-decor-android:1.0.4'
 
-    testImplementation deps.test.junit
-    androidTestImplementation 'androidx.test:runner:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+  testImplementation deps.test.junit
+  androidTestImplementation 'androidx.test:runner:1.1.0'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 }
 

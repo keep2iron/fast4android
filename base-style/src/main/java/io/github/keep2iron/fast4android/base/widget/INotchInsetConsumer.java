@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package io.github.keep2iron.base.widget;
+package io.github.keep2iron.fast4android.base.widget;
 
 public interface INotchInsetConsumer {
-    /**
-     * @return if true stop dispatch to child view
-     */
-    boolean notifyInsetMaybeChanged();
+  /**
+   * @return if true stop dispatch to child view
+   */
+  boolean notifyInsetMaybeChanged();
 }

@@ -14,169 +14,169 @@ import io.github.keep2iron.fast4android.arch.R;
  */
 public class ParallaxHelper implements Application.ActivityLifecycleCallbacks {
 
-    private static ParallaxHelper sParallaxHelper;
-    private LinkedStack<Activity, TraceInfo> mLinkedStack = new LinkedStack<>();
+  private static ParallaxHelper sParallaxHelper;
+  private LinkedStack<Activity, TraceInfo> mLinkedStack = new LinkedStack<>();
 
-    /**
-     * Gets instance.
-     *
-     * @return the instance
-     */
-    public static ParallaxHelper getInstance() {
-        if (sParallaxHelper == null) {
-            sParallaxHelper = new ParallaxHelper();
-        }
-        return sParallaxHelper;
+  /**
+   * Gets instance.
+   *
+   * @return the instance
+   */
+  public static ParallaxHelper getInstance() {
+    if (sParallaxHelper == null) {
+      sParallaxHelper = new ParallaxHelper();
     }
+    return sParallaxHelper;
+  }
 
-    private ParallaxHelper() {
+  private ParallaxHelper() {
 
+  }
+
+  @Override
+  public void onActivityCreated(final Activity activity, Bundle savedInstanceState) {
+    final TraceInfo traceInfo = new TraceInfo();
+    mLinkedStack.put(activity, traceInfo);
+    traceInfo.mCurrent = activity;
+
+    ParallaxBack parallaxBack = checkAnnotation(activity.getClass());
+    if (mLinkedStack.size() > 0 && parallaxBack != null) {
+      ParallaxBackLayout layout = enableParallaxBack(activity);
+      layout.setEdgeFlag(parallaxBack.edge().getValue());
+      layout.setEdgeMode(parallaxBack.edgeMode().getValue());
+      layout.setLayoutType(parallaxBack.layout().getValue(), null);
     }
+  }
 
-    @Override
-    public void onActivityCreated(final Activity activity, Bundle savedInstanceState) {
-        final TraceInfo traceInfo = new TraceInfo();
-        mLinkedStack.put(activity, traceInfo);
-        traceInfo.mCurrent = activity;
-
-        ParallaxBack parallaxBack = checkAnnotation(activity.getClass());
-        if (mLinkedStack.size() > 0 && parallaxBack != null) {
-            ParallaxBackLayout layout = enableParallaxBack(activity);
-            layout.setEdgeFlag(parallaxBack.edge().getValue());
-            layout.setEdgeMode(parallaxBack.edgeMode().getValue());
-            layout.setLayoutType(parallaxBack.layout().getValue(), null);
-        }
+  private ParallaxBack checkAnnotation(Class<? extends Activity> c) {
+    Class mc = c;
+    ParallaxBack parallaxBack;
+    while (Activity.class.isAssignableFrom(mc)) {
+      parallaxBack = (ParallaxBack) mc.getAnnotation(ParallaxBack.class);
+      if (parallaxBack != null) {
+        return parallaxBack;
+      }
+      mc = mc.getSuperclass();
     }
+    return null;
+  }
 
-    private ParallaxBack checkAnnotation(Class<? extends Activity> c) {
-        Class mc = c;
-        ParallaxBack parallaxBack;
-        while (Activity.class.isAssignableFrom(mc)) {
-            parallaxBack = (ParallaxBack) mc.getAnnotation(ParallaxBack.class);
-            if (parallaxBack != null) {
-                return parallaxBack;
-            }
-            mc = mc.getSuperclass();
-        }
-        return null;
-    }
+  @Override
+  public void onActivityStarted(Activity activity) {
 
-    @Override
-    public void onActivityStarted(Activity activity) {
+  }
 
-    }
+  @Override
+  public void onActivityResumed(Activity activity) {
 
-    @Override
-    public void onActivityResumed(Activity activity) {
+  }
 
-    }
-
-    @Override
-    public void onActivityPaused(Activity activity) {
+  @Override
+  public void onActivityPaused(Activity activity) {
 //        activity.getWindow().getDecorView().buildDrawingCache();
+  }
+
+  @Override
+  public void onActivityStopped(Activity activity) {
+
+  }
+
+  @Override
+  public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+  }
+
+  @Override
+  public void onActivityDestroyed(Activity activity) {
+    mLinkedStack.remove(activity);
+  }
+
+  /**
+   * Disable parallax back.
+   *
+   * @param activity the activity
+   */
+  public static void disableParallaxBack(Activity activity) {
+    ParallaxBackLayout layout = getParallaxBackLayout(activity);
+    if (layout != null) {
+      layout.setEnableGesture(false);
+    }
+  }
+
+  /**
+   * Enable parallax back.
+   *
+   * @param activity the activity
+   */
+  public static ParallaxBackLayout enableParallaxBack(Activity activity) {
+    ParallaxBackLayout layout = getParallaxBackLayout(activity, true);
+    layout.setEnableGesture(true);
+    return layout;
+  }
+
+  /**
+   * Gets parallax back layout.
+   *
+   * @param activity the activity
+   * @return the parallax back layout
+   */
+  public static ParallaxBackLayout getParallaxBackLayout(Activity activity) {
+    return getParallaxBackLayout(activity, false);
+  }
+
+  /**
+   * Gets parallax back layout.
+   *
+   * @param activity the activity
+   * @param create   the create
+   * @return the parallax back layout
+   */
+  public static ParallaxBackLayout getParallaxBackLayout(Activity activity, boolean create) {
+    View view = ((ViewGroup) activity.getWindow().getDecorView()).getChildAt(0);
+    if (view instanceof ParallaxBackLayout) {
+      return (ParallaxBackLayout) view;
+    }
+    view = activity.findViewById(R.id.fast_arch_swipe_layout_in_back);
+    if (view instanceof ParallaxBackLayout) {
+      return (ParallaxBackLayout) view;
+    }
+    if (create) {
+      ParallaxBackLayout backLayout = new ParallaxBackLayout(activity);
+      backLayout.setId(R.id.fast_arch_swipe_layout_in_back);
+      backLayout.attachToActivity(activity);
+      backLayout.setBackgroundView(new GoBackView(activity));
+      return backLayout;
+    }
+    return null;
+  }
+
+  /**
+   * The type Trace info.
+   */
+  public static class TraceInfo {
+    private Activity mCurrent;
+  }
+
+  public static class GoBackView implements ParallaxBackLayout.IBackgroundView {
+
+    private Activity mActivity;
+    private Activity mActivityBack;
+
+    private GoBackView(Activity activity) {
+      mActivity = activity;
+    }
+
+
+    @Override
+    public void draw(Canvas canvas) {
+      if (mActivityBack != null) {
+        mActivityBack.getWindow().getDecorView().requestLayout();
+        mActivityBack.getWindow().getDecorView().draw(canvas);
+      }
     }
 
     @Override
-    public void onActivityStopped(Activity activity) {
-
+    public boolean canGoBack() {
+      return (mActivityBack = sParallaxHelper.mLinkedStack.before(mActivity)) != null;
     }
-
-    @Override
-    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-    }
-
-    @Override
-    public void onActivityDestroyed(Activity activity) {
-        mLinkedStack.remove(activity);
-    }
-
-    /**
-     * Disable parallax back.
-     *
-     * @param activity the activity
-     */
-    public static void disableParallaxBack(Activity activity) {
-        ParallaxBackLayout layout = getParallaxBackLayout(activity);
-        if (layout != null) {
-            layout.setEnableGesture(false);
-        }
-    }
-
-    /**
-     * Enable parallax back.
-     *
-     * @param activity the activity
-     */
-    public static ParallaxBackLayout enableParallaxBack(Activity activity) {
-        ParallaxBackLayout layout = getParallaxBackLayout(activity, true);
-        layout.setEnableGesture(true);
-        return layout;
-    }
-
-    /**
-     * Gets parallax back layout.
-     *
-     * @param activity the activity
-     * @return the parallax back layout
-     */
-    public static ParallaxBackLayout getParallaxBackLayout(Activity activity) {
-        return getParallaxBackLayout(activity, false);
-    }
-
-    /**
-     * Gets parallax back layout.
-     *
-     * @param activity the activity
-     * @param create   the create
-     * @return the parallax back layout
-     */
-    public static ParallaxBackLayout getParallaxBackLayout(Activity activity, boolean create) {
-        View view = ((ViewGroup) activity.getWindow().getDecorView()).getChildAt(0);
-        if (view instanceof ParallaxBackLayout) {
-            return (ParallaxBackLayout) view;
-        }
-        view = activity.findViewById(R.id.fast_arch_swipe_layout_in_back);
-        if (view instanceof ParallaxBackLayout) {
-            return (ParallaxBackLayout) view;
-        }
-        if (create) {
-            ParallaxBackLayout backLayout = new ParallaxBackLayout(activity);
-            backLayout.setId(R.id.fast_arch_swipe_layout_in_back);
-            backLayout.attachToActivity(activity);
-            backLayout.setBackgroundView(new GoBackView(activity));
-            return backLayout;
-        }
-        return null;
-    }
-
-    /**
-     * The type Trace info.
-     */
-    public static class TraceInfo {
-        private Activity mCurrent;
-    }
-
-    public static class GoBackView implements ParallaxBackLayout.IBackgroundView {
-
-        private Activity mActivity;
-        private Activity mActivityBack;
-
-        private GoBackView(Activity activity) {
-            mActivity = activity;
-        }
-
-
-        @Override
-        public void draw(Canvas canvas) {
-            if (mActivityBack != null) {
-                mActivityBack.getWindow().getDecorView().requestLayout();
-                mActivityBack.getWindow().getDecorView().draw(canvas);
-            }
-        }
-
-        @Override
-        public boolean canGoBack() {
-            return (mActivityBack = sParallaxHelper.mLinkedStack.before(mActivity)) != null;
-        }
-    }
+  }
 }

@@ -17,6 +17,7 @@ buildscript {
     version_fast4android_topbarlayout = '0.0.1-alpha01'
 
     version_group = 'io.github.keep2iron'
+    kotlin_version = '1.3.61'
   }
 
   dependencies {

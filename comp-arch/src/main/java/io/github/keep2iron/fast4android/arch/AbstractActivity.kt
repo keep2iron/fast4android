@@ -1,6 +1,9 @@
 package io.github.keep2iron.fast4android.arch
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
+import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -16,7 +19,6 @@ abstract class AbstractActivity<DB : ViewDataBinding> : AppCompatActivity() {
   private var mConvertToTranslucentCauseOrientationChanged = false
   private var mPendingRequestedOrientation = NO_REQUESTED_ORIENTATION_SET
 
-  private var mIsInSwipeBack = false
   lateinit var dataBinding: DB
 
   protected open fun beforeInit() {

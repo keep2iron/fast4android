@@ -4,9 +4,11 @@ end_of_line = lf
 insert_final_newline = false
 indent_style = space
 indent_size = 2
+disabled_rules = no-wildcard-imports,experimental:annotation,my-custom-ruleset
 
 [{*.sht, *.html, *.shtm, *.shtml, *.htm}]
 indent_size = 4
+no-wildcard-imports = true
 
 [*.properties]
 indent_size = 4

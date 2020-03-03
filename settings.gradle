@@ -1,3 +1,4 @@
 include ':sample', ':comp-arch', ':comp-fast4android', ':comp-popwindowplus', ':comp-tabsegment', ':comp-topbarlayout', ':comp-countdown', ':comp-looplayout', ':comp-bottomnavlayout',
   ':comp-grouplistview',
   ':base-style'
+include ':comp-autosize'

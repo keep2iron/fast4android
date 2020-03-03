@@ -37,7 +37,7 @@ dependencies {
   implementation deps.kotlin.stdlib_jdk7
 
   api project(':base-style')
-  implementation deps.support.recyclerview
+  implementation "androidx.viewpager2:viewpager2:1.0.0"
 
   testImplementation deps.test.junit
   androidTestImplementation 'androidx.test:runner:1.1.0'

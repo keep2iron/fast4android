@@ -12,9 +12,10 @@ import io.github.keep2iron.bottomnavlayout.FastBottomTabLayout
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.arch.AbstractActivity
 import io.github.keep2iron.fast4android.arch.AbstractFragment
+import io.github.keep2iron.fast4android.arch.util.LazyLoader
 import io.github.keep2iron.fast4android.arch.util.findViewByDelegate
+import io.github.keep2iron.fast4android.base.FastLogger
 import io.github.keep2iron.fast4android.base.util.translucent
-
 
 class BottomNavFragment : AbstractFragment<ViewDataBinding>() {
 
@@ -28,7 +29,13 @@ class BottomNavFragment : AbstractFragment<ViewDataBinding>() {
     }
 
     findViewById<TextView>(R.id.tvBottomNavContent).text = arguments!!.getString("tab")
+
+    LazyLoader.attach(this){
+      val tabString = requireArguments().getString("tab", "")
+      FastLogger.d("tag", "LazyLoader $tabString")
+    }
   }
+
 }
 
 class BottomNavLayoutActivity : AbstractActivity<ViewDataBinding>() {
@@ -90,7 +97,7 @@ class BottomNavLayoutActivity : AbstractActivity<ViewDataBinding>() {
           iconResTintColorRes = R.color.fast_config_color_gray_4
           iconSelResTintColorRes = R.color.fast_config_color_blue
           fragment = Fragment.instantiate(applicationContext, BottomNavFragment::class.java.name, Bundle().apply {
-            putString("tab", "tab3")
+            putString("tab", "tab4")
           })
         }
       )

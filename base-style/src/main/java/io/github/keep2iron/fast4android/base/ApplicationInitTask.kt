@@ -11,7 +11,5 @@ import android.app.Application
  * 用于初始化任务
  */
 interface ApplicationInitTask {
-
   fun onApplicationCreate(application: Application)
-
 }

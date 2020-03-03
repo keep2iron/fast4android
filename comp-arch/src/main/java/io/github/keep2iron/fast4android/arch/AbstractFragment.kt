@@ -1,17 +1,14 @@
 package io.github.keep2iron.fast4android.arch
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import io.github.keep2iron.fast4android.arch.rx.LifecycleEvent
-import io.github.keep2iron.fast4android.arch.rx.RxLifecycleDispatcher
-import io.reactivex.subjects.BehaviorSubject
 
 /**
  *
@@ -19,27 +16,16 @@ import io.reactivex.subjects.BehaviorSubject
  * @version 1.0
  * @since 2018/05/19 11:08
  */
-abstract class AbstractFragment<DB : ViewDataBinding> : Fragment(),
-  RxLifecycleOwner {
-
-  private var isInit: Boolean = false
-
-  private var isOnAttach: Boolean = false
-
-  private var waitingForUser: Boolean = false
-
-  private val lifecycleDispatcher = RxLifecycleDispatcher(this)
-
-  override val publishSubject: BehaviorSubject<LifecycleEvent> = lifecycleDispatcher.publishSubject
+abstract class AbstractFragment<DB : ViewDataBinding> : Fragment() {
 
   lateinit var dataBinding: DB
 
   lateinit var contentView: View
 
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    isOnAttach = true
-  }
+  /**
+   * lazy load 的标志
+   */
+  var loaded = false
 
   @LayoutRes
   abstract fun resId(): Int
@@ -68,77 +54,10 @@ abstract class AbstractFragment<DB : ViewDataBinding> : Fragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     initVariables(savedInstanceState)
-    if (userVisibleHint && !isInit) {
-      isInit = true
-      lazyLoad(contentView)
-    }
-  }
-
-  /**
-   * 延迟加载
-   * 子类必须重写此方法
-   *
-   * @param container
-   */
-  open fun lazyLoad(container: View?) {
-  }
-
-  override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-    super.setUserVisibleHint(isVisibleToUser)
-
-    if (isVisibleToUser) {
-      if (isOnAttach && !isInit) {
-        lazyLoad(view)
-        isInit = true
-      }
-    }
-
-    if (isVisibleToUser) {
-      if (parentFragment != null && !parentFragment!!.userVisibleHint) {
-        waitingForUser = true
-        return
-      }
-    }
-
-    if (isOnAttach && host != null) {
-      val fragments: List<Fragment>? = childFragmentManager.fragments
-      fragments?.forEach {
-        if (it is AbstractFragment<*>) {
-          if (userVisibleHint) {
-            if (it.userVisibleHint || it.waitingForUser) {
-              it.userVisibleHint = true
-              it.waitingForUser = false
-            }
-          } else {
-            if (it.userVisibleHint) {
-              it.userVisibleHint = false
-              it.waitingForUser = true
-            }
-          }
-        }
-      }
-    }
-  }
-
-  override fun onDetach() {
-    isOnAttach = false
-    super.onDetach()
   }
 
   fun <T : View> findViewById(viewId: Int): T {
     return contentView.findViewById(viewId) as T
   }
 
-  override fun onHiddenChanged(hidden: Boolean) {
-    super.onHiddenChanged(hidden)
-
-    if (isAdded) {
-      val fragments: List<Fragment>? = childFragmentManager.fragments
-      fragments?.forEach {
-        if (!it.isHidden && it.userVisibleHint) {
-          it.onHiddenChanged(hidden)
-        }
-      }
-    }
-  }
 }

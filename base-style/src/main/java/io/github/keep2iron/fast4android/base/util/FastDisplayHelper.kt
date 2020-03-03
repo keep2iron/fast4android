@@ -203,13 +203,11 @@ object FastDisplayHelper {
         val realSize = Point()
         d.getRealSize(realSize)
 
-
         Display::class.java.getMethod("getRealSize", Point::class.java).invoke(d, realSize)
         widthPixels = realSize.x
         heightPixels = realSize.y
       } catch (ignored: Exception) {
       }
-
     }
 
     size[0] = widthPixels
@@ -244,8 +242,9 @@ object FastDisplayHelper {
     val orientation = context.resources.configuration.orientation
     val isLandscape = orientation == Configuration.ORIENTATION_LANDSCAPE
     if (!hasNotch) {
-      if (isLandscape && FastDeviceHelper.isEssentialPhone
-        && Build.VERSION.SDK_INT < Build.VERSION_CODES.O
+      if (isLandscape &&
+        FastDeviceHelper.isEssentialPhone &&
+        Build.VERSION.SDK_INT < Build.VERSION_CODES.O
       ) {
         // https://arstechnica.com/gadgets/2017/09/essential-phone-review-impressive-for-a-new-company-but-not-competitive/
         // 这里说挖孔屏是状态栏高度的两倍， 但横屏好像小了一点点
@@ -320,7 +319,7 @@ object FastDisplayHelper {
   }
 
   fun isNavMenuExist(context: Context): Boolean {
-    //通过判断设备是否有返回键、菜单键(不是虚拟键,是手机屏幕外的按键)来确定是否有navigation bar
+    // 通过判断设备是否有返回键、菜单键(不是虚拟键,是手机屏幕外的按键)来确定是否有navigation bar
     val hasMenuKey = ViewConfiguration.get(context).hasPermanentMenuKey()
     val hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK)
 
@@ -540,9 +539,11 @@ object FastDisplayHelper {
 
       sysLocale = config.locale
     }
-    return (sysLocale.language
-      + "-"
-      + sysLocale.country)
+    return (
+      sysLocale.language +
+        "-" +
+        sysLocale.country
+      )
   }
 
   /**

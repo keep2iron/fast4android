@@ -1,5 +1,6 @@
 package io.github.keep2iron.fast4android.app.ui.looplayout
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.databinding.ObservableArrayList
@@ -36,13 +37,13 @@ class LoopLayoutActivity : AbstractActivity<LooplayoutActivityBinding>() {
       R.mipmap.example_image2,
       R.mipmap.example_image3))
 
-    dataBinding.looperLayout.viewPager.setPadding(0, 0, 0, 0)
-    dataBinding.looperLayout.viewPager.pageMargin = 0
     dataBinding.looperLayout.setAdapter(object : AbstractSubListAdapter<Int>(data, 0) {
+
       override fun onInflateLayoutId(parent: ViewGroup, viewType: Int): Int = R.layout.looplayout_loop_item
 
       override fun render(holder: RecyclerViewHolder, item: Int, position: Int) {
         val imageView = holder.findViewById<MiddlewareView>(R.id.imageView)
+//        imageView.setBackgroundColor(Color.BLACK)
         ImageLoaderManager.getInstance().showImageView(imageView, item)
       }
     })

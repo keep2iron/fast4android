@@ -29,7 +29,7 @@ import android.util.Log
 import java.io.File
 import java.io.FileInputStream
 import java.lang.reflect.Method
-import java.util.*
+import java.util.Properties
 import java.util.regex.Pattern
 
 /**
@@ -73,7 +73,7 @@ object FastDeviceHelper {
     get() = "v8" == sMiuiVersionName
   val isMIUIV9: Boolean
     get() = "v9" == sMiuiVersionName
-  //查不到默认高于5.2.4
+  // 查不到默认高于5.2.4
   val isFlymeVersionHigher5_2_4: Boolean
     get() {
       var isHigher = true
@@ -170,7 +170,7 @@ object FastDeviceHelper {
           getMethod,
           KEY_MIUI_VERSION_NAME
         )
-      //flyme
+      // flyme
       sFlymeVersionName =
         getLowerCaseName(
           properties,
@@ -219,10 +219,11 @@ object FastDeviceHelper {
   fun isFloatWindowOpAllowed(context: Context): Boolean {
     val version = Build.VERSION.SDK_INT
     return if (version >= 19) {
+      // 24 是AppOpsManager.OP_SYSTEM_ALERT_WINDOW 的值，该值无法直接访问
       checkOp(
         context,
         24
-      )  // 24 是AppOpsManager.OP_SYSTEM_ALERT_WINDOW 的值，该值无法直接访问
+      )
     } else {
       try {
         context.applicationInfo.flags and (1 shl 27) == 1 shl 27

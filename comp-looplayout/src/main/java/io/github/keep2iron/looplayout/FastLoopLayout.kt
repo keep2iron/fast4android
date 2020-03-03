@@ -14,11 +14,9 @@ import android.widget.LinearLayout
 import androidx.annotation.LayoutRes
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import io.github.keep2iron.fast4android.base.util.FastDisplayHelper.dp2px
 import io.github.keep2iron.fast4android.base.util.WeakHandler
-import io.github.keep2iron.fast4android.base.util.setPaddingLeft
-import io.github.keep2iron.fast4android.base.util.setPaddingRight
 import io.github.keep2iron.peach.DrawableCreator
 
 
@@ -31,14 +29,14 @@ import io.github.keep2iron.peach.DrawableCreator
  */
 class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
   : FrameLayout(context, attrs, defStyleAttr) {
-  private lateinit var adapter: LooperWrapperPagerAdapter<out RecyclerView.ViewHolder>
-  var viewPager: NoScrollViewPager = NoScrollViewPager(context)
   private lateinit var indicators: LinearLayout
   private val weakHandler = WeakHandler()
+  private lateinit var adapter: LooperWrapperPagerAdapter<out RecyclerView.ViewHolder>
+  val viewPager: ViewPager2 = ViewPager2(context)
 
   private val runnable = object : Runnable {
     override fun run() {
-      viewPager.currentItem = toRealPosition(++currentPosition)
+      viewPager.currentItem = ++currentPosition
       weakHandler.postDelayed(this, playTimeInterval)
     }
   }
@@ -71,7 +69,7 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
 
   var indicatorLayoutId: Int = -1
 
-  var onPageChangedListener: ViewPager.OnPageChangeListener? = null
+  var onPageChangedListener: ViewPager2.OnPageChangeCallback? = null
 
   companion object {
     const val DEFAULT_POSITION: Int = 2
@@ -83,13 +81,13 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
   var currentPosition: Int = DEFAULT_POSITION
 
   init {
-    viewPager.layoutParams = generateDefaultLayoutParams()
-    viewPager.setScroll(true)
-    viewPager.pageMargin = dp2px(context, 12)
-    viewPager.setPaddingLeft(dp2px(context, 24))
-    viewPager.setPaddingRight(dp2px(context, 24))
-    viewPager.clipToPadding = false
-    addView(viewPager)
+//    LayoutInflater.from(context).inflate(R.layout.fast_widget_loop_layout, this, true)
+    //    viewPager.setScroll(true)
+//    viewPager.pageMargin = dp2px(context, 12)
+//    viewPager.setPaddingLeft(dp2px(context, 24))
+//    viewPager.setPaddingRight(dp2px(context, 24))
+//    viewPager.setBackgroundColor(Color.RED)
+    addView(viewPager, generateDefaultLayoutParams())
 
     flNoDataContainer = FrameLayout(context)
     val array = resources.obtainAttributes(attrs, R.styleable.FastLoopLayout)
@@ -135,11 +133,11 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
   }
 
   private fun initOnPageChangedListener() {
-    viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+    viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
       override fun onPageScrollStateChanged(state: Int) {
         onPageChangedListener?.onPageScrollStateChanged(state)
         when (state) {
-          ViewPager.SCROLL_STATE_IDLE -> {
+          ViewPager2.SCROLL_STATE_IDLE -> {
             if (currentPosition <= 1) {//No operation
               Log.d(FastLoopLayout::class.java.simpleName, "currentPosition : $currentPosition adapter.getRealCount() + 1 : ${adapter.getRealCount() + 1}")
               viewPager.setCurrentItem(adapter.getRealCount() + 1, false)
@@ -148,7 +146,7 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
               viewPager.setCurrentItem(adapter.spaceItemCount, false)
             }
           }
-          ViewPager.SCROLL_STATE_DRAGGING -> {
+          ViewPager2.SCROLL_STATE_DRAGGING -> {
             if (currentPosition <= 1) {//No operation
               Log.d(FastLoopLayout::class.java.simpleName, "currentPosition : $currentPosition adapter.getRealCount() + 1 : ${adapter.getRealCount() + 1}")
               viewPager.setCurrentItem(adapter.getRealCount() + 1, false)
@@ -235,10 +233,7 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
    * @param recycleAdapter RecyclerView的Adapter
    * @param pool 使用
    */
-  fun <T : RecyclerView.ViewHolder> setAdapter(recycleAdapter: RecyclerView.Adapter<T>,
-                                               pool: RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()) {
-    viewPager.removeAllViews()
-    this.adapter = LooperWrapperPagerAdapter(recycleAdapter, pool)
+  fun <T : RecyclerView.ViewHolder> setAdapter(recycleAdapter: RecyclerView.Adapter<T>) {
     recycleAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
       override fun onChanged() {
         currentPosition = DEFAULT_POSITION
@@ -286,6 +281,7 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
         flNoDataContainer.visibility = if (recycleAdapter.itemCount == 0) View.VISIBLE else View.GONE
       }
     })
+    this.adapter = LooperWrapperPagerAdapter(recycleAdapter)
     createIndicator()
     viewPager.adapter = adapter
     viewPager.post {
@@ -320,11 +316,12 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
 
   override fun onWindowSystemUiVisibilityChanged(visible: Int) {
     super.onWindowSystemUiVisibilityChanged(visible)
-    if (visible == View.VISIBLE) {
-      weakHandler.post(runnable)
-    } else {
-      weakHandler.removeCallbacks(runnable)
-    }
+    weakHandler.post(runnable)
+
+//    if (visible == View.VISIBLE) {
+//    } else {
+//      weakHandler.removeCallbacks(runnable)
+//    }
   }
 
 }

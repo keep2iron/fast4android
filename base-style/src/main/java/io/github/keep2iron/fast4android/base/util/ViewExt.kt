@@ -116,11 +116,10 @@ fun View.playViewBackgroundAnimation(
 /**
  * 对 View 做背景色变化的动作
  *
- * @param v            做背景色变化的View
- * @param bgColor      背景色
- * @param alphaArray   背景色变化的alpha数组，如 int[]{255,0} 表示从纯色变化到透明
+ * @param bgColor 背景色
+ * @param alphaArray 背景色变化的alpha数组，如 int[]{255,0} 表示从纯色变化到透明
  * @param stepDuration 每一步变化的时长
- * @param endAction    动画结束后的回调
+ * @param endAction 动画结束后的回调
  */
 fun View.playViewBackgroundAnimation(
   @ColorInt bgColor: Int,

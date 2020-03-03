@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.ui.databinding.DataBindingActivity
+import io.github.keep2iron.fast4android.app.ui.density.DensityActivity
 import io.github.keep2iron.fast4android.app.ui.dialog.DialogComponentsActivity
 import io.github.keep2iron.fast4android.app.ui.grouplistview.GroupListViewActivity
 import io.github.keep2iron.fast4android.app.ui.layout.FastLayoutComponentActivity
@@ -42,7 +43,8 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
     Description("DataBinding Bast Practice", R.mipmap.icon_grid_group_list_view, DataBindingActivity::class.java),
     Description("LoopLayout", R.mipmap.icon_grid_pager_layout_manager, LoopLayoutActivity::class.java),
     Description("TipDialog", R.mipmap.icon_grid_tip_dialog, TipDialogComponentActivity::class.java),
-    Description("Shadow Border Layout", R.mipmap.icon_grid_layout, FastLayoutComponentActivity::class.java)
+    Description("Shadow Border Layout", R.mipmap.icon_grid_layout, FastLayoutComponentActivity::class.java),
+    Description("Density", R.mipmap.icon_grid_layout, DensityActivity::class.java)
   )
 
   override fun initVariables(savedInstanceState: Bundle?) {

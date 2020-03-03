@@ -40,6 +40,7 @@
     <activity android:name=".ui.bottomnav.BottomNavLayoutActivity" />
     <activity android:name=".ui.tip.TipDialogComponentActivity" />
     <activity android:name=".ui.layout.FastLayoutComponentActivity" />
+    <activity android:name=".ui.density.DensityActivity" />
   </application>
 
 </manifest>

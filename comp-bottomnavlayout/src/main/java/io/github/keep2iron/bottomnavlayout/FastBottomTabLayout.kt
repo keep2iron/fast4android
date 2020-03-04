@@ -22,6 +22,7 @@ class FastBottomTabLayout : LinearLayout {
    * 用于container是ViewPager的时候的position
    */
   private var position: Int = 0
+
   /**
    * 用于ViewPager的offset参数
    */

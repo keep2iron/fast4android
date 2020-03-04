@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -44,23 +45,28 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
   /**
    * 自动轮播时的时间间隔
    */
-  var playTimeInterval = 2000L
+  var playTimeInterval = 4000L
+
   /**
    * 非选中时的资源id
    */
   var indicatorUnSelectDrawable: Drawable? = null
+
   /**
    * 选中时的资源id
    */
   var indicatorSelectDrawable: Drawable? = null
+
   /**
    * indicator 宽度
    */
   var indicatorWidth: Int = dp2px(context, 8)
+
   /**
    * indicator 高度
    */
   var indicatorHeight: Int = dp2px(context, 8)
+
   /**
    * indicator 间距
    */
@@ -132,6 +138,20 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     initOnPageChangedListener()
   }
 
+  override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+    when (ev.action) {
+      MotionEvent.ACTION_DOWN -> {
+        weakHandler.removeCallbacks(runnable)
+      }
+      MotionEvent.ACTION_UP -> {
+        if (visibility == View.VISIBLE && viewPager.visibility == View.VISIBLE) {
+          weakHandler.postDelayed(runnable, playTimeInterval)
+        }
+      }
+    }
+    return super.dispatchTouchEvent(ev)
+  }
+
   private fun initOnPageChangedListener() {
     viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
       override fun onPageScrollStateChanged(state: Int) {
@@ -159,7 +179,7 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
       }
 
       override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-        onPageChangedListener?.onPageScrolled(toRealPosition(position), positionOffset, positionOffsetPixels)
+        onPageChangedListener?.onPageScrolled(adapter.toRealPosition(position), positionOffset, positionOffsetPixels)
       }
 
       override fun onPageSelected(position: Int) {
@@ -167,7 +187,7 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
           return
         }
 
-        val realPosition = toRealPosition(position)
+        val realPosition = adapter.toRealPosition(position)
 
         for (i in 0 until indicators.childCount) {
           if (i == realPosition) {
@@ -203,7 +223,7 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
         linearParams.leftMargin = indicatorSpacing
         linearParams.rightMargin = indicatorSpacing
         layoutParams = linearParams
-        val realCurrentPosition = toRealPosition(currentPosition)
+        val realCurrentPosition = adapter.toRealPosition(currentPosition)
         if (i == realCurrentPosition) {
           setImageDrawable(indicatorSelectDrawable)
         } else {
@@ -214,18 +234,13 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     }
   }
 
-  /**
-   * 返回真实的位置
-   *
-   * @param position
-   * @return 下标从0开始
-   */
-  fun toRealPosition(position: Int): Int {
-    var realPosition = (position - adapter.spaceItemCount) % adapter.getRealCount()
-    if (realPosition < 0)
-      realPosition += adapter.getRealCount()
-    return realPosition
-  }
+
+//  fun toRealPosition(position: Int): Int {
+//    var realPosition = (position - adapter.spaceItemCount) % adapter.getRealCount()
+//    if (realPosition < 0)
+//      realPosition += (adapter.getRealCount() + adapter.spaceItemCount)
+//    return realPosition
+//  }
 
   /**
    * 设置RecyclerView的Adapter，主要是因为这个adapter可以和RecyclerView进行结合，共用一个复用池
@@ -284,9 +299,8 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     this.adapter = LooperWrapperPagerAdapter(recycleAdapter)
     createIndicator()
     viewPager.adapter = adapter
-    viewPager.post {
-      viewPager.setCurrentItem(currentPosition, false)
-    }
+
+    viewPager.setCurrentItem(DEFAULT_POSITION, false)
   }
 
   override fun onFinishInflate() {
@@ -314,14 +328,15 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     return adapter.recyclerAdapter
   }
 
-  override fun onWindowSystemUiVisibilityChanged(visible: Int) {
-    super.onWindowSystemUiVisibilityChanged(visible)
-    weakHandler.post(runnable)
-
-//    if (visible == View.VISIBLE) {
-//    } else {
-//      weakHandler.removeCallbacks(runnable)
-//    }
+  override fun onVisibilityChanged(changedView: View, visibility: Int) {
+    super.onVisibilityChanged(changedView, visibility)
+    if (changedView == this || changedView == viewPager) {
+      if (visibility == View.VISIBLE) {
+        weakHandler.postDelayed(runnable, playTimeInterval)
+      } else {
+        weakHandler.removeCallbacks(runnable)
+      }
+    }
   }
 
 }

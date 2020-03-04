@@ -15,7 +15,7 @@ class MainActivity : AbstractActivity<ActivityMainBinding>() {
     FastStatusBarHelper.translucent(this)
 
 
-    LazyLoader.attach(this){
+    LazyLoader.attach(this) {
       FastLogger.d("tag", "LazyLoader ")
     }
 

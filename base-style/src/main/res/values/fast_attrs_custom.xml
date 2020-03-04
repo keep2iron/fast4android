@@ -38,11 +38,11 @@
   </declare-styleable>
 
   <declare-styleable name="FastDialogTitleTvCustomDef">
-    <attr name="fast_paddingBottomWhenNotContent" format="dimension"/>
+    <attr name="fast_paddingBottomWhenNotContent" format="dimension" />
   </declare-styleable>
 
   <declare-styleable name="FastDialogMessageTvCustomDef">
-    <attr name="fast_paddingTopWhenNotTitle" format="dimension"/>
+    <attr name="fast_paddingTopWhenNotTitle" format="dimension" />
   </declare-styleable>
 
   <declare-styleable name="FastDialogActionContainerCustomDef">

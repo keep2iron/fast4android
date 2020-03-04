@@ -476,6 +476,7 @@ object ViewExt {
   private val APPCOMPAT_CHECK_ATTRS = intArrayOf(androidx.appcompat.R.attr.colorPrimary)
 
   val isLastLineSpacingExtraError: Boolean = Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP
+
   /**
    * 扩展点击区域的范围
    *

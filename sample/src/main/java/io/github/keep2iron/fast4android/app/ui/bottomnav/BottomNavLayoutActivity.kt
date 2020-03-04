@@ -30,7 +30,7 @@ class BottomNavFragment : AbstractFragment<ViewDataBinding>() {
 
     findViewById<TextView>(R.id.tvBottomNavContent).text = arguments!!.getString("tab")
 
-    LazyLoader.attach(this){
+    LazyLoader.attach(this) {
       val tabString = requireArguments().getString("tab", "")
       FastLogger.d("tag", "LazyLoader $tabString")
     }

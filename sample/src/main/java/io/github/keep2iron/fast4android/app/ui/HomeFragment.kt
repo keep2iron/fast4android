@@ -28,6 +28,7 @@ import io.github.keep2iron.fast4android.base.util.layoutInflate
 
 class HomeFragment : AbstractFragment<ViewDataBinding>() {
   private val recyclerView: RecyclerView by findViewByDelegate(R.id.recyclerView)
+
   //  private val titleBar: FastTopBarLayout by FindViewById(R.id.titleBar)
   override fun resId(): Int = R.layout.home_fragment
 
@@ -67,6 +68,7 @@ class HomeFragment : AbstractFragment<ViewDataBinding>() {
     }
 
     override fun getItemCount(): Int = data.size
+
     override
     fun onBindViewHolder(holder: ViewHolder, position: Int) {
       val item = data[position]

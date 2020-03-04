@@ -20,6 +20,7 @@ class WeakHandler {
   private var mCallback: Callback? = null
   private var mExec: ExecHandler
   private val mLock = ReentrantLock()
+
   @VisibleForTesting
   internal val mRunnables =
     ChainedRef(mLock, null)

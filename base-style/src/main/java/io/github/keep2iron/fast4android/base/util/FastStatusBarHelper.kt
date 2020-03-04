@@ -54,14 +54,17 @@ object FastStatusBarHelper {
   private const val STATUS_BAR_TYPE_FLYME = 2
   private const val STATUS_BAR_TYPE_ANDROID6 = 3 // Android 6.0
   private const val STATUS_BAR_DEFAULT_HEIGHT_DP = 25 // 大部分状态栏都是25dp
+
   // 在某些机子上存在不同的density值，所以增加两个虚拟值
   private var sVirtualDensity = -1f
   private var sVirtualDensityDpi = -1f
   private var sStatusBarHeight = -1
+
   @StatusBarType
   private var mStatusBarType =
     STATUS_BAR_TYPE_DEFAULT
   private var sTransparentValue: Int? = null
+
   /**
    * 更改状态栏图标、文字颜色的方案是否是MIUI自家的， MIUI9 && Android 6 之后用回Android原生实现
    * 见小米开发文档说明：https://dev.mi.com/console/doc/detail?pId=1159

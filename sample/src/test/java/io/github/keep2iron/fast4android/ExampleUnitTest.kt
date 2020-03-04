@@ -68,15 +68,15 @@ class ExampleUnitTest {
 
     var subscription: Subscription? = null
     subscribe = Flowable.create(FlowableOnSubscribe<String> { e ->
-      e.onNext("11")
-      subscription?.cancel()
+        e.onNext("11")
+        subscription?.cancel()
 //                subscribe?.dispose()
 //            e.onError(RuntimeException("11111error"))
-      poolExecutor.shutdownNow()
-      poolExecutor.execute {
-        System.out.println("执行一段代码")
-      }
-    }, BackpressureStrategy.ERROR)/*.delay(1000,TimeUnit.MILLISECONDS)*/
+        poolExecutor.shutdownNow()
+        poolExecutor.execute {
+          System.out.println("执行一段代码")
+        }
+      }, BackpressureStrategy.ERROR)/*.delay(1000,TimeUnit.MILLISECONDS)*/
       //.take(1)
       .subscribeOn(Schedulers.io())
       .subscribe({

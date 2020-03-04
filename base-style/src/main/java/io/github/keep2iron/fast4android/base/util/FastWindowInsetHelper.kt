@@ -50,6 +50,7 @@ class FastWindowInsetHelper(viewGroup: ViewGroup, windowInsetLayout: IWindowInse
     const val KEYBOARD_HEIGHT_BOUNDARY = 100
     val KEYBOARD_CONSUMER = Any()
     private val sCustomHandlerContainerList = ArrayList<Class<out ViewGroup>>()
+
     @TargetApi(19)
     fun jumpDispatch(child: View): Boolean {
       return !child.fitsSystemWindows && !isHandleContainer(

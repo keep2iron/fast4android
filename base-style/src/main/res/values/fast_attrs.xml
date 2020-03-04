@@ -157,7 +157,7 @@
     <attr name="fast_rightDividerColor" format="color|reference" />
     <attr name="fast_rightDividerInsetTop" format="dimension" />
     <attr name="fast_rightDividerInsetBottom" format="dimension" />
-    <attr name="fast_radius" format="dimension"/>
+    <attr name="fast_radius" format="dimension" />
     <attr name="fast_borderColor" />
     <attr name="fast_borderWidth" />
     <attr name="fast_outerNormalColor" format="color|reference" />

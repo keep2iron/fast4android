@@ -12,8 +12,8 @@ import androidx.fragment.app.FragmentManager
 
  */
 class FragmentLifecycleCallbacksImplToAndroidx(val densityAdaptStrategy: DensityAdaptStrategy) : FragmentManager.FragmentLifecycleCallbacks() {
-    override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
-        super.onFragmentCreated(fm, f, savedInstanceState)
-            densityAdaptStrategy.applyAdapt(f, f.requireActivity())
-    }
+  override fun onFragmentCreated(fm: FragmentManager, f: Fragment, savedInstanceState: Bundle?) {
+    super.onFragmentCreated(fm, f, savedInstanceState)
+    densityAdaptStrategy.applyAdapt(f, f.requireActivity())
+  }
 }

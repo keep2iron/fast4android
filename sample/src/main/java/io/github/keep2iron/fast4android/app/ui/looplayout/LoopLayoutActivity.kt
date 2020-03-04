@@ -1,6 +1,5 @@
 package io.github.keep2iron.fast4android.app.ui.looplayout
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.databinding.ObservableArrayList

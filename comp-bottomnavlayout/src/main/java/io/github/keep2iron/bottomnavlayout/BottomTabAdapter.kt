@@ -115,12 +115,15 @@ open class BottomTabAdapter(private val supportFragmentManager: FragmentManager,
 
     @ColorRes
     var colorRes: Int = 0
+
     @ColorRes
     var selectColorRes: Int = 0
 
     var title: String = ""
+
     @DrawableRes
     var iconRes: Int = 0
+
     @DrawableRes
     var iconSelRes: Int = 0
 

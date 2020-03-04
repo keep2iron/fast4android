@@ -4,7 +4,7 @@
   <application>
     <provider
       android:name="io.github.keep2iron.density.InitProvider"
-      android:authorities="${applicationId}.density-init-provider"
+      android:authorities="${applicationId}.InitProvider"
       android:exported="false"
       android:multiprocess="true" />
 

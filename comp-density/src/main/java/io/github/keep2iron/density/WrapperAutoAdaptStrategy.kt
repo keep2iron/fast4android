@@ -12,10 +12,10 @@ import io.github.keep2iron.density.DensityConfig
 
  */
 class WrapperAutoAdaptStrategy(val densityAdaptStrategy: DensityAdaptStrategy) : DensityAdaptStrategy {
-    override fun applyAdapt(target: Any, activity: Activity) {
-        val mOnAdaptListener = DensityConfig.getOnAdaptListener()
-        mOnAdaptListener?.onAdapteBefor(target , activity)
-        densityAdaptStrategy.applyAdapt(target , activity)
-        mOnAdaptListener?.onAdapteAfter(target , activity)
-    }
+  override fun applyAdapt(target: Any, activity: Activity) {
+    val mOnAdaptListener = DensityConfig.getOnAdaptListener()
+    mOnAdaptListener?.onAdapteBefor(target, activity)
+    densityAdaptStrategy.applyAdapt(target, activity)
+    mOnAdaptListener?.onAdapteAfter(target, activity)
+  }
 }

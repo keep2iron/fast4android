@@ -28,14 +28,17 @@ class FastGroupListItemView @JvmOverloads constructor(
      * 右侧不显示任何东西
      */
     const val ACCESSORY_TYPE_NONE = 0
+
     /**
      * 右侧显示一个箭头
      */
     const val ACCESSORY_TYPE_CHEVRON = 1
+
     /**
      * 右侧显示一个开关
      */
     const val ACCESSORY_TYPE_SWITCH = 2
+
     /**
      * 自定义右侧显示的 View
      */
@@ -47,6 +50,7 @@ class FastGroupListItemView @JvmOverloads constructor(
   annotation class AccessoryType
 
   private var defaultAccessoryViewRef: View? = null
+
   @AccessoryType
   var accessoryType = ACCESSORY_TYPE_NONE
     set(value) {
@@ -98,6 +102,7 @@ class FastGroupListItemView @JvmOverloads constructor(
       field = value
       groupListItemTextView.text = field
     }
+
   @ColorInt
   var titleColor: Int = context.getAttrColor(R.color.fast_config_color_gray_3)
   private var groupListItemImageView: AppCompatImageView

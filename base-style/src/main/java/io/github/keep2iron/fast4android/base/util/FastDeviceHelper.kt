@@ -29,7 +29,7 @@ import android.util.Log
 import java.io.File
 import java.io.FileInputStream
 import java.lang.reflect.Method
-import java.util.Properties
+import java.util.*
 import java.util.regex.Pattern
 
 /**
@@ -51,6 +51,7 @@ object FastDeviceHelper {
   private var sIsTabletChecked = false
   private var sIsTabletValue = false
   private val BRAND = Build.BRAND.toLowerCase()
+
   /**
    * 判断是否是flyme系统
    */
@@ -58,6 +59,7 @@ object FastDeviceHelper {
     get() = !TextUtils.isEmpty(sFlymeVersionName) && sFlymeVersionName.contains(
       FLYME
     )
+
   /**
    * 判断是否是MIUI系统
    */
@@ -73,6 +75,7 @@ object FastDeviceHelper {
     get() = "v8" == sMiuiVersionName
   val isMIUIV9: Boolean
     get() = "v9" == sMiuiVersionName
+
   // 查不到默认高于5.2.4
   val isFlymeVersionHigher5_2_4: Boolean
     get() {
@@ -111,6 +114,7 @@ object FastDeviceHelper {
     }
   val isMeizu: Boolean
     get() = isPhone(MEIZUBOARD) || isFlyme
+
   /**
    * 判断是否为小米
    * https://dev.mi.com/doc/?p=254
@@ -125,6 +129,7 @@ object FastDeviceHelper {
     get() = BRAND.contains("huawei") || BRAND.contains("honor")
   val isEssentialPhone: Boolean
     get() = BRAND.contains("essential")
+
   /**
    * 判断是否为 ZUK Z1 和 ZTK C2016。
    * 两台设备的系统虽然为 android 6.0，但不支持状态栏icon颜色改变，因此经常需要对它们进行额外判断。

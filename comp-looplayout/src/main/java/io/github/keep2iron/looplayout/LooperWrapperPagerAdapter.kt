@@ -11,7 +11,6 @@ class LooperWrapperPagerAdapter<T : RecyclerView.ViewHolder>(val recyclerAdapter
 
   val spaceItemCount = 2
 
-
   fun getRealCount(): Int {
     return recyclerAdapter.itemCount
   }
@@ -25,18 +24,25 @@ class LooperWrapperPagerAdapter<T : RecyclerView.ViewHolder>(val recyclerAdapter
   }
 
   override fun onBindViewHolder(holder: T, position: Int) {
-    var realPosition = (position - spaceItemCount) % recyclerAdapter.itemCount
-    if (realPosition < 0)
-      realPosition += recyclerAdapter.itemCount
+    val realPosition = toRealPosition(position)
     val itemViewType = recyclerAdapter.getItemViewType(realPosition)
     recyclerAdapter.onBindViewHolder(holder, realPosition)
   }
 
   override fun getItemViewType(position: Int): Int {
-    var realPosition = (position - spaceItemCount) % recyclerAdapter.itemCount
-    if (realPosition < 0)
-      realPosition += recyclerAdapter.itemCount
-    return recyclerAdapter.getItemViewType(realPosition)
+    return recyclerAdapter.getItemViewType(toRealPosition(position))
+  }
 
+  /**
+   * 返回真实的位置
+   *
+   * @param position
+   * @return 下标从0开始
+   */
+  fun toRealPosition(position: Int): Int {
+    var realPosition = (position - spaceItemCount) % getRealCount()
+    if (realPosition < 0)
+      realPosition += getRealCount()
+    return realPosition
   }
 }

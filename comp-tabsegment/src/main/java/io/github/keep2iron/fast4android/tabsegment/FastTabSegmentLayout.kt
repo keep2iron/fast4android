@@ -26,8 +26,10 @@ class FastTabSegmentLayout @JvmOverloads constructor(
   companion object {
     // mode 自适应宽度/均分
     const val MODE_FIXED = 1
+
     // mode 可滚动
     const val MODE_SCROLLABLE = 0
+
     // // icon 位置
     // const val ICON_POSITION_LEFT = 0
     // const val ICON_POSITION_TOP = 1
@@ -59,14 +61,17 @@ class FastTabSegmentLayout @JvmOverloads constructor(
    * selected changed listener
    */
   private val selectedListeners = ArrayList<OnTabSelectedListener>()
+
   // var tabIconWidth: Int = dp2px(context, 10)
   // var tabIconHeight: Int = dp2px(context, 10)
   var tabTextSize: Int = resources.getDimensionPixelSize(R.dimen.fast_tab_segment_text_size)
   var tabMode: Int = MODE_FIXED
+
   /**
    * tab的两边间隙 tabMode == MODE_SCROLLABLE 时有效
    */
   var tabSpacing: Int = dp2px(context, 10)
+
   // var tabPosition: Int = ICON_POSITION_LEFT
   //  private var tabDrawablePadding: Int = 0
   var tabItemMargin: Int = 0
@@ -76,16 +81,19 @@ class FastTabSegmentLayout @JvmOverloads constructor(
   }
   private var adapter: TabSegmentAdapter? = null
   var viewPager: ViewPager? = null
+
   /**
    * 用于ViewPager的offset参数
    */
   var positionOffset: Float = 0f
   val indicatorRect = Rect()
+
   /**
    * 指示器高度
    */
   var indicatorHeight: Int =
     resources.getDimensionPixelSize(R.dimen.fast_tab_segment_indicator_height)
+
   /**
    * 指示器颜色
    */
@@ -96,10 +104,12 @@ class FastTabSegmentLayout @JvmOverloads constructor(
     }
   val indicatorPaint = Paint(Paint.ANTI_ALIAS_FLAG)
   val indicatorDrawable: Drawable? = null
+
   /**
    * 用于container是ViewPager的时候的position
    */
   private var curPosition: Int = 0
+
   /**
    * 选中颜色
    */
@@ -108,6 +118,7 @@ class FastTabSegmentLayout @JvmOverloads constructor(
       field = value
       adapter?.selectColor = field
     }
+
   /**
    * 默认颜色
    */

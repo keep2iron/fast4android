@@ -101,12 +101,12 @@ if (MAVEN_LOCAL.toBoolean()) {
     archives javadocJar
   }
 } else {
-    publish {
-        userOrg = 'keep2iron'
-        groupId = rootProject.ext.version_group
-        artifactId = 'fast4android-countdown'
-        publishVersion = rootProject.ext.version_fast4android_countdown
-        desc = 'fast4android'
-        website = 'https://keep2iron.github.io'
-    }
+  publish {
+    userOrg = 'keep2iron'
+    groupId = rootProject.ext.version_group
+    artifactId = 'fast4android-countdown'
+    publishVersion = rootProject.ext.version_fast4android_countdown
+    desc = 'fast4android'
+    website = 'https://keep2iron.github.io'
+  }
 }

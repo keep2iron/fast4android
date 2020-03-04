@@ -35,10 +35,10 @@ class InitProvider : ContentProvider() {
       getApplicationByReflect()
     }
     DensityConfig.init(
-      application = application as Application,
-      isBaseOnWidth = true,
-      strategy = DefaultDensityAdaptStrategy()
-    )
+        application = application as Application,
+        isBaseOnWidth = true,
+        strategy = DefaultDensityAdaptStrategy()
+      )
       .setIsExcludeFontScale(true)
     return true
   }

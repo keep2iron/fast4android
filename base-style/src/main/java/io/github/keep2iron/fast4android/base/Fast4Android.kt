@@ -10,20 +10,16 @@ object Fast4Android {
 
   lateinit var CONTEXT: Context
 
+  val APPLICATION: Application
+    get() {
+      return CONTEXT as Application
+    }
+
   fun logger(logger: FastLogDelegate) {
     FastLogger.setDelegate(logger)
   }
 
   internal fun init(applicationContext: Context) {
     CONTEXT = applicationContext.applicationContext
-  }
-
-  inline fun init(applicationContext: Context, block: Fast4Android.() -> Unit) {
-    CONTEXT = applicationContext.applicationContext
-    apply(block)
-  }
-
-  fun applicationInitTask(applicationInitTask: ApplicationInitTask) {
-    applicationInitTask.onApplicationCreate(CONTEXT as Application)
   }
 }

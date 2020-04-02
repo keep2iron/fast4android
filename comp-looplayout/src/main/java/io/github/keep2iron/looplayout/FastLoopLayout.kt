@@ -332,6 +332,7 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     super.onVisibilityChanged(changedView, visibility)
     if (changedView == this || changedView == viewPager) {
       if (visibility == View.VISIBLE) {
+        weakHandler.removeCallbacks(runnable)
         weakHandler.postDelayed(runnable, playTimeInterval)
       } else {
         weakHandler.removeCallbacks(runnable)

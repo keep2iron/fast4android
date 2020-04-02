@@ -45,4 +45,33 @@ class LooperWrapperPagerAdapter<T : RecyclerView.ViewHolder>(val recyclerAdapter
       realPosition += getRealCount()
     return realPosition
   }
+
+  init {
+    val outerAdapter = this
+    recyclerAdapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+      override fun onChanged() {
+        outerAdapter.notifyDataSetChanged()
+      }
+
+      override fun onItemRangeChanged(positionStart: Int, itemCount: Int) {
+        outerAdapter.notifyItemRangeChanged(positionStart + spaceItemCount, itemCount)
+        outerAdapter.notifyItemRangeChanged(0, spaceItemCount)
+        outerAdapter.notifyItemRangeChanged(recyclerAdapter.itemCount, spaceItemCount)
+      }
+
+      override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) {
+        // fallback to onItemRangeChanged(positionStart, itemCount) if app
+        // does not override this method.
+        onItemRangeChanged(positionStart, itemCount)
+      }
+
+      override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+        outerAdapter.notifyDataSetChanged()
+      }
+
+      override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+        outerAdapter.notifyDataSetChanged()
+      }
+    })
+  }
 }

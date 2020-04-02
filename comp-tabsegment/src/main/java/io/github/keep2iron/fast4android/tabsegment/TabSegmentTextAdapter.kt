@@ -8,7 +8,7 @@ import io.github.keep2iron.fast4android.base.util.FastDisplayHelper.dp2px
 import io.github.keep2iron.fast4android.base.util.setPaddingLeft
 import io.github.keep2iron.fast4android.base.util.setPaddingRight
 
-open class TextFastTabSegmentAdapter(private val data: List<String>) : TabSegmentAdapter() {
+open class TabSegmentTextAdapter(private val data: List<String>) : TabSegmentAdapter() {
 
   override fun onTabStateChanged(view: View, index: Int, selected: Boolean) {
     val textView = (view as TextView)

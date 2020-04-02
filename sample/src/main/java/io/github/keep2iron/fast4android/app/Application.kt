@@ -16,10 +16,7 @@ class Application : MultiDexApplication() {
   override fun onCreate() {
     super.onCreate()
 
-    Fast4Android.init(this) {
-      logger(DefaultLogger())
-      applicationInitTask(ParallaxBackApplicationTask())
-      ImageLoaderManager.init(this@Application)
-    }
+    Fast4Android.logger(DefaultLogger())
+    ImageLoaderManager.init(this@Application)
   }
 }

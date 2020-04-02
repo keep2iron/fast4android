@@ -44,7 +44,7 @@ dependencies {
   api deps.arch.lifecycle
   api deps.arch.extensions
 
-  implementation project(':comp-fast4android')
+  implementation project(':base-style')
 
   api deps.rxjava2
   api deps.rx_android

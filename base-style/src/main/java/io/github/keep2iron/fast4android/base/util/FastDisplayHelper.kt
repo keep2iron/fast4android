@@ -413,6 +413,7 @@ object FastDisplayHelper {
    * @param context
    * @return
    */
+  @SuppressLint("PrivateApi")
   fun getStatusBarHeight(context: Context = Fast4Android.CONTEXT): Int {
     if (FastDeviceHelper.isXiaomi) {
       val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
@@ -424,7 +425,7 @@ object FastDisplayHelper {
       val c = Class.forName("com.android.internal.R\$dimen")
       val obj = c.newInstance()
       val field = c.getField("status_bar_height")
-      val x = Integer.parseInt(field.get(obj).toString())
+      val x = Integer.parseInt(field.get(obj)!!.toString())
       if (x > 0) {
         return context.resources.getDimensionPixelSize(x)
       }

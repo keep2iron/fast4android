@@ -170,15 +170,13 @@ object DensityConfig {
       }
 
       override fun onConfigurationChanged(newConfig: Configuration) {
-        if (newConfig != null) {
-          if (newConfig.fontScale > 0) {
-            mInitScaledDensity =
-              Resources.getSystem().displayMetrics
-                .scaledDensity
-          }
-          mScreenWidth = application.resources.displayMetrics.widthPixels
-          mScreenHeight = application.resources.displayMetrics.heightPixels
+        if (newConfig.fontScale > 0) {
+          mInitScaledDensity =
+            Resources.getSystem().displayMetrics
+              .scaledDensity
         }
+        mScreenWidth = application.resources.displayMetrics.widthPixels
+        mScreenHeight = application.resources.displayMetrics.heightPixels
 
       }
 

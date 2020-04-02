@@ -13,13 +13,12 @@ import android.util.Log
 class DefaultDensityAdaptStrategy : DensityAdaptStrategy {
 
   override fun applyAdapt(target: Any, activity: Activity) {
-    var targetDensity = 0f
-    var targetDensityDpi = 0
-    var targetScaledDensity = 0f
-    var targetScreenWidthDp: Int
-    var targetScreenHeightDp: Int
+    val targetDensityDpi: Int
+    val targetScaledDensity: Float
+    val targetScreenWidthDp: Int
+    val targetScreenHeightDp: Int
 
-    targetDensity = if (DensityConfig.isBaseOnWidth) {
+    val targetDensity: Float = if (DensityConfig.isBaseOnWidth) {
       DensityConfig.mScreenWidth * 1.0f / DensityConfig.mDesignWidthInDp
     } else {
       DensityConfig.mScreenHeight * 1.0f / DensityConfig.mDesignHeightInDp

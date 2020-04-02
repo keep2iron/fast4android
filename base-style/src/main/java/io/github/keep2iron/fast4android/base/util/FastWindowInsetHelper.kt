@@ -261,7 +261,7 @@ class FastWindowInsetHelper(viewGroup: ViewGroup, windowInsetLayout: IWindowInse
 
   @TargetApi(28)
   fun defaultApplySystemWindowInsets(viewGroup: ViewGroup, insets: WindowInsets): Boolean {
-    var insets = insets
+    var insetsVar: WindowInsets = insets
     sApplySystemWindowInsetsCount++
     if (FastNotchHelper.isNotchOfficialSupport) {
       if (sApplySystemWindowInsetsCount == 1) {
@@ -269,14 +269,14 @@ class FastWindowInsetHelper(viewGroup: ViewGroup, windowInsetLayout: IWindowInse
         dispatchNotchInsetChange(viewGroup)
       }
       // always consume display cutout!!
-      insets = insets.consumeDisplayCutout()
+      insetsVar = insetsVar.consumeDisplayCutout()
     }
     var consumed = false
-    if (insets.hasSystemWindowInsets()) {
+    if (insetsVar.hasSystemWindowInsets()) {
       var showKeyboard = false
-      if (insets.systemWindowInsetBottom >= dp2px(viewGroup.context, KEYBOARD_HEIGHT_BOUNDARY)) {
+      if (insetsVar.systemWindowInsetBottom >= dp2px(viewGroup.context, KEYBOARD_HEIGHT_BOUNDARY)) {
         showKeyboard = true
-        viewGroup.setPaddingBottom(insets.systemWindowInsetBottom)
+        viewGroup.setPaddingBottom(insetsVar.systemWindowInsetBottom)
         viewGroup.setTag(
           R.id.fast_window_inset_keyboard_area_consumer,
           KEYBOARD_CONSUMER
@@ -295,13 +295,13 @@ class FastWindowInsetHelper(viewGroup: ViewGroup, windowInsetLayout: IWindowInse
           continue
         }
         val childInsets = Rect(
-          insets.systemWindowInsetLeft,
-          insets.systemWindowInsetTop,
-          insets.systemWindowInsetRight,
-          if (showKeyboard) 0 else insets.systemWindowInsetBottom
+          insetsVar.systemWindowInsetLeft,
+          insetsVar.systemWindowInsetTop,
+          insetsVar.systemWindowInsetRight,
+          if (showKeyboard) 0 else insetsVar.systemWindowInsetBottom
         )
         computeInsetsWithGravity(child, childInsets)
-        val childWindowInsets = insets.replaceSystemWindowInsets(childInsets)
+        val childWindowInsets = insetsVar.replaceSystemWindowInsets(childInsets)
         val windowInsets = child.dispatchApplyWindowInsets(childWindowInsets)
         consumed = consumed || windowInsets.isConsumed
       }

@@ -15,6 +15,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)
@@ -67,16 +68,6 @@ open class BottomTabAdapter(private val supportFragmentManager: FragmentManager,
     }
   }
 
-  internal fun setTabSelect(position: Int) {
-    if (containerView is ViewPager) {
-      tabs[selectPosition].unSelect()
-      tabs[position].select()
-      (containerView as ViewPager).currentItem = position
-    } else {
-      onTabSelect(position)
-    }
-  }
-
   private fun onTabSelect(position: Int) {
     val tab = tabs[position]
 
@@ -108,6 +99,16 @@ open class BottomTabAdapter(private val supportFragmentManager: FragmentManager,
     fragmentTransaction.commit()
 
     selectPosition = position
+  }
+
+  internal fun setTabSelect(position: Int) {
+    if (containerView is ViewPager2) {
+      tabs[selectPosition].unSelect()
+      tabs[position].select()
+      (containerView as ViewPager2).currentItem = position
+    } else {
+      onTabSelect(position)
+    }
   }
 
   open class Tab {

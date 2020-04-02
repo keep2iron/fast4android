@@ -61,7 +61,7 @@ fun Activity.rootView(): View =
   (findViewById<View>(Window.ID_ANDROID_CONTENT) as ViewGroup).getChildAt(0)
 
 fun Window.requestCompatApplyInsets() {
-  if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
+  if (Build.VERSION.SDK_INT in 19..20) {
     decorView.requestFitSystemWindows()
   } else if (Build.VERSION.SDK_INT >= 21) {
     decorView.requestApplyInsets()

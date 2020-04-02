@@ -101,7 +101,7 @@ class BottomNavLayoutActivity : AbstractActivity<ViewDataBinding>() {
           })
         }
       )
-    ), container)
+    ), container, lifecycle)
   }
 
 }

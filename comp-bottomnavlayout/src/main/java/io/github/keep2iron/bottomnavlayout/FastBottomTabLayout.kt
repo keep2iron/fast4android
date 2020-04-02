@@ -9,8 +9,10 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.Lifecycle
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 
 /**
  * @author keep2iron [Contract me.](http://keep2iron.github.io)
@@ -60,7 +62,7 @@ class FastBottomTabLayout : LinearLayout {
     array.recycle()
   }
 
-  fun setBottomTabAdapter(adapter: BottomTabAdapter, container: View, defaultPosition: Int = 0) {
+  fun setBottomTabAdapter(adapter: BottomTabAdapter, container: View, lifecycle: Lifecycle, defaultPosition: Int = 0) {
     this.adapter = adapter
     adapter.tabs[defaultPosition].fragment?.let { frag ->
       adapter.showingFragment = frag
@@ -70,8 +72,8 @@ class FastBottomTabLayout : LinearLayout {
 
     onTabStateChangedListeners = adapter.onTabStateChangedListeners
 
-    if (container is ViewPager) {
-      setWithViewPager(container)
+    if (container is ViewPager2) {
+      setWithViewPager(container, lifecycle)
       if (defaultPosition != 0) {
         container.currentItem = defaultPosition
       }
@@ -120,16 +122,27 @@ class FastBottomTabLayout : LinearLayout {
         }
         tab.customView.setOnClickListener {
           if (i != adapter.selectPosition) {
-            if (!tab.isCustom && container !is ViewPager) {
-              adapter.setTabSelect(i)
-            } else if (!tab.isCustom && container is ViewPager) {
-              container.currentItem = i
-            } else {
-              for (listener in adapter.onTabStateChangedListeners) {
-                listener.onTabSelect(i)
-                listener.onTabUnSelect(adapter.selectPosition)
+
+            when {
+              container is ViewPager -> {
+                throw IllegalArgumentException("please use androidx.viewpager2.widget.ViewPager2.")
+              }
+              container is ViewPager2 && !tab.isCustom -> {
+                adapter.setTabSelect(i)
+              }
+              else -> {
+                if (tab.isCustom) {
+                  //custom view不会触发setTabSelect
+                  for (listener in adapter.onTabStateChangedListeners) {
+                    listener.onTabSelect(position)
+                    listener.onTabUnSelect(adapter.selectPosition)
+                  }
+                } else {
+                  adapter.setTabSelect(i)
+                }
               }
             }
+
           }
         }
       }
@@ -155,14 +168,14 @@ class FastBottomTabLayout : LinearLayout {
     }
   }
 
-  private fun setWithViewPager(viewPager: ViewPager) {
+  private fun setWithViewPager(viewPager: ViewPager2, lifecycle: Lifecycle) {
     if (context !is FragmentActivity) {
       throw IllegalArgumentException(String.format("%s 's context is not FragmentActivity", javaClass.simpleName))
     }
     val manager = (context as FragmentActivity).supportFragmentManager
-    viewPager.adapter = BottomTabViewPagerAdapter(manager, adapter.tabs)
+    viewPager.adapter = BottomTabViewPagerAdapter(manager, lifecycle, adapter)
     viewPager.offscreenPageLimit = adapter.getItemCount()
-    viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+    viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
       override fun onPageScrollStateChanged(state: Int) {
       }
 
@@ -201,12 +214,13 @@ class FastBottomTabLayout : LinearLayout {
     fun onTabUnSelect(position: Int)
   }
 
-  class BottomTabViewPagerAdapter(fm: FragmentManager, private val tabs: List<BottomTabAdapter.Tab>) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-    override fun getCount(): Int = tabs.size
+  class BottomTabViewPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle, private val adapter: BottomTabAdapter) : FragmentStateAdapter(fm, lifecycle) {
+    override fun getItemCount(): Int = adapter.tabs.size
 
-    override fun getItem(position: Int): Fragment {
-      return tabs[position].fragment
+    override fun createFragment(position: Int): Fragment {
+      return adapter.tabs[position].fragment
         ?: throw IllegalArgumentException("tabs[$position] fragment is null!")
     }
+
   }
 }

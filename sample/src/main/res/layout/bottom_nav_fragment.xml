@@ -18,7 +18,7 @@
     android:id="@+id/tvBottomNavContent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="top|center_horizontal"
+    android:gravity="center"
     android:textSize="25sp"
     tools:text="textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

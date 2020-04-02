@@ -156,7 +156,7 @@ class FastPopWindowPlus(context: Context) : FrameLayout(context) {
         translateAnimation.fillAfter = true
         translateAnimation.interpolator = LinearInterpolator()
         translateAnimation.duration = 200
-        contentView!!.startAnimation(translateAnimation)
+        contentView.startAnimation(translateAnimation)
       }
     })
     objectAnimator.start()

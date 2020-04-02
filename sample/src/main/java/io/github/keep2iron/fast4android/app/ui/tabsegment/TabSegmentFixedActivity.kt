@@ -43,7 +43,7 @@ class TabSegmentFixedActivity : AbstractActivity<TabSegmentActivityBinding>() {
       R.mipmap.icon_tabbar_util
       //R.mipmap.icon_tabbar_lab
     )
-    viewPager.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
+    viewPager.adapter = object : FragmentStatePagerAdapter(supportFragmentManager,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
       override fun getItem(position: Int): Fragment {
         return TabSegmentFragment.newInstance(
           arrayOf(

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.jetbrains.annotations.NotNull;
+
 import io.github.keep2iron.fast4android.arch.R;
 
 /**
@@ -34,7 +36,7 @@ public class ParallaxHelper implements Application.ActivityLifecycleCallbacks {
   }
 
   @Override
-  public void onActivityCreated(final Activity activity, Bundle savedInstanceState) {
+  public void onActivityCreated(@NotNull final Activity activity, Bundle savedInstanceState) {
     final TraceInfo traceInfo = new TraceInfo();
     mLinkedStack.put(activity, traceInfo);
     traceInfo.mCurrent = activity;
@@ -62,31 +64,31 @@ public class ParallaxHelper implements Application.ActivityLifecycleCallbacks {
   }
 
   @Override
-  public void onActivityStarted(Activity activity) {
+  public void onActivityStarted(@NotNull Activity activity) {
 
   }
 
   @Override
-  public void onActivityResumed(Activity activity) {
+  public void onActivityResumed(@NotNull Activity activity) {
 
   }
 
   @Override
-  public void onActivityPaused(Activity activity) {
-//        activity.getWindow().getDecorView().buildDrawingCache();
+  public void onActivityPaused(@NotNull Activity activity) {
+//    activity.getWindow().getDecorView().buildDrawingCache();
   }
 
   @Override
-  public void onActivityStopped(Activity activity) {
+  public void onActivityStopped(@NotNull Activity activity) {
 
   }
 
   @Override
-  public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+  public void onActivitySaveInstanceState(@NotNull Activity activity, @NotNull Bundle outState) {
   }
 
   @Override
-  public void onActivityDestroyed(Activity activity) {
+  public void onActivityDestroyed(@NotNull Activity activity) {
     mLinkedStack.remove(activity);
   }
 
@@ -109,7 +111,9 @@ public class ParallaxHelper implements Application.ActivityLifecycleCallbacks {
    */
   public static ParallaxBackLayout enableParallaxBack(Activity activity) {
     ParallaxBackLayout layout = getParallaxBackLayout(activity, true);
-    layout.setEnableGesture(true);
+    if (layout != null) {
+      layout.setEnableGesture(true);
+    }
     return layout;
   }
 

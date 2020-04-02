@@ -157,7 +157,7 @@ class FastGroupListItemView @JvmOverloads constructor(
   }
 
   fun setTitleDrawablePadding(padding: Int) {
-    groupListItemTextView.setPaddingLeft(paddingLeft)
+    groupListItemTextView.setPaddingLeft(padding)
   }
 
   fun addAccessoryCustomView(view: View) {

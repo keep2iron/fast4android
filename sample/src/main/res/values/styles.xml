@@ -16,7 +16,7 @@
   </style>
 
   <style name="CustomTopBarStyle" parent="Fast.TopBar">
-    <item name="fast_topbar_title_text_size">28sp</item>
+    <item name="fast_topbar_title_text_size">18sp</item>
   </style>
 
   <declare-styleable name="MaterialMenuView">

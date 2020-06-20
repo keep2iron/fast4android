@@ -28,7 +28,7 @@ import io.github.keep2iron.peach.DrawableCreator
  *
  * 可以无限轮播的布局，里面包含了一个ViewPager和一个LinearLayout作为指示器
  */
-class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
+open class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
   : FrameLayout(context, attrs, defStyleAttr) {
   private lateinit var indicators: LinearLayout
   private val weakHandler = WeakHandler()
@@ -152,6 +152,10 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     return super.dispatchTouchEvent(ev)
   }
 
+  fun getRealPosition(position:Int):Int{
+    return adapter.toRealPosition(position)
+  }
+
   private fun initOnPageChangedListener() {
     viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
       override fun onPageScrollStateChanged(state: Int) {
@@ -211,8 +215,6 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
    * 创建指示器
    */
   fun createIndicator() {
-    Log.d(FastLoopLayout::class.java.simpleName, "createIndicator")
-
     indicators.removeAllViews()
 
     for (i in 0 until adapter.getRealCount()) {
@@ -234,13 +236,6 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     }
   }
 
-
-//  fun toRealPosition(position: Int): Int {
-//    var realPosition = (position - adapter.spaceItemCount) % adapter.getRealCount()
-//    if (realPosition < 0)
-//      realPosition += (adapter.getRealCount() + adapter.spaceItemCount)
-//    return realPosition
-//  }
 
   /**
    * 设置RecyclerView的Adapter，主要是因为这个adapter可以和RecyclerView进行结合，共用一个复用池
@@ -303,6 +298,14 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     viewPager.setCurrentItem(DEFAULT_POSITION, false)
   }
 
+  private fun findRecyclerView(view:View):RecyclerView?{
+    if(view.parent != null && view.parent !is RecyclerView){
+      return findRecyclerView(view.parent as View)
+    }
+
+    return null
+  }
+
   override fun onFinishInflate() {
     super.onFinishInflate()
 
@@ -321,7 +324,6 @@ class FastLoopLayout @JvmOverloads constructor(context: Context, attrs: Attribut
         bottomMargin = dp2px(context, 12)
       })
     }
-    Log.d(javaClass.simpleName, "onFinishInflate.")
   }
 
   fun getRecyclerViewAdapter(): RecyclerView.Adapter<out RecyclerView.ViewHolder> {

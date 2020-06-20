@@ -57,7 +57,7 @@ if (MAVEN_LOCAL.toBoolean()) {
         pom.artifactId = "fast4android-looplayout"
         repository(url: uri(project.MAVEN_LOCAL_REPO))
         // 版本号
-        pom.version = rootProject.ext.version_fast4android_tabsegment
+        pom.version = rootProject.ext.version_fast4android_loopviewpager
       }
     }
   }

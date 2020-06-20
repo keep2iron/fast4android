@@ -15,22 +15,38 @@ class LooperWrapperPagerAdapter<T : RecyclerView.ViewHolder>(val recyclerAdapter
     return recyclerAdapter.itemCount
   }
 
+  override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+    recyclerAdapter.onAttachedToRecyclerView(recyclerView)
+  }
+
+  override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+    recyclerAdapter.onDetachedFromRecyclerView(recyclerView)
+  }
+
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): T {
     return recyclerAdapter.createViewHolder(parent, viewType)
   }
 
   override fun getItemCount(): Int {
-    return recyclerAdapter.itemCount + spaceItemCount * 2
+    return  if(recyclerAdapter.itemCount == 0){
+      0
+    }else {
+      recyclerAdapter.itemCount + spaceItemCount * 2
+    }
   }
 
   override fun onBindViewHolder(holder: T, position: Int) {
+    if(getRealCount() == 0) return
     val realPosition = toRealPosition(position)
-    val itemViewType = recyclerAdapter.getItemViewType(realPosition)
     recyclerAdapter.onBindViewHolder(holder, realPosition)
   }
 
   override fun getItemViewType(position: Int): Int {
-    return recyclerAdapter.getItemViewType(toRealPosition(position))
+    return if (getRealCount() == 0) {
+      1024
+    } else {
+      recyclerAdapter.getItemViewType(toRealPosition(position))
+    }
   }
 
   /**

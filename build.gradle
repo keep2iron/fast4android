@@ -4,20 +4,18 @@ buildscript {
   apply from: './gradle-version/version.gradle'
 
   ext {
-    version_base_style = '0.0.1-alpha01'
-    version_fast4android_arch = '0.0.1-alpha01'
-    version_fast4android_bottomnavlayout = "0.0.1-alpha01"
-    version_fast4android_countdown = '0.0.1-alpha01'
-    version_fast4android_compat = '0.0.1-alpha01'
-    version_fast4android_tabsegment = '0.0.1-alpha01'
-    version_fast4android_grouplistview = '0.0.1-alpha01'
-    version_fast4android_popwindowplus = '0.0.1-alpha01'
-    version_fast4android_loopviewpager = '0.0.1-alpha01'
-    version_fast4android_tabsegment = '0.0.1-alpha01'
-    version_fast4android_topbarlayout = '0.0.1-alpha01'
+    version_base_style = '0.0.1-alpha02'
+    version_fast4android_arch = '0.0.1-alpha02'
+    version_fast4android_bottomnavlayout = "0.0.1-alpha02"
+    version_fast4android_countdown = '0.0.1-alpha02'
+    version_fast4android_compat = '0.0.1-alpha02'
+    version_fast4android_tabsegment = '0.0.1-alpha03'
+    version_fast4android_grouplistview = '0.0.1-alpha02'
+    version_fast4android_popwindowplus = '0.0.1-alpha02'
+    version_fast4android_loopviewpager = '0.0.1-alpha03'
+    version_fast4android_topbarlayout = '0.0.1-alpha02'
 
     version_group = 'io.github.keep2iron'
-    kotlin_version = '1.3.61'
   }
 
   dependencies {

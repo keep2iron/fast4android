@@ -105,7 +105,6 @@ class FastTabSegmentLayout @JvmOverloads constructor(
     }
   val indicatorPaint = Paint(Paint.ANTI_ALIAS_FLAG)
   val indicatorDrawable: Drawable? = null
-  var viewCanvas: Canvas? = null
 
   /**
    * 用于container是ViewPager的时候的position
@@ -438,16 +437,16 @@ class FastTabSegmentLayout @JvmOverloads constructor(
       }
       this@FastTabSegmentLayout.curPosition = position
 
-      viewCanvas?.let {
-        adapter?.onDrawChildBackground(it, this, pageOffsetPosition, pageOffsetPosition + 1, positionOffset, indicatorRect, indicatorPaint)
-      }
+      invalidate()
+//      viewCanvas?.let {
+//        adapter?.onDrawChildBackground(it, this, pageOffsetPosition, pageOffsetPosition + 1, positionOffset, indicatorRect, indicatorPaint)
+//      }
     }
 
     override fun onPageScrollStateChanged(state: Int) {
     }
 
     override fun dispatchDraw(canvas: Canvas) {
-      viewCanvas = canvas
       if (indicatorHeight > 0) {
         indicatorRect.bottom = height - paddingBottom
         indicatorRect.top = indicatorRect.bottom - indicatorHeight

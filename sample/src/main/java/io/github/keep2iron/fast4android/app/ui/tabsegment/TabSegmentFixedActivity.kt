@@ -104,11 +104,11 @@ class TabSegmentFixedActivity : AbstractActivity<TabSegmentActivityBinding>() {
       override fun onDrawChildBackground(canvas: Canvas, container: ViewGroup, position: Int, nextPosition: Int, positionOffset: Float, indicatorRect: Rect, indicatorPaint: Paint) {
 //        super.onDrawChildBackground(canvas, container, position, nextPosition, positionOffset, indicatorRect, indicatorPaint)
         FastLogger.d("tag","indicatorRect : $indicatorRect ${container.getChildAt(0).left} ${container.getChildAt(1).left}")
-//        indicatorRect.set(indicatorRect.centerX() - dp2px(20),
-//          indicatorRect.top,
-//          indicatorRect.centerX() + dp2px(20),
-//          indicatorRect.bottom
-//        )
+        indicatorRect.set(indicatorRect.centerX() - dp2px(5),
+          indicatorRect.top,
+          indicatorRect.centerX() + dp2px(5),
+          indicatorRect.bottom
+        )
 //        FastLogger.d("tag","indicatorRect : $indicatorRect ${container.getChildAt(0).left} ${container.getChildAt(0).right} ${container.getChildAt(1).left} ${container.getChildAt(1).right}")
         canvas.drawRect(indicatorRect, indicatorPaint)
       }

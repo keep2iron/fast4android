@@ -9,7 +9,7 @@ buildscript {
     version_fast4android_bottomnavlayout = "0.0.1-alpha02"
     version_fast4android_countdown = '0.0.1-alpha02'
     version_fast4android_compat = '0.0.1-alpha02'
-    version_fast4android_tabsegment = '0.0.1-alpha03'
+    version_fast4android_tabsegment = '0.0.1-alpha04'
     version_fast4android_grouplistview = '0.0.1-alpha02'
     version_fast4android_popwindowplus = '0.0.1-alpha02'
     version_fast4android_loopviewpager = '0.0.1-alpha03'

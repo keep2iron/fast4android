@@ -1,10 +1,10 @@
 package io.github.keep2iron.fast4android.app.ui.grouplistview
 
 import android.os.Bundle
+import com.github.anzewei.parallaxbacklayout.ParallaxBack
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.databinding.GroupListViewActivityBinding
 import io.github.keep2iron.fast4android.arch.AbstractActivity
-import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
 import io.github.keep2iron.fast4android.base.util.FastDisplayHelper.dp2px
 import io.github.keep2iron.fast4android.base.util.FastStatusBarHelper
 import io.github.keep2iron.fast4android.core.widget.FastLoadingView

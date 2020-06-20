@@ -31,7 +31,7 @@
     <activity android:name=".ui.tabsegment.TabSegmentActivity" />
     <activity android:name=".ui.roundbutton.RoundComponentsActivity" />
     <activity android:name=".ui.grouplistview.GroupListViewActivity" />
-    <activity android:name=".ui.tabsegment.TabSegmentFixedActivity" />
+    <activity android:name=".ui.tabsegment.TabSegmentFixedActivity" android:theme="@style/AppTheme"/>
     <activity android:name=".ui.tabsegment.TabSegmentListActivity" />
     <activity android:name=".ui.dialog.DialogComponentsActivity" />
     <activity android:name=".ui.detail.DetailActivity" />

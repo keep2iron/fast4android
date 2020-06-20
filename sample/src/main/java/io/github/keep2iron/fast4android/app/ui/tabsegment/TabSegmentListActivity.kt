@@ -5,7 +5,7 @@ import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.databinding.TabSegmentListActivityBinding
 import io.github.keep2iron.fast4android.app.ui.bottomnav.BottomNavLayoutActivity
 import io.github.keep2iron.fast4android.arch.AbstractActivity
-import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
+import com.github.anzewei.parallaxbacklayout.ParallaxBack
 import io.github.keep2iron.fast4android.base.util.push
 import io.github.keep2iron.fast4android.base.util.translucent
 

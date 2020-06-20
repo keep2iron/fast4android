@@ -17,7 +17,7 @@ import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.R.id
 import io.github.keep2iron.fast4android.app.databinding.TabSegmentActivityBinding
 import io.github.keep2iron.fast4android.arch.AbstractActivity
-import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
+import com.github.anzewei.parallaxbacklayout.ParallaxBack
 import io.github.keep2iron.fast4android.arch.util.findViewByDelegate
 import io.github.keep2iron.fast4android.base.FastLogger
 import io.github.keep2iron.fast4android.base.util.FastDisplayHelper.dp2px
@@ -29,10 +29,14 @@ import io.github.keep2iron.fast4android.tabsegment.TabSegmentTextAdapter
 @ParallaxBack
 class TabSegmentFixedActivity : AbstractActivity<TabSegmentActivityBinding>() {
   private val tabLayout: FastTabSegmentLayout by findViewByDelegate(id.tabLayout)
+
   private val viewPager: ViewPager by findViewByDelegate(id.viewPager)
+
   override fun resId(): Int = R.layout.tab_segment_activity
+
   override fun initVariables(savedInstanceState: Bundle?) {
-    FastStatusBarHelper.translucent(this)
+//    FastStatusBarHelper.translucent(this)
+    showSystemUI()
     dataBinding.topBarLayout.setup {
       addLeftBackImageButton().setOnClickListener {
         finish()
@@ -111,5 +115,23 @@ class TabSegmentFixedActivity : AbstractActivity<TabSegmentActivityBinding>() {
     }
     tabLayout.setupWithViewPager(viewPager)
     tabLayout.setAdapter(tabSegmentAdapter)
+  }
+
+  override fun onResume() {
+    super.onResume()
+    showSystemUI()
+  }
+
+  override fun onWindowFocusChanged(hasFocus: Boolean) {
+    super.onWindowFocusChanged(hasFocus)
+    showSystemUI()
+  }
+
+
+  private fun showSystemUI() {
+    window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+      or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+      or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+      or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
   }
 }

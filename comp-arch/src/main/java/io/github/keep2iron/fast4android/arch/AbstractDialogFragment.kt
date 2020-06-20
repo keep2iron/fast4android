@@ -17,8 +17,12 @@ import java.lang.ref.WeakReference
  * @since 2018/01/29 16:02
  */
 abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment() {
+
   protected lateinit var dataBinding: DB
 
+  /**
+   * 布局是否已经layout过
+   */
   private var hasWindowLayout = false
 
   @LayoutRes
@@ -103,6 +107,7 @@ abstract class AbstractDialogFragment<DB : ViewDataBinding> : DialogFragment() {
   open fun getBackgroundDimAmount() = 0.35f
 
   abstract fun gravity(): Int
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,

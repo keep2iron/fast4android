@@ -7,7 +7,7 @@ import androidx.core.view.ViewCompat
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.databinding.RoundComponentsActivityBinding
 import io.github.keep2iron.fast4android.arch.AbstractActivity
-import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
+import com.github.anzewei.parallaxbacklayout.ParallaxBack
 import io.github.keep2iron.fast4android.base.util.FastStatusBarHelper
 import io.github.keep2iron.fast4android.base.util.setPaddingBottom
 
@@ -26,6 +26,24 @@ class RoundComponentsActivity : AbstractActivity<RoundComponentsActivityBinding>
     }
 
 //        dataBinding.titleBar.fastTopBar.addLeftBackImageButton().setOnClickListener(this)
+    showSystemUI()
+  }
+
+  override fun onResume() {
+    super.onResume()
+    showSystemUI()
+  }
+
+  override fun onWindowFocusChanged(hasFocus: Boolean) {
+    super.onWindowFocusChanged(hasFocus)
+    showSystemUI()
+  }
+
+
+  private fun showSystemUI() {
+    window.decorView.systemUiVisibility = (
+      View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+     )
   }
 
   override fun onClick(v: View) {

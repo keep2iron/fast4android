@@ -6,7 +6,7 @@ import androidx.databinding.ObservableArrayList
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.databinding.LooplayoutActivityBinding
 import io.github.keep2iron.fast4android.arch.AbstractActivity
-import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
+import com.github.anzewei.parallaxbacklayout.ParallaxBack
 import io.github.keep2iron.fast4android.base.util.setStatusBarDark
 import io.github.keep2iron.fast4android.base.util.translucent
 import io.github.keep2iron.pineapple.ImageLoaderManager

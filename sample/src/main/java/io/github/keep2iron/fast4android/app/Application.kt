@@ -1,7 +1,9 @@
 package io.github.keep2iron.fast4android.app
 
+import android.app.Application
 import androidx.multidex.MultiDexApplication
-import io.github.keep2iron.fast4android.arch.swipe.ParallaxBackApplicationTask
+import com.github.anzewei.parallaxbacklayout.ParallaxHelper
+import io.github.keep2iron.fast4android.base.ApplicationInitTask
 import io.github.keep2iron.fast4android.base.DefaultLogger
 import io.github.keep2iron.fast4android.base.Fast4Android
 import io.github.keep2iron.pineapple.ImageLoaderManager
@@ -17,6 +19,12 @@ class Application : MultiDexApplication() {
     super.onCreate()
 
     Fast4Android.logger(DefaultLogger())
-    ImageLoaderManager.init(this@Application)
+    Fast4Android.registerApplicationInitTask(object : ApplicationInitTask {
+      override fun onApplicationCreate(application: Application) {
+        ImageLoaderManager.init(this@Application)
+        registerActivityLifecycleCallbacks(ParallaxHelper.getInstance())
+      }
+    })
+    Fast4Android.init(this)
   }
 }

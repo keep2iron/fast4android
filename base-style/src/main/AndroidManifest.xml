@@ -1,12 +1,3 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="io.github.keep2iron.fast4android.base">
-
-  <application>
-    <provider
-      android:exported="false"
-      android:multiprocess="true"
-      android:authorities="${applicationId}.Fast4AndroidProvider"
-      android:name=".Fast4AndroidProvider" />
-  </application>
-
 </manifest>

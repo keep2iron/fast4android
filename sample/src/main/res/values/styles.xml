@@ -10,6 +10,7 @@
     <!--        <item name="fast_round_btn_border_color">@color/fast_config_color_black</item>-->
     <!--        <item name="fast_round_btn_text_color">@color/fast_config_color_black</item>-->
     <item name="android:textColorPrimary">@color/fast_config_color_black</item>
+    <item name="android:navigationBarColor">@color/fast_config_color_75_white</item>
 
     <item name="FastTopBarStyle">@style/CustomTopBarStyle</item>
   </style>

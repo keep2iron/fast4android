@@ -8,11 +8,11 @@ import androidx.core.view.ViewCompat
 import androidx.databinding.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.github.anzewei.parallaxbacklayout.ParallaxBack
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.app.databinding.DatabindingItemBinding
 import io.github.keep2iron.fast4android.app.databinding.DatabindingNestedItemBinding
 import io.github.keep2iron.fast4android.arch.AbstractActivity
-import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
 import io.github.keep2iron.fast4android.base.util.FastStatusBarHelper
 import io.github.keep2iron.fast4android.base.util.setPaddingBottom
 import io.github.keep2iron.fast4android.topbar.FastTopBarLayout

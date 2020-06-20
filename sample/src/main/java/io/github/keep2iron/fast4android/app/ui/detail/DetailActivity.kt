@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.arch.AbstractActivity
-import io.github.keep2iron.fast4android.arch.swipe.ParallaxBack
+import com.github.anzewei.parallaxbacklayout.ParallaxBack
 
 @ParallaxBack
 class DetailActivity : AbstractActivity<ViewDataBinding>() {

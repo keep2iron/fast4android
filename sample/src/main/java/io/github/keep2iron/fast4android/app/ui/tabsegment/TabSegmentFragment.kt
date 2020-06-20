@@ -13,6 +13,7 @@ class TabSegmentFragment : AbstractFragment<ViewDataBinding>() {
     contentView.setBackgroundColor(arguments!!.getInt("color"))
   }
 
+
   companion object {
     fun newInstance(color: Int): TabSegmentFragment {
       return TabSegmentFragment().apply {

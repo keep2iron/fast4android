@@ -21,32 +21,40 @@
     android:orientation="horizontal">
 
     <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
-      android:onClick="@{listener}"
       android:id="@+id/add"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:clickable="true"
       android:layout_gravity="center_vertical"
+      android:clickable="true"
+      android:onClick="@{listener}"
       android:paddingLeft="20dp"
       android:paddingRight="20dp"
       android:text="+"
       app:fast_drawable_radius="40dp" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
       android:layout_width="0dp"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
       android:layout_weight="1"
-      android:gravity="center"
-      android:text="@{String.valueOf(item.count)}"
-      tools:text="1" />
+      android:hint="姓名">
+
+      <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:hint="请输入你的名字"
+        android:text="@{String.valueOf(item.count)}"
+        tools:text="1" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundButton
-      android:onClick="@{listener}"
       android:id="@+id/subtract"
       android:layout_width="wrap_content"
-      android:clickable="true"
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
+      android:clickable="true"
+      android:onClick="@{listener}"
       android:paddingLeft="20dp"
       android:paddingRight="20dp"
       android:text="-"

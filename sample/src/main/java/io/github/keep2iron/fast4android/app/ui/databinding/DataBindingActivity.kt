@@ -1,6 +1,9 @@
 package io.github.keep2iron.fast4android.app.ui.databinding
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -95,6 +98,13 @@ class DataBindingAdapter(data: ObservableList<Item>) : AbstractSubListAdapter<It
       nestedItemBinding.subtract.tag = position
       nestedItemBinding.subtract.setTag(R.id.nestedRootLayout, index)
 
+      nestedItemBinding.editText.onFocusChangeListener = View.OnFocusChangeListener { p0, focus ->
+        if(focus){
+          nestedItemBinding.editText.hint = "请输入你的姓名"
+        }else {
+          nestedItemBinding.editText.hint = ""
+        }
+      }
       nestedItemBinding.listener = this
 //            nestedItemBinding.executePendingBindings()
 
@@ -151,10 +161,10 @@ class DataBindingActivity : AbstractActivity<ViewDataBinding>() {
     data.add(Item())
     data.add(Item())
 
-    ViewCompat.setOnApplyWindowInsetsListener(recylcerView) { _, insets ->
-      recylcerView.setPaddingBottom(insets.systemWindowInsetBottom)
-
-      insets
-    }
+//    ViewCompat.setOnApplyWindowInsetsListener(recylcerView) { _, insets ->
+//      recylcerView.setPaddingBottom(insets.systemWindowInsetBottom)
+//
+//      insets
+//    }
   }
 }

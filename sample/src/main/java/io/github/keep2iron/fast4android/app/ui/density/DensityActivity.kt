@@ -2,6 +2,7 @@ package io.github.keep2iron.fast4android.app.ui.density
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
+import com.github.anzewei.parallaxbacklayout.ParallaxBack
 import io.github.keep2iron.fast4android.app.R
 import io.github.keep2iron.fast4android.arch.AbstractActivity
 
@@ -12,6 +13,7 @@ import io.github.keep2iron.fast4android.arch.AbstractActivity
  *版本号：1.0
 
  */
+@ParallaxBack
 class DensityActivity : AbstractActivity<ViewDataBinding>() {
   override fun resId(): Int {
     return R.layout.activity_density

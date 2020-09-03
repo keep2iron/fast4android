@@ -44,7 +44,7 @@ dependencies {
   implementation deps.support.constraint_layout
   implementation deps.support.fragment
   implementation deps.support.annotations
-  implementation 'com.google.android.material:material:1.1.0'
+  implementation 'com.google.android.material:material:1.2.1'
   debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 
   implementation deps.rxjava2
@@ -63,12 +63,12 @@ dependencies {
   implementation project(':comp-popwindowplus')
   implementation project(':comp-bottomnavlayout')
 
-  implementation('io.github.keep2iron:pomelo-core:0.0.2-alpha')
-  implementation('io.github.keep2iron:pomelo-extra:0.0.2-alpha')
+  implementation('io.github.keep2iron:pomelo-core:0.0.3-alpha01')
+  implementation('io.github.keep2iron:pomelo-extra:0.0.3-alpha01')
 
   implementation 'io.github.keep2iron:pineapple-fresco:0.0.2'
 //  implementation 'com.github.bumptech.glide:glide:4.10.0'
-  implementation 'com.facebook.fresco:fresco:2.1.0'
+  implementation 'com.facebook.fresco:fresco:2.2.0'
   implementation 'com.github.anzewei:parallaxbacklayout:1.1.9'
 
   implementation 'me.everything:overscroll-decor-android:1.0.4'

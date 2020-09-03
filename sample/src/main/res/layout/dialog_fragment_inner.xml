@@ -9,7 +9,7 @@
     android:id="@+id/fastRoundImageButton"
     android:layout_width="50dp"
     android:layout_height="50dp"
-    android:src="@color/colorPrimary"
+    android:src="@android:color/background_dark"
     app:layout_constraintEnd_toEndOf="@+id/input"
     app:layout_constraintTop_toTopOf="parent" />
 

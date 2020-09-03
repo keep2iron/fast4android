@@ -3,6 +3,7 @@ package io.github.keep2iron.fast4android.app.ui.dialog
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.ViewDataBinding
 import io.github.keep2iron.fast4android.app.R
@@ -10,6 +11,7 @@ import io.github.keep2iron.fast4android.arch.AbstractActivity
 import io.github.keep2iron.fast4android.arch.AbstractDialogFragment
 import com.github.anzewei.parallaxbacklayout.ParallaxBack
 import io.github.keep2iron.fast4android.arch.util.findViewByDelegate
+import io.github.keep2iron.fast4android.base.FastLogger
 import io.github.keep2iron.fast4android.base.util.FastDisplayHelper.dp2px
 import io.github.keep2iron.fast4android.base.util.translucent
 import io.github.keep2iron.fast4android.core.alpha.FastAlphaRoundTextView
@@ -90,10 +92,15 @@ class DialogComponentsActivity : AbstractActivity<ViewDataBinding>() {
         .build()
     }
 
-    override fun width(): Int {
-      return dp2px(requireContext(), 300)
-    }
+    override fun width(): Int = ViewGroup.LayoutParams.MATCH_PARENT
 
-    override fun gravity(): Int = Gravity.CENTER
+    override fun height(): Int = ViewGroup.LayoutParams.WRAP_CONTENT
+
+    override fun gravity(): Int = Gravity.BOTTOM
+  }
+
+  override fun onResume() {
+    super.onResume()
+    FastLogger.d("test", "onResume")
   }
 }

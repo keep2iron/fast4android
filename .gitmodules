@@ -1,3 +1,0 @@
-[submodule "gradle-version"]
-	path = gradle-version
-	url = https://github.com/keep2iron/AndroidGradleVersion.git
